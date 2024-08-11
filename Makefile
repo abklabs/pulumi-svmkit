@@ -24,10 +24,10 @@ ensure::
 build_provider:: ensure
 	cp ${SCHEMA_PATH} provider/cmd/${PROVIDER}/
 	cd provider/cmd/${PROVIDER}/ && \
-       		yarn install && \
-       		yarn tsc && \
-       		cp package.json schema.json ./bin && \
-       		sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" bin/package.json
+			yarn install && \
+			yarn tsc && \
+			cp package.json schema.json ./bin && \
+			sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" bin/package.json
 
 install_provider:: PKG_ARGS := --no-bytecode --public-packages "*" --public
 install_provider:: build_provider
@@ -38,11 +38,11 @@ install_provider:: build_provider
 dist:: PKG_ARGS := --no-bytecode --public-packages "*" --public
 dist:: build_provider
 	cd provider/cmd/${PROVIDER}/ && \
- 		yarn run pkg . ${PKG_ARGS} --target node16-macos-x64 --output ../../../bin/darwin-amd64/${PROVIDER} && \
- 		yarn run pkg . ${PKG_ARGS} --target node16-macos-arm64 --output ../../../bin/darwin-arm64/${PROVIDER} && \
- 		yarn run pkg . ${PKG_ARGS} --target node16-linuxstatic-x64 --output ../../../bin/linux-amd64/${PROVIDER} && \
- 		yarn run pkg . ${PKG_ARGS} --target node16-linuxstatic-arm64 --output ../../../bin/linux-arm64/${PROVIDER} && \
- 		yarn run pkg . ${PKG_ARGS} --target node16-win-x64 --output ../../../bin/windows-amd64/${PROVIDER}.exe
+		yarn run pkg . ${PKG_ARGS} --target node16-macos-x64 --output ../../../bin/darwin-amd64/${PROVIDER} && \
+		yarn run pkg . ${PKG_ARGS} --target node16-macos-arm64 --output ../../../bin/darwin-arm64/${PROVIDER} && \
+		yarn run pkg . ${PKG_ARGS} --target node16-linuxstatic-x64 --output ../../../bin/linux-amd64/${PROVIDER} && \
+		yarn run pkg . ${PKG_ARGS} --target node16-linuxstatic-arm64 --output ../../../bin/linux-arm64/${PROVIDER} && \
+		yarn run pkg . ${PKG_ARGS} --target node16-win-x64 --output ../../../bin/windows-amd64/${PROVIDER}.exe
 	mkdir -p dist
 	tar --gzip -cf ./dist/pulumi-resource-${PACK}-v${VERSION}-linux-amd64.tar.gz README.md LICENSE -C bin/linux-amd64/ .
 	tar --gzip -cf ./dist/pulumi-resource-${PACK}-v${VERSION}-linux-arm64.tar.gz README.md LICENSE -C bin/linux-arm64/ .
