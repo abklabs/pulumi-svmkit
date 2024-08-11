@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-xyz
+module github.com/abklabs/pulumi-svmkit
 
 go 1.17
 
