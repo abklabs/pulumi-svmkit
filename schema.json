@@ -1,7 +1,7 @@
 {
-    "name": "xyz",
+    "name": "svmkit",
     "resources": {
-        "xyz:index:StaticPage": {
+        "svmkit:index:StaticPage": {
             "isComponent": true,
             "inputProperties": {
                 "indexContent": {
@@ -38,7 +38,7 @@
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumi/pulumi-xyz/sdk/go/xyz",
+            "importBasePath": "github.com/abklabs/pulumi-svmkit/sdk/go/svmkit",
             "respectSchemaVersion": true
         },
         "nodejs": {
