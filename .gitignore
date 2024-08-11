@@ -4,3 +4,4 @@ sdk
 bin
 node_modules
 yarn.lock
+dist
