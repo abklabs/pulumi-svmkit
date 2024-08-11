@@ -1,6 +1,8 @@
 {
+    "name": "pulumi-resource-svmkit",
     "version": "${VERSION}",
     "bin": "bin/index.js",
+    "license": "Apache-2.0",
     "dependencies": {
         "@pulumi/aws": "^5.0.0",
         "@pulumi/pulumi": "^3.38.0"
