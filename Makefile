@@ -117,3 +117,6 @@ build_python_sdk:: gen_python_sdk
 
 clean::
 	$(RM) -rf sdk dist bin ./provider/cmd/pulumi-resource-svmkit/{schema.json,bin}
+
+distclean:: clean
+	$(RM) -rf node_modules ./provider/cmd/pulumi-resource-svmkit/node_modules nuget
