@@ -15,6 +15,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 
+import { constructBackend } from "./backend";
+
 export class Provider implements provider.Provider {
     constructor(
         readonly version: string,
@@ -29,6 +31,8 @@ export class Provider implements provider.Provider {
     ): Promise<provider.ConstructResult> {
         // TODO: Add support for additional component resources here.
         switch (type) {
+            case "svmkit:index:Backend":
+                return await constructBackend(name, inputs, options);
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

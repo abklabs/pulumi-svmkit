@@ -28,7 +28,7 @@ build_provider:: ensure
 	cd provider/cmd/${PROVIDER}/ && \
 			yarn install && \
 			yarn tsc && \
-			cp package.json schema.json ./bin && \
+			cp -r package.json schema.json assets ./bin && \
 			sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" bin/package.json
 
 install_provider:: PKG_ARGS := --no-bytecode --public-packages "*" --public

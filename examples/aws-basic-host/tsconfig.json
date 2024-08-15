@@ -13,8 +13,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.ts",
-        "provider.ts",
-        "backend.ts"
+        "index.ts"
     ]
 }
