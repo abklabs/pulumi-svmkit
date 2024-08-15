@@ -60,5 +60,6 @@ EOF
 }
 
 setup::140::install-agave-validator () {
-    $APT install zuma-agave-validator
+    log::warn "not installing agave validator, until libc6 fixups have been made!"
+    # $APT install zuma-agave-validator
 }
