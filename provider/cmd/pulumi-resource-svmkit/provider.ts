@@ -16,11 +16,17 @@ import * as pulumi from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 
 export class Provider implements provider.Provider {
-    constructor(readonly version: string, readonly schema: string) { }
+    constructor(
+        readonly version: string,
+        readonly schema: string,
+    ) {}
 
-    async construct(name: string, type: string, inputs: pulumi.Inputs,
-        options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
-
+    async construct(
+        name: string,
+        type: string,
+        inputs: pulumi.Inputs,
+        options: pulumi.ComponentResourceOptions,
+    ): Promise<provider.ConstructResult> {
         // TODO: Add support for additional component resources here.
         switch (type) {
             default:
