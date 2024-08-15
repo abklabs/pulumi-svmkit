@@ -4,11 +4,18 @@
     "bin": "bin/index.js",
     "license": "Apache-2.0",
     "dependencies": {
+        "@pulumi/command": "^1.0.1",
         "@pulumi/pulumi": "^3.38.0"
     },
     "devDependencies": {
         "@types/node": "^22.2.0",
         "pkg": "^5.8.1",
-        "typescript": "^5.5.4"
+        "typescript": "^5.5.4",
+        "typescript-language-server": "^4.3.3"
+    },
+    "pkg": {
+        "assets": [
+            "bin/assets/*"
+        ]
     }
 }
