@@ -1,12 +1,33 @@
 {
     "name": "svmkit",
     "resources": {
+        "svmkit:index:Backend": {
+            "isComponent": true,
+            "inputProperties": {
+                "publicDNSName": {
+                    "type": "string"
+                },
+                "connection": {
+                    "$ref": "/command/v1.0.1/schema.json#/types/command:remote:Connection"
+                },
+                "triggers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "plain": true
+                }
+            },
+            "requiredInputs": ["publicDNSName", "connection"],
+            "properties": {},
+            "required": []
+        }
     },
     "language": {
         "csharp": {
             "packageReferences": {
                 "Pulumi": "3.*",
-                "Pulumi.Aws": "5.*"
+                "Pulumi.Command": "1.*"
             },
             "respectSchemaVersion": true
         },
@@ -17,7 +38,7 @@
         },
         "nodejs": {
             "dependencies": {
-                "@pulumi/aws": "^5.0.0"
+                "@pulumi/command": "^1.0.0"
             },
             "devDependencies": {
                 "typescript": "^4.6.3"
@@ -27,7 +48,7 @@
         "python": {
             "requires": {
                 "pulumi": ">=3.0.0,<4.0.0",
-                "pulumi-aws": ">=5.0.0,<6.0.0"
+                "pulumi-command": ">=1.0.0"
             },
             "respectSchemaVersion": true
         }
