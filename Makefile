@@ -120,3 +120,6 @@ clean::
 
 distclean:: clean
 	$(RM) -rf node_modules ./provider/cmd/pulumi-resource-svmkit/node_modules nuget
+
+format::
+	npx prettier -w schema.json package.json ./provider/cmd/pulumi-resource-svmkit/*.{ts,json} ./examples/aws-basic-host/*.{ts,json}
