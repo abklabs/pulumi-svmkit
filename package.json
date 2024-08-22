@@ -1,7 +1,7 @@
 {
-  "devDependencies": {
-    "@vercel/ncc": "^0.28.6",
-    "nexe": "^4.0.0-beta.18",
-    "prettier": "^3.3.3"
-  }
+    "devDependencies": {
+        "@vercel/ncc": "^0.28.6",
+        "nexe": "^4.0.0-beta.18",
+        "prettier": "^3.3.3"
+    }
 }
