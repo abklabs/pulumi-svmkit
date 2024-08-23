@@ -3,13 +3,11 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 
 import * as pulumi from "@pulumi/pulumi";
-import type { Output } from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 import * as command from "@pulumi/command";
 
 export interface BackendArgs {
     connection: command.types.input.remote.ConnectionArgs;
-    publicDNSName: Output<string>;
     triggers?: command.remote.CopyFileArgs["triggers"];
 }
 
