@@ -21,6 +21,28 @@
             "requiredInputs": ["publicDNSName", "connection"],
             "properties": {},
             "required": []
+        },
+        "svmkit:index:KeyPair": {
+            "isComponent": true,
+            "inputProperties": {},
+            "properties": {
+                "publicKey": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "privateKey": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "json": {
+                    "type": "string"
+                }
+            },
+            "required": ["publicKey", "privateKey", "json"]
         }
     },
     "language": {
