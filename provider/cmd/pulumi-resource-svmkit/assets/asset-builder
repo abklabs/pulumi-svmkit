@@ -6,4 +6,16 @@ SCRIPTDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ARCHIVE_FNAME=$1 ; shift
 
+touch validator-keypair.json vote-account-keypair.json
+chmod 600 validator-keypair.json vote-account-keypair.json
+echo "$IDENTITY_KEYPAIR" > validator-keypair.json
+echo "$VOTEACCOUNT_KEYPAIR" > vote-account-keypair.json
+
+cat<<EOF > run-validator
+#!/usr/bin/env bash
+exec agave-validator $AGAVE_VALIDATOR_FLAGS
+EOF
+
+chmod 755 run-validator
+
 (cd "$SCRIPTDIR/.." && tar cvzf "$ARCHIVE_FNAME" $(basename "$SCRIPTDIR"))
