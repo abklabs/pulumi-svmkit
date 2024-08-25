@@ -3,12 +3,38 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 
 import * as pulumi from "@pulumi/pulumi";
+import type { Input } from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 import * as command from "@pulumi/command";
+import { generateAgaveValidatorFlags } from "./agave";
+
+export interface BackendValidatorConfig {
+    identityKeyPair: Input<string>;
+    voteAccountKeyPair: Input<string>;
+    entryPoint: string[];
+    knownValidator: string[];
+    useSnapshotArchivesAtStartup: string;
+    rpcPort: number;
+    privateRPC: boolean;
+    onlyKnownRPC: boolean;
+    dynamicPortRange: string;
+    gossipPort: number;
+    rpcBindAddress: string;
+    walRecoveryMode: string;
+    limitLedgerSize: number;
+    blockProductionMethod: string;
+    tvuReceiveThreads?: number;
+    paths: {
+        accounts: string;
+        ledger: string;
+        log: string;
+    };
+}
 
 export interface BackendArgs {
     connection: command.types.input.remote.ConnectionArgs;
     triggers?: command.remote.CopyFileArgs["triggers"];
+    validatorConfig: BackendValidatorConfig;
 }
 
 export class Backend extends pulumi.ComponentResource {
@@ -51,6 +77,14 @@ export class Backend extends pulumi.ComponentResource {
                 archivePaths: [path.join(tempDir, targetDir, "*")],
                 dir: path.join(tempDir, targetDir),
                 create: `bash ./asset-builder ${archiveName}`,
+                environment: {
+                    AGAVE_VALIDATOR_FLAGS: generateAgaveValidatorFlags(
+                        args.validatorConfig,
+                    ).join(" "),
+                    IDENTITY_KEYPAIR: args.validatorConfig.identityKeyPair,
+                    VOTEACCOUNT_KEYPAIR:
+                        args.validatorConfig.voteAccountKeyPair,
+                },
             },
             {
                 parent,

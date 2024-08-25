@@ -1,5 +1,74 @@
 {
     "name": "svmkit",
+    "types": {
+        "svmkit:index:BackendValidatorConfig": {
+            "type": "object",
+            "properties": {
+                "identityKeyPair": {
+                    "type": "string"
+                },
+                "voteAccountKeyPair": {
+                    "type": "string"
+                },
+                "entryPoint": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "knownValidator": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "useSnapshotArchivesAtStartup": {
+                    "type": "string"
+                },
+                "rpcPort": {
+                    "type": "number"
+                },
+                "gossipPort": {
+                    "type": "number"
+                },
+                "privateRPC": {
+                    "type": "boolean"
+                },
+                "onlyKnownRPC": {
+                    "type": "boolean"
+                },
+                "dynamicPortRange": {
+                    "type": "string"
+                },
+                "rpcBindAddress": {
+                    "type": "string"
+                },
+                "walRecoveryMode": {
+                    "type": "string"
+                },
+                "limitLedgerSize": {
+                    "type": "number"
+                },
+                "blockProductionMethod": {
+                    "type": "string"
+                },
+                "paths": {
+                    "type": "object",
+                    "properties": {
+                        "accounts": {
+                            "type": "string"
+                        },
+                        "ledger": {
+                            "type": "string"
+                        },
+                        "log": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
     "resources": {
         "svmkit:index:Backend": {
             "isComponent": true,
@@ -16,9 +85,16 @@
                         "$ref": "pulumi.json#/Any"
                     },
                     "plain": true
+                },
+                "validatorConfig": {
+                    "$ref": "#/types/svmkit:index:BackendValidatorConfig"
                 }
             },
-            "requiredInputs": ["publicDNSName", "connection"],
+            "requiredInputs": [
+                "publicDNSName",
+                "connection",
+                "validatorConfig"
+            ],
             "properties": {},
             "required": []
         },
