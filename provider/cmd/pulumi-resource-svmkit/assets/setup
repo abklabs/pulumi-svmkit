@@ -17,6 +17,15 @@ setup::100::create-sol-user () {
     id sol > /dev/null 2>&1 || $SUDO adduser --disabled-password --gecos "" sol
 }
 
+setup::110::copy-validator-keys () {
+    local name
+    for name in validator-keypair vote-account-keypair ; do
+	$SUDO rm -f "/home/sol/$name.json"
+	$SUDO cp "$SCRIPTDIR/$name.json" /home/sol/.
+	$SUDO chown sol:sol "/home/sol/$name.json"
+    done
+}
+
 setup::115::configure-sysctl() {
     cat <<EOF | $SUDO tee /etc/sysctl.d/21-solana-validator.conf > /dev/null
 # Increase UDP buffer sizes
@@ -61,4 +70,25 @@ EOF
 
 setup::140::install-agave-validator () {
     $APT install zuma-agave-validator
+}
+
+setup::150::setup-validator-startup () {
+    $SUDO cp "$SCRIPTDIR/run-validator" /home/sol
+    $SUDO chown sol:sol /home/sol/run-validator
+
+    cat <<EOF | $SUDO tee /etc/systemd/system/zuma-agave-validator.service > /dev/null
+[Unit]
+Description=Zuma Agave Validator
+
+[Service]
+User=sol
+Group=sol
+ExecStart=/home/sol/run-validator
+
+[Install]
+WantedBy=default.target
+EOF
+    $SUDO systemctl daemon-reload
+    $SUDO systemctl enable zuma-agave-validator.service
+    $SUDO systemctl start zuma-agave-validator.service
 }

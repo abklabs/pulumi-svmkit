@@ -16,6 +16,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 
 import { constructBackend } from "./backend";
+import { constructKeyPair } from "./keypair";
 
 export class Provider implements provider.Provider {
     constructor(
@@ -33,6 +34,8 @@ export class Provider implements provider.Provider {
         switch (type) {
             case "svmkit:index:Backend":
                 return await constructBackend(name, inputs, options);
+            case "svmkit:index:KeyPair":
+                return await constructKeyPair(name, inputs, options);
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
