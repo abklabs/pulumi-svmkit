@@ -36,15 +36,25 @@ export class Backend extends pulumi.ComponentResource {
 
         const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), `${targetDir}-`));
 
-        ["lib.bash", "step-runner", "setup"].forEach((f) =>
+        ["lib.bash", "step-runner", "setup", "asset-builder"].forEach((f) =>
             fs.cpSync(
                 path.join(__dirname, "assets", f),
                 path.join(tempDir, targetDir, f),
             ),
         );
 
-        const archive = new pulumi.asset.FileArchive(
-            path.join(tempDir, targetDir),
+        const archiveName = `${targetDir}.tar.gz`;
+
+        const assetBuilder = new command.local.Command(
+            genName("assetBuilder"),
+            {
+                archivePaths: [path.join(tempDir, targetDir, "*")],
+                dir: path.join(tempDir, targetDir),
+                create: `bash ./asset-builder ${archiveName}`,
+            },
+            {
+                parent,
+            },
         );
 
         const isMachineRunning = new command.remote.Command(
@@ -59,30 +69,34 @@ export class Backend extends pulumi.ComponentResource {
             },
         );
 
-        const copyAssets = new command.remote.CopyToRemote(
+        // CopyFile is deprecated, but there are bugs cropping up
+        // in CopyToRemote, so use this for now.
+        const copyAssets = new command.remote.CopyFile(
             genName("copyAssets"),
             {
                 connection,
-                source: archive,
-                remotePath: ".",
-                triggers,
+                localPath: pulumi.output(path.join(tempDir, archiveName)),
+                remotePath: archiveName,
+                triggers: [triggers, assetBuilder],
             },
             {
                 parent,
-                dependsOn: isMachineRunning,
+                dependsOn: [assetBuilder, isMachineRunning],
             },
         );
 
         // Remove the temp directory after the archive has been created.
-        copyAssets.source.apply((_) => fs.rmSync(tempDir, { recursive: true }));
+        copyAssets.localPath.apply((_) =>
+            fs.rmSync(tempDir, { recursive: true }),
+        );
 
         new command.remote.Command(
             genName("setupInstance"),
             {
                 connection,
-                create: `bash ./${targetDir}/step-runner setup ./${targetDir}/setup && rm -rf ${targetDir}`,
+                create: `tar xvzf ${archiveName} && bash ./${targetDir}/step-runner setup ./${targetDir}/setup && rm -rf ${targetDir} ${archiveName}`,
                 environment: {},
-                triggers,
+                triggers: [triggers, copyAssets],
             },
             {
                 parent,
