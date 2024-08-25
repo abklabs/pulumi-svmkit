@@ -14,6 +14,42 @@ const keyPair = new aws.ec2.KeyPair("keypair", {
     publicKey: sshKey.publicKeyOpenssh,
 });
 
+const validatorKey = new svmkit.KeyPair("validatorKey");
+const voteAccountKey = new svmkit.KeyPair("voteAccount");
+
+const validatorConfig = {
+    identityKeyPair: validatorKey.json,
+    voteAccountKeyPair: voteAccountKey.json,
+    entryPoint: [
+        "entrypoint.testnet.solana.com:8001",
+        "entrypoint2.testnet.solana.com:8001",
+        "entrypoint3.testnet.solana.com:8001",
+    ],
+    knownValidator: [
+        "5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on",
+        "7XSY3MrYnK8vq693Rju17bbPkCN3Z7KvvfvJx4kdrsSY",
+        "Ft5fbkqNa76vnsjYNwjDZUXoTWpP7VYm3mtsaQckQADN",
+        "9QxCLckBiJc783jnMvXZubK4wH86Eqqvashtrwvcsgkv",
+    ],
+    expectedGenesisHash: "4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY",
+    useSnapshotArchivesAtStartup: "when-newest",
+    rpcPort: 8899,
+    privateRPC: true,
+    onlyKnownRPC: true,
+    dynamicPortRange: "8002-8020",
+    gossipPort: 8001,
+    rpcBindAddress: "0.0.0.0",
+    walRecoveryMode: "skip_any_corrupted_record",
+    limitLedgerSize: 50000000,
+    blockProductionMethod: "central-scheduler",
+    tvuReceiveThreads: 2,
+    paths: {
+        accounts: "/home/sol/accounts",
+        ledger: "/home/sol/ledger",
+        log: "/home/sol/log",
+    },
+};
+
 const amiIdToUse = (async () => {
     let v = config.get("instance.amiId");
 
@@ -55,6 +91,7 @@ const backendSetup = new svmkit.Backend("backendSetup", {
     connection: sshConnInfo,
     publicDNSName: instance.publicDns,
     triggers: [instance.arn],
+    validatorConfig,
 });
 
 export const PUBLIC_DNS_NAME = instance.publicDns;
