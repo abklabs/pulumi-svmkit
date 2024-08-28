@@ -75,10 +75,46 @@ const amiIdToUse = (async () => {
     return amiInfo.id;
 })();
 
+const securityGroup = new aws.ec2.SecurityGroup("securityGroup", {
+    description: "Allow SSH and specific inbound traffic",
+    ingress: [
+        {
+            protocol: "tcp",
+            fromPort: 22,
+            toPort: 22,
+            cidrBlocks: ["0.0.0.0/0"],
+        },
+        {
+            protocol: "tcp",
+            fromPort: 8000,
+            toPort: 8020,
+            cidrBlocks: ["0.0.0.0/0"],
+        },
+        {
+            protocol: "udp",
+            fromPort: 8000,
+            toPort: 8020,
+            cidrBlocks: ["0.0.0.0/0"],
+        },
+    ],
+    egress: [
+        {
+            protocol: "-1",
+            fromPort: 0,
+            toPort: 0,
+            cidrBlocks: ["0.0.0.0/0"],
+        },
+    ],
+});
+
 const instance = new aws.ec2.Instance("instance", {
     ami: amiIdToUse,
     instanceType: "t3.large",
     keyName: keyPair.keyName,
+    vpcSecurityGroupIds: [securityGroup.id],
+    rootBlockDevice: {
+        volumeSize: 200,
+    },
 });
 
 const sshConnInfo: command.types.input.remote.ConnectionArgs = {

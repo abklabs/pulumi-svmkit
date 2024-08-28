@@ -84,6 +84,7 @@ Description=Zuma Agave Validator
 User=sol
 Group=sol
 ExecStart=/home/sol/run-validator
+LimitNOFILE=1000000
 
 [Install]
 WantedBy=default.target
