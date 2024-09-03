@@ -73,9 +73,6 @@
         "svmkit:index:Backend": {
             "isComponent": true,
             "inputProperties": {
-                "publicDNSName": {
-                    "type": "string"
-                },
                 "connection": {
                     "$ref": "/command/v1.0.1/schema.json#/types/command:remote:Connection"
                 },
@@ -90,11 +87,7 @@
                     "$ref": "#/types/svmkit:index:BackendValidatorConfig"
                 }
             },
-            "requiredInputs": [
-                "publicDNSName",
-                "connection",
-                "validatorConfig"
-            ],
+            "requiredInputs": ["connection", "validatorConfig"],
             "properties": {},
             "required": []
         },
