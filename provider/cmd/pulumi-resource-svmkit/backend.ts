@@ -9,6 +9,7 @@ import * as command from "@pulumi/command";
 import { generateAgaveValidatorFlags } from "./agave";
 
 export interface BackendValidatorConfig {
+    validatorVariant?: string;
     identityKeyPair: Input<string>;
     voteAccountKeyPair: Input<string>;
     entryPoint: string[];
@@ -52,6 +53,24 @@ export class Backend extends pulumi.ComponentResource {
         const { connection, triggers } = args;
         const targetDir = "svmkit";
 
+        const VALIDATOR_VARIANT =
+            args.validatorConfig.validatorVariant ?? "agave";
+
+        // Note: this list must match the names defined inside solana-build.
+        const validVariants = [
+            "solana",
+            "agave",
+            "powerledger",
+            "jito",
+            "pyth",
+        ];
+
+        if (!validVariants.includes(VALIDATOR_VARIANT)) {
+            throw new Error(
+                `Validator variant '${VALIDATOR_VARIANT}' is unknown, valid options are: ${validVariants.join(", ")}`,
+            );
+        }
+
         // This is gross: the assets we need are inside the
         // built component resource archive.  Unfortunately, it
         // doesn't look like there's an easy way to pass the
@@ -78,7 +97,13 @@ export class Backend extends pulumi.ComponentResource {
                 dir: path.join(tempDir, targetDir),
                 create: `bash ./asset-builder ${archiveName}`,
                 environment: {
-                    AGAVE_VALIDATOR_FLAGS: generateAgaveValidatorFlags(
+                    VALIDATOR_VARIANT,
+                    // Note: these flags are currently "Agave
+                    // specific", but all of our validator
+                    // variants are either based off of Agave or
+                    // the upstream Solana Labs variant.  This can
+                    // get changed in future.
+                    VALIDATOR_FLAGS: generateAgaveValidatorFlags(
                         args.validatorConfig,
                     ).join(" "),
                     IDENTITY_KEYPAIR: args.validatorConfig.identityKeyPair,

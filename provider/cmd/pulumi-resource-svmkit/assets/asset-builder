@@ -11,11 +11,18 @@ chmod 600 validator-keypair.json vote-account-keypair.json
 echo "$IDENTITY_KEYPAIR" > validator-keypair.json
 echo "$VOTEACCOUNT_KEYPAIR" > vote-account-keypair.json
 
-cat<<EOF > run-validator
-#!/usr/bin/env bash
-exec agave-validator $AGAVE_VALIDATOR_FLAGS
-EOF
+touch env
 
-chmod 755 run-validator
+add-to-env () {
+    local varname
+    varname=$1 ; shift
+
+    if [[ -v $varname ]] ; then
+	printf "%s=\"%s\"\n" "$varname" "${!varname}" >> env
+    fi
+}
+
+add-to-env VALIDATOR_VARIANT
+add-to-env VALIDATOR_FLAGS
 
 (cd "$SCRIPTDIR/.." && tar cvzf "$ARCHIVE_FNAME" $(basename "$SCRIPTDIR"))
