@@ -1,5 +1,8 @@
 # -*- mode: shell-script -*-
 # shellcheck shell=bash
+source "$SCRIPTDIR/env"
+
+: ${VALIDATOR_VARIANT:=agave}
 
 setup::000::setup-abklabs-apt () {
     $APT update
@@ -68,17 +71,35 @@ EOF
     $SUDO systemctl restart logrotate
 }
 
-setup::140::install-agave-validator () {
-    $APT install zuma-agave-validator
+setup::140::install-validator () {
+    $APT install zuma-${VALIDATOR_VARIANT}-validator
 }
 
 setup::150::setup-validator-startup () {
-    $SUDO cp "$SCRIPTDIR/run-validator" /home/sol
+    local cmd
+
+    # Note: This MUST match the commands names used in the packages in
+    # apt.  solana-build is has a unified list of all of the different
+    # names.
+    case "$VALIDATOR_VARIANT" in
+	agave|jito)
+	    cmd=agave-validator
+	    ;;
+	*)
+	    cmd=solana-validator
+	    ;;
+    esac
+
+    cat<<EOF | $SUDO tee /home/sol/run-validator > /dev/null
+#!/usr/bin/env bash
+exec $cmd $VALIDATOR_FLAGS
+EOF
+    $SUDO chmod 755 /home/sol/run-validator
     $SUDO chown sol:sol /home/sol/run-validator
 
-    cat <<EOF | $SUDO tee /etc/systemd/system/zuma-agave-validator.service > /dev/null
+    cat <<EOF | $SUDO tee /etc/systemd/system/zuma-validator.service > /dev/null
 [Unit]
-Description=Zuma Agave Validator
+Description=Zuma Solana Validator
 
 [Service]
 User=sol
@@ -90,6 +111,6 @@ LimitNOFILE=1000000
 WantedBy=default.target
 EOF
     $SUDO systemctl daemon-reload
-    $SUDO systemctl enable zuma-agave-validator.service
-    $SUDO systemctl start zuma-agave-validator.service
+    $SUDO systemctl enable zuma-validator.service
+    $SUDO systemctl start zuma-validator.service
 }
