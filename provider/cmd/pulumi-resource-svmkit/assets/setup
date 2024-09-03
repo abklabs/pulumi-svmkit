@@ -78,6 +78,13 @@ setup::140::install-validator () {
 setup::150::setup-validator-startup () {
     local cmd
 
+    # Check if we already have a validator service running and stop it.
+    # XXX - It would be great if we only restarted the validator in
+    # cases where we knew we had to.
+    if systemctl list-unit-files zuma-validator.service > /dev/null ; then
+	$SUDO systemctl stop zuma-validator.service || true
+    fi
+
     # Note: This MUST match the commands names used in the packages in
     # apt.  solana-build is has a unified list of all of the different
     # names.
