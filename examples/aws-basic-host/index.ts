@@ -125,7 +125,6 @@ const sshConnInfo: command.types.input.remote.ConnectionArgs = {
 
 const backendSetup = new svmkit.Backend("backendSetup", {
     connection: sshConnInfo,
-    publicDNSName: instance.publicDns,
     triggers: [instance.arn],
     validatorConfig,
 });
