@@ -1,6 +1,30 @@
 {
     "name": "svmkit",
     "types": {
+        "svmkit:index:GenesisConfig": {
+            "type": "object",
+            "properties": {
+                "ledgerPath": { "type": "string" },
+                "identityPubkey": {
+                    "type": "string"
+                },
+                "votePubkey": {
+                    "type": "string"
+                },
+                "stakePubkey": {
+                    "type": "string"
+                },
+                "faucetPubkey": {
+                    "type": "string"
+                },
+                "faucetLamports": { "type": "string" },
+                "targetLamportsPerSignature": { "type": "string" },
+                "inflation": { "type": "string" },
+                "lamportsPerByteYear": { "type": "string" },
+                "slotPerEpoch": { "type": "string" },
+                "clusterType": { "type": "string" }
+            }
+        },
         "svmkit:index:BackendValidatorConfig": {
             "type": "object",
             "properties": {
@@ -39,6 +63,23 @@
         }
     },
     "resources": {
+        "svmkit:index:Genesis": {
+            "isComponent": true,
+            "inputProperties": {
+                "connection": {
+                    "$ref": "/command/v1.0.1/schema.json#/types/command:remote:Connection"
+                },
+                "genesisConfig": {
+                    "$ref": "#/types/svmkit:index:GenesisConfig"
+                },
+                "triggers": {
+                    "type": "array",
+                    "items": { "$ref": "pulumi.json#/Any" },
+                    "plain": true
+                }
+            },
+            "requiredInputs": ["connection", "genesisConfig"]
+        },
         "svmkit:index:Backend": {
             "isComponent": true,
             "inputProperties": {
