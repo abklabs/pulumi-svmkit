@@ -49,6 +49,11 @@
                 },
                 "validatorConfig": {
                     "$ref": "#/types/svmkit:index:BackendValidatorConfig"
+                },
+                "dependsOn": {
+                    "type": "array",
+                    "items": { "$ref": "pulumi.json#/Any" },
+                    "plain": true
                 }
             },
             "requiredInputs": ["connection", "validatorConfig"],
