@@ -6,7 +6,7 @@ import * as solanaWeb3 from "@solana/web3.js";
 export interface KeyPairArgs {}
 
 export class KeyPair extends pulumi.ComponentResource {
-    public readonly publicKey: pulumi.Output<number[]>;
+    public readonly publicKey: pulumi.Output<string>;
     public readonly privateKey: pulumi.Output<number[]>;
     public readonly json: pulumi.Output<string>;
 
@@ -18,7 +18,7 @@ export class KeyPair extends pulumi.ComponentResource {
         super("svmkit:index:KeyPair", name, args, opts);
 
         const keyPair = solanaWeb3.Keypair.generate();
-        this.publicKey = pulumi.output(Array.from(keyPair.publicKey.toBytes()));
+        this.publicKey = pulumi.output(keyPair.publicKey.toBase58());
         this.privateKey = pulumi.secret(Array.from(keyPair.secretKey));
 
         // Note: the "secretKey" includes private and public parts.

@@ -65,8 +65,7 @@
             "inputProperties": {},
             "properties": {
                 "publicKey": {
-                    "type": "array",
-                    "items": { "type": "integer" }
+                    "type": "string"
                 },
                 "privateKey": {
                     "type": "array",
