@@ -1,0 +1,3 @@
+name: aws-svm-bootstrap
+runtime: nodejs
+description: An example of how to bootstrap an SVM cluster on AWS
