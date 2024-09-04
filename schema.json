@@ -4,66 +4,32 @@
         "svmkit:index:BackendValidatorConfig": {
             "type": "object",
             "properties": {
-                "identityKeyPair": {
-                    "type": "string"
-                },
-                "voteAccountKeyPair": {
-                    "type": "string"
-                },
+                "identityKeyPair": { "type": "string" },
+                "voteAccountKeyPair": { "type": "string" },
                 "entryPoint": {
                     "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
+                    "items": { "type": "string" }
                 },
                 "knownValidator": {
                     "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
+                    "items": { "type": "string" }
                 },
-                "useSnapshotArchivesAtStartup": {
-                    "type": "string"
-                },
-                "rpcPort": {
-                    "type": "number"
-                },
-                "gossipPort": {
-                    "type": "number"
-                },
-                "privateRPC": {
-                    "type": "boolean"
-                },
-                "onlyKnownRPC": {
-                    "type": "boolean"
-                },
-                "dynamicPortRange": {
-                    "type": "string"
-                },
-                "rpcBindAddress": {
-                    "type": "string"
-                },
-                "walRecoveryMode": {
-                    "type": "string"
-                },
-                "limitLedgerSize": {
-                    "type": "number"
-                },
-                "blockProductionMethod": {
-                    "type": "string"
-                },
+                "useSnapshotArchivesAtStartup": { "type": "string" },
+                "rpcPort": { "type": "number" },
+                "gossipPort": { "type": "number" },
+                "privateRPC": { "type": "boolean" },
+                "onlyKnownRPC": { "type": "boolean" },
+                "dynamicPortRange": { "type": "string" },
+                "rpcBindAddress": { "type": "string" },
+                "walRecoveryMode": { "type": "string" },
+                "limitLedgerSize": { "type": "number" },
+                "blockProductionMethod": { "type": "string" },
                 "paths": {
                     "type": "object",
                     "properties": {
-                        "accounts": {
-                            "type": "string"
-                        },
-                        "ledger": {
-                            "type": "string"
-                        },
-                        "log": {
-                            "type": "string"
-                        }
+                        "accounts": { "type": "string" },
+                        "ledger": { "type": "string" },
+                        "log": { "type": "string" }
                     }
                 }
             }
@@ -78,9 +44,7 @@
                 },
                 "triggers": {
                     "type": "array",
-                    "items": {
-                        "$ref": "pulumi.json#/Any"
-                    },
+                    "items": { "$ref": "pulumi.json#/Any" },
                     "plain": true
                 },
                 "validatorConfig": {
@@ -97,29 +61,20 @@
             "properties": {
                 "publicKey": {
                     "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
+                    "items": { "type": "integer" }
                 },
                 "privateKey": {
                     "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
+                    "items": { "type": "integer" }
                 },
-                "json": {
-                    "type": "string"
-                }
+                "json": { "type": "string" }
             },
             "required": ["publicKey", "privateKey", "json"]
         }
     },
     "language": {
         "csharp": {
-            "packageReferences": {
-                "Pulumi": "3.*",
-                "Pulumi.Command": "1.*"
-            },
+            "packageReferences": { "Pulumi": "3.*", "Pulumi.Command": "1.*" },
             "respectSchemaVersion": true
         },
         "go": {
@@ -128,12 +83,8 @@
             "respectSchemaVersion": true
         },
         "nodejs": {
-            "dependencies": {
-                "@pulumi/command": "^1.0.0"
-            },
-            "devDependencies": {
-                "typescript": "^4.6.3"
-            },
+            "dependencies": { "@pulumi/command": "^1.0.0" },
+            "devDependencies": { "typescript": "^4.6.3" },
             "respectSchemaVersion": true
         },
         "python": {

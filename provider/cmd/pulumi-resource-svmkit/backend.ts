@@ -81,7 +81,9 @@ export class Backend extends pulumi.ComponentResource {
 
         const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), `${targetDir}-`));
 
-        ["lib.bash", "step-runner", "setup", "asset-builder"].forEach((f) =>
+        const assets = ["lib.bash", "step-runner", "setup", "asset-builder"];
+
+        assets.forEach((f) =>
             fs.cpSync(
                 path.join(__dirname, "assets", f),
                 path.join(tempDir, targetDir, f),
