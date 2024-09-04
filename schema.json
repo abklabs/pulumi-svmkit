@@ -19,6 +19,8 @@
                 "gossipPort": { "type": "number" },
                 "privateRPC": { "type": "boolean" },
                 "onlyKnownRPC": { "type": "boolean" },
+                "noWaitForVoteToStartLeader": { "type": "boolean" },
+                "fullSnapshotIntervalSlots": { "type": "number" },
                 "dynamicPortRange": { "type": "string" },
                 "rpcBindAddress": { "type": "string" },
                 "walRecoveryMode": { "type": "string" },
