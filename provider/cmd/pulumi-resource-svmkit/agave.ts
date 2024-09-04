@@ -39,7 +39,9 @@ export function generateAgaveValidatorFlags(config: BackendValidatorConfig) {
     s("limit-ledger-size", config.limitLedgerSize);
     s("block-production-method", config.blockProductionMethod);
     s("tvu-receive-threads", config.tvuReceiveThreads);
+    s("full-snapshot-interval-slots", config.fullSnapshotIntervalSlots);
 
+    b("no-wait-for-vote-to-start-leader", config.noWaitForVoteToStartLeader);
     b("only-known-rpc", config.onlyKnownRPC);
     b("private-rpc", config.privateRPC);
 

@@ -25,6 +25,8 @@ export interface BackendValidatorConfig {
     limitLedgerSize: number;
     blockProductionMethod: string;
     tvuReceiveThreads?: number;
+    noWaitForVoteToStartLeader: boolean;
+    fullSnapshotIntervalSlots: number;
     paths: {
         accounts: string;
         ledger: string;
