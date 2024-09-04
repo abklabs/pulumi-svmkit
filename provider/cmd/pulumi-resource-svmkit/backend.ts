@@ -12,6 +12,7 @@ export interface BackendValidatorConfig {
     validatorVariant?: string;
     identityKeyPair: Input<string>;
     voteAccountKeyPair: Input<string>;
+    stakeAccountKeyPair: Input<string>;
     entryPoint: string[];
     knownValidator: string[];
     useSnapshotArchivesAtStartup: string;
@@ -117,6 +118,8 @@ export class Backend extends pulumi.ComponentResource {
                     IDENTITY_KEYPAIR: args.validatorConfig.identityKeyPair,
                     VOTEACCOUNT_KEYPAIR:
                         args.validatorConfig.voteAccountKeyPair,
+                    STAKEACCOUNT_KEYPAIR:
+                        args.validatorConfig.stakeAccountKeyPair,
                 },
             },
             {

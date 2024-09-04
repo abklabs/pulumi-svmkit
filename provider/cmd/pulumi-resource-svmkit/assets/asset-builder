@@ -6,10 +6,11 @@ SCRIPTDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ARCHIVE_FNAME=$1 ; shift
 
-touch validator-keypair.json vote-account-keypair.json
-chmod 600 validator-keypair.json vote-account-keypair.json
+touch validator-keypair.json vote-account-keypair.json stake-keypair.json
+chmod 600 validator-keypair.json vote-account-keypair.json stake-keypair.json
 echo "$IDENTITY_KEYPAIR" > validator-keypair.json
 echo "$VOTEACCOUNT_KEYPAIR" > vote-account-keypair.json
+echo "$STAKEACCOUNT_KEYPAIR" > stake-keypair.json
 
 touch env
 
