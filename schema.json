@@ -6,6 +6,7 @@
             "properties": {
                 "identityKeyPair": { "type": "string" },
                 "voteAccountKeyPair": { "type": "string" },
+                "stakeAccountKeyPair": { "type": "string" },
                 "entryPoint": {
                     "type": "array",
                     "items": { "type": "string" }
