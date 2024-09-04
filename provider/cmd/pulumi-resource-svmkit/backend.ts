@@ -36,6 +36,7 @@ export interface BackendArgs {
     connection: command.types.input.remote.ConnectionArgs;
     triggers?: command.remote.CopyFileArgs["triggers"];
     validatorConfig: BackendValidatorConfig;
+    dependsOn?: pulumi.Input<pulumi.Resource>[];
 }
 
 export class Backend extends pulumi.ComponentResource {
@@ -44,7 +45,10 @@ export class Backend extends pulumi.ComponentResource {
         args: BackendArgs,
         opts?: pulumi.ComponentResourceOptions,
     ) {
-        super("svmkit:index:Backend", name, args, opts);
+        super("svmkit:index:Backend", name, args, {
+            ...opts,
+            dependsOn: args.dependsOn,
+        });
         const parent = this;
 
         const genName = (...parts: (string | number)[]) =>
