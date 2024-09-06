@@ -6,11 +6,22 @@ SCRIPTDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ARCHIVE_FNAME=$1 ; shift
 
-touch validator-keypair.json vote-account-keypair.json stake-keypair.json
-chmod 600 validator-keypair.json vote-account-keypair.json stake-keypair.json
-echo "$IDENTITY_KEYPAIR" > validator-keypair.json
-echo "$VOTEACCOUNT_KEYPAIR" > vote-account-keypair.json
-echo "$STAKEACCOUNT_KEYPAIR" > stake-keypair.json
+create-keypair () {
+    local var fname
+
+    varname=$1 ; shift
+    fname=$1 ; shift
+
+    if [[ -v $varname ]] ; then
+	touch "$fname"
+	chmod 600 "$fname"
+	printf "%s" "${!varname}" > "$fname"
+    fi
+}
+
+create-keypair IDENTITY_KEYPAIR validator-keypair.json
+create-keypair VOTEACCOUNT_KEYPAIR vote-account-keypair.json
+create-keypair STAKEACCOUNT_KEYPAIR stake-keypair.json
 
 touch env
 
