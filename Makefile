@@ -1,16 +1,16 @@
 VERSION         := 0.0.1
 
 PACK            := svmkit
-PROJECT         := github.com/pulumi/pulumi-${PACK}
+PROJECT         := github.com/abklabs/pulumi-${PACK}
 
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
 VERSION_PATH    := provider/pkg/version.Version
 
 WORKING_DIR     := $(shell pwd)
-SCHEMA_PATH     := ${WORKING_DIR}/schema.json
+SCHEMA_PATH     := ${WORKING_DIR}/schema.yaml
 
-all:: generate build dist
+GOPATH          := $(shell go env GOPATH)
 
 generate:: gen_go_sdk gen_dotnet_sdk gen_nodejs_sdk gen_python_sdk
 
@@ -18,48 +18,23 @@ build:: build_provider build_dotnet_sdk build_nodejs_sdk build_python_sdk
 
 install:: install_provider install_dotnet_sdk install_nodejs_sdk
 
-# Ensure all dependencies are installed
-ensure::
-	yarn install
 
 # Provider
-build_provider:: ensure
-	cp ${SCHEMA_PATH} provider/cmd/${PROVIDER}/
-	cd provider/cmd/${PROVIDER}/ && \
-			yarn install && \
-			yarn tsc && \
-			cp -r package.json schema.json assets ./bin && \
-			sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" bin/package.json
 
-install_provider:: PKG_ARGS := --no-bytecode --public-packages "*" --public
+build_provider::
+	rm -rf ${WORKING_DIR}/bin/${PROVIDER}
+	cd provider/cmd/${PROVIDER} && VERSION=${VERSION} SCHEMA=${SCHEMA_PATH} go generate main.go
+	cd provider/cmd/${PROVIDER} && go build -o ${WORKING_DIR}/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" .
+
 install_provider:: build_provider
-	cd provider/cmd/${PROVIDER}/ && \
-		yarn run pkg . ${PKG_ARGS} --target node16 --output ../../../bin/${PROVIDER}
+	cp ${WORKING_DIR}/bin/${PROVIDER} ${GOPATH}/bin
 
-# builds all providers required for publishing
-dist:: PKG_ARGS := --no-bytecode --public-packages "*" --public
-dist:: build_provider
-	cd provider/cmd/${PROVIDER}/ && \
-		yarn run pkg . ${PKG_ARGS} --target node16-macos-x64 --output ../../../bin/darwin-amd64/${PROVIDER} && \
-		yarn run pkg . ${PKG_ARGS} --target node16-macos-arm64 --output ../../../bin/darwin-arm64/${PROVIDER} && \
-		yarn run pkg . ${PKG_ARGS} --target node16-linuxstatic-x64 --output ../../../bin/linux-amd64/${PROVIDER} && \
-		yarn run pkg . ${PKG_ARGS} --target node16-linuxstatic-arm64 --output ../../../bin/linux-arm64/${PROVIDER} && \
-		yarn run pkg . ${PKG_ARGS} --target node16-win-x64 --output ../../../bin/windows-amd64/${PROVIDER}.exe
-	mkdir -p dist
-	tar --gzip -cf ./dist/pulumi-resource-${PACK}-v${VERSION}-linux-amd64.tar.gz README.md LICENSE -C bin/linux-amd64/ .
-	tar --gzip -cf ./dist/pulumi-resource-${PACK}-v${VERSION}-linux-arm64.tar.gz README.md LICENSE -C bin/linux-arm64/ .
-	tar --gzip -cf ./dist/pulumi-resource-${PACK}-v${VERSION}-darwin-amd64.tar.gz README.md LICENSE -C bin/darwin-amd64/ .
-	tar --gzip -cf ./dist/pulumi-resource-${PACK}-v${VERSION}-darwin-arm64.tar.gz README.md LICENSE -C bin/darwin-arm64/ .
-	tar --gzip -cf ./dist/pulumi-resource-${PACK}-v${VERSION}-windows-amd64.tar.gz README.md LICENSE -C bin/windows-amd64/ .
 
 # Go SDK
 
 gen_go_sdk::
 	rm -rf sdk/go
 	cd provider/cmd/${CODEGEN} && go run . go ../../../sdk/go ${SCHEMA_PATH}
-
-## Empty build target for Go
-build_go_sdk::
 
 
 # .NET SDK
@@ -91,6 +66,7 @@ build_nodejs_sdk:: gen_nodejs_sdk
 		yarn install && \
 		yarn run tsc --version && \
 		yarn run tsc && \
+		cp -R scripts/ bin && \
 		cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
 		sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json && \
 		rm ./bin/package.json.bak
@@ -109,17 +85,11 @@ gen_python_sdk::
 build_python_sdk:: PYPI_VERSION := ${VERSION}
 build_python_sdk:: gen_python_sdk
 	cd sdk/python/ && \
-		python3 setup.py clean --all && \
+		python3 setup.py clean --all 2>/dev/null && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
 		sed -i.bak -e 's/^VERSION = .*/VERSION = "$(PYPI_VERSION)"/g' -e 's/^PLUGIN_VERSION = .*/PLUGIN_VERSION = "$(VERSION)"/g' ./bin/setup.py && \
 		rm ./bin/setup.py.bak && \
 		cd ./bin && python3 setup.py build sdist
 
-clean::
-	$(RM) -rf sdk dist bin ./provider/cmd/pulumi-resource-svmkit/{schema.json,bin}
-
-distclean:: clean
-	$(RM) -rf node_modules ./provider/cmd/pulumi-resource-svmkit/node_modules nuget
-
-format::
-	npx prettier -w schema.json package.json ./provider/cmd/pulumi-resource-svmkit/*.{ts,json} ./examples/aws-basic-host/*.{ts,json}
+## Empty build target for Go
+build_go_sdk::

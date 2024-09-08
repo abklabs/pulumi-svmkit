@@ -17,10 +17,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
+	"github.com/ghodss/yaml"
 	"github.com/pkg/errors"
 	dotnetgen "github.com/pulumi/pulumi/pkg/v3/codegen/dotnet"
 	gogen "github.com/pulumi/pulumi/pkg/v3/codegen/go"
@@ -55,11 +56,11 @@ func emitSDK(language, outdir, schemaPath string) error {
 	var generator func() (map[string][]byte, error)
 	switch language {
 	case "dotnet":
-		generator = func() (map[string][]byte, error) { return dotnetgen.GeneratePackage(tool, pkg, extraFiles, nil) }
+		generator = func() (map[string][]byte, error) { return dotnetgen.GeneratePackage(tool, pkg, extraFiles) }
 	case "go":
-		generator = func() (map[string][]byte, error) { return gogen.GeneratePackage(tool, pkg, nil) }
+		generator = func() (map[string][]byte, error) { return gogen.GeneratePackage(tool, pkg) }
 	case "nodejs":
-		generator = func() (map[string][]byte, error) { return nodejsgen.GeneratePackage(tool, pkg, extraFiles, nil) }
+		generator = func() (map[string][]byte, error) { return nodejsgen.GeneratePackage(tool, pkg, extraFiles) }
 	case "python":
 		generator = func() (map[string][]byte, error) { return pygen.GeneratePackage(tool, pkg, extraFiles) }
 	default:
@@ -81,9 +82,16 @@ func emitSDK(language, outdir, schemaPath string) error {
 }
 
 func readSchema(schemaPath string) (*schema.Package, error) {
-	schemaBytes, err := ioutil.ReadFile(schemaPath)
+	schemaBytes, err := os.ReadFile(schemaPath)
 	if err != nil {
 		return nil, errors.Wrap(err, "reading schema")
+	}
+
+	if strings.HasSuffix(schemaPath, ".yaml") {
+		schemaBytes, err = yaml.YAMLToJSON(schemaBytes)
+		if err != nil {
+			return nil, errors.Wrap(err, "reading YAML schema")
+		}
 	}
 
 	var spec schema.PackageSpec
@@ -103,7 +111,7 @@ func emitFile(rootDir, filename string, contents []byte) error {
 	if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
 		return err
 	}
-	if err := ioutil.WriteFile(outPath, contents, 0600); err != nil {
+	if err := os.WriteFile(outPath, contents, 0600); err != nil {
 		return err
 	}
 	return nil
