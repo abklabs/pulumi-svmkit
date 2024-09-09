@@ -1,3 +1,13 @@
+if [ -z "$BASH_VERSION" ] ; then
+    echo "FATAL: This library requires bash to function properly!"
+    exit 1
+fi
+
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]] ; then
+    echo "FATAL: This library requires bash v4 or greater!"
+    exit 1
+fi
+
 : "${SUDO:=sudo --preserve-env=DEBIAN_FRONTEND}"
 : "${APT:=$SUDO apt-get -qy}"
 
