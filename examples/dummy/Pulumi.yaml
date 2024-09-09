@@ -1,0 +1,4 @@
+name: single-validator
+runtime: go
+description: A basic exmaple of how to setup a validator
+

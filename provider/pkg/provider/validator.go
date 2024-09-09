@@ -1,13 +1,13 @@
 package provider
 
 import (
+	"github.com/pulumi/pulumi-command/sdk/go/command/remote"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // The set of arguments for creating a StaticPage component resource.
 type ValidatorArgs struct {
-	// The HTML content for index.html.
-	IndexContent pulumi.StringInput `pulumi:"indexContent"`
+	Connection remote.ConnectionArgs `pulumi:"connection"`
 }
 
 // The Validator component resource.
@@ -21,6 +21,11 @@ func NewValidator(ctx *pulumi.Context,
 	if args == nil {
 		args = &ValidatorArgs{}
 	}
+
+	remote.NewCommand(ctx, "hostnameCmd", &remote.CommandArgs{
+		Create:     pulumi.String("hostname"),
+		Connection: &args.Connection,
+	})
 
 	component := &Validator{}
 	err := ctx.RegisterComponentResource("svmkit:index:Validator", name, component, opts...)

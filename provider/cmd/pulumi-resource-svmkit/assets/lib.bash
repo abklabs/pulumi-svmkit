@@ -67,7 +67,7 @@ log::error () {
     log::output "${CRED}ERROR${CNONE}" "$@"
 }
 
-log::fatal () {
+log::fatal () 
     log::output "${CRED}FATAL${CNONE}" "$@"
     exit 1
 }
