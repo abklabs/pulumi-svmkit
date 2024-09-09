@@ -56,7 +56,12 @@ export class Genesis extends pulumi.ComponentResource {
 
         const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), `${targetDir}-`));
 
-        const assets = ["genesis-builder", "genesis", "lib.bash"];
+        const assets = [
+            "genesis-builder",
+            "genesis",
+            "lib.bash",
+            "step-runner",
+        ];
 
         assets.forEach((f) =>
             fs.cpSync(
@@ -72,7 +77,7 @@ export class Genesis extends pulumi.ComponentResource {
             {
                 archivePaths: [path.join(tempDir, targetDir, "*")],
                 dir: path.join(tempDir, targetDir),
-                create: `bash ./genesis-builder ${archiveName} ${targetDir}`,
+                create: `bash ./genesis-builder ${archiveName}`,
                 environment: {
                     LEDGER_PATH: genesisConfig.ledgerPath,
                     IDENTITY_PUBKEY: genesisConfig.identityPubkey,
@@ -117,7 +122,7 @@ export class Genesis extends pulumi.ComponentResource {
                 connection,
                 create: pulumi.interpolate`
                   tar xvzf ${archiveName} && \
-                  bash ./${targetDir}/run-genesis && \
+                  bash ./${targetDir}/step-runner genesis ./${targetDir}/genesis && \
                   rm -rf ./${targetDir} ${archiveName}
               `,
                 triggers: [copyAssets.urn],

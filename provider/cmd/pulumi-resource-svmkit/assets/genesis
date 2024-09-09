@@ -1,7 +1,6 @@
 # -*- mode: shell-script -*-
 # shellcheck shell=bash
-
-source "$(dirname "$0")/lib.bash"
+source "$SCRIPTDIR/env"
 
 upgradeableLoader=BPFLoaderUpgradeab1e11111111111111111111111
 genesis_args=()
@@ -92,5 +91,3 @@ genesis::040::execute-solana-genesis () {
      --primordial-accounts-file /home/sol/primordial.yaml \
      "${genesis_args[@]}"
 }
-
-step::run "genesis::"
