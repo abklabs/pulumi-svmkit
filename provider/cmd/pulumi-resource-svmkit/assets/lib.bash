@@ -126,3 +126,33 @@ pulumi::config () {
 git::version () {
     git describe --tags --dirty 2>/dev/null || git rev-parse --short HEAD
 }
+
+env::kv () {
+    for varname in "$@" ; do
+	if [[ -v $varname ]] ; then
+	    printf "%s='%s'\n" "$varname" "${!varname}"
+	fi
+    done
+}
+
+env::write () {
+    local var fname mode
+
+    varname=$1 ; shift
+    fname=$1 ; shift
+
+    if [[ -v $varname ]] ; then
+	touch "$fname"
+
+	if [[ $# -gt 0 ]] ; then
+	    mode=$1 ; shift
+	    chmod "$mode" "$fname"
+	fi
+
+	printf "%s" "${!varname}" > "$fname"
+    fi
+}
+
+keypair::write () {
+    env::write "$@" 600
+}

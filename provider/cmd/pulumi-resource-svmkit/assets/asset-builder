@@ -6,35 +6,10 @@ SCRIPTDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ARCHIVE_FNAME=$1 ; shift
 
-create-keypair () {
-    local var fname
+keypair::write IDENTITY_KEYPAIR validator-keypair.json
+keypair::write VOTEACCOUNT_KEYPAIR vote-account-keypair.json
+keypair::write STAKEACCOUNT_KEYPAIR stake-keypair.json
 
-    varname=$1 ; shift
-    fname=$1 ; shift
-
-    if [[ -v $varname ]] ; then
-	touch "$fname"
-	chmod 600 "$fname"
-	printf "%s" "${!varname}" > "$fname"
-    fi
-}
-
-create-keypair IDENTITY_KEYPAIR validator-keypair.json
-create-keypair VOTEACCOUNT_KEYPAIR vote-account-keypair.json
-create-keypair STAKEACCOUNT_KEYPAIR stake-keypair.json
-
-touch env
-
-add-to-env () {
-    local varname
-    varname=$1 ; shift
-
-    if [[ -v $varname ]] ; then
-	printf "%s=\"%s\"\n" "$varname" "${!varname}" >> env
-    fi
-}
-
-add-to-env VALIDATOR_VARIANT
-add-to-env VALIDATOR_FLAGS
+env::kv VALIDATOR_VARIANT VALIDATOR_FLAGS > "env"
 
 (cd "$SCRIPTDIR/.." && tar cvzf "$ARCHIVE_FNAME" $(basename "$SCRIPTDIR"))
