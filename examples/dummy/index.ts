@@ -45,21 +45,37 @@ const instance = new aws.ec2.Instance("instance", {
     vpcSecurityGroupIds: [securityGroup.id],
 });
 
-const connection: command.types.input.remote.ConnectionArgs = {
-    host: instance.publicDns.apply(dns => dns.toString()),
+const host = instance.publicDns.apply(dns => dns.toString());
+
+const adminConnection: command.types.input.remote.ConnectionArgs = {
+    host,
     user: "admin",
     privateKey: pulumi.output(sshKey.privateKeyOpenssh).apply(key => key.toString()),
 };
 
 const wait = new svmkit.Wait("wait", {
-    connection,
+    connection: adminConnection,
 }, { dependsOn: [instance] });
 
+
+const sol = new svmkit.User("sol", {
+    connection: adminConnection,
+    username: "sol",
+}, { dependsOn: [wait] });
+
+const solConnection: command.types.input.remote.ConnectionArgs = {
+    host,
+    user: sol.name.apply(name => name.toString()),
+    privateKey: pulumi.output(sol.privKey).apply(key => key.toString()),
+};
+
+
 const validator = new svmkit.Validator("validator", {
-    connection,
+    connection: solConnection,
     voteAccount: voteAccount.json,
     identity: identity.json,
-}, { dependsOn: [wait] });
+}, { dependsOn: [sol] });
 
 export const publicDnsName = instance.publicDns;
 export const sshPrivateKey = sshKey.privateKeyOpenssh;
+export const solSshPrivateKey = sol.privKey;   

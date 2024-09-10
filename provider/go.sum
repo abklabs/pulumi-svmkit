@@ -469,6 +469,8 @@ github.com/pulumi/inflector v0.1.1 h1:dvlxlWtXwOJTUUtcYDvwnl6Mpg33prhK+7mzeF+Sob
 github.com/pulumi/inflector v0.1.1/go.mod h1:HUFCjcPTz96YtTuUlwG3i3EZG4WlniBvR9bd+iJxCUY=
 github.com/pulumi/pulumi-command/sdk v1.0.1 h1:ZuBSFT57nxg/fs8yBymUhKLkjJ6qmyN3gNvlY/idiN0=
 github.com/pulumi/pulumi-command/sdk v1.0.1/go.mod h1:C7sfdFbUIoXKoIASfXUbP/U9xnwPfxvz8dBpFodohlA=
+github.com/pulumi/pulumi-tls/sdk/v4 v4.11.1 h1:tXemWrzeVTqG8zq6hBdv1TdPFXjgZ+dob63a/6GlF1o=
+github.com/pulumi/pulumi-tls/sdk/v4 v4.11.1/go.mod h1:hODo3iEmmXDFOXqPK+V+vwI0a3Ww7BLjs5Tgamp86Ng=
 github.com/pulumi/pulumi/pkg/v3 v3.122.0 h1:zNVtNVCnV0ly757tw2nvGAeOIAbVZUYDaM8ZGOiqpJw=
 github.com/pulumi/pulumi/pkg/v3 v3.122.0/go.mod h1:h9OqV6ah5hAxY3KJ9lJXPUnWCv7pmSosYjsp42P9raQ=
 github.com/pulumi/pulumi/sdk/v3 v3.122.0 h1:rW/RJ1GRelCi/5VY1+7ppqeF0AblWyjyjgNffqw4dc4=

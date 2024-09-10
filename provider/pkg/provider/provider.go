@@ -30,6 +30,8 @@ func construct(ctx *pulumi.Context, typ, name string, inputs provider.ConstructI
 		return constructWait(ctx, name, inputs, options)
 	case "svmkit:index:KeyPair":
 		return constructKeyPair(ctx, name, inputs, options)
+	case "svmkit:index:User":
+		return constructUser(ctx, name, inputs, options)
 	default:
 		return nil, errors.Errorf("unknown resource type %s", typ)
 	}
@@ -87,4 +89,18 @@ func constructKeyPair(ctx *pulumi.Context, name string, inputs provider.Construc
 	}
 
 	return provider.NewConstructResult(keyPair)
+}
+
+func constructUser(ctx *pulumi.Context, name string, inputs provider.ConstructInputs, options pulumi.ResourceOption) (*provider.ConstructResult, error) {
+	args := &UserArgs{}
+	if err := inputs.CopyTo(args); err != nil {
+		return nil, errors.Wrap(err, "setting args")
+	}
+
+	user, err := NewUser(ctx, name, args, options)
+	if err != nil {
+		return nil, errors.Wrap(err, "creating component")
+	}
+
+	return provider.NewConstructResult(user)
 }

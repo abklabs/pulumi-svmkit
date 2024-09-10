@@ -2,7 +2,6 @@ package provider
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/gagliardetto/solana-go"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -16,13 +15,6 @@ type KeyPair struct {
 	PublicKey  pulumi.StringOutput   `pulumi:"publicKey"`
 	PrivateKey pulumi.IntArrayOutput `pulumi:"privateKey"`
 	Json       pulumi.StringOutput   `pulumi:"json"`
-}
-
-type KeyPairInput struct {
-	pulumi.ResourceInput
-
-	PublicKey  string `pulumi:"publicKey"`
-	PrivateKey string `pulumi:"privateKey" provider:"secret"`
 }
 
 func NewKeyPair(ctx *pulumi.Context, name string, args *KeyPairArgs, opts ...pulumi.ResourceOption) (*KeyPair, error) {
@@ -45,10 +37,6 @@ func NewKeyPair(ctx *pulumi.Context, name string, args *KeyPairArgs, opts ...pul
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Printf("publicKey: %s\n", publicKey)
-	fmt.Printf("privateKey: %v\n", privateKey)
-	fmt.Printf("json: %s\n", string(json))
 
 	keyPair.PublicKey = pulumi.ToOutput(publicKey).(pulumi.StringOutput)
 	keyPair.PrivateKey = pulumi.ToSecret(pulumi.Any(privateKey).AsIntArrayOutput()).(pulumi.IntArrayOutput)

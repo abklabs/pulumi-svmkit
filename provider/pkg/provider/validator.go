@@ -21,9 +21,11 @@ type Validator struct {
 	pulumi.ResourceState
 }
 
-const identityFile = "validator-keypair.json"
-const stakeAccountFile = "stake-keypair.json"
-const voteAccountFile = "vote-account-keypair.json"
+const (
+	identityFile     = "validator-keypair.json"
+	stakeAccountFile = "stake-keypair.json"
+	voteAccountFile  = "vote-account-keypair.json"
+)
 
 // NewValidator setups a solana validator
 func NewValidator(ctx *pulumi.Context,
@@ -35,34 +37,40 @@ func NewValidator(ctx *pulumi.Context,
 		return nil, errors.New("missing required argument 'Connection'")
 	}
 
-	args.Identity.ToStringOutput().ApplyT(func(pk string) (*remote.Command, error) {
-		cmd := fmt.Sprintf("echo %s > %s", pk, identityFile)
+	args.Connection.ToConnectionOutput().User().ApplyT(func(user *string) error {
+		homeDir := fmt.Sprintf("/home/%s", *user)
 
-		return remote.NewCommand(ctx, "identity", &remote.CommandArgs{
-			Create:     pulumi.String(cmd),
-			Connection: args.Connection,
-		})
-	})
+		args.Identity.ToStringOutput().ApplyT(func(pk string) (*remote.Command, error) {
+			cmd := fmt.Sprintf("echo %s > %s/%s", pk, homeDir, identityFile)
 
-	args.VoteAccount.ToStringOutput().ApplyT(func(pk string) (*remote.Command, error) {
-		cmd := fmt.Sprintf("echo %s > %s", pk, voteAccountFile)
-
-		return remote.NewCommand(ctx, "voteAccount", &remote.CommandArgs{
-			Create:     pulumi.String(cmd),
-			Connection: args.Connection,
-		})
-	})
-
-	if args.StakeAccount != nil {
-		(*args.StakeAccount).ToStringOutput().ApplyT(func(pk string) (*remote.Command, error) {
-			cmd := fmt.Sprintf("echo %s > %s", pk, stakeAccountFile)
-
-			return remote.NewCommand(ctx, "stakeAccount", &remote.CommandArgs{
+			return remote.NewCommand(ctx, "identity", &remote.CommandArgs{
 				Create:     pulumi.String(cmd),
 				Connection: args.Connection,
 			})
 		})
-	}
+
+		args.VoteAccount.ToStringOutput().ApplyT(func(pk string) (*remote.Command, error) {
+			cmd := fmt.Sprintf("echo %s > %s/%s", pk, homeDir, voteAccountFile)
+
+			return remote.NewCommand(ctx, "voteAccount", &remote.CommandArgs{
+				Create:     pulumi.String(cmd),
+				Connection: args.Connection,
+			})
+		})
+
+		if args.StakeAccount != nil {
+			(*args.StakeAccount).ToStringOutput().ApplyT(func(pk string) (*remote.Command, error) {
+				cmd := fmt.Sprintf("echo %s > %s/%s", pk, homeDir, stakeAccountFile)
+
+				return remote.NewCommand(ctx, "stakeAccount", &remote.CommandArgs{
+					Create:     pulumi.String(cmd),
+					Connection: args.Connection,
+				})
+			})
+		}
+
+		return nil
+	})
 
 	component := &Validator{}
 	err := ctx.RegisterComponentResource("svmkit:index:Validator", name, component, opts...)

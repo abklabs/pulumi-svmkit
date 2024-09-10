@@ -146,6 +146,27 @@ resources:
             - connection
         properties: {}
         required: []
+    svmkit:index:User:
+        isComponent: true
+        properties:
+            pubKey:
+                type: string
+            privKey:
+                type: string
+            name:
+                type: string
+        inputProperties:
+            connection:
+                $ref: /command/v1.0.1/schema.json#/types/command:remote:Connection
+            username:
+                type: string
+        requiredInputs:
+            - connection
+            - username
+        required:
+            - pubKey
+            - privKey
+            - name
 language:
     csharp:
         packageReferences:
