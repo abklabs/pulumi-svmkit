@@ -96,6 +96,12 @@ resources:
         inputProperties:
             connection:
                 $ref: /command/v1.0.1/schema.json#/types/command:remote:Connection
+            identity:
+                type: string
+            stakeAccount:
+                type: string
+            voteAccount:
+                type: string
             # triggers:
             #     type: array
             #     items:
@@ -113,22 +119,33 @@ resources:
             # - validatorConfig
         properties: {}
         required: []
-    # svmkit:index:KeyPair:
-    #     isComponent: true
-    #     inputProperties: {}
-    #     properties:
-    #         publicKey:
-    #             type: string
-    #         privateKey:
-    #             type: array
-    #             items:
-    #                 type: integer
-    #         json:
-    #             type: string
-    #     required:
-    #         - publicKey
-    #         - privateKey
-    #         - json
+    svmkit:index:KeyPair:
+        isComponent: true
+        inputProperties: {}
+        properties:
+            publicKey:
+                type: string
+            privateKey:
+                type: array
+                items:
+                    type: integer
+            json:
+                type: string
+        required:
+            - publicKey
+            - privateKey
+            - json
+    svmkit:index:Wait:
+        isComponent: true
+        inputProperties:
+            connection:
+                $ref: /command/v1.0.1/schema.json#/types/command:remote:Connection
+            customTimeout:
+                type: string
+        requiredInputs:
+            - connection
+        properties: {}
+        required: []
 language:
     csharp:
         packageReferences:
