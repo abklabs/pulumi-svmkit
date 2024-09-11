@@ -2,8 +2,8 @@ package provider
 
 import (
 	"errors"
-	"fmt"
 
+	"github.com/abklabs/pulumi-svmkit/pkg/agave"
 	"github.com/pulumi/pulumi-command/sdk/go/command/remote"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -14,6 +14,7 @@ type ValidatorArgs struct {
 	Identity     pulumi.StringInput     `pulumi:"identity" provider:"secret"`
 	StakeAccount *pulumi.StringInput    `pulumi:"stakeAccount,optional" provider:"secret"`
 	VoteAccount  pulumi.StringInput     `pulumi:"voteAccount" provider:"secret"`
+	User         pulumi.StringInput     `pulumi:"user"`
 }
 
 // The Validator component resource.
@@ -37,40 +38,45 @@ func NewValidator(ctx *pulumi.Context,
 		return nil, errors.New("missing required argument 'Connection'")
 	}
 
-	args.Connection.ToConnectionOutput().User().ApplyT(func(user *string) error {
-		homeDir := fmt.Sprintf("/home/%s", *user)
-
+	// Write the key pairs to the filesystem
+	args.User.ToStringOutput().ApplyT(func(user string) error {
 		args.Identity.ToStringOutput().ApplyT(func(pk string) (*remote.Command, error) {
-			cmd := fmt.Sprintf("echo %s > %s/%s", pk, homeDir, identityFile)
-
-			return remote.NewCommand(ctx, "identity", &remote.CommandArgs{
-				Create:     pulumi.String(cmd),
-				Connection: args.Connection,
+			return agave.WriteKeyPair(ctx, args.Connection, agave.KeyPairArgs{
+				Name:     "writeIdentityKeyPair",
+				Key:      pk,
+				User:     user,
+				FileName: identityFile,
 			})
 		})
 
 		args.VoteAccount.ToStringOutput().ApplyT(func(pk string) (*remote.Command, error) {
-			cmd := fmt.Sprintf("echo %s > %s/%s", pk, homeDir, voteAccountFile)
-
-			return remote.NewCommand(ctx, "voteAccount", &remote.CommandArgs{
-				Create:     pulumi.String(cmd),
-				Connection: args.Connection,
+			return agave.WriteKeyPair(ctx, args.Connection, agave.KeyPairArgs{
+				Name:     "writeVoteAccountKeyPair",
+				Key:      pk,
+				User:     user,
+				FileName: voteAccountFile,
 			})
 		})
 
 		if args.StakeAccount != nil {
 			(*args.StakeAccount).ToStringOutput().ApplyT(func(pk string) (*remote.Command, error) {
-				cmd := fmt.Sprintf("echo %s > %s/%s", pk, homeDir, stakeAccountFile)
-
-				return remote.NewCommand(ctx, "stakeAccount", &remote.CommandArgs{
-					Create:     pulumi.String(cmd),
-					Connection: args.Connection,
+				return agave.WriteKeyPair(ctx, args.Connection, agave.KeyPairArgs{
+					Name:     "writeStakeAccountKeyPair",
+					Key:      pk,
+					User:     user,
+					FileName: stakeAccountFile,
 				})
 			})
 		}
 
 		return nil
 	})
+
+	// Configure sysctl
+	agave.ConfigureSysctl(ctx, args.Connection)
+
+	// Set up UFW rules
+	agave.SetUfwRules(ctx, args.Connection)
 
 	component := &Validator{}
 	err := ctx.RegisterComponentResource("svmkit:index:Validator", name, component, opts...)

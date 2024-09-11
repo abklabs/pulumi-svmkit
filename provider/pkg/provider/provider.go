@@ -26,8 +26,8 @@ func construct(ctx *pulumi.Context, typ, name string, inputs provider.ConstructI
 	switch typ {
 	case "svmkit:index:Validator":
 		return constructValidator(ctx, name, inputs, options)
-	case "svmkit:index:Wait":
-		return constructWait(ctx, name, inputs, options)
+	case "svmkit:index:Ready":
+		return constructReady(ctx, name, inputs, options)
 	case "svmkit:index:KeyPair":
 		return constructKeyPair(ctx, name, inputs, options)
 	case "svmkit:index:User":
@@ -57,16 +57,16 @@ func constructValidator(ctx *pulumi.Context, name string, inputs provider.Constr
 	return provider.NewConstructResult(validator)
 }
 
-func constructWait(ctx *pulumi.Context, name string, inputs provider.ConstructInputs,
+func constructReady(ctx *pulumi.Context, name string, inputs provider.ConstructInputs,
 	options pulumi.ResourceOption) (*provider.ConstructResult, error) {
 
-	args := &WaitArgs{}
+	args := &ReadyArgs{}
 	if err := inputs.CopyTo(args); err != nil {
 		return nil, errors.Wrap(err, "setting args")
 	}
 
 	// Create the component resource.
-	wait, err := NewWait(ctx, name, args, options)
+	wait, err := NewReady(ctx, name, args, options)
 	if err != nil {
 		return nil, errors.Wrap(err, "creating component")
 	}

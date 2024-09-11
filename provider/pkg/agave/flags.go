@@ -1,4 +1,4 @@
-package solana
+package agave
 
 type ValidatorFlags struct {
 	EntryPoint                   []string

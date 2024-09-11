@@ -1,0 +1,4 @@
+name: aws-svm-network
+runtime: nodejs
+description: A full example of launching an SVM network on solana using the agave validator
+

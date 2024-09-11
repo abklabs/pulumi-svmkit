@@ -102,21 +102,13 @@ resources:
                 type: string
             voteAccount:
                 type: string
-            # triggers:
-            #     type: array
-            #     items:
-            #         $ref: pulumi.json#/Any
-            #     plain: true
-            # validatorConfig:
-            #     $ref: "#/types/svmkit:index:BackendValidatorConfig"
-            # dependsOn:
-            #     type: array
-            #     items:
-            #         $ref: pulumi.json#/Any
-            #     plain: true
+            user:
+                type: string
         requiredInputs:
             - connection
-            # - validatorConfig
+            - identity
+            - voteAccount
+            - user
         properties: {}
         required: []
     svmkit:index:KeyPair:
@@ -135,7 +127,7 @@ resources:
             - publicKey
             - privateKey
             - json
-    svmkit:index:Wait:
+    svmkit:index:Ready:
         isComponent: true
         inputProperties:
             connection:
@@ -149,10 +141,6 @@ resources:
     svmkit:index:User:
         isComponent: true
         properties:
-            pubKey:
-                type: string
-            privKey:
-                type: string
             name:
                 type: string
         inputProperties:
@@ -164,8 +152,6 @@ resources:
             - connection
             - username
         required:
-            - pubKey
-            - privKey
             - name
 language:
     csharp:
