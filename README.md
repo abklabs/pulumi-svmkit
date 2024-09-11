@@ -1,5 +1,12 @@
 # Pulumi SVMKit
 `Pulumi SVMKit` is our Infrastructure-as-Code (IaC) project for managing validators and networks, built on top of Pulumi. This tool allows developers and network operators to easily deploy and manage Solana Virtual Machine (SVM) validators and bootstrap nodes across various environments.
+
+## Disclaimer
+
+**This project is intended for use in testing environments only and is not yet considered production-ready.** 
+
+We are actively developing and improving the functionality. Users should exercise caution when deploying this software in mission-critical or production systems. Please report any issues or feedback to help us enhance its stability and reliability.
+
 ## What Does Pulumi SVMKit Do?
 
 `Pulumi SVMKit` simplifies the process of deploying and managing blockchain infrastructure for permissioned and permissionless networks. The current components include:
