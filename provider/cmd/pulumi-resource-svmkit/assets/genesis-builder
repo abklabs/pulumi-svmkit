@@ -19,6 +19,8 @@ env::kv \
     INFLATION \
     LAMPORTS_PER_BYTE_YEAR \
     SLOT_PER_EPOCH \
-    CLUSTER_TYPE > "env"
+    CLUSTER_TYPE \
+    PRIMORDIAL \
+    >"env"
 
 (cd "$SCRIPTDIR/.." && tar cvzf "$ARCHIVE_FNAME" $(basename "$SCRIPTDIR"))
