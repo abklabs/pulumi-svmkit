@@ -1,6 +1,6 @@
-import { BackendValidatorConfig } from "./backend";
+import { ValidatorFlags } from "./validator";
 
-export function generateAgaveValidatorFlags(config: BackendValidatorConfig) {
+export function flags(flags: ValidatorFlags) {
     const l: string[] = [];
 
     const b = (k: string, v: any) => {
@@ -19,31 +19,33 @@ export function generateAgaveValidatorFlags(config: BackendValidatorConfig) {
     s("identity", "/home/sol/validator-keypair.json");
     s("vote-account", "/home/sol/vote-account-keypair.json");
 
-    if (config.entryPoint) {
-        config.entryPoint.forEach((v) => s("entrypoint", v));
-    }
+    (flags.entryPoint || []).forEach((entrypoint) => {
+        s("entrypoint", entrypoint);
+    });
 
-    if (config.knownValidator) {
-        config.knownValidator.forEach((v) => s("known-validator", v));
-    }
+    (flags.knownValidator || []).forEach((knownValidator) => {
+        s("known-validator", knownValidator);
+    });
 
-    s("use-snapshot-archives-at-startup", config.useSnapshotArchivesAtStartup);
-    s("rpc-port", config.rpcPort);
-    s("dynamic-port-range", config.dynamicPortRange);
-    s("gossip-port", config.gossipPort);
-    s("rpc-bind-address", config.rpcBindAddress);
-    s("wal-recovery-mode", config.walRecoveryMode);
-    s("log", config.paths.log);
-    s("accounts", config.paths.accounts);
-    s("ledger", config.paths.ledger);
-    s("limit-ledger-size", config.limitLedgerSize);
-    s("block-production-method", config.blockProductionMethod);
-    s("tvu-receive-threads", config.tvuReceiveThreads);
-    s("full-snapshot-interval-slots", config.fullSnapshotIntervalSlots);
+    s("expected-genesis-hash", flags.expectedGenesisHash);
+    s("use-snapshot-archives-at-startup", flags.useSnapshotArchivesAtStartup);
+    s("rpc-port", flags.rpcPort);
+    s("dynamic-port-range", flags.dynamicPortRange);
+    s("gossip-port", flags.gossipPort);
+    s("rpc-bind-address", flags.rpcBindAddress);
+    s("wal-recovery-mode", flags.walRecoveryMode);
+    s("log", flags.paths.log);
+    s("accounts", flags.paths.accounts);
+    s("ledger", flags.paths.ledger);
+    s("limit-ledger-size", flags.limitLedgerSize);
+    s("block-production-method", flags.blockProductionMethod);
+    s("tvu-receive-threads", flags.tvuReceiveThreads);
+    s("full-snapshot-interval-slots", flags.fullSnapshotIntervalSlots);
 
-    b("no-wait-for-vote-to-start-leader", config.noWaitForVoteToStartLeader);
-    b("only-known-rpc", config.onlyKnownRPC);
-    b("private-rpc", config.privateRPC);
+    b("no-wait-for-vote-to-start-leader", flags.noWaitForVoteToStartLeader);
+    b("only-known-rpc", flags.onlyKnownRPC);
+    b("private-rpc", flags.privateRPC);
+    b("full-rpc-api", flags.fullRpcAPI);
 
     return l;
 }
