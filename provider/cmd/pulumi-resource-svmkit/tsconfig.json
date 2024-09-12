@@ -12,5 +12,5 @@
         "noImplicitReturns": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.ts", "provider.ts", "backend.ts", "keypair.ts", "agave.ts"]
+    "files": ["index.ts", "provider.ts", "validator.ts", "keypair.ts", "agave.ts", "stake.ts", "name.ts", "ready.ts"],
 }

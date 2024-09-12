@@ -15,9 +15,11 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 
-import { constructBackend } from "./backend";
+import { constructValidator } from "./validator";
 import { constructKeyPair } from "./keypair";
 import { constructGenesis } from "./genesis";
+import { constructStake } from "./stake";
+import { constructReady } from "./ready";
 
 export class Provider implements provider.Provider {
     constructor(
@@ -31,14 +33,17 @@ export class Provider implements provider.Provider {
         inputs: pulumi.Inputs,
         options: pulumi.ComponentResourceOptions,
     ): Promise<provider.ConstructResult> {
-        // TODO: Add support for additional component resources here.
         switch (type) {
-            case "svmkit:index:Backend":
-                return await constructBackend(name, inputs, options);
+            case "svmkit:index:Validator":
+                return await constructValidator(name, inputs, options);
             case "svmkit:index:KeyPair":
                 return await constructKeyPair(name, inputs, options);
             case "svmkit:index:Genesis":
                 return await constructGenesis(name, inputs, options);
+            case "svmkit:index:Stake":
+                return await constructStake(name, inputs, options);
+            case "svmkit:index:Ready":
+                return await constructReady(name, inputs, options);
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

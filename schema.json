@@ -1,7 +1,7 @@
 {
     "name": "svmkit",
     "types": {
-        "svmkit:index:GenesisConfig": {
+        "svmkit:index:GenesisFlags": {
             "type": "object",
             "properties": {
                 "ledgerPath": { "type": "string" },
@@ -22,10 +22,11 @@
                 "inflation": { "type": "string" },
                 "lamportsPerByteYear": { "type": "string" },
                 "slotPerEpoch": { "type": "string" },
-                "clusterType": { "type": "string" }
+                "clusterType": { "type": "string" },
+                "expectedGenesisHash": { "type": "string" }
             }
         },
-        "svmkit:index:BackendValidatorConfig": {
+        "svmkit:index:ValidatorFlags": {
             "type": "object",
             "properties": {
                 "identityKeyPair": { "type": "string" },
@@ -51,6 +52,9 @@
                 "walRecoveryMode": { "type": "string" },
                 "limitLedgerSize": { "type": "number" },
                 "blockProductionMethod": { "type": "string" },
+                "expectedGenesisHash": { "type": "string" },
+                "fullRpcApi": { "type": "boolean" },
+                "tvuReceiveThreads": { "type": "number" },
                 "paths": {
                     "type": "object",
                     "properties": {
@@ -59,7 +63,22 @@
                         "log": { "type": "string" }
                     }
                 }
-            }
+            },
+            "required": [
+                "identityKeyPair",
+                "voteAccountKeyPair",
+                "useSnapshotArchivesAtStartup",
+                "rpcPort",
+                "privateRPC",
+                "onlyKnownRPC",
+                "dynamicPortRange",
+                "gossipPort",
+                "rpcBindAddress",
+                "walRecoveryMode",
+                "limitLedgerSize",
+                "blockProductionMethod",
+                "paths"
+            ]
         }
     },
     "resources": {
@@ -69,38 +88,52 @@
                 "connection": {
                     "$ref": "/command/v1.0.1/schema.json#/types/command:remote:Connection"
                 },
-                "genesisConfig": {
-                    "$ref": "#/types/svmkit:index:GenesisConfig"
+                "flags": {
+                    "$ref": "#/types/svmkit:index:GenesisFlags"
                 },
-                "triggers": {
+                "primordial": {
                     "type": "array",
-                    "items": { "$ref": "pulumi.json#/Any" },
-                    "plain": true
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
                 }
             },
-            "requiredInputs": ["connection", "genesisConfig"]
+            "properties": {
+                "genesisHash": {
+                    "type": "string"
+                }
+            },
+            "requiredInputs": ["connection", "flags"],
+            "required": ["genesisHash"]
         },
-        "svmkit:index:Backend": {
+        "svmkit:index:Ready": {
+            "isComponent": true,
+            "inputProperties": {
+                "timeout": {
+                    "type": "string"
+                },
+                "connection": {
+                    "$ref": "/command/v1.0.1/schema.json#/types/command:remote:Connection"
+                }
+            },
+            "properties": {},
+            "requiredInputs": ["connection"],
+            "required": []
+        },
+        "svmkit:index:Validator": {
             "isComponent": true,
             "inputProperties": {
                 "connection": {
                     "$ref": "/command/v1.0.1/schema.json#/types/command:remote:Connection"
                 },
-                "triggers": {
-                    "type": "array",
-                    "items": { "$ref": "pulumi.json#/Any" },
-                    "plain": true
-                },
-                "validatorConfig": {
-                    "$ref": "#/types/svmkit:index:BackendValidatorConfig"
-                },
-                "dependsOn": {
-                    "type": "array",
-                    "items": { "$ref": "pulumi.json#/Any" },
-                    "plain": true
+                "flags": {
+                    "$ref": "#/types/svmkit:index:ValidatorFlags"
                 }
             },
-            "requiredInputs": ["connection", "validatorConfig"],
+            "requiredInputs": ["connection", "flags"],
             "properties": {},
             "required": []
         },
