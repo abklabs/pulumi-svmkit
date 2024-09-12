@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-SCRIPTDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPTDIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 . "$SCRIPTDIR/lib.bash"
 
-ARCHIVE_FNAME=$1 ; shift
+ARCHIVE_FNAME=$1
+shift
 
 env::kv \
     LEDGER_PATH \

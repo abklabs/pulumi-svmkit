@@ -5,7 +5,7 @@ source "$SCRIPTDIR/env"
 upgradeableLoader=BPFLoaderUpgradeab1e11111111111111111111111
 genesis_args=()
 
-fetch-program () {
+fetch-program() {
     local name=$1
     local version=$2
     local address=$3
@@ -40,22 +40,22 @@ fetch-program () {
     fi
 }
 
-genesis::000::create-sol-user () {
-    id sol > /dev/null 2>&1 || $SUDO adduser --disabled-password --gecos "" sol
+genesis::000::create-sol-user() {
+    id sol >/dev/null 2>&1 || $SUDO adduser --disabled-password --gecos "" sol
 }
 
-genesis::010::install-dependencies () {
+genesis::010::install-dependencies() {
     $APT update
     $APT install -y curl gnupg bzip2
     if ! grep -q "^deb .*/zuma dev main" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
         curl -s https://apt.abklabs.com/keys/abklabs-archive-dev.asc | $SUDO apt-key add -
-        echo "deb https://apt.abklabs.com/zuma dev main" | $SUDO tee /etc/apt/sources.list.d/zuma.list > /dev/null
+        echo "deb https://apt.abklabs.com/zuma dev main" | $SUDO tee /etc/apt/sources.list.d/zuma.list >/dev/null
         $SUDO apt-get update
     fi
-    $APT install zuma-solana-genesis
+    $APT install zuma-solana-genesis zuma-solana-cli
 }
 
-genesis::020::fetch-all-programs () {
+genesis::020::fetch-all-programs() {
     fetch-program token 3.5.0 TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111
     fetch-program token-2022 0.9.0 TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb BPFLoaderUpgradeab1e11111111111111111111111
     fetch-program memo 1.0.0 Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111
@@ -64,30 +64,49 @@ genesis::020::fetch-all-programs () {
     fetch-program feature-proposal 1.0.0 Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111
 }
 
-genesis::030::write-primordial-accounts-file () {
-    cat <<EOF | $SUDO -u sol tee /home/sol/primordial.yaml > /dev/null
-$IDENTITY_PUBKEY:
-  balance: ${PRIMORDIAL_BALANCE:-100000000000000000}
+genesis::030::write-primordial-accounts-file() {
+    $SUDO -u sol tee /home/sol/primordial.yaml </dev/null >/dev/null
+
+    if [[ -z "$PRIMORDIAL" ]]; then
+        log::info "PRIMORDIAL variable is not set or empty. Primordial file will be empty."
+        return 0
+    fi
+
+    local primordial=(${PRIMORDIAL//,/ })
+    if ((${#primordial[@]} % 2 != 0)); then
+        log::error "PRIMORDIAL variable should contain an even number of elements."
+        return 1
+    fi
+
+    log::info "Debug: Primordial array contains ${#primordial[@]} elements."
+    for ((i = 0; i < ${#primordial[@]}; i += 2)); do
+        local pubkey=${primordial[i]}
+        local lamports=${primordial[i + 1]}
+        log::info "Processing $pubkey with $lamports lamports."
+        cat <<EOF | $SUDO -u sol tee -a /home/sol/primordial.yaml >/dev/null
+$pubkey:
+  balance: $lamports
   owner: 11111111111111111111111111111111
   executable: false
   data:
 EOF
+    done
 }
 
-genesis::040::execute-solana-genesis () {
+genesis::040::execute-solana-genesis() {
     $SUDO -u sol solana-genesis \
-     --ledger $LEDGER_PATH \
-     --bootstrap-validator \
-      $IDENTITY_PUBKEY \
-      $VOTE_PUBKEY \
-      $STAKE_PUBKEY \
-     --faucet-pubkey $FAUCET_PUBKEY \
-     --faucet-lamports $FAUCET_LAMPORTS \
-     --target-lamports-per-signature $TARGET_LAMPORTS_PER_SIGNATURE \
-     --inflation $INFLATION \
-     --lamports-per-byte-year $LAMPORTS_PER_BYTE_YEAR \
-     --slots-per-epoch $SLOT_PER_EPOCH \
-     --cluster-type $CLUSTER_TYPE \
-     --primordial-accounts-file /home/sol/primordial.yaml \
-     "${genesis_args[@]}"
+        --ledger $LEDGER_PATH \
+        --bootstrap-validator \
+        $IDENTITY_PUBKEY \
+        $VOTE_PUBKEY \
+        $STAKE_PUBKEY \
+        --faucet-pubkey $FAUCET_PUBKEY \
+        --faucet-lamports $FAUCET_LAMPORTS \
+        --target-lamports-per-signature $TARGET_LAMPORTS_PER_SIGNATURE \
+        --inflation $INFLATION \
+        --lamports-per-byte-year $LAMPORTS_PER_BYTE_YEAR \
+        --slots-per-epoch $SLOT_PER_EPOCH \
+        --cluster-type $CLUSTER_TYPE \
+        --primordial-accounts-file /home/sol/primordial.yaml \
+        "${genesis_args[@]}"
 }
