@@ -84,13 +84,15 @@ const ready = new svmkit.Ready(
     { dependsOn: [instance] },
 );
 
-const backendSetup = new svmkit.Validator(
+new svmkit.Validator(
     "validator",
     {
         connection,
+        keyPairs: {
+            identity: validatorKey.json,
+            voteAccount: voteAccountKey.json,
+        },
         flags: {
-            identityKeyPair: validatorKey.json,
-            voteAccountKeyPair: voteAccountKey.json,
             entryPoint: [
                 "entrypoint.testnet.solana.com:8001",
                 "entrypoint2.testnet.solana.com:8001",
@@ -113,7 +115,6 @@ const backendSetup = new svmkit.Validator(
             walRecoveryMode: "skip_any_corrupted_record",
             limitLedgerSize: 50000000,
             blockProductionMethod: "central-scheduler",
-            tvuReceiveThreads: 2,
             paths,
         },
     },

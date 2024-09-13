@@ -3,45 +3,22 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 
 import * as pulumi from "@pulumi/pulumi";
-import type { Input } from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 import * as command from "@pulumi/command";
+import * as hasher from "./hasher";
 import { flags } from "./agave";
+import type { ValidatorFlags, ValidatorKeyPairs } from "./agave";
 import { naming } from "./name";
 
-export interface ValidatorFlags {
-    identityKeyPair: string;
-    voteAccountKeyPair: string;
-    stakeAccountKeyPair?: string;
-    entryPoint?: string[];
-    knownValidator?: string[];
-    useSnapshotArchivesAtStartup: string;
-    rpcPort: number;
-    privateRPC: boolean;
-    onlyKnownRPC: boolean;
-    dynamicPortRange: string;
-    gossipPort: number;
-    rpcBindAddress: string;
-    walRecoveryMode: string;
-    limitLedgerSize: number;
-    blockProductionMethod: string;
-    tvuReceiveThreads?: number;
-    noWaitForVoteToStartLeader: boolean;
-    fullSnapshotIntervalSlots: number;
-    expectedGenesisHash?: string;
-    fullRpcAPI?: boolean;
-    paths: {
-        accounts: string;
-        ledger: string;
-        log: string;
-    };
-}
-
-export interface ValidatorArgs {
+export type ValidatorArgs = {
     connection: command.types.input.remote.ConnectionArgs;
+    // The validator variant to use.  Defaults to 'agave'.
     variant?: string;
+    // Flags to pass to the validator binary.
     flags: ValidatorFlags;
-}
+    // Key pairs for the validator.
+    keyPairs: ValidatorKeyPairs;
+};
 
 export class Validator extends pulumi.ComponentResource {
     constructor(
@@ -89,6 +66,17 @@ export class Validator extends pulumi.ComponentResource {
 
         const archiveName = `${targetDir}.tar.gz`;
 
+        const files = fs.readdirSync(path.join(tempDir, targetDir)).sort();
+
+        const buffers = files.map((file) => {
+            const filePath = path.join(tempDir, targetDir, file);
+            return fs.readFileSync(filePath);
+        });
+
+        const hash = hasher.compute(buffers);
+
+        console.log(`validator builder hash: ${hash}`);
+
         const assetBuilder = new command.local.Command(
             tag("asset", "builder"),
             {
@@ -97,16 +85,11 @@ export class Validator extends pulumi.ComponentResource {
                 create: `bash ./validator-builder ${archiveName}`,
                 environment: {
                     VALIDATOR_VARIANT,
-                    // Note: these flags are currently "Agave
-                    // specific", but all of our validator
-                    // variants are either based off of Agave or
-                    // the upstream Solana Labs variant.  This can
-                    // get changed in future.
                     VALIDATOR_FLAGS: flags(args.flags).join(" "),
-                    IDENTITY_KEYPAIR: args.flags.identityKeyPair,
-                    VOTEACCOUNT_KEYPAIR: args.flags.voteAccountKeyPair,
-                    STAKEACCOUNT_KEYPAIR: args.flags.stakeAccountKeyPair ?? "",
+                    IDENTITY_KEYPAIR: args.keyPairs.identity,
+                    VOTEACCOUNT_KEYPAIR: args.keyPairs.voteAccount,
                 },
+                triggers: [hash],
             },
             {
                 parent,
@@ -121,7 +104,6 @@ export class Validator extends pulumi.ComponentResource {
                 connection,
                 localPath: pulumi.output(path.join(tempDir, archiveName)),
                 remotePath: archiveName,
-                triggers: [assetBuilder],
             },
             {
                 parent,
@@ -144,7 +126,6 @@ export class Validator extends pulumi.ComponentResource {
                     `rm -rf ${targetDir} ${archiveName}`,
                 ].join(" && "),
                 environment: {},
-                triggers: [copyAssets],
             },
             {
                 parent,

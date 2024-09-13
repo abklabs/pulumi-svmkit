@@ -1,6 +1,22 @@
 {
     "name": "svmkit",
     "types": {
+        "svmkit:index:VoteTransactionParams": {
+            "type": "object",
+            "properties": {
+                "commission": { "type": "number" },
+                "authorizedWithdrawer": {
+                    "type": "string"
+                },
+                "voteAccount": {
+                    "type": "string"
+                },
+                "identity": {
+                    "type": "string"
+                }
+            },
+            "required": ["authorizedWithdrawer", "voteAccount", "identity"]
+        },
         "svmkit:index:GenesisFlags": {
             "type": "object",
             "properties": {
@@ -26,12 +42,30 @@
                 "expectedGenesisHash": { "type": "string" }
             }
         },
+        "svmkit:index:ValidatorPaths": {
+            "type": "object",
+            "properties": {
+                "accounts": { "type": "string" },
+                "ledger": { "type": "string" },
+                "log": { "type": "string" }
+            },
+            "required": ["accounts", "ledger", "log"]
+        },
+        "svmkit:index:ValidatorKeyPairs": {
+            "type": "object",
+            "properties": {
+                "identity": {
+                    "type": "string"
+                },
+                "voteAccount": {
+                    "type": "string"
+                }
+            },
+            "required": ["identity", "voteAccount"]
+        },
         "svmkit:index:ValidatorFlags": {
             "type": "object",
             "properties": {
-                "identityKeyPair": { "type": "string" },
-                "voteAccountKeyPair": { "type": "string" },
-                "stakeAccountKeyPair": { "type": "string" },
                 "entryPoint": {
                     "type": "array",
                     "items": { "type": "string" }
@@ -53,20 +87,14 @@
                 "limitLedgerSize": { "type": "number" },
                 "blockProductionMethod": { "type": "string" },
                 "expectedGenesisHash": { "type": "string" },
-                "fullRpcApi": { "type": "boolean" },
+                "fullRpcAPI": { "type": "boolean" },
                 "tvuReceiveThreads": { "type": "number" },
+                "noVoting": { "type": "boolean" },
                 "paths": {
-                    "type": "object",
-                    "properties": {
-                        "accounts": { "type": "string" },
-                        "ledger": { "type": "string" },
-                        "log": { "type": "string" }
-                    }
+                    "$ref": "#/types/svmkit:index:ValidatorPaths"
                 }
             },
             "required": [
-                "identityKeyPair",
-                "voteAccountKeyPair",
                 "useSnapshotArchivesAtStartup",
                 "rpcPort",
                 "privateRPC",
@@ -131,9 +159,15 @@
                 },
                 "flags": {
                     "$ref": "#/types/svmkit:index:ValidatorFlags"
+                },
+                "keyPairs": {
+                    "$ref": "#/types/svmkit:index:ValidatorKeyPairs"
+                },
+                "variant": {
+                    "type": "string"
                 }
             },
-            "requiredInputs": ["connection", "flags"],
+            "requiredInputs": ["connection", "flags", "keyPairs"],
             "properties": {},
             "required": []
         },
@@ -151,6 +185,24 @@
                 "json": { "type": "string" }
             },
             "required": ["publicKey", "privateKey", "json"]
+        },
+        "svmkit:index:Vote": {
+            "isComponent": true,
+            "inputProperties": {
+                "endpoint": {
+                    "type": "string"
+                },
+                "params": {
+                    "$ref": "#/types/svmkit:index:VoteTransactionParams"
+                }
+            },
+            "requiredInputs": ["endpoint", "params"],
+            "properties": {
+                "signature": {
+                    "type": "string"
+                }
+            },
+            "required": ["signature"]
         }
     },
     "language": {

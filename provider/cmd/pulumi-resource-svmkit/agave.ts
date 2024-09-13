@@ -1,4 +1,40 @@
-import { ValidatorFlags } from "./validator";
+export const RPC_PORT = 8899;
+export const GOSSIP_PORT = 8001;
+
+export type ValidatorPaths = {
+    accounts: string;
+    ledger: string;
+    log: string;
+};
+
+export type ValidatorFlags = {
+    entryPoint?: string[];
+    knownValidator?: string[];
+    useSnapshotArchivesAtStartup: string;
+    rpcPort: number;
+    privateRPC: boolean;
+    onlyKnownRPC: boolean;
+    dynamicPortRange: string;
+    gossipPort: number;
+    rpcBindAddress: string;
+    walRecoveryMode: string;
+    limitLedgerSize: number;
+    blockProductionMethod: string;
+    tvuReceiveThreads?: number;
+    noWaitForVoteToStartLeader: boolean;
+    fullSnapshotIntervalSlots: number;
+    expectedGenesisHash?: string;
+    fullRpcAPI?: boolean;
+    noVoting?: boolean;
+    paths: ValidatorPaths;
+};
+
+export type ValidatorKeyPairs = {
+    identity: string;
+    voteAccount: string;
+    authorizedWithdrawer: string;
+    stakeAccount?: string;
+};
 
 export function flags(flags: ValidatorFlags) {
     const l: string[] = [];
@@ -46,6 +82,7 @@ export function flags(flags: ValidatorFlags) {
     b("only-known-rpc", flags.onlyKnownRPC);
     b("private-rpc", flags.privateRPC);
     b("full-rpc-api", flags.fullRpcAPI);
+    b("no-voting", flags.noVoting);
 
     return l;
 }

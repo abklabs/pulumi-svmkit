@@ -20,6 +20,9 @@ import { constructKeyPair } from "./keypair";
 import { constructGenesis } from "./genesis";
 import { constructStake } from "./stake";
 import { constructReady } from "./ready";
+import { constructVote } from "./vote";
+
+export { RPC_PORT, GOSSIP_PORT } from "./agave";
 
 export class Provider implements provider.Provider {
     constructor(
@@ -44,6 +47,8 @@ export class Provider implements provider.Provider {
                 return await constructStake(name, inputs, options);
             case "svmkit:index:Ready":
                 return await constructReady(name, inputs, options);
+            case "svmkit:index:Vote":
+                return await constructVote(name, inputs, options);
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

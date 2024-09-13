@@ -53,6 +53,7 @@ setup::130::configure-firewall() {
     $SUDO ufw allow ssh
     $SUDO ufw allow 8000:8020/tcp
     $SUDO ufw allow 8000:8020/udp
+    # TODO: Only open for RPC nodes
     $SUDO ufw allow 8899/tcp
     $SUDO ufw allow 8899/udp
     $SUDO ufw --force enable

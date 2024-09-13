@@ -2,14 +2,15 @@
 
 set -euo pipefail
 SCRIPTDIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
 . "$SCRIPTDIR/lib.bash"
 
 ARCHIVE_FNAME=$1
 shift
 
-keypair::write IDENTITY_KEYPAIR validator-keypair.json
-keypair::write VOTEACCOUNT_KEYPAIR vote-account-keypair.json
+keypair::write AUTHORIZED_WITHDRAWER_KEYPAIR authorized-withdrawer-keypair.json
 
-env::kv VALIDATOR_VARIANT VALIDATOR_FLAGS >"env"
+env::kv \
+  REWARDS_COMMISSION >"env"
 
 (cd "$SCRIPTDIR/.." && tar cvzf "$ARCHIVE_FNAME" $(basename "$SCRIPTDIR"))

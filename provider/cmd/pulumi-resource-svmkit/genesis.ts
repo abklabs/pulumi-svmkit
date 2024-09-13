@@ -7,7 +7,11 @@ import type { Input } from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 import * as command from "@pulumi/command";
 import { naming } from "./name";
+import * as hasher from "./hasher";
 
+/**
+ * Interface representing the flags required for the Genesis process.
+ */
 export interface GenesisFlags {
     ledgerPath: string;
     identityPubkey: string;
@@ -22,6 +26,9 @@ export interface GenesisFlags {
     clusterType?: string;
 }
 
+/**
+ * Interface representing the configuration for primordial entries.
+ */
 export interface PrimordialConfig {
     treasuryPubkey: Input<string>;
     treasuryLamports?: string;
@@ -29,17 +36,33 @@ export interface PrimordialConfig {
     initialValidatorLamports?: string;
 }
 
+/**
+ * Type representing a primordial entry as a tuple of public key and lamports.
+ */
 export type PrimordialEntry = [publicKey: string, lamports: string];
 
+/**
+ * Interface representing the arguments required for the Genesis class.
+ */
 export interface GenesisArgs {
     connection: command.types.input.remote.ConnectionArgs;
     flags: GenesisFlags;
     primordial?: PrimordialEntry[];
 }
 
+/**
+ * Class representing the Genesis component resource.
+ */
 export class Genesis extends pulumi.ComponentResource {
     public readonly genesisHash: pulumi.Output<string>;
 
+    /**
+     * Constructs a new Genesis component resource.
+     *
+     * @param name - The name of the resource.
+     * @param args - The arguments required to create the resource.
+     * @param opts - Optional settings to control the resource's behavior.
+     */
     constructor(
         name: string,
         args: GenesisArgs,
@@ -48,10 +71,9 @@ export class Genesis extends pulumi.ComponentResource {
         super("svmkit:index:Genesis", name, args, opts);
         const parent = this;
 
-        const tag = naming(name);
-
         const { connection, flags, primordial } = args;
         const targetDir = "svmkit-genesis";
+        const archiveName = `${targetDir}.tar.gz`;
 
         const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), `${targetDir}-`));
 
@@ -69,12 +91,19 @@ export class Genesis extends pulumi.ComponentResource {
             ),
         );
 
-        const archiveName = `${targetDir}.tar.gz`;
+        const files = fs.readdirSync(path.join(tempDir, targetDir)).sort();
+
+        const buffers = files.map((file) => {
+            const filePath = path.join(tempDir, targetDir, file);
+            return fs.readFileSync(filePath);
+        });
+
+        const hash = hasher.compute(buffers);
 
         const PRIMORDIAL = primordial ? primordial.flat().join(",") : "";
 
         const assetBuilder = new command.local.Command(
-            tag("asset", "builder"),
+            "asset-builder",
             {
                 archivePaths: [path.join(tempDir, targetDir, "*")],
                 dir: path.join(tempDir, targetDir),
@@ -94,6 +123,7 @@ export class Genesis extends pulumi.ComponentResource {
                     CLUSTER_TYPE: flags.clusterType ?? "development",
                     PRIMORDIAL,
                 },
+                triggers: [hash],
             },
             {
                 parent,
@@ -101,12 +131,11 @@ export class Genesis extends pulumi.ComponentResource {
         );
 
         const copyAssets = new command.remote.CopyFile(
-            tag("copy", "assets"),
+            "copy-assets",
             {
                 connection,
                 localPath: pulumi.output(path.join(tempDir, archiveName)),
                 remotePath: archiveName,
-                triggers: [assetBuilder],
             },
             {
                 parent,
@@ -119,7 +148,7 @@ export class Genesis extends pulumi.ComponentResource {
         );
 
         const setupGenesis = new command.remote.Command(
-            tag("setup", "genesis"),
+            "setup-genesis",
             {
                 connection,
                 create: [
@@ -127,7 +156,6 @@ export class Genesis extends pulumi.ComponentResource {
                     `bash ./${targetDir}/step-runner genesis ./${targetDir}/genesis`,
                     `rm -rf ./${targetDir} ${archiveName}`,
                 ].join(" && "),
-                triggers: [copyAssets.urn],
             },
             {
                 parent,
@@ -136,7 +164,7 @@ export class Genesis extends pulumi.ComponentResource {
         );
 
         const genesisHashCommand = new command.remote.Command(
-            tag("genesis", "hash"),
+            "genesis-hash",
             {
                 connection,
                 create: "solana genesis-hash",

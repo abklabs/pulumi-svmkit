@@ -23,6 +23,9 @@ const faucetKey = new svmkit.KeyPair("faucet-key");
 // Treasury used to distribute stake
 const treasuryKey = new svmkit.KeyPair("treasury-key");
 
+// Authority to withdraw validator rewards
+const authorizedWithdrawer = new svmkit.KeyPair("authorized-withdrawer-key");
+
 // Bootstrap node
 const bootstrapIdentityKey = new svmkit.KeyPair("identity-key-bootstrap");
 const bootstrapVoteAccountKey = new svmkit.KeyPair(
@@ -36,7 +39,6 @@ const bootstrapStakeAccountKey = new svmkit.KeyPair(
 const validatorKeys = Array.from({ length: numValidators }, (_, i) => ({
     identity: new svmkit.KeyPair(`identity-key-${i}`),
     voteAccount: new svmkit.KeyPair(`vote-account-key-${i}`),
-    stakeAccount: new svmkit.KeyPair(`stake-account-key-${i}`),
 }));
 
 const paths = {
@@ -194,23 +196,24 @@ const bootstrapValidator = new svmkit.Validator(
     {
         connection,
         flags: {
-            identityKeyPair: bootstrapIdentityKey.json,
-            voteAccountKeyPair: bootstrapVoteAccountKey.json,
-            stakeAccountKeyPair: bootstrapStakeAccountKey.json,
             useSnapshotArchivesAtStartup: "when-newest",
             rpcPort: 8899,
             privateRPC: false,
             onlyKnownRPC: false,
+            fullRpcAPI: true,
             dynamicPortRange: "8002-8020",
             gossipPort: 8001,
             rpcBindAddress: "0.0.0.0",
             walRecoveryMode: "skip_any_corrupted_record",
             limitLedgerSize: 50000000,
             blockProductionMethod: "central-scheduler",
-            tvuReceiveThreads: 2,
             noWaitForVoteToStartLeader: true,
             fullSnapshotIntervalSlots: 1000,
             paths,
+        },
+        keyPairs: {
+            identity: bootstrapIdentityKey.json,
+            voteAccount: bootstrapVoteAccountKey.json,
         },
     },
     { dependsOn: genesis },
@@ -229,6 +232,7 @@ export const VALIDATOR_PUBLIC_DNS_NAMES = pulumi
             string,
         ]) => {
             const entrypoint = `${publicIp}:8001`;
+
             const flags = {
                 entryPoint: [entrypoint],
                 knownValidator: [bootstrapPubkey],
@@ -243,7 +247,6 @@ export const VALIDATOR_PUBLIC_DNS_NAMES = pulumi
                 walRecoveryMode: "skip_any_corrupted_record",
                 limitLedgerSize: 50000000,
                 blockProductionMethod: "central-scheduler",
-                tvuReceiveThreads: 2,
                 paths,
             };
 
@@ -268,18 +271,47 @@ export const VALIDATOR_PUBLIC_DNS_NAMES = pulumi
                     connection,
                 });
 
-                new svmkit.Validator(
+                const validator = new svmkit.Validator(
                     `validator-${i}`,
                     {
                         connection,
-                        flags: {
-                            ...flags,
-                            identityKeyPair: keys.identity.json,
-                            voteAccountKeyPair: keys.voteAccount.json,
+                        flags,
+                        keyPairs: {
+                            identity: keys.identity.json,
+                            voteAccount: keys.voteAccount.json,
                         },
                     },
                     { dependsOn: [instance, bootstrapValidator, ready] },
                 );
+
+                pulumi
+                    .all([
+                        authorizedWithdrawer.json,
+                        keys.voteAccount.json,
+                        keys.identity.json,
+                    ])
+                    .apply(
+                        ([authorizedWithdrawer, voteAccount, identity]: [
+                            string,
+                            string,
+                            string,
+                        ]) => {
+                            const endpoint = `http://${publicIp}:8899`;
+
+                            new svmkit.Vote(
+                                `vote-${i}`,
+                                {
+                                    endpoint,
+                                    params: {
+                                        authorizedWithdrawer,
+                                        voteAccount,
+                                        identity,
+                                    },
+                                },
+                                { dependsOn: validator },
+                            );
+                        },
+                    );
 
                 return instance;
             });
