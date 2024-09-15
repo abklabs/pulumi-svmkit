@@ -4,7 +4,7 @@ This repository is a boilerplate showing how to create and locally test a native
 
 ## Authoring a Pulumi Native Provider
 
-This boilerplate creates a working Pulumi-owned provider named `xyz`.
+This boilerplate creates a working Pulumi-owned provider named `svm`.
 It implements a random number generator that you can [build and test out for yourself](#test-against-the-example) and then replace the Random code with code specific to your provider.
 
 
@@ -39,8 +39,8 @@ Pulumi offers this repository as a [GitHub template repository](https://docs.git
 1. Click "Use this template".
 1. Set the following options:
    * Owner: pulumi 
-   * Repository name: pulumi-xyz-native (replace "xyz" with the name of your provider)
-   * Description: Pulumi provider for xyz
+   * Repository name: pulumi-svm-native (replace "svm" with the name of your provider)
+   * Description: Pulumi provider for svm
    * Repository type: Public
 1. Clone the generated repository.
 
@@ -55,9 +55,9 @@ From the templated repository:
    This will do the following:
    - rename folders in `provider/cmd` to `pulumi-resource-{NAME}`
    - replace dependencies in `provider/go.mod` to reflect your repository name
-   - find and replace all instances of the boilerplate `xyz` with the `NAME` of your provider.
-   - find and replace all instances of the boilerplate `abc` with the `ORG` of your provider.
-   - replace all instances of the `github.com/pulumi/pulumi-xyz` repository with the `REPOSITORY` location
+   - find and replace all instances of the boilerplate `svm` with the `NAME` of your provider.
+   - find and replace all instances of the boilerplate `abklabs` with the `ORG` of your provider.
+   - replace all instances of the `github.com/abklabs/pulumi-svm` repository with the `REPOSITORY` location
 
 #### Build the provider and install the plugin
 
@@ -76,7 +76,7 @@ This will:
    
 ```bash
 $ cd examples/simple
-$ yarn link @pulumi/xyz
+$ yarn link @pulumi/svm
 $ yarn install
 $ pulumi stack init test
 $ pulumi up
@@ -89,9 +89,9 @@ Now that you have completed all of the above steps, you have a working provider 
 You now have:
 
 1. A `provider/` folder containing the building and implementation logic
-    1. `cmd/pulumi-resource-xyz/main.go` - holds the provider's sample implementation logic.
+    1. `cmd/pulumi-resource-svm/main.go` - holds the provider's sample implementation logic.
 2. `deployment-templates` - a set of files to help you around deployment and publication
-3. `sdk` - holds the generated code libraries created by `pulumi-gen-xyz/main.go`
+3. `sdk` - holds the generated code libraries created by `pulumi-gen-svm/main.go`
 4. `examples` a folder of Pulumi programs to try locally and/or use in CI.
 5. A `Makefile` and this `README`.
 
