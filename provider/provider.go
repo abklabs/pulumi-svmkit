@@ -18,7 +18,6 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 )
 
 // Version is initialized by the Go linker to contain the semver of this build.
@@ -32,9 +31,7 @@ func Provider() p.Provider {
 	return infer.Provider(infer.Options{
 		Resources: []infer.InferredResource{
 			infer.Resource[svm.KeyPair, svm.KeyPairArgs, svm.KeyPairState](),
-		},
-		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
-			"provider": "index",
+			infer.Resource[svm.Validator, svm.ValidatorArgs, svm.ValidatorState](),
 		},
 	})
 }
