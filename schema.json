@@ -1,7 +1,23 @@
 {
     "name": "svmkit",
     "types": {
-        "svmkit:index:GenesisConfig": {
+        "svmkit:index:VoteTransactionParams": {
+            "type": "object",
+            "properties": {
+                "commission": { "type": "number" },
+                "authorizedWithdrawer": {
+                    "type": "string"
+                },
+                "voteAccount": {
+                    "type": "string"
+                },
+                "identity": {
+                    "type": "string"
+                }
+            },
+            "required": ["authorizedWithdrawer", "voteAccount", "identity"]
+        },
+        "svmkit:index:GenesisFlags": {
             "type": "object",
             "properties": {
                 "ledgerPath": { "type": "string" },
@@ -22,15 +38,34 @@
                 "inflation": { "type": "string" },
                 "lamportsPerByteYear": { "type": "string" },
                 "slotPerEpoch": { "type": "string" },
-                "clusterType": { "type": "string" }
+                "clusterType": { "type": "string" },
+                "expectedGenesisHash": { "type": "string" }
             }
         },
-        "svmkit:index:BackendValidatorConfig": {
+        "svmkit:index:ValidatorPaths": {
             "type": "object",
             "properties": {
-                "identityKeyPair": { "type": "string" },
-                "voteAccountKeyPair": { "type": "string" },
-                "stakeAccountKeyPair": { "type": "string" },
+                "accounts": { "type": "string" },
+                "ledger": { "type": "string" },
+                "log": { "type": "string" }
+            },
+            "required": ["accounts", "ledger", "log"]
+        },
+        "svmkit:index:ValidatorKeyPairs": {
+            "type": "object",
+            "properties": {
+                "identity": {
+                    "type": "string"
+                },
+                "voteAccount": {
+                    "type": "string"
+                }
+            },
+            "required": ["identity", "voteAccount"]
+        },
+        "svmkit:index:ValidatorFlags": {
+            "type": "object",
+            "properties": {
                 "entryPoint": {
                     "type": "array",
                     "items": { "type": "string" }
@@ -51,15 +86,27 @@
                 "walRecoveryMode": { "type": "string" },
                 "limitLedgerSize": { "type": "number" },
                 "blockProductionMethod": { "type": "string" },
+                "expectedGenesisHash": { "type": "string" },
+                "fullRpcAPI": { "type": "boolean" },
+                "tvuReceiveThreads": { "type": "number" },
+                "noVoting": { "type": "boolean" },
                 "paths": {
-                    "type": "object",
-                    "properties": {
-                        "accounts": { "type": "string" },
-                        "ledger": { "type": "string" },
-                        "log": { "type": "string" }
-                    }
+                    "$ref": "#/types/svmkit:index:ValidatorPaths"
                 }
-            }
+            },
+            "required": [
+                "useSnapshotArchivesAtStartup",
+                "rpcPort",
+                "privateRPC",
+                "onlyKnownRPC",
+                "dynamicPortRange",
+                "gossipPort",
+                "rpcBindAddress",
+                "walRecoveryMode",
+                "limitLedgerSize",
+                "blockProductionMethod",
+                "paths"
+            ]
         }
     },
     "resources": {
@@ -69,38 +116,58 @@
                 "connection": {
                     "$ref": "/command/v1.0.1/schema.json#/types/command:remote:Connection"
                 },
-                "genesisConfig": {
-                    "$ref": "#/types/svmkit:index:GenesisConfig"
+                "flags": {
+                    "$ref": "#/types/svmkit:index:GenesisFlags"
                 },
-                "triggers": {
+                "primordial": {
                     "type": "array",
-                    "items": { "$ref": "pulumi.json#/Any" },
-                    "plain": true
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
                 }
             },
-            "requiredInputs": ["connection", "genesisConfig"]
+            "properties": {
+                "genesisHash": {
+                    "type": "string"
+                }
+            },
+            "requiredInputs": ["connection", "flags"],
+            "required": ["genesisHash"]
         },
-        "svmkit:index:Backend": {
+        "svmkit:index:Ready": {
+            "isComponent": true,
+            "inputProperties": {
+                "timeout": {
+                    "type": "string"
+                },
+                "connection": {
+                    "$ref": "/command/v1.0.1/schema.json#/types/command:remote:Connection"
+                }
+            },
+            "properties": {},
+            "requiredInputs": ["connection"],
+            "required": []
+        },
+        "svmkit:index:Validator": {
             "isComponent": true,
             "inputProperties": {
                 "connection": {
                     "$ref": "/command/v1.0.1/schema.json#/types/command:remote:Connection"
                 },
-                "triggers": {
-                    "type": "array",
-                    "items": { "$ref": "pulumi.json#/Any" },
-                    "plain": true
+                "flags": {
+                    "$ref": "#/types/svmkit:index:ValidatorFlags"
                 },
-                "validatorConfig": {
-                    "$ref": "#/types/svmkit:index:BackendValidatorConfig"
+                "keyPairs": {
+                    "$ref": "#/types/svmkit:index:ValidatorKeyPairs"
                 },
-                "dependsOn": {
-                    "type": "array",
-                    "items": { "$ref": "pulumi.json#/Any" },
-                    "plain": true
+                "variant": {
+                    "type": "string"
                 }
             },
-            "requiredInputs": ["connection", "validatorConfig"],
+            "requiredInputs": ["connection", "flags", "keyPairs"],
             "properties": {},
             "required": []
         },
@@ -118,6 +185,24 @@
                 "json": { "type": "string" }
             },
             "required": ["publicKey", "privateKey", "json"]
+        },
+        "svmkit:index:Vote": {
+            "isComponent": true,
+            "inputProperties": {
+                "endpoint": {
+                    "type": "string"
+                },
+                "params": {
+                    "$ref": "#/types/svmkit:index:VoteTransactionParams"
+                }
+            },
+            "requiredInputs": ["endpoint", "params"],
+            "properties": {
+                "signature": {
+                    "type": "string"
+                }
+            },
+            "required": ["signature"]
         }
     },
     "language": {

@@ -1,0 +1,23 @@
+# -*- mode: shell-script -*-
+# shellcheck shell=bash
+source "$SCRIPTDIR/env"
+
+vote::000::copy-validator-keys() {
+  local name=authorized-withdrawer-keypair
+
+  $SUDO rm -f "/home/sol/$name.json"
+  $SUDO cp "$SCRIPTDIR/$name.json" /home/sol/.
+  $SUDO chown sol:sol "/home/sol/$name.json"
+}
+
+vote::010::create-vote-account() {
+  $SUDO -u sol solana create-vote-account \
+    /home/sol/vote-account-keypair.json \
+    /home/sol/validator-keypair.json \
+    /home/sol/authorized-withdrawer-keypair.json \
+    --commission "$REWARDS_COMMISSION"
+}
+
+vote::020::purge-authorized-withdrawer() {
+  $SUDO -u sol rm -rf /home/sol/authorized-withdrawer-keypair.json
+}

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+SCRIPTDIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
+. "$SCRIPTDIR/lib.bash"
+
+ARCHIVE_FNAME=$1
+shift
+
+keypair::write AUTHORIZED_WITHDRAWER_KEYPAIR authorized-withdrawer-keypair.json
+
+env::kv \
+  REWARDS_COMMISSION >"env"
+
+(cd "$SCRIPTDIR/.." && tar cvzf "$ARCHIVE_FNAME" $(basename "$SCRIPTDIR"))
