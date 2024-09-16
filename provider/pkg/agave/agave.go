@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/abklabs/pulumi-svmkit/pkg/runner"
 	"github.com/abklabs/pulumi-svmkit/pkg/validator"
 )
 
@@ -21,7 +20,7 @@ type KeyPairs struct {
 }
 
 type InstallCommand struct {
-	runner.Command
+	validator.InstallCommand
 	Flags    Flags
 	KeyPairs KeyPairs
 }
@@ -50,14 +49,14 @@ type Agave struct {
 	Flags    Flags
 }
 
-func (agave *Agave) Install() runner.Command {
+func (agave *Agave) Install() validator.InstallCommand {
 	return &InstallCommand{
 		Flags:    agave.Flags,
 		KeyPairs: agave.KeyPairs,
 	}
 }
 
-type Flags struct {
+type ValidatorFlags struct {
 	validator.ClientFlags
 	EntryPoint                   *[]string `pulumi:"entryPoint,optional"`
 	KnownValidator               *[]string `pulumi:"knownValidator,optional"`

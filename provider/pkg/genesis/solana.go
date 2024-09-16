@@ -6,11 +6,11 @@ import (
 	_ "embed"
 	"fmt"
 
-	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
-	"github.com/abklabs/pulumi-svmkit/pkg/runner"
-	"github.com/abklabs/pulumi-svmkit/pkg/solana"
-	"github.com/abklabs/pulumi-svmkit/pkg/ssh"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
+	"github.com/abklabs/svmkit/pkg/genesis"
+	"github.com/abklabs/svmkit/pkg/runner"
+	"github.com/abklabs/svmkit/pkg/solana"
+	"github.com/abklabs/svmkit/pkg/ssh"
 )
 
 // Solana represents a Pulumi resource for building the genesis ledger for the Solana network.

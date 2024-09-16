@@ -1,8 +1,8 @@
 package svm
 
 import (
-	"github.com/abklabs/pulumi-svmkit/pkg/ssh"
-	"github.com/abklabs/pulumi-svmkit/pkg/validator"
+	"github.com/abklabs/svmkit/pkg/ssh"
+	"github.com/abklabs/svmkit/pkg/validator"
 )
 
 // ValidatorArgs represents the arguments required to configure a validator.

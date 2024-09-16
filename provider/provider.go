@@ -15,9 +15,9 @@
 package provider
 
 import (
+	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
-	"github.com/abklabs/pulumi-svmkit/pkg/svm/genesis"
-	"github.com/abklabs/pulumi-svmkit/pkg/svm/validator"
+	"github.com/abklabs/pulumi-svmkit/pkg/validator"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
