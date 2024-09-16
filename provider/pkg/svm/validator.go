@@ -9,9 +9,9 @@ import (
 type Validator struct{}
 
 type ValidatorArgs struct {
-	Variant  *string                 `pulumi:"variant,optional"`
-	Flags    agave.ValidatorFlags    `pulumi:"flags"`
-	KeyPairs agave.ValidatorKeyPairs `pulumi:"keyPairs" provider:"secret"`
+	Variant  *string        `pulumi:"variant,optional"`
+	Flags    agave.Flags    `pulumi:"flags"`
+	KeyPairs agave.KeyPairs `pulumi:"keyPairs" provider:"secret"`
 }
 
 type ValidatorState struct {
