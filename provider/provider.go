@@ -16,6 +16,7 @@ package provider
 
 import (
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
+	"github.com/abklabs/pulumi-svmkit/pkg/svm/genesis"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm/validator"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
@@ -34,6 +35,7 @@ func Provider() p.Provider {
 		Resources: []infer.InferredResource{
 			infer.Resource[svm.KeyPair, svm.KeyPairArgs, svm.KeyPairState](),
 			infer.Resource[validator.Agave, validator.AgaveArgs, validator.AgaveState](),
+			infer.Resource[genesis.Solana, genesis.SolanaArgs, genesis.SolanaState](),
 		},
 		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
 			"svm": "index",

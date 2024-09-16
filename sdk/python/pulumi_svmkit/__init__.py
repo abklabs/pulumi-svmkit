@@ -12,18 +12,32 @@ from .provider import *
 if typing.TYPE_CHECKING:
     import pulumi_svmkit.agave as __agave
     agave = __agave
+    import pulumi_svmkit.genesis as __genesis
+    genesis = __genesis
+    import pulumi_svmkit.solana as __solana
+    solana = __solana
     import pulumi_svmkit.ssh as __ssh
     ssh = __ssh
     import pulumi_svmkit.validator as __validator
     validator = __validator
 else:
     agave = _utilities.lazy_import('pulumi_svmkit.agave')
+    genesis = _utilities.lazy_import('pulumi_svmkit.genesis')
+    solana = _utilities.lazy_import('pulumi_svmkit.solana')
     ssh = _utilities.lazy_import('pulumi_svmkit.ssh')
     validator = _utilities.lazy_import('pulumi_svmkit.validator')
 
 _utilities.register(
     resource_modules="""
 [
+ {
+  "pkg": "svmkit",
+  "mod": "genesis",
+  "fqn": "pulumi_svmkit.genesis",
+  "classes": {
+   "svmkit:genesis:Solana": "Solana"
+  }
+ },
  {
   "pkg": "svmkit",
   "mod": "index",

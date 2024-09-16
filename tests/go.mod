@@ -5,7 +5,6 @@ go 1.21
 replace github.com/abklabs/pulumi-svmkit => ../provider
 
 require (
-	github.com/abklabs/pulumi-svm/provider v0.0.0-00010101000000-000000000000
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/pulumi/pulumi-go-provider v0.20.0
 	github.com/pulumi/pulumi/sdk/v3 v3.117.0

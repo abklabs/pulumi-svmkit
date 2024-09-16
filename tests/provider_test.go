@@ -25,7 +25,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	svm "github.com/abklabs/pulumi-svm/provider"
+	svmkit "github.com/abklabs/pulumi-svmkit"
 )
 
 func TestKeyPairCreate(t *testing.T) {
@@ -56,6 +56,6 @@ func urn(typ string) resource.URN {
 
 // Create a test server.
 func provider() integration.Server {
-	return integration.NewServer(svm.Name, semver.MustParse("0.0.1"), svm.Provider())
+	return integration.NewServer(svmkit.Name, semver.MustParse("0.0.1"), svmkit.Provider())
 
 }

@@ -1,29 +1,15 @@
 package svm
 
 import (
-	"context"
-
-	"github.com/abklabs/pulumi-svmkit/pkg/agave"
+	"github.com/abklabs/pulumi-svmkit/pkg/ssh"
+	"github.com/abklabs/pulumi-svmkit/pkg/validator"
 )
 
-type Validator struct{}
-
+// ValidatorArgs represents the arguments required to configure a validator.
 type ValidatorArgs struct {
-	Variant  *string        `pulumi:"variant,optional"`
-	Flags    agave.Flags    `pulumi:"flags"`
-	KeyPairs agave.KeyPairs `pulumi:"keyPairs" provider:"secret"`
-}
+	// Connection holds the SSH connection details needed to access the validator.
+	Connection ssh.Connection `pulumi:"connection"`
 
-type ValidatorState struct {
-	ValidatorArgs
-}
-
-func (Validator) Create(ctx context.Context, name string, input ValidatorArgs, preview bool) (string, ValidatorState, error) {
-	state := ValidatorState{ValidatorArgs: input}
-
-	if preview {
-		return name, state, nil
-	}
-
-	return name, state, nil
+	// KeyPairs contains the key pairs used by the validator, marked as secret.
+	KeyPairs validator.KeyPairs `pulumi:"keyPairs" provider:"secret"`
 }
