@@ -1,2 +1,2 @@
-// Package svmkit exports types, functions, subpackages for provisioning svmkit resources.
+// The Pulumi Command Provider enables you to execute commands and scripts either locally or remotely as part of the Pulumi resource model.
 package svmkit

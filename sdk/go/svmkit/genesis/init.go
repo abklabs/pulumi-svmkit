@@ -6,7 +6,7 @@ package genesis
 import (
 	"fmt"
 
-	"example.com/pulumi-svmkit/sdk/go/svmkit/internal"
+	"github.com/abklabs/svmkit/sdk/go/svmkit/internal"
 	"github.com/blang/semver"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
