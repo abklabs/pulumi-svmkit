@@ -4,10 +4,8 @@ go 1.22
 
 toolchain go1.22.7
 
-replace github.com/abklabs/svmkit/pkg => ../../svmkit/pkg
-
 require (
-	github.com/abklabs/svmkit/pkg v0.0.0-00010101000000-000000000000
+	github.com/abklabs/svmkit/pkg v0.0.0-20241001132944-5d896994449e
 	github.com/gagliardetto/solana-go v1.11.0
 	github.com/pulumi/pulumi-go-provider v0.23.0
 	github.com/pulumi/pulumi/sdk/v3 v3.134.0
