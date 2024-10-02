@@ -1,70 +1,96 @@
 # Pulumi SVMKit
-`Pulumi SVMKit` is our Infrastructure-as-Code (IaC) project for managing validators and networks, built on top of Pulumi. This tool allows developers and network operators to easily deploy and manage Solana Virtual Machine (SVM) validators and bootstrap nodes across various environments.
 
-## Disclaimer
+The SVMKit Pulumi provider, located in the [`provider`](/provider/) directory, facilitates infrastructure as code (IaC) for managing Solana nodes and related resources. With this provider, users can easily define, deploy, and manage their Solana infrastructure using Pulumi.
 
-**This project is intended for use in testing environments only and is not yet considered production-ready.** 
+## Development
 
-We are actively developing and improving the functionality. Users should exercise caution when deploying this software in mission-critical or production systems. Please report any issues or feedback to help us enhance its stability and reliability.
+This section provides all the necessary information to start contributing to or building SVMKit. It is divided into several subsections for clarity.
 
-## What Does Pulumi SVMKit Do?
+#### Requirement
 
-`Pulumi SVMKit` simplifies the process of deploying and managing blockchain infrastructure for permissioned and permissionless networks. The current components include:
+Ensure the following tools are installed and available in your `$PATH`:
 
-**Validator Installation**: Quickly spin up a validator node on any Debian-based operating system.
+- [`pulumictl`](https://github.com/pulumi/pulumictl#installation)
+- [Go 1.22](https://golang.org/dl/) or 1.latest
+- [NodeJS](https://nodejs.org/en/) 14.x (We recommend using [nvm](https://github.com/nvm-sh/nvm) to manage NodeJS installations)
+- [Yarn](https://yarnpkg.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Python](https://www.python.org/downloads/) (referred to as `python3`; the system-installed version is sufficient for recent MacOS versions)
+- [.NET](https://dotnet.microsoft.com/download)
 
-**Bootstrap Node Setup**: Launch a bootstrap node to initialize a new SVM-powered blockchain network, allowing you to manage network peers and maintain secure connections.
-
-# Key Features
-
-**Pulumi Integration**: Manage your blockchain infrastructure using Pulumi’s declarative language, enabling reusable and modular deployments.
-
-**Apt Repository Support**: We host an apt repository where validator clients like Agave, Jito, and others are available for quick installation on Debian-based systems. This streamlines the setup process, ensuring you always have access to the latest versions of supported clients. [Explore information about the apt repository here.](https://github.com/abklabs/svmkit)
-
-**Multi-Client Support**: The infrastructure is preconfigured to work with multiple validator clients, allowing flexibility in choosing the right client for your network setup.
-
-# Examples
-
-Explore example deployments and get started quickly:
-
-**Single Validator on Testnet**: Demonstrates deploying a single validator node to a testnet environment.
-[Example Code](https://github.com/abklabs/pulumi-svmkit/tree/main/examples/aws-basic-host)
-
-**Bootstrap Node for New Network**: Shows how to set up a bootstrap node to launch a new permissioned or test network.
-[Example Code](https://github.com/abklabs/pulumi-svmkit/tree/main/examples/aws-svm-bootstrap)
-
-# Upcoming Features
-We are actively working on expanding `Pulumi SVMKit` with new examples and features:
-
-**Genesis to Multi-Node Cluster**: We’re adding comprehensive examples showing how to go from a genesis block to a fully operational multi-node cluster. This will help users deploy production-grade permissioned environments.
-
-**Permissioned Environments Support**: Next week, we will introduce a new feature to enable permissioned environments, making it easier for operators to manage node permissions, restrict access, and control governance in their blockchain networks.
-
-Stay tuned for these updates!
-
-# Getting Started / Developing `Pulumi SVMKit`
-
-1. For OS X, install the following via homebrew:
+#### Build
 
 ```bash
-brew install node yarn python python-setuptools go dotnet pulumi
+$ make build install
 ```
 
-2. Build and install a local version of the component resource:
+This will build the pulumi provider, generate language sdks, and prepare host to execute the plugin locally.
+
+#### Demo
+
+You can find a catalog of example Pulumi projects to help you get started with SVMkit [here](./examples).
 
 ```bash
-make install
+$ cd examples/aws-agave-validator
+$ yarn link @pulumi/svmkit
+$ yarn install
+$ pulumi stack init demo
+$ pulumi up
 ```
 
-3. Attempt to use the `examples/aws-basic-host` example.
+In this example, an Agave validator is installed on a machine via SSH, joining the Solana testnet.
 
-```bash
-cd examples/aws-basic-host
-yarn install
-yarn link @pulumi/svmkit
-PATH=$PATH:$PWD/../../bin
-pulumi install
-pulumi up
+Teams can add more validator clients to SVMkit, which will be accessible through the `validator` namespace in `@pulumi/svmkit`.
+
+```typescript
+new svmkit.validator.Agave(
+  "validator",
+  {
+    connection,
+    keyPairs: {
+      identity: validatorKey.json,
+      voteAccount: voteAccountKey.json,
+    },
+    flags: {
+      entryPoint: [
+        "entrypoint.testnet.solana.com:8001",
+        "entrypoint2.testnet.solana.com:8001",
+        "entrypoint3.testnet.solana.com:8001",
+      ],
+      knownValidator: [
+        "5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on",
+        "7XSY3MrYnK8vq693Rju17bbPkCN3Z7KvvfvJx4kdrsSY",
+        "Ft5fbkqNa76vnsjYNwjDZUXoTWpP7VYm3mtsaQckQADN",
+        "9QxCLckBiJc783jnMvXZubK4wH86Eqqvashtrwvcsgkv",
+      ],
+      expectedGenesisHash: "4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY",
+      useSnapshotArchivesAtStartup: "when-newest",
+      rpcPort: 8899,
+      privateRPC: true,
+      onlyKnownRPC: true,
+      dynamicPortRange: "8002-8020",
+      gossipPort: 8001,
+      rpcBindAddress: "0.0.0.0",
+      walRecoveryMode: "skip_any_corrupted_record",
+      limitLedgerSize: 50000000,
+      blockProductionMethod: "central-scheduler",
+      fullSnapshotIntervalSlots: 1000,
+      noWaitForVoteToStartLeader: true,
+    },
+  },
+  {
+    dependsOn: [instance],
+  }
+);
 ```
 
-Note: You will need AWS credentials that pulumi can find to test this example. `SSH_PRIVATE_KEY` and `PUBLIC_DNS_NAME` can be used to access the server; the default username for Debian is `admin`.
+### Repository Structure
+
+The repository is organized as follows:
+
+| Directory/File          | Description                                                                 |
+|-------------------------|-----------------------------------------------------------------------------|
+| `provider/`             | Contains the build and implementation logic for the SVMkit Pulumi provider. |
+| `sdk/`                  | Houses the generated code libraries.                                        |
+| `examples/`             | Includes Pulumi programs for local testing and CI usage.                    |
+| `Makefile` and `README` | Standard project files for building and documentation.                      |
