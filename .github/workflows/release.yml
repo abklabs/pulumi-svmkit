@@ -5,28 +5,28 @@ on:
       - v*.*.*
       - '!v*.*.*-**'
 env:
-  PROVIDER: "YOUR PROVIDER NAME HERE eg: xyz"
+  PROVIDER: "svmkit"
   # THIS GITHUB_TOKEN IS A REQUIREMENT TO BE ABLE TO WRITE TO GH RELEASES
-  GITHUB_TOKEN: ${{ YOUR GITHUB TOKEN HERE }}
+  GITHUB_TOKEN: ${{ github.token }}
   # IF YOU NEED TO PUBLISH A NPM PACKAGE THEN ENSURE A NPM_TOKEN SECRET IS SET
   # AND PUBLISH_NPM: TRUE. IF YOU WANT TO PUBLISH TO A PRIVATE NPM REGISTRY
   # THEN ENSURE THE NPM_REGISTRY_URL IS CHANGED
-  NODE_AUTH_TOKEN: ${{ YOUR NPM TOKEN HERE }}
-  NPM_TOKEN: ${{ YOUR NPM TOKEN HERE }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   PUBLISH_NPM: true
   NPM_REGISTRY_URL: https://registry.npmjs.org
   # IF YOU NEED TO PUBLISH A NUGET PACKAGE THEN ENSURE AN NUGET_PUBLISH_KEY
   # SECRET IS SET AND PUBLISH_NUGET: TRUE. IF YOU WANT TO PUBLISH TO AN ALTERNATIVE
   # NPM REGISTRY THEN ENSURE THE NPM_REGISTRY_URL IS CHANGED
-  NUGET_PUBLISH_KEY: ${{ YOUR NUGET PUBLISH KEY HERE }}
+  NUGET_PUBLISH_KEY: ${{ secrets.NUGET_TOKEN }}
   NUGET_FEED_URL: https://api.nuget.org/v3/index.json
-  PUBLISH_NUGET: true
+  PUBLISH_NUGET: false
   # IF YOU NEED TO PUBLISH A PYPI PACKAGE THEN ENSURE AN PYPI_API_TOKEN
   # SECRET IS SET AND PUBLISH_PYPI: TRUE. IF YOU WANT TO PUBLISH TO AN ALTERNATIVE
   # PYPI REGISTRY THEN ENSURE THE PYPI_REPOSITORY_URL IS SET. IF YOU ARE USING AN API_TOKEN THEN
   # YOU DO NOT NEED TO CHANGE THE PYPI_USERNAME (__token__) , IF YOU ARE USING PASSWORD AUTHENTICATION THEN YOU WILL
   # NEED TO CHANGE TO USE THE CORRECT PASSWORD
-  PYPI_PASSWORD: ${{ YOUR PYPI PASSWORD HERE }}
+  PYPI_PASSWORD: ${{ secrets.PYPI_TOKEN }}
   PYPI_USERNAME: "YOUR PYPI USERNAME HERE"
   PYPI_REPOSITORY_URL: ""
   PUBLISH_PYPI: true
@@ -36,11 +36,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v5
       with:
         go-version: ${{matrix.goversion}}
     - name: Install pulumictl
@@ -48,30 +48,30 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v2
+      uses: goreleaser/goreleaser-action@v6
       with:
-        args: -p 3 release --rm-dist
+        args: -p 3 release --clean
         version: latest
     strategy:
       fail-fast: true
       matrix:
         goversion:
-        - 1.17.x
+        - 1.22.x
   publish_sdk:
     name: Publish SDKs
     runs-on: ubuntu-latest
     needs: publish_binary
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.goversion }}
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.5.0
+        uses: jaxxstorm/action-install-gh-release@v1.10.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
@@ -82,11 +82,11 @@ jobs:
           node-version: ${{matrix.nodeversion}}
           registry-url: ${{env.NPM_REGISTRY_URL}}
       - name: Setup DotNet
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{matrix.dotnetversion}}
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: ${{matrix.pythonversion}}
       - name: Generate SDK
@@ -103,7 +103,7 @@ jobs:
       - name: Compress SDK folder
         run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.language  }}-sdk.tar.gz
           path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz
@@ -115,7 +115,7 @@ jobs:
           password: ${{ env.PYPI_PASSWORD }}
           packages-dir: ${{github.workspace}}/sdk/python/bin/dist
       - if: ${{ matrix.language == 'nodejs' && env.PUBLISH_NPM == 'true' }}
-        uses: JS-DevTools/npm-publish@v1
+        uses: JS-DevTools/npm-publish@v3
         with:
           access: "public"
           token: ${{ env.NPM_TOKEN }}
@@ -129,15 +129,15 @@ jobs:
       fail-fast: true
       matrix:
         dotnetversion:
-          - 3.1.301
+          - 8.0.x
         goversion:
-          - 1.18.x
+          - 1.22.x
         language:
           - nodejs
           - python
           - dotnet
           - go
         nodeversion:
-          - 14.x
+          - 20.x
         pythonversion:
-          - "3.9"
+          - "3.12"
