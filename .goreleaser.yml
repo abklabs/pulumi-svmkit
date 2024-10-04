@@ -1,11 +1,9 @@
+version: 2
 archives:
   - id: archive
     name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
-before:
-  hooks:
-    - make gen
 builds:
-  - binary: pulumi-resource-xyz
+  - binary: pulumi-resource-svmkit
     dir: provider
     env:
       - CGO_ENABLED=0
@@ -18,12 +16,12 @@ builds:
       - linux
     ldflags:
       # The line below MUST align with the module in current provider/go.mod
-      - -X github.com/your-org-name/pulumi-xyz/provider/Version={{.Tag }}
-    main: ./cmd/pulumi-resource-xyz/
+      - -X github.com/abklabs/pulumi-svmkit/provider/Version={{.Tag }}
+    main: ./cmd/pulumi-resource-svmkit/
 changelog:
-  skip: true
+  disable: true
 release:
   disable: false
   prerelease: auto
 snapshot:
-  name_template: '{{ .Tag }}-SNAPSHOT'
+  version_template: '{{ .Tag }}-SNAPSHOT'
