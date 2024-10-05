@@ -62,3 +62,41 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 	}
 	return name, state, nil
 }
+
+// Update is the method that Pulumi calls to update an Agave resource.
+// It sets up the Agave validator on the specified machine using the provided connection and flags.
+//
+// Parameters:
+// - ctx: The context for the update operation.
+// - name: The name of the resource.
+// - oldInput: The previous input arguments for the resource.
+// - newInput: The new input arguments for updating the resource.
+// - preview: A boolean indicating whether this is a preview operation.
+//
+// Returns:
+// - The name of the updated resource.
+// - The state of the updated resource.
+// - An error if the update fails.
+func (Agave) Update(ctx context.Context, name string, oldInput, newInput AgaveArgs, preview bool) (string, AgaveState, error) {
+	state := AgaveState{AgaveArgs: newInput}
+
+	if preview {
+		return name, state, nil
+	}
+
+	client := &agave.Agave{
+		Flags:    newInput.Flags,
+		KeyPairs: newInput.KeyPairs,
+	}
+	command := client.Install()
+
+	r := runner.Machine(newInput.Connection).
+		Env(command.Env()).
+		Script(command.Script())
+
+	if err := r.Run(ctx); err != nil {
+		return "", AgaveState{}, fmt.Errorf("failed to update validator: %w", err)
+	}
+
+	return name, state, nil
+}
