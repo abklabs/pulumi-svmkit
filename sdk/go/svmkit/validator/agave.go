@@ -17,9 +17,10 @@ import (
 type Agave struct {
 	pulumi.CustomResourceState
 
-	Connection ssh.ConnectionOutput `pulumi:"connection"`
-	Flags      agave.FlagsOutput    `pulumi:"flags"`
-	KeyPairs   agave.KeyPairsOutput `pulumi:"keyPairs"`
+	Connection ssh.ConnectionOutput   `pulumi:"connection"`
+	Flags      agave.FlagsOutput      `pulumi:"flags"`
+	KeyPairs   agave.KeyPairsOutput   `pulumi:"keyPairs"`
+	Version    pulumi.StringPtrOutput `pulumi:"version"`
 }
 
 // NewAgave registers a new resource with the given unique name, arguments, and options.
@@ -39,13 +40,6 @@ func NewAgave(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'KeyPairs'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
-	if args.KeyPairs != nil {
-		args.KeyPairs = pulumi.ToSecret(args.KeyPairs).(agave.KeyPairsInput)
-	}
-	secrets := pulumi.AdditionalSecretOutputs([]string{
-		"keyPairs",
-	})
-	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Agave
 	err := ctx.RegisterResource("svmkit:validator:Agave", name, args, &resource, opts...)
@@ -82,6 +76,7 @@ type agaveArgs struct {
 	Connection ssh.Connection `pulumi:"connection"`
 	Flags      agave.Flags    `pulumi:"flags"`
 	KeyPairs   agave.KeyPairs `pulumi:"keyPairs"`
+	Version    *string        `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Agave resource.
@@ -89,6 +84,7 @@ type AgaveArgs struct {
 	Connection ssh.ConnectionInput
 	Flags      agave.FlagsInput
 	KeyPairs   agave.KeyPairsInput
+	Version    pulumi.StringPtrInput
 }
 
 func (AgaveArgs) ElementType() reflect.Type {
@@ -138,6 +134,10 @@ func (o AgaveOutput) Flags() agave.FlagsOutput {
 
 func (o AgaveOutput) KeyPairs() agave.KeyPairsOutput {
 	return o.ApplyT(func(v *Agave) agave.KeyPairsOutput { return v.KeyPairs }).(agave.KeyPairsOutput)
+}
+
+func (o AgaveOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Agave) pulumi.StringPtrOutput { return v.Version }).(pulumi.StringPtrOutput)
 }
 
 func init() {

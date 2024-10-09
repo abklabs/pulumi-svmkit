@@ -36,6 +36,7 @@ export class Agave extends pulumi.CustomResource {
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly flags!: pulumi.Output<outputs.agave.Flags>;
     public readonly keyPairs!: pulumi.Output<outputs.agave.KeyPairs>;
+    public readonly version!: pulumi.Output<string | undefined>;
 
     /**
      * Create a Agave resource with the given unique name, arguments, and options.
@@ -59,15 +60,15 @@ export class Agave extends pulumi.CustomResource {
             }
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
-            resourceInputs["keyPairs"] = args?.keyPairs ? pulumi.secret(args.keyPairs) : undefined;
+            resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
+            resourceInputs["version"] = args ? args.version : undefined;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
+            resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["keyPairs"] };
-        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Agave.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -79,4 +80,5 @@ export interface AgaveArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     flags: pulumi.Input<inputs.agave.FlagsArgs>;
     keyPairs: pulumi.Input<inputs.agave.KeyPairsArgs>;
+    version?: pulumi.Input<string>;
 }

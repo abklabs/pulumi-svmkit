@@ -21,6 +21,9 @@ namespace Pulumi.Svmkit.Validator
         [Output("keyPairs")]
         public Output<Pulumi.Svmkit.Agave.Outputs.KeyPairs> KeyPairs { get; private set; } = null!;
 
+        [Output("version")]
+        public Output<string?> Version { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a Agave resource with the given unique name, arguments, and options.
@@ -44,10 +47,6 @@ namespace Pulumi.Svmkit.Validator
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                AdditionalSecretOutputs =
-                {
-                    "keyPairs",
-                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -77,16 +76,10 @@ namespace Pulumi.Svmkit.Validator
         public Input<Pulumi.Svmkit.Agave.Inputs.FlagsArgs> Flags { get; set; } = null!;
 
         [Input("keyPairs", required: true)]
-        private Input<Pulumi.Svmkit.Agave.Inputs.KeyPairsArgs>? _keyPairs;
-        public Input<Pulumi.Svmkit.Agave.Inputs.KeyPairsArgs>? KeyPairs
-        {
-            get => _keyPairs;
-            set
-            {
-                var emptySecret = Output.CreateSecret(0);
-                _keyPairs = Output.Tuple<Input<Pulumi.Svmkit.Agave.Inputs.KeyPairsArgs>?, int>(value, emptySecret).Apply(t => t.Item1);
-            }
-        }
+        public Input<Pulumi.Svmkit.Agave.Inputs.KeyPairsArgs> KeyPairs { get; set; } = null!;
+
+        [Input("version")]
+        public Input<string>? Version { get; set; }
 
         public AgaveArgs()
         {
