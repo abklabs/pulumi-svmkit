@@ -21,6 +21,7 @@ import (
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi-go-provider/middleware/schema"
+	nodejsGen "github.com/pulumi/pulumi/pkg/v3/codegen/nodejs"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 )
 
@@ -32,7 +33,12 @@ func Provider() p.Provider {
 	return infer.Provider(infer.Options{
 		Metadata: schema.Metadata{
 			DisplayName: "Svmkit",
-			Description: "The Pulumi Command Provider enables you to execute commands and scripts either locally or remotely as part of the Pulumi resource model.",
+			Description: "SVMKit allows you to manage Solana SVM software components using infrastructure as code.",
+			LanguageMap: map[string]any{
+				"nodejs": nodejsGen.NodePackageInfo{
+					PackageName: "@svmkit/pulumi",
+				},
+			},
 			Keywords: []string{
 				"pulumi",
 				"svmkit",
