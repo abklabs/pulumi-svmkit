@@ -19,7 +19,7 @@ type AgaveArgs struct {
 	svm.ValidatorArgs
 	// Flags contains the configuration flags for the Agave validator.
 	Flags    agave.Flags    `pulumi:"flags"`
-	KeyPairs agave.KeyPairs `pulumi:"keyPairs" provider:"secret"`
+	KeyPairs agave.KeyPairs `pulumi:"keyPairs"`
 }
 
 // AgaveState represents the state of an Agave resource.
