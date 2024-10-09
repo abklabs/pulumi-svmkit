@@ -50,6 +50,7 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 	client := &agave.Agave{
 		Flags:    input.Flags,
 		KeyPairs: input.KeyPairs,
+		Version:  input.Version,
 	}
 	command := client.Install()
 
