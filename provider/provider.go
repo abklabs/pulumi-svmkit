@@ -47,7 +47,7 @@ func Provider() p.Provider {
 			},
 			Homepage:   "https://abklabs.com",
 			License:    "Apache-3.0",
-			Repository: "https://github.com/abklabs/svmkit",
+			Repository: "https://github.com/abklabs/pulumi-svmkit",
 			Publisher:  "ABK Labs",
 		},
 		Resources: []infer.InferredResource{
