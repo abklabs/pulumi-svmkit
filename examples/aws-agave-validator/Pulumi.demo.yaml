@@ -1,3 +1,2 @@
 config:
   aws:region: us-east-1
-  svmkit:ami: ami-064519b8c76274859
