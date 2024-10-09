@@ -100,6 +100,7 @@ new svmkit.validator.Agave(
   "validator",
   {
     connection,
+    version: "1.18.24-1",
     keyPairs: {
       identity: validatorKey.json,
       voteAccount: voteAccountKey.json,
