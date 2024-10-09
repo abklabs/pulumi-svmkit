@@ -66,26 +66,18 @@ const instance = new aws.ec2.Instance("instance", {
   instanceType: "m5.2xlarge",
   keyName: keyPair.keyName,
   vpcSecurityGroupIds: [securityGroup.id],
-  rootBlockDevice: {
-    volumeSize: 500,
-    volumeType: "gp3",
-    iops: 3000,
-    throughput: 250,
-  },
   ebsBlockDevices: [
     {
       deviceName: "/dev/sdf",
       volumeSize: 500,
-      volumeType: "gp3",
-      iops: 5000,
-      throughput: 700,
+      volumeType: "io2",
+      iops: 16000,
     },
     {
       deviceName: "/dev/sdg",
-      volumeSize: 2048,
-      volumeType: "gp3",
-      iops: 10000,
-      throughput: 700,
+      volumeSize: 1024,
+      volumeType: "io2",
+      iops: 16000,
     },
   ],
   userData: `#!/bin/bash
