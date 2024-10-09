@@ -4,6 +4,7 @@ on:
     tags:
       - v*.*.*
       - '!v*.*.*-**'
+  workflow_dispatch:
 env:
   PROVIDER: "svmkit"
   # THIS GITHUB_TOKEN IS A REQUIREMENT TO BE ABLE TO WRITE TO GH RELEASES
@@ -37,8 +38,8 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
+      with:
+        fetch-depth: 0
     - name: Install Go
       uses: actions/setup-go@v2
       with:
@@ -64,8 +65,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-      - name: Unshallow clone for tags
-        run: git fetch --prune --unshallow --tags
+        with:
+          fetch-depth: 0
       - name: Install Go
         uses: actions/setup-go@v2
         with:
