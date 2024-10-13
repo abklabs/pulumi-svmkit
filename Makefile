@@ -57,7 +57,7 @@ python_sdk::
 	pulumi package gen-sdk $(WORKING_DIR)/bin/$(PROVIDER) --language python
 	cp README.md sdk/python/
 	cd sdk/python/ && \
-		python3 setup.py clean --all 2>/dev/null && \
+		python3 setup.py clean --all && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
 		sed -i.bak -e 's/^VERSION = .*/VERSION = "$(PYPI_VERSION)"/g' -e 's/^PLUGIN_VERSION = .*/PLUGIN_VERSION = "$(VERSION)"/g' ./bin/setup.py && \
 		rm ./bin/setup.py.bak && \
