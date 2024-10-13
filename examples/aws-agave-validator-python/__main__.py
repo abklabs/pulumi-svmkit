@@ -84,8 +84,12 @@ mkfs -t ext4 /dev/sdf
 mkfs -t ext4 /dev/sdg
 mkdir -p /home/sol/accounts
 mkdir -p /home/sol/ledger
-mount /dev/sdf /home/sol/accounts
-mount /dev/sdg /home/sol/ledger
+cat <<EOF >> /etc/fstab
+/dev/sdf	/home/sol/accounts	ext4	defaults	0	0
+/dev/sdg	/home/sol/ledger	ext4	defaults	0	0
+EOF
+systemctl daemon-reload
+mount -a
 """
 )
 
