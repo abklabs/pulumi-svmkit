@@ -83,13 +83,13 @@ const instance = new aws.ec2.Instance("instance", {
         },
     ],
     userData: `#!/bin/bash
-    mkfs -t ext4 /dev/sdf
-    mkfs -t ext4 /dev/sdg
-    mkdir -p /home/sol/accounts
-    mkdir -p /home/sol/ledger
-    mount /dev/sdf /home/sol/accounts
-    mount /dev/sdg /home/sol/ledger
-  `,
+mkfs -t ext4 /dev/sdf
+mkfs -t ext4 /dev/sdg
+mkdir -p /home/sol/accounts
+mkdir -p /home/sol/ledger
+mount /dev/sdf /home/sol/accounts
+mount /dev/sdg /home/sol/ledger
+`,
 });
 
 const connection = {
