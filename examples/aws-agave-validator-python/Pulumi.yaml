@@ -1,0 +1,7 @@
+name: aws-agave-validator-python
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+description: A Python example of an Agave validator
