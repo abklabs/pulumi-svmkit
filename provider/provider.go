@@ -31,8 +31,8 @@ func Provider() p.Provider {
 	// In this case, a single custom resource.
 	return infer.Provider(infer.Options{
 		Metadata: schema.Metadata{
-			DisplayName: "Svmkit",
-			Description: "The Pulumi Command Provider enables you to execute commands and scripts either locally or remotely as part of the Pulumi resource model.",
+			DisplayName: "SVMKit",
+			Description: "SVMKit allows you to manage Solana SVM software components using infrastructure as code.",
 			Keywords: []string{
 				"pulumi",
 				"svmkit",
@@ -40,8 +40,8 @@ func Provider() p.Provider {
 				"blockchain",
 			},
 			Homepage:   "https://abklabs.com",
-			License:    "Apache-3.0",
-			Repository: "https://github.com/abklabs/svmkit",
+			License:    "GPL-3.0-only",
+			Repository: "https://github.com/abklabs/pulumi-svmkit",
 			Publisher:  "ABK Labs",
 		},
 		Resources: []infer.InferredResource{
