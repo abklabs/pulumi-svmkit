@@ -22,6 +22,11 @@ import (
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi-go-provider/middleware/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+
+	csharpGen "github.com/pulumi/pulumi/pkg/v3/codegen/dotnet"
+	goGen "github.com/pulumi/pulumi/pkg/v3/codegen/go"
+	nodejsGen "github.com/pulumi/pulumi/pkg/v3/codegen/nodejs"
+	pythonGen "github.com/pulumi/pulumi/pkg/v3/codegen/python"
 )
 
 const Name string = "svmkit"
@@ -33,6 +38,21 @@ func Provider() p.Provider {
 		Metadata: schema.Metadata{
 			DisplayName: "SVMKit",
 			Description: "SVMKit allows you to manage Solana SVM software components using infrastructure as code.",
+			LanguageMap: map[string]any{
+				"go": goGen.GoPackageInfo{
+					ImportBasePath: "github.com/abklabs/pulumi-svmkit/sdk/go",
+					RootPackageName: "svmkit",
+				},
+				"nodejs": nodejsGen.NodePackageInfo{
+					PackageName: "@svmkit/pulumi-svmkit",
+				},
+				"python": pythonGen.PackageInfo{
+					PackageName: "pulumi_svmkit",
+				},
+				"csharp": csharpGen.CSharpPackageInfo{
+					RootNamespace: "ABKLabs",
+				},
+			},
 			Keywords: []string{
 				"pulumi",
 				"svmkit",
