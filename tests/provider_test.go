@@ -45,4 +45,3 @@ func provider() integration.Server {
 	return integration.NewServer(svmkit.Name, semver.MustParse("0.0.1"), svmkit.Provider())
 
 }
-
