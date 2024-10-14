@@ -6,7 +6,7 @@ package svmkit
 import (
 	"fmt"
 
-	"github.com/abklabs/svmkit/sdk/go/svmkit/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
 	"github.com/blang/semver"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )

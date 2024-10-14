@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Svmkit.Genesis.Inputs
+namespace ABKLabs.Svmkit.Genesis.Inputs
 {
 
     public sealed class PrimorialEntryArgs : global::Pulumi.ResourceArgs

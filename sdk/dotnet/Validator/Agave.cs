@@ -6,20 +6,21 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Svmkit.Validator
+namespace ABKLabs.Svmkit.Validator
 {
     [SvmkitResourceType("svmkit:validator:Agave")]
     public partial class Agave : global::Pulumi.CustomResource
     {
         [Output("connection")]
-        public Output<Pulumi.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
+        public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
         [Output("flags")]
-        public Output<Pulumi.Svmkit.Agave.Outputs.Flags> Flags { get; private set; } = null!;
+        public Output<ABKLabs.Svmkit.Agave.Outputs.Flags> Flags { get; private set; } = null!;
 
         [Output("keyPairs")]
-        public Output<Pulumi.Svmkit.Agave.Outputs.KeyPairs> KeyPairs { get; private set; } = null!;
+        public Output<ABKLabs.Svmkit.Agave.Outputs.KeyPairs> KeyPairs { get; private set; } = null!;
 
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
@@ -70,13 +71,13 @@ namespace Pulumi.Svmkit.Validator
     public sealed class AgaveArgs : global::Pulumi.ResourceArgs
     {
         [Input("connection", required: true)]
-        public Input<Pulumi.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
+        public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 
         [Input("flags", required: true)]
-        public Input<Pulumi.Svmkit.Agave.Inputs.FlagsArgs> Flags { get; set; } = null!;
+        public Input<ABKLabs.Svmkit.Agave.Inputs.FlagsArgs> Flags { get; set; } = null!;
 
         [Input("keyPairs", required: true)]
-        public Input<Pulumi.Svmkit.Agave.Inputs.KeyPairsArgs> KeyPairs { get; set; } = null!;
+        public Input<ABKLabs.Svmkit.Agave.Inputs.KeyPairsArgs> KeyPairs { get; set; } = null!;
 
         [Input("version")]
         public Input<string>? Version { get; set; }
