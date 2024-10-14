@@ -1,5 +1,5 @@
 {
-    "name": "@pulumi/svmkit",
+    "name": "@svmkit/pulumi-svmkit",
     "version": "${VERSION}",
     "keywords": [
         "pulumi",
@@ -8,8 +8,8 @@
         "blockchain"
     ],
     "homepage": "https://abklabs.com",
-    "repository": "https://github.com/abklabs/svmkit",
-    "license": "Apache-3.0",
+    "repository": "https://github.com/abklabs/pulumi-svmkit",
+    "license": "GPL-3.0-only",
     "scripts": {
         "build": "tsc"
     },

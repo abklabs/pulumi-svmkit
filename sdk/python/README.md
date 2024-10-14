@@ -32,7 +32,7 @@ You can find a catalog of example Pulumi projects to help you get started with S
 
 ```bash
 $ cd examples/aws-agave-validator
-$ yarn link @pulumi/svmkit
+$ yarn link @svmkit/pulumi-svmkit
 $ yarn install
 $ pulumi stack init demo
 $ pulumi up
@@ -40,7 +40,7 @@ $ pulumi up
 
 In this example, an Agave validator is installed on a machine via SSH, joining the Solana testnet.
 
-Teams can add more validator clients to SVMkit, which will be accessible through the `validator` namespace in `@pulumi/svmkit`.
+Teams can add more validator clients to SVMkit, which will be accessible through the `validator` namespace in `@svmkit/pulumi-svmkit`.
 
 ```typescript
 new svmkit.validator.Agave(
