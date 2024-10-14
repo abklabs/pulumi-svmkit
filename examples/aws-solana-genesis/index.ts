@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as svmkit from "@pulumi/svmkit";
+import * as svmkit from "@svmkit/pulumi-svmkit";
 import * as aws from "@pulumi/aws";
 import * as tls from "@pulumi/tls";
 
