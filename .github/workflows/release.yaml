@@ -12,7 +12,6 @@ env:
   # AND PUBLISH_NPM: TRUE. IF YOU WANT TO PUBLISH TO A PRIVATE NPM REGISTRY
   # THEN ENSURE THE NPM_REGISTRY_URL IS CHANGED
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   PUBLISH_NPM: true
   NPM_REGISTRY_URL: https://registry.npmjs.org
   # IF YOU NEED TO PUBLISH A NUGET PACKAGE THEN ENSURE AN NUGET_PUBLISH_KEY
@@ -26,14 +25,12 @@ env:
   # PYPI REGISTRY THEN ENSURE THE PYPI_REPOSITORY_URL IS SET. IF YOU ARE USING AN API_TOKEN THEN
   # YOU DO NOT NEED TO CHANGE THE PYPI_USERNAME (__token__) , IF YOU ARE USING PASSWORD AUTHENTICATION THEN YOU WILL
   # NEED TO CHANGE TO USE THE CORRECT PASSWORD
-  PYPI_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-  PYPI_USERNAME: "YOUR PYPI USERNAME HERE"
-  PYPI_REPOSITORY_URL: ""
   PUBLISH_PYPI: true
 jobs:
   publish_binary:
     name: publish
     runs-on: ubuntu-latest
+    environment: release
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
@@ -60,6 +57,7 @@ jobs:
   publish_sdk:
     name: Publish SDKs
     runs-on: ubuntu-latest
+    environment: release
     needs: publish_binary
     steps:
       - name: Checkout Repo
@@ -112,14 +110,13 @@ jobs:
         name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: ${{ env.PYPI_USERNAME }}
-          password: ${{ env.PYPI_PASSWORD }}
+          password: ${{ secrets.PYPI_TOKEN }}
           packages-dir: ${{github.workspace}}/sdk/python/bin/dist
       - if: ${{ matrix.language == 'nodejs' && env.PUBLISH_NPM == 'true' }}
         uses: JS-DevTools/npm-publish@v3
         with:
           access: "public"
-          token: ${{ env.NPM_TOKEN }}
+          token: ${{ secrets.NPM_TOKEN }}
           package: ${{github.workspace}}/sdk/nodejs/bin/package.json
       - if: ${{ matrix.language == 'dotnet' && env.PUBLISH_NUGET == 'true' }}
         name: publish nuget package
