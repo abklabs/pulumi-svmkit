@@ -4,9 +4,8 @@ PACK			:= svmkit
 PROJECT			:= github.com/abklabs/pulumi-${PACK}
 
 PROVIDER		:= pulumi-resource-${PACK}
-PROVIDER_PATH		:= provider
-VERSION_PATH		:= ${PROVIDER_PATH}.Version
 
+GOLANG_FLAGS		= -ldflags "-X ${PROJECT}/pkg/version.Version=${VERSION}"
 GOPATH			:= $(shell go env GOPATH)
 TESTPARALLELISM		:= 4
 GO_TEST			:= go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
@@ -23,10 +22,11 @@ ensure::
 	cd sdk && go mod tidy
 
 provider $(WORKING_DIR)/bin/$(PROVIDER)::
-	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/cmd/$(PROVIDER))
+	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} ${GOLANG_FLAGS} $(PROJECT)/cmd/$(PROVIDER))
 
+provider_debug:: GOLANG_FLAGS += -gcflags="all=-N -l"
 provider_debug::
-	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/cmd/$(PROVIDER))
+	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} ${GOLANG_FLAGS} $(PROJECT)/cmd/$(PROVIDER))
 
 dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
 dotnet_sdk:: $(WORKING_DIR)/bin/$(PROVIDER)
