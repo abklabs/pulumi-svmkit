@@ -16,7 +16,7 @@ builds:
       - linux
     ldflags:
       # The line below MUST align with the module in current provider/go.mod
-      - -X github.com/abklabs/pulumi-svmkit/provider/Version={{.Tag }}
+      - -X github.com/abklabs/pulumi-svmkit/pkg/version.Version={{.Tag }}
     main: ./cmd/pulumi-resource-svmkit/
 changelog:
   disable: true
