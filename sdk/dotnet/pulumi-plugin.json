@@ -1,4 +1,5 @@
 {
   "resource": true,
-  "name": "svmkit"
+  "name": "svmkit",
+  "server": "github://api.github.com/abklabs"
 }
