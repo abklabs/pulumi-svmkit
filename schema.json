@@ -142,5 +142,6 @@
             },
             "respectSchemaVersion": true
         }
-    }
+    },
+    "pluginDownloadURL": "github://api.github.com/abklabs"
 }
