@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
 from .. import agave as _agave
 from .. import ssh as _ssh
@@ -71,9 +76,9 @@ class Agave(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 connection: Optional[pulumi.Input[pulumi.InputType['_ssh.ConnectionArgs']]] = None,
-                 flags: Optional[pulumi.Input[pulumi.InputType['_agave.FlagsArgs']]] = None,
-                 key_pairs: Optional[pulumi.Input[pulumi.InputType['_agave.KeyPairsArgs']]] = None,
+                 connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 flags: Optional[pulumi.Input[Union['_agave.FlagsArgs', '_agave.FlagsArgsDict']]] = None,
+                 key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -104,9 +109,9 @@ class Agave(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 connection: Optional[pulumi.Input[pulumi.InputType['_ssh.ConnectionArgs']]] = None,
-                 flags: Optional[pulumi.Input[pulumi.InputType['_agave.FlagsArgs']]] = None,
-                 key_pairs: Optional[pulumi.Input[pulumi.InputType['_agave.KeyPairsArgs']]] = None,
+                 connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 flags: Optional[pulumi.Input[Union['_agave.FlagsArgs', '_agave.FlagsArgsDict']]] = None,
+                 key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)

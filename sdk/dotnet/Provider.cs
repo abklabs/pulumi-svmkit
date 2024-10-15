@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Svmkit
+namespace ABKLabs.Svmkit
 {
     [SvmkitResourceType("pulumi:providers:svmkit")]
     public partial class Provider : global::Pulumi.ProviderResource

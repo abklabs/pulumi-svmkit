@@ -8,9 +8,9 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/abklabs/svmkit/sdk/go/svmkit/internal"
-	"github.com/abklabs/svmkit/sdk/go/svmkit/solana"
-	"github.com/abklabs/svmkit/sdk/go/svmkit/ssh"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 

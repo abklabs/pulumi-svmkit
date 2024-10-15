@@ -4,15 +4,47 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
 
 __all__ = [
     'FlagsArgs',
+    'FlagsArgsDict',
     'KeyPairsArgs',
+    'KeyPairsArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class FlagsArgsDict(TypedDict):
+        block_production_method: pulumi.Input[str]
+        dynamic_port_range: pulumi.Input[str]
+        full_snapshot_interval_slots: pulumi.Input[int]
+        gossip_port: pulumi.Input[int]
+        limit_ledger_size: pulumi.Input[int]
+        no_wait_for_vote_to_start_leader: pulumi.Input[bool]
+        only_known_rpc: pulumi.Input[bool]
+        private_rpc: pulumi.Input[bool]
+        rpc_bind_address: pulumi.Input[str]
+        rpc_port: pulumi.Input[int]
+        use_snapshot_archives_at_startup: pulumi.Input[str]
+        wal_recovery_mode: pulumi.Input[str]
+        entry_point: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        expected_genesis_hash: NotRequired[pulumi.Input[str]]
+        full_rpc_api: NotRequired[pulumi.Input[bool]]
+        known_validator: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        no_voting: NotRequired[pulumi.Input[bool]]
+        tvu_receive_threads: NotRequired[pulumi.Input[int]]
+elif False:
+    FlagsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FlagsArgs:
@@ -222,6 +254,13 @@ class FlagsArgs:
     def tvu_receive_threads(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "tvu_receive_threads", value)
 
+
+if not MYPY:
+    class KeyPairsArgsDict(TypedDict):
+        identity: pulumi.Input[str]
+        vote_account: pulumi.Input[str]
+elif False:
+    KeyPairsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class KeyPairsArgs:

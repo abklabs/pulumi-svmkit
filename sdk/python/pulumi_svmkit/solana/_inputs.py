@@ -4,14 +4,38 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
 
 __all__ = [
     'GenesisFlagsArgs',
+    'GenesisFlagsArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class GenesisFlagsArgsDict(TypedDict):
+        faucet_pubkey: pulumi.Input[str]
+        identity_pubkey: pulumi.Input[str]
+        ledger_path: pulumi.Input[str]
+        stake_pubkey: pulumi.Input[str]
+        vote_pubkey: pulumi.Input[str]
+        cluster_type: NotRequired[pulumi.Input[str]]
+        faucet_lamports: NotRequired[pulumi.Input[str]]
+        inflation: NotRequired[pulumi.Input[str]]
+        lamports_per_byte_year: NotRequired[pulumi.Input[str]]
+        slot_per_epoch: NotRequired[pulumi.Input[str]]
+        target_lamports_per_signature: NotRequired[pulumi.Input[str]]
+elif False:
+    GenesisFlagsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class GenesisFlagsArgs:

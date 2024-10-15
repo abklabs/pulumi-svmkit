@@ -20,15 +20,15 @@ def readme():
 setup(name='pulumi_svmkit',
       python_requires='>=3.8',
       version=VERSION,
-      description="The Pulumi Command Provider enables you to execute commands and scripts either locally or remotely as part of the Pulumi resource model.",
+      description="SVMKit allows you to manage Solana SVM software components using infrastructure as code.",
       long_description=readme(),
       long_description_content_type='text/markdown',
       keywords='pulumi svmkit solana blockchain',
       url='https://abklabs.com',
       project_urls={
-          'Repository': 'https://github.com/abklabs/svmkit'
+          'Repository': 'https://github.com/abklabs/pulumi-svmkit'
       },
-      license='Apache-3.0',
+      license='GPL-3.0-only',
       packages=find_packages(),
       package_data={
           'pulumi_svmkit': [
@@ -38,7 +38,8 @@ setup(name='pulumi_svmkit',
       },
       install_requires=[
           'parver>=0.2.1',
-          'pulumi>=3.0.0,<4.0.0',
-          'semver>=2.8.1'
+          'pulumi>=3.136.0,<4.0.0',
+          'semver>=2.8.1',
+          'typing-extensions>=4.11,<5; python_version < "3.11"'
       ],
       zip_safe=False)

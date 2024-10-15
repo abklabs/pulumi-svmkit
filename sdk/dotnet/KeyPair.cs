@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Svmkit
+namespace ABKLabs.Svmkit
 {
     [SvmkitResourceType("svmkit:index:KeyPair")]
     public partial class KeyPair : global::Pulumi.CustomResource

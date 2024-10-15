@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
 from . import outputs
 from .. import solana as _solana
@@ -61,9 +66,9 @@ class Solana(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 connection: Optional[pulumi.Input[pulumi.InputType['_ssh.ConnectionArgs']]] = None,
-                 flags: Optional[pulumi.Input[pulumi.InputType['_solana.GenesisFlagsArgs']]] = None,
-                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PrimorialEntryArgs']]]]] = None,
+                 connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 flags: Optional[pulumi.Input[Union['_solana.GenesisFlagsArgs', '_solana.GenesisFlagsArgsDict']]] = None,
+                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimorialEntryArgs', 'PrimorialEntryArgsDict']]]]] = None,
                  __props__=None):
         """
         Create a Solana resource with the given unique name, props, and options.
@@ -93,9 +98,9 @@ class Solana(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 connection: Optional[pulumi.Input[pulumi.InputType['_ssh.ConnectionArgs']]] = None,
-                 flags: Optional[pulumi.Input[pulumi.InputType['_solana.GenesisFlagsArgs']]] = None,
-                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PrimorialEntryArgs']]]]] = None,
+                 connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 flags: Optional[pulumi.Input[Union['_solana.GenesisFlagsArgs', '_solana.GenesisFlagsArgsDict']]] = None,
+                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimorialEntryArgs', 'PrimorialEntryArgsDict']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

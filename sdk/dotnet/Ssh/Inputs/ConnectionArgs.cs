@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Svmkit.Ssh.Inputs
+namespace ABKLabs.Svmkit.Ssh.Inputs
 {
 
     /// <summary>
