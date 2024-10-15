@@ -127,7 +127,7 @@
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/abklabs/pulumi-svmkit/sdk/go/svmkit",
+            "importBasePath": "github.com/abklabs/pulumi-svmkit/sdk/go",
             "respectSchemaVersion": true
         },
         "nodejs": {
