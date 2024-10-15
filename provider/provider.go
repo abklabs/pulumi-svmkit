@@ -40,7 +40,7 @@ func Provider() p.Provider {
 			Description: "SVMKit allows you to manage Solana SVM software components using infrastructure as code.",
 			LanguageMap: map[string]any{
 				"go": goGen.GoPackageInfo{
-					ImportBasePath: "github.com/abklabs/pulumi-svmkit/sdk/go",
+					ImportBasePath:  "github.com/abklabs/pulumi-svmkit/sdk/go",
 					RootPackageName: "svmkit",
 				},
 				"nodejs": nodejsGen.NodePackageInfo{
