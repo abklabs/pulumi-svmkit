@@ -29,7 +29,7 @@ provider_debug::
 	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/cmd/$(PROVIDER))
 
 dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
-dotnet_sdk::
+dotnet_sdk:: $(WORKING_DIR)/bin/$(PROVIDER)
 	rm -rf sdk/dotnet
 	pulumi package gen-sdk $(WORKING_DIR)/bin/$(PROVIDER) --language dotnet
 	cd sdk/dotnet/&& \
@@ -41,7 +41,7 @@ go_sdk:: $(WORKING_DIR)/bin/$(PROVIDER)
 	pulumi package gen-sdk $(WORKING_DIR)/bin/$(PROVIDER) --language go
 
 nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript)
-nodejs_sdk::
+nodejs_sdk:: $(WORKING_DIR)/bin/$(PROVIDER)
 	rm -rf sdk/nodejs
 	pulumi package gen-sdk $(WORKING_DIR)/bin/$(PROVIDER) --language nodejs
 	cd sdk/nodejs/ && \
@@ -52,7 +52,7 @@ nodejs_sdk::
 		rm ./bin/package.json.bak
 
 python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
-python_sdk::
+python_sdk:: $(WORKING_DIR)/bin/$(PROVIDER)
 	rm -rf sdk/python
 	pulumi package gen-sdk $(WORKING_DIR)/bin/$(PROVIDER) --language python
 	cp README.md sdk/python/
