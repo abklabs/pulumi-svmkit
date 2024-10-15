@@ -22,7 +22,7 @@ ensure::
 	cd provider && go mod tidy
 	cd sdk && go mod tidy
 
-provider::
+provider $(WORKING_DIR)/bin/$(PROVIDER)::
 	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/cmd/$(PROVIDER))
 
 provider_debug::
