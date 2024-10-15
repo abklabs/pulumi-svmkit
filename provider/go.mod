@@ -8,8 +8,8 @@ require (
 	github.com/abklabs/svmkit/pkg v0.0.0-20241009145521-9081884e2c9c
 	github.com/gagliardetto/solana-go v1.11.0
 	github.com/pulumi/pulumi-go-provider v0.23.0
-	github.com/pulumi/pulumi/pkg/v3 v3.134.0
-	github.com/pulumi/pulumi/sdk/v3 v3.134.0
+	github.com/pulumi/pulumi/pkg/v3 v3.136.0
+	github.com/pulumi/pulumi/sdk/v3 v3.136.0
 )
 
 require (
