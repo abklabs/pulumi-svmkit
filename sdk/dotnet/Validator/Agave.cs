@@ -22,6 +22,9 @@ namespace ABKLabs.Svmkit.Validator
         [Output("keyPairs")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.KeyPairs> KeyPairs { get; private set; } = null!;
 
+        [Output("metrics")]
+        public Output<ABKLabs.Svmkit.Agave.Outputs.Metrics?> Metrics { get; private set; } = null!;
+
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
 
@@ -79,6 +82,9 @@ namespace ABKLabs.Svmkit.Validator
 
         [Input("keyPairs", required: true)]
         public Input<ABKLabs.Svmkit.Agave.Inputs.KeyPairsArgs> KeyPairs { get; set; } = null!;
+
+        [Input("metrics")]
+        public Input<ABKLabs.Svmkit.Agave.Inputs.MetricsArgs>? Metrics { get; set; }
 
         [Input("version")]
         public Input<string>? Version { get; set; }

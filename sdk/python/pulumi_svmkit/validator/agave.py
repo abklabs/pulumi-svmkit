@@ -24,6 +24,7 @@ class AgaveArgs:
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  flags: pulumi.Input['_agave.FlagsArgs'],
                  key_pairs: pulumi.Input['_agave.KeyPairsArgs'],
+                 metrics: Optional[pulumi.Input['_agave.MetricsArgs']] = None,
                  version: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Agave resource.
@@ -31,6 +32,8 @@ class AgaveArgs:
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "flags", flags)
         pulumi.set(__self__, "key_pairs", key_pairs)
+        if metrics is not None:
+            pulumi.set(__self__, "metrics", metrics)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -63,6 +66,15 @@ class AgaveArgs:
 
     @property
     @pulumi.getter
+    def metrics(self) -> Optional[pulumi.Input['_agave.MetricsArgs']]:
+        return pulumi.get(self, "metrics")
+
+    @metrics.setter
+    def metrics(self, value: Optional[pulumi.Input['_agave.MetricsArgs']]):
+        pulumi.set(self, "metrics", value)
+
+    @property
+    @pulumi.getter
     def version(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "version")
 
@@ -79,6 +91,7 @@ class Agave(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['_agave.FlagsArgs', '_agave.FlagsArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
+                 metrics: Optional[pulumi.Input[Union['_agave.MetricsArgs', '_agave.MetricsArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -112,6 +125,7 @@ class Agave(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['_agave.FlagsArgs', '_agave.FlagsArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
+                 metrics: Optional[pulumi.Input[Union['_agave.MetricsArgs', '_agave.MetricsArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -131,6 +145,7 @@ class Agave(pulumi.CustomResource):
             if key_pairs is None and not opts.urn:
                 raise TypeError("Missing required property 'key_pairs'")
             __props__.__dict__["key_pairs"] = key_pairs
+            __props__.__dict__["metrics"] = metrics
             __props__.__dict__["version"] = version
         super(Agave, __self__).__init__(
             'svmkit:validator:Agave',
@@ -157,6 +172,7 @@ class Agave(pulumi.CustomResource):
         __props__.__dict__["connection"] = None
         __props__.__dict__["flags"] = None
         __props__.__dict__["key_pairs"] = None
+        __props__.__dict__["metrics"] = None
         __props__.__dict__["version"] = None
         return Agave(resource_name, opts=opts, __props__=__props__)
 
@@ -174,6 +190,11 @@ class Agave(pulumi.CustomResource):
     @pulumi.getter(name="keyPairs")
     def key_pairs(self) -> pulumi.Output['_agave.outputs.KeyPairs']:
         return pulumi.get(self, "key_pairs")
+
+    @property
+    @pulumi.getter
+    def metrics(self) -> pulumi.Output[Optional['_agave.outputs.Metrics']]:
+        return pulumi.get(self, "metrics")
 
     @property
     @pulumi.getter

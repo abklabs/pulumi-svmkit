@@ -33,6 +33,13 @@ export namespace agave {
         identity: pulumi.Input<string>;
         voteAccount: pulumi.Input<string>;
     }
+
+    export interface MetricsArgs {
+        database: pulumi.Input<string>;
+        password: pulumi.Input<string>;
+        url: pulumi.Input<string>;
+        user: pulumi.Input<string>;
+    }
 }
 
 export namespace genesis {

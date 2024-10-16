@@ -17,6 +17,7 @@ from .. import _utilities
 __all__ = [
     'Flags',
     'KeyPairs',
+    'Metrics',
 ]
 
 @pulumi.output_type
@@ -241,5 +242,38 @@ class KeyPairs(dict):
     @pulumi.getter(name="voteAccount")
     def vote_account(self) -> str:
         return pulumi.get(self, "vote_account")
+
+
+@pulumi.output_type
+class Metrics(dict):
+    def __init__(__self__, *,
+                 database: str,
+                 password: str,
+                 url: str,
+                 user: str):
+        pulumi.set(__self__, "database", database)
+        pulumi.set(__self__, "password", password)
+        pulumi.set(__self__, "url", url)
+        pulumi.set(__self__, "user", user)
+
+    @property
+    @pulumi.getter
+    def database(self) -> str:
+        return pulumi.get(self, "database")
+
+    @property
+    @pulumi.getter
+    def password(self) -> str:
+        return pulumi.get(self, "password")
+
+    @property
+    @pulumi.getter
+    def url(self) -> str:
+        return pulumi.get(self, "url")
+
+    @property
+    @pulumi.getter
+    def user(self) -> str:
+        return pulumi.get(self, "user")
 
 

@@ -34,6 +34,13 @@ export namespace agave {
         voteAccount: string;
     }
 
+    export interface Metrics {
+        database: string;
+        password: string;
+        url: string;
+        user: string;
+    }
+
 }
 
 export namespace genesis {
