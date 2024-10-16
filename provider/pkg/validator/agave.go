@@ -20,6 +20,7 @@ type AgaveArgs struct {
 	// Flags contains the configuration flags for the Agave validator.
 	Flags    agave.Flags    `pulumi:"flags"`
 	KeyPairs agave.KeyPairs `pulumi:"keyPairs"`
+	Metrics  *agave.Metrics  `pulumi:"metrics,optional"`
 }
 
 // AgaveState represents the state of an Agave resource.
@@ -51,6 +52,7 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 		Flags:    input.Flags,
 		KeyPairs: input.KeyPairs,
 		Version:  input.Version,
+		Metrics:  input.Metrics,
 	}
 	command := client.Install()
 
