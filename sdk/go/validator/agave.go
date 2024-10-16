@@ -20,6 +20,7 @@ type Agave struct {
 	Connection ssh.ConnectionOutput   `pulumi:"connection"`
 	Flags      agave.FlagsOutput      `pulumi:"flags"`
 	KeyPairs   agave.KeyPairsOutput   `pulumi:"keyPairs"`
+	Metrics    agave.MetricsPtrOutput `pulumi:"metrics"`
 	Version    pulumi.StringPtrOutput `pulumi:"version"`
 }
 
@@ -76,6 +77,7 @@ type agaveArgs struct {
 	Connection ssh.Connection `pulumi:"connection"`
 	Flags      agave.Flags    `pulumi:"flags"`
 	KeyPairs   agave.KeyPairs `pulumi:"keyPairs"`
+	Metrics    *agave.Metrics `pulumi:"metrics"`
 	Version    *string        `pulumi:"version"`
 }
 
@@ -84,6 +86,7 @@ type AgaveArgs struct {
 	Connection ssh.ConnectionInput
 	Flags      agave.FlagsInput
 	KeyPairs   agave.KeyPairsInput
+	Metrics    agave.MetricsPtrInput
 	Version    pulumi.StringPtrInput
 }
 
@@ -134,6 +137,10 @@ func (o AgaveOutput) Flags() agave.FlagsOutput {
 
 func (o AgaveOutput) KeyPairs() agave.KeyPairsOutput {
 	return o.ApplyT(func(v *Agave) agave.KeyPairsOutput { return v.KeyPairs }).(agave.KeyPairsOutput)
+}
+
+func (o AgaveOutput) Metrics() agave.MetricsPtrOutput {
+	return o.ApplyT(func(v *Agave) agave.MetricsPtrOutput { return v.Metrics }).(agave.MetricsPtrOutput)
 }
 
 func (o AgaveOutput) Version() pulumi.StringPtrOutput {

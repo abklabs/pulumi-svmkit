@@ -219,9 +219,191 @@ func (o KeyPairsOutput) VoteAccount() pulumi.StringOutput {
 	return o.ApplyT(func(v KeyPairs) string { return v.VoteAccount }).(pulumi.StringOutput)
 }
 
+type Metrics struct {
+	Database string `pulumi:"database"`
+	Password string `pulumi:"password"`
+	Url      string `pulumi:"url"`
+	User     string `pulumi:"user"`
+}
+
+// MetricsInput is an input type that accepts MetricsArgs and MetricsOutput values.
+// You can construct a concrete instance of `MetricsInput` via:
+//
+//	MetricsArgs{...}
+type MetricsInput interface {
+	pulumi.Input
+
+	ToMetricsOutput() MetricsOutput
+	ToMetricsOutputWithContext(context.Context) MetricsOutput
+}
+
+type MetricsArgs struct {
+	Database pulumi.StringInput `pulumi:"database"`
+	Password pulumi.StringInput `pulumi:"password"`
+	Url      pulumi.StringInput `pulumi:"url"`
+	User     pulumi.StringInput `pulumi:"user"`
+}
+
+func (MetricsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Metrics)(nil)).Elem()
+}
+
+func (i MetricsArgs) ToMetricsOutput() MetricsOutput {
+	return i.ToMetricsOutputWithContext(context.Background())
+}
+
+func (i MetricsArgs) ToMetricsOutputWithContext(ctx context.Context) MetricsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MetricsOutput)
+}
+
+func (i MetricsArgs) ToMetricsPtrOutput() MetricsPtrOutput {
+	return i.ToMetricsPtrOutputWithContext(context.Background())
+}
+
+func (i MetricsArgs) ToMetricsPtrOutputWithContext(ctx context.Context) MetricsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MetricsOutput).ToMetricsPtrOutputWithContext(ctx)
+}
+
+// MetricsPtrInput is an input type that accepts MetricsArgs, MetricsPtr and MetricsPtrOutput values.
+// You can construct a concrete instance of `MetricsPtrInput` via:
+//
+//	        MetricsArgs{...}
+//
+//	or:
+//
+//	        nil
+type MetricsPtrInput interface {
+	pulumi.Input
+
+	ToMetricsPtrOutput() MetricsPtrOutput
+	ToMetricsPtrOutputWithContext(context.Context) MetricsPtrOutput
+}
+
+type metricsPtrType MetricsArgs
+
+func MetricsPtr(v *MetricsArgs) MetricsPtrInput {
+	return (*metricsPtrType)(v)
+}
+
+func (*metricsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Metrics)(nil)).Elem()
+}
+
+func (i *metricsPtrType) ToMetricsPtrOutput() MetricsPtrOutput {
+	return i.ToMetricsPtrOutputWithContext(context.Background())
+}
+
+func (i *metricsPtrType) ToMetricsPtrOutputWithContext(ctx context.Context) MetricsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MetricsPtrOutput)
+}
+
+type MetricsOutput struct{ *pulumi.OutputState }
+
+func (MetricsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Metrics)(nil)).Elem()
+}
+
+func (o MetricsOutput) ToMetricsOutput() MetricsOutput {
+	return o
+}
+
+func (o MetricsOutput) ToMetricsOutputWithContext(ctx context.Context) MetricsOutput {
+	return o
+}
+
+func (o MetricsOutput) ToMetricsPtrOutput() MetricsPtrOutput {
+	return o.ToMetricsPtrOutputWithContext(context.Background())
+}
+
+func (o MetricsOutput) ToMetricsPtrOutputWithContext(ctx context.Context) MetricsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Metrics) *Metrics {
+		return &v
+	}).(MetricsPtrOutput)
+}
+
+func (o MetricsOutput) Database() pulumi.StringOutput {
+	return o.ApplyT(func(v Metrics) string { return v.Database }).(pulumi.StringOutput)
+}
+
+func (o MetricsOutput) Password() pulumi.StringOutput {
+	return o.ApplyT(func(v Metrics) string { return v.Password }).(pulumi.StringOutput)
+}
+
+func (o MetricsOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v Metrics) string { return v.Url }).(pulumi.StringOutput)
+}
+
+func (o MetricsOutput) User() pulumi.StringOutput {
+	return o.ApplyT(func(v Metrics) string { return v.User }).(pulumi.StringOutput)
+}
+
+type MetricsPtrOutput struct{ *pulumi.OutputState }
+
+func (MetricsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Metrics)(nil)).Elem()
+}
+
+func (o MetricsPtrOutput) ToMetricsPtrOutput() MetricsPtrOutput {
+	return o
+}
+
+func (o MetricsPtrOutput) ToMetricsPtrOutputWithContext(ctx context.Context) MetricsPtrOutput {
+	return o
+}
+
+func (o MetricsPtrOutput) Elem() MetricsOutput {
+	return o.ApplyT(func(v *Metrics) Metrics {
+		if v != nil {
+			return *v
+		}
+		var ret Metrics
+		return ret
+	}).(MetricsOutput)
+}
+
+func (o MetricsPtrOutput) Database() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Metrics) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Database
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o MetricsPtrOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Metrics) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Password
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o MetricsPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Metrics) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o MetricsPtrOutput) User() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Metrics) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.User
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlagsInput)(nil)).Elem(), FlagsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*KeyPairsInput)(nil)).Elem(), KeyPairsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MetricsInput)(nil)).Elem(), MetricsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MetricsPtrInput)(nil)).Elem(), MetricsArgs{})
 	pulumi.RegisterOutputType(FlagsOutput{})
 	pulumi.RegisterOutputType(KeyPairsOutput{})
+	pulumi.RegisterOutputType(MetricsOutput{})
+	pulumi.RegisterOutputType(MetricsPtrOutput{})
 }

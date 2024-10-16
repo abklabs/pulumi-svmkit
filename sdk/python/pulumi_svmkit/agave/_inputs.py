@@ -19,6 +19,8 @@ __all__ = [
     'FlagsArgsDict',
     'KeyPairsArgs',
     'KeyPairsArgsDict',
+    'MetricsArgs',
+    'MetricsArgsDict',
 ]
 
 MYPY = False
@@ -287,5 +289,63 @@ class KeyPairsArgs:
     @vote_account.setter
     def vote_account(self, value: pulumi.Input[str]):
         pulumi.set(self, "vote_account", value)
+
+
+if not MYPY:
+    class MetricsArgsDict(TypedDict):
+        database: pulumi.Input[str]
+        password: pulumi.Input[str]
+        url: pulumi.Input[str]
+        user: pulumi.Input[str]
+elif False:
+    MetricsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MetricsArgs:
+    def __init__(__self__, *,
+                 database: pulumi.Input[str],
+                 password: pulumi.Input[str],
+                 url: pulumi.Input[str],
+                 user: pulumi.Input[str]):
+        pulumi.set(__self__, "database", database)
+        pulumi.set(__self__, "password", password)
+        pulumi.set(__self__, "url", url)
+        pulumi.set(__self__, "user", user)
+
+    @property
+    @pulumi.getter
+    def database(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "database")
+
+    @database.setter
+    def database(self, value: pulumi.Input[str]):
+        pulumi.set(self, "database", value)
+
+    @property
+    @pulumi.getter
+    def password(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "password")
+
+    @password.setter
+    def password(self, value: pulumi.Input[str]):
+        pulumi.set(self, "password", value)
+
+    @property
+    @pulumi.getter
+    def url(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: pulumi.Input[str]):
+        pulumi.set(self, "url", value)
+
+    @property
+    @pulumi.getter
+    def user(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "user")
+
+    @user.setter
+    def user(self, value: pulumi.Input[str]):
+        pulumi.set(self, "user", value)
 
 
