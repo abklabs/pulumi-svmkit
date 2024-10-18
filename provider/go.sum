@@ -87,6 +87,8 @@ github.com/abklabs/svmkit/pkg v0.0.0-20241016233634-9eda661a3ff0 h1:xKINQVYwNsG6
 github.com/abklabs/svmkit/pkg v0.0.0-20241016233634-9eda661a3ff0/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpeWGzUTZZipY=
 github.com/abklabs/svmkit/pkg v0.1.0 h1:cyhbAQpJVvXxDSfoIfOG34Pmt683qrEvW2vVvlOXzfU=
 github.com/abklabs/svmkit/pkg v0.1.0/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpeWGzUTZZipY=
+github.com/abklabs/svmkit/pkg v0.1.1 h1:hVhqTTGTpvPXvUH0wesWG8CG565eLQR8yx4Or1GdK/E=
+github.com/abklabs/svmkit/pkg v0.1.1/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpeWGzUTZZipY=
 github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da h1:KjTM2ks9d14ZYCvmHS9iAKVt9AyzRSqNU1qabPih5BY=
 github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da/go.mod h1:eHEWzANqSiWQsof+nXEI9bUVUyV6F53Fp89EuCh2EAA=
 github.com/agext/levenshtein v1.2.3 h1:YB2fHEn0UJagG8T1rrWknE3ZQzWM06O8AMAatNn7lmo=
