@@ -1,0 +1,3 @@
+name: aws-agave-validator-go
+description: An Agave validator deployed on AWS
+runtime: go
