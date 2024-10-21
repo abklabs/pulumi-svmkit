@@ -79,14 +79,6 @@ github.com/Microsoft/go-winio v0.6.1 h1:9/kr64B9VUZrLm5YYwbGtUJnMgqWVOdUAXu6Migc
 github.com/Microsoft/go-winio v0.6.1/go.mod h1:LRdKpFKfdobln8UmuiYcKPot9D2v6svN5+sAH+4kjUM=
 github.com/ProtonMail/go-crypto v1.0.0 h1:LRuvITjQWX+WIfr930YHG2HNfjR1uOfyf5vE0kC2U78=
 github.com/ProtonMail/go-crypto v1.0.0/go.mod h1:EjAoLdwvbIOoOQr3ihjnSoLZRtE8azugULFRteWMNc0=
-github.com/abklabs/svmkit/pkg v0.0.0-20241009145521-9081884e2c9c h1:O+zhtlgAQq2efXVJNKrp7qX8pwuBIZRbviftbLnD4Kk=
-github.com/abklabs/svmkit/pkg v0.0.0-20241009145521-9081884e2c9c/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpeWGzUTZZipY=
-github.com/abklabs/svmkit/pkg v0.0.0-20241016225148-14b8f4049999 h1:aQNJzlNMpP1WGsCQIi+aF02Oh3GvT4vE9YFR+wLyfx8=
-github.com/abklabs/svmkit/pkg v0.0.0-20241016225148-14b8f4049999/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpeWGzUTZZipY=
-github.com/abklabs/svmkit/pkg v0.0.0-20241016233634-9eda661a3ff0 h1:xKINQVYwNsG6B01b9oDjTZrJZyTNU1WIR+Bat4sV+cs=
-github.com/abklabs/svmkit/pkg v0.0.0-20241016233634-9eda661a3ff0/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpeWGzUTZZipY=
-github.com/abklabs/svmkit/pkg v0.1.0 h1:cyhbAQpJVvXxDSfoIfOG34Pmt683qrEvW2vVvlOXzfU=
-github.com/abklabs/svmkit/pkg v0.1.0/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpeWGzUTZZipY=
 github.com/abklabs/svmkit/pkg v0.1.1 h1:hVhqTTGTpvPXvUH0wesWG8CG565eLQR8yx4Or1GdK/E=
 github.com/abklabs/svmkit/pkg v0.1.1/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpeWGzUTZZipY=
 github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da h1:KjTM2ks9d14ZYCvmHS9iAKVt9AyzRSqNU1qabPih5BY=
@@ -483,8 +475,7 @@ github.com/pulumi/pulumi-go-provider v0.23.0 h1:cJCORjoxnnU4/K2Hnxb8wG540N/Dlvxw
 github.com/pulumi/pulumi-go-provider v0.23.0/go.mod h1:F8liLNHpntb2FkIl8GeVHuC1OWo4dDxIelz1/D8Obkw=
 github.com/pulumi/pulumi/pkg/v3 v3.136.0 h1:hnHukNSAHDozrEsO7j7pjfi3dfwTw/dz5LqaI9NBq48=
 github.com/pulumi/pulumi/pkg/v3 v3.136.0/go.mod h1:foYAiaYWPGmEPXXVJJchTftmLNzpk6A3xGU2ra0gT3k=
-github.com/pulumi/pulumi/sdk/v3 v3.136.0 h1:TVoRtUCdQSOb3TNvJaXp87fJxG6rgw8lCbYKbw1MHcU=
-github.com/pulumi/pulumi/sdk/v3 v3.136.0/go.mod h1:PvKsX88co8XuwuPdzolMvew5lZV+4JmZfkeSjj7A6dI=
+github.com/pulumi/pulumi/sdk/v3 v3.137.0 h1:bxhYpOY7Z4xt+VmezEpHuhjpOekkaMqOjzxFg/1OhCw=
 github.com/rivo/uniseg v0.1.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.4.4 h1:8TfxU8dW6PdqD27gjM8MVNuicgxIjxpm4K7x4jp8sis=

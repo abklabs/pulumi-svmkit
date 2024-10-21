@@ -9,7 +9,7 @@ require (
 	github.com/gagliardetto/solana-go v1.11.0
 	github.com/pulumi/pulumi-go-provider v0.23.0
 	github.com/pulumi/pulumi/pkg/v3 v3.136.0
-	github.com/pulumi/pulumi/sdk/v3 v3.136.0
+	github.com/pulumi/pulumi/sdk/v3 v3.137.0
 )
 
 require (
