@@ -32,29 +32,29 @@ security_group = aws.ec2.SecurityGroup(
     ingress=[
         {
             "protocol": "tcp",
-            "fromPort": 22,
-            "toPort": 22,
-            "cidrBlocks": ["0.0.0.0/0"],
+            "from_port": 22,
+            "to_port": 22,
+            "cidr_blocks": ["0.0.0.0/0"],
         },
         {
             "protocol": "tcp",
-            "fromPort": 8000,
-            "toPort": 8020,
-            "cidrBlocks": ["0.0.0.0/0"],
+            "from_port": 8000,
+            "to_port": 8020,
+            "cidr_blocks": ["0.0.0.0/0"],
         },
         {
             "protocol": "udp",
-            "fromPort": 8000,
-            "toPort": 8020,
-            "cidrBlocks": ["0.0.0.0/0"],
+            "from_port": 8000,
+            "to_port": 8020,
+            "cidr_blocks": ["0.0.0.0/0"],
         }
     ],
     egress=[
         {
             "protocol": "-1",
-            "fromPort": 0,
-            "toPort": 0,
-            "cidrBlocks": ["0.0.0.0/0"],
+            "from_port": 0,
+            "to_port": 0,
+            "cidr_blocks": ["0.0.0.0/0"],
         }
     ]
 )
@@ -67,15 +67,15 @@ instance = aws.ec2.Instance(
     vpc_security_group_ids=[security_group.id],
     ebs_block_devices=[
         {
-            "deviceName": "/dev/sdf",
-            "volumeSize": 500,
-            "volumeType": "io2",
+            "device_name": "/dev/sdf",
+            "volume_size": 500,
+            "volume_type": "io2",
             "iops": 16000,
         },
         {
-            "deviceName": "/dev/sdg",
-            "volumeSize": 1024,
-            "volumeType": "io2",
+            "device_name": "/dev/sdg",
+            "volume_size": 1024,
+            "volume_type": "io2",
             "iops": 16000,
         },
     ],
@@ -93,45 +93,43 @@ mount -a
 """
 )
 
-connection = {
-    "host": instance.public_dns,
-    "user": "admin",
-    "privateKey": ssh_key.private_key_openssh,
-}
-
 svmkit.validator.Agave(
     "validator",
-    connection=connection,
+    connection={
+        "host": instance.public_dns,
+        "user": "admin",
+        "private_key": ssh_key.private_key_openssh
+    },
     version="1.18.24-1",
     key_pairs={
         "identity": validator_key.json,
-        "voteAccount": vote_account_key.json,
+        "vote_account": vote_account_key.json,
     },
     flags={
-        "entryPoint": [
+        "entry_point": [
             "entrypoint.testnet.solana.com:8001",
             "entrypoint2.testnet.solana.com:8001",
             "entrypoint3.testnet.solana.com:8001",
         ],
-        "knownValidator": [
+        "known_validator": [
             "5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on",
             "7XSY3MrYnK8vq693Rju17bbPkCN3Z7KvvfvJx4kdrsSY",
             "Ft5fbkqNa76vnsjYNwjDZUXoTWpP7VYm3mtsaQckQADN",
             "9QxCLckBiJc783jnMvXZubK4wH86Eqqvashtrwvcsgkv",
         ],
-        "expectedGenesisHash": "4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY",
-        "useSnapshotArchivesAtStartup": "when-newest",
-        "rpcPort": 8899,
-        "privateRPC": True,
-        "onlyKnownRPC": True,
-        "dynamicPortRange": "8002-8020",
-        "gossipPort": 8001,
-        "rpcBindAddress": "0.0.0.0",
-        "walRecoveryMode": "skip_any_corrupted_record",
-        "limitLedgerSize": 50000000,
-        "blockProductionMethod": "central-scheduler",
-        "fullSnapshotIntervalSlots": 1000,
-        "noWaitForVoteToStartLeader": True,
+        "expected_genesis_hash": "4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY",
+        "use_snapshot_archives_at_startup": "when-newest",
+        "rpc_port": 8899,
+        "private_rpc": True,
+        "only_known_rpc": True,
+        "dynamic_port_range": "8002-8020",
+        "gossip_port": 8001,
+        "rpc_bind_address": "0.0.0.0",
+        "wal_recovery_mode": "skip_any_corrupted_record",
+        "limit_ledger_size": 50000000,
+        "block_production_method": "central-scheduler",
+        "full_snapshot_interval_slots": 1000,
+        "no_wait_for_vote_to_start_leader": True,
     },
     opts=pulumi.ResourceOptions(depends_on=[instance])
 )

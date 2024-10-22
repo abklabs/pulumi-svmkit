@@ -4,4 +4,5 @@ runtime:
   options:
     toolchain: pip
     virtualenv: venv
+    typechecker: pyright
 description: A Python example of an Agave validator
