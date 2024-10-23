@@ -20,7 +20,7 @@ type AgaveArgs struct {
 	// Flags contains the configuration flags for the Agave validator.
 	Flags    agave.Flags    `pulumi:"flags"`
 	KeyPairs agave.KeyPairs `pulumi:"keyPairs"`
-	Metrics  *agave.Metrics  `pulumi:"metrics,optional"`
+	Metrics  *agave.Metrics `pulumi:"metrics,optional"`
 }
 
 // AgaveState represents the state of an Agave resource.
