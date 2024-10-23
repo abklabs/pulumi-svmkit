@@ -73,7 +73,7 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 	defer connection.Close()
 
 	// Execute the command on the remote machine
-	stdout, stderr, err := ssh.Exec(ctx, connection, "solana genesis-hash")
+	stdout, stderr, err := ssh.Exec(ctx, connection, "sudo -i -u sol agave-ledger-tool genesis-hash")
 	if err != nil {
 		return "", SolanaState{}, fmt.Errorf("failed to execute Solana genesis command: %w, stderr: %s", err, stderr)
 	}
