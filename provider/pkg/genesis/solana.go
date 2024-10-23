@@ -5,6 +5,7 @@ import (
 
 	_ "embed"
 	"fmt"
+	"strings"
 
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/svmkit/pkg/genesis"
@@ -77,7 +78,7 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 		return "", SolanaState{}, fmt.Errorf("failed to execute Solana genesis command: %w, stderr: %s", err, stderr)
 	}
 
-	state.Hash = stdout
+	state.Hash = strings.TrimSpace(stdout)
 
 	return name, state, nil
 }
