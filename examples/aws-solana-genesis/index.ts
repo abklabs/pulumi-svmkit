@@ -156,7 +156,7 @@ new svmkit.validator.Agave(
             useSnapshotArchivesAtStartup: "when-newest",
             rpcPort: 8899,
             privateRPC: true,
-            onlyKnownRPC: true,
+            onlyKnownRPC: false,
             dynamicPortRange: "8002-8020",
             gossipPort: 8001,
             rpcBindAddress: "0.0.0.0",
