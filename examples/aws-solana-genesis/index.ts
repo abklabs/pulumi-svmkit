@@ -5,7 +5,22 @@ import * as tls from "@pulumi/tls";
 
 const config = new pulumi.Config("svmkit");
 
-const ami = config.require("ami");
+const ami = pulumi.output(
+    aws.ec2.getAmi({
+        filters: [
+            {
+                name: "name",
+                values: ["debian-12-*"],
+            },
+            {
+                name: "architecture",
+                values: ["x86_64"],
+            },
+        ],
+        owners: ["136693071363"], // Debian
+        mostRecent: true,
+    }),
+).id;
 
 const sshKey = new tls.PrivateKey("ssh-key", {
     algorithm: "ED25519",
