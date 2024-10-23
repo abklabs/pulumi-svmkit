@@ -165,6 +165,7 @@ new svmkit.validator.Agave(
             blockProductionMethod: "central-scheduler",
             fullSnapshotIntervalSlots: 1000,
             noWaitForVoteToStartLeader: true,
+            expectedGenesisHash: genesis.genesisHash,
         },
     },
     {
