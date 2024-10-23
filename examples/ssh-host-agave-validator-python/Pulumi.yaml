@@ -1,0 +1,8 @@
+name: ssh-host-agave-validator-python
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+    typechecker: pyright
+description: A Python example of an Agave validator on an existing host
