@@ -39,9 +39,12 @@ if not MYPY:
         rpc_port: pulumi.Input[int]
         use_snapshot_archives_at_startup: pulumi.Input[str]
         wal_recovery_mode: pulumi.Input[str]
+        allow_private_addr: NotRequired[pulumi.Input[bool]]
         entry_point: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         expected_genesis_hash: NotRequired[pulumi.Input[str]]
+        extra_flags: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         full_rpc_api: NotRequired[pulumi.Input[bool]]
+        gossip_host: NotRequired[pulumi.Input[str]]
         known_validator: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         no_voting: NotRequired[pulumi.Input[bool]]
         tvu_receive_threads: NotRequired[pulumi.Input[int]]
@@ -63,9 +66,12 @@ class FlagsArgs:
                  rpc_port: pulumi.Input[int],
                  use_snapshot_archives_at_startup: pulumi.Input[str],
                  wal_recovery_mode: pulumi.Input[str],
+                 allow_private_addr: Optional[pulumi.Input[bool]] = None,
                  entry_point: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  expected_genesis_hash: Optional[pulumi.Input[str]] = None,
+                 extra_flags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  full_rpc_api: Optional[pulumi.Input[bool]] = None,
+                 gossip_host: Optional[pulumi.Input[str]] = None,
                  known_validator: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  no_voting: Optional[pulumi.Input[bool]] = None,
                  tvu_receive_threads: Optional[pulumi.Input[int]] = None):
@@ -81,12 +87,18 @@ class FlagsArgs:
         pulumi.set(__self__, "rpc_port", rpc_port)
         pulumi.set(__self__, "use_snapshot_archives_at_startup", use_snapshot_archives_at_startup)
         pulumi.set(__self__, "wal_recovery_mode", wal_recovery_mode)
+        if allow_private_addr is not None:
+            pulumi.set(__self__, "allow_private_addr", allow_private_addr)
         if entry_point is not None:
             pulumi.set(__self__, "entry_point", entry_point)
         if expected_genesis_hash is not None:
             pulumi.set(__self__, "expected_genesis_hash", expected_genesis_hash)
+        if extra_flags is not None:
+            pulumi.set(__self__, "extra_flags", extra_flags)
         if full_rpc_api is not None:
             pulumi.set(__self__, "full_rpc_api", full_rpc_api)
+        if gossip_host is not None:
+            pulumi.set(__self__, "gossip_host", gossip_host)
         if known_validator is not None:
             pulumi.set(__self__, "known_validator", known_validator)
         if no_voting is not None:
@@ -203,6 +215,15 @@ class FlagsArgs:
         pulumi.set(self, "wal_recovery_mode", value)
 
     @property
+    @pulumi.getter(name="allowPrivateAddr")
+    def allow_private_addr(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "allow_private_addr")
+
+    @allow_private_addr.setter
+    def allow_private_addr(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "allow_private_addr", value)
+
+    @property
     @pulumi.getter(name="entryPoint")
     def entry_point(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         return pulumi.get(self, "entry_point")
@@ -221,6 +242,15 @@ class FlagsArgs:
         pulumi.set(self, "expected_genesis_hash", value)
 
     @property
+    @pulumi.getter(name="extraFlags")
+    def extra_flags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_flags")
+
+    @extra_flags.setter
+    def extra_flags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_flags", value)
+
+    @property
     @pulumi.getter(name="fullRpcAPI")
     def full_rpc_api(self) -> Optional[pulumi.Input[bool]]:
         return pulumi.get(self, "full_rpc_api")
@@ -228,6 +258,15 @@ class FlagsArgs:
     @full_rpc_api.setter
     def full_rpc_api(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "full_rpc_api", value)
+
+    @property
+    @pulumi.getter(name="gossipHost")
+    def gossip_host(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "gossip_host")
+
+    @gossip_host.setter
+    def gossip_host(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "gossip_host", value)
 
     @property
     @pulumi.getter(name="knownValidator")

@@ -14,12 +14,15 @@ namespace ABKLabs.Svmkit.Agave.Outputs
     [OutputType]
     public sealed class Flags
     {
+        public readonly bool? AllowPrivateAddr;
         public readonly string BlockProductionMethod;
         public readonly string DynamicPortRange;
         public readonly ImmutableArray<string> EntryPoint;
         public readonly string? ExpectedGenesisHash;
+        public readonly ImmutableArray<string> ExtraFlags;
         public readonly bool? FullRpcAPI;
         public readonly int FullSnapshotIntervalSlots;
+        public readonly string? GossipHost;
         public readonly int GossipPort;
         public readonly ImmutableArray<string> KnownValidator;
         public readonly int LimitLedgerSize;
@@ -35,6 +38,8 @@ namespace ABKLabs.Svmkit.Agave.Outputs
 
         [OutputConstructor]
         private Flags(
+            bool? allowPrivateAddr,
+
             string blockProductionMethod,
 
             string dynamicPortRange,
@@ -43,9 +48,13 @@ namespace ABKLabs.Svmkit.Agave.Outputs
 
             string? expectedGenesisHash,
 
+            ImmutableArray<string> extraFlags,
+
             bool? fullRpcAPI,
 
             int fullSnapshotIntervalSlots,
+
+            string? gossipHost,
 
             int gossipPort,
 
@@ -71,12 +80,15 @@ namespace ABKLabs.Svmkit.Agave.Outputs
 
             string walRecoveryMode)
         {
+            AllowPrivateAddr = allowPrivateAddr;
             BlockProductionMethod = blockProductionMethod;
             DynamicPortRange = dynamicPortRange;
             EntryPoint = entryPoint;
             ExpectedGenesisHash = expectedGenesisHash;
+            ExtraFlags = extraFlags;
             FullRpcAPI = fullRpcAPI;
             FullSnapshotIntervalSlots = fullSnapshotIntervalSlots;
+            GossipHost = gossipHost;
             GossipPort = gossipPort;
             KnownValidator = knownValidator;
             LimitLedgerSize = limitLedgerSize;

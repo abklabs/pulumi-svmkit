@@ -13,6 +13,9 @@ namespace ABKLabs.Svmkit.Agave.Inputs
 
     public sealed class FlagsArgs : global::Pulumi.ResourceArgs
     {
+        [Input("allowPrivateAddr")]
+        public Input<bool>? AllowPrivateAddr { get; set; }
+
         [Input("blockProductionMethod", required: true)]
         public Input<string> BlockProductionMethod { get; set; } = null!;
 
@@ -30,11 +33,22 @@ namespace ABKLabs.Svmkit.Agave.Inputs
         [Input("expectedGenesisHash")]
         public Input<string>? ExpectedGenesisHash { get; set; }
 
+        [Input("extraFlags")]
+        private InputList<string>? _extraFlags;
+        public InputList<string> ExtraFlags
+        {
+            get => _extraFlags ?? (_extraFlags = new InputList<string>());
+            set => _extraFlags = value;
+        }
+
         [Input("fullRpcAPI")]
         public Input<bool>? FullRpcAPI { get; set; }
 
         [Input("fullSnapshotIntervalSlots", required: true)]
         public Input<int> FullSnapshotIntervalSlots { get; set; } = null!;
+
+        [Input("gossipHost")]
+        public Input<string>? GossipHost { get; set; }
 
         [Input("gossipPort", required: true)]
         public Input<int> GossipPort { get; set; } = null!;

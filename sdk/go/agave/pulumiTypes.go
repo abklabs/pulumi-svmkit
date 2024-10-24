@@ -14,12 +14,15 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type Flags struct {
+	AllowPrivateAddr             *bool    `pulumi:"allowPrivateAddr"`
 	BlockProductionMethod        string   `pulumi:"blockProductionMethod"`
 	DynamicPortRange             string   `pulumi:"dynamicPortRange"`
 	EntryPoint                   []string `pulumi:"entryPoint"`
 	ExpectedGenesisHash          *string  `pulumi:"expectedGenesisHash"`
+	ExtraFlags                   []string `pulumi:"extraFlags"`
 	FullRpcAPI                   *bool    `pulumi:"fullRpcAPI"`
 	FullSnapshotIntervalSlots    int      `pulumi:"fullSnapshotIntervalSlots"`
+	GossipHost                   *string  `pulumi:"gossipHost"`
 	GossipPort                   int      `pulumi:"gossipPort"`
 	KnownValidator               []string `pulumi:"knownValidator"`
 	LimitLedgerSize              int      `pulumi:"limitLedgerSize"`
@@ -46,12 +49,15 @@ type FlagsInput interface {
 }
 
 type FlagsArgs struct {
+	AllowPrivateAddr             pulumi.BoolPtrInput     `pulumi:"allowPrivateAddr"`
 	BlockProductionMethod        pulumi.StringInput      `pulumi:"blockProductionMethod"`
 	DynamicPortRange             pulumi.StringInput      `pulumi:"dynamicPortRange"`
 	EntryPoint                   pulumi.StringArrayInput `pulumi:"entryPoint"`
 	ExpectedGenesisHash          pulumi.StringPtrInput   `pulumi:"expectedGenesisHash"`
+	ExtraFlags                   pulumi.StringArrayInput `pulumi:"extraFlags"`
 	FullRpcAPI                   pulumi.BoolPtrInput     `pulumi:"fullRpcAPI"`
 	FullSnapshotIntervalSlots    pulumi.IntInput         `pulumi:"fullSnapshotIntervalSlots"`
+	GossipHost                   pulumi.StringPtrInput   `pulumi:"gossipHost"`
 	GossipPort                   pulumi.IntInput         `pulumi:"gossipPort"`
 	KnownValidator               pulumi.StringArrayInput `pulumi:"knownValidator"`
 	LimitLedgerSize              pulumi.IntInput         `pulumi:"limitLedgerSize"`
@@ -92,6 +98,10 @@ func (o FlagsOutput) ToFlagsOutputWithContext(ctx context.Context) FlagsOutput {
 	return o
 }
 
+func (o FlagsOutput) AllowPrivateAddr() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v Flags) *bool { return v.AllowPrivateAddr }).(pulumi.BoolPtrOutput)
+}
+
 func (o FlagsOutput) BlockProductionMethod() pulumi.StringOutput {
 	return o.ApplyT(func(v Flags) string { return v.BlockProductionMethod }).(pulumi.StringOutput)
 }
@@ -108,12 +118,20 @@ func (o FlagsOutput) ExpectedGenesisHash() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Flags) *string { return v.ExpectedGenesisHash }).(pulumi.StringPtrOutput)
 }
 
+func (o FlagsOutput) ExtraFlags() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v Flags) []string { return v.ExtraFlags }).(pulumi.StringArrayOutput)
+}
+
 func (o FlagsOutput) FullRpcAPI() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v Flags) *bool { return v.FullRpcAPI }).(pulumi.BoolPtrOutput)
 }
 
 func (o FlagsOutput) FullSnapshotIntervalSlots() pulumi.IntOutput {
 	return o.ApplyT(func(v Flags) int { return v.FullSnapshotIntervalSlots }).(pulumi.IntOutput)
+}
+
+func (o FlagsOutput) GossipHost() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Flags) *string { return v.GossipHost }).(pulumi.StringPtrOutput)
 }
 
 func (o FlagsOutput) GossipPort() pulumi.IntOutput {
