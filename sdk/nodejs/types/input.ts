@@ -9,12 +9,15 @@ import * as utilities from "../utilities";
 
 export namespace agave {
     export interface FlagsArgs {
+        allowPrivateAddr?: pulumi.Input<boolean>;
         blockProductionMethod: pulumi.Input<string>;
         dynamicPortRange: pulumi.Input<string>;
         entryPoint?: pulumi.Input<pulumi.Input<string>[]>;
         expectedGenesisHash?: pulumi.Input<string>;
+        extraFlags?: pulumi.Input<pulumi.Input<string>[]>;
         fullRpcAPI?: pulumi.Input<boolean>;
         fullSnapshotIntervalSlots: pulumi.Input<number>;
+        gossipHost?: pulumi.Input<string>;
         gossipPort: pulumi.Input<number>;
         knownValidator?: pulumi.Input<pulumi.Input<string>[]>;
         limitLedgerSize: pulumi.Input<number>;

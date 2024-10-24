@@ -49,12 +49,18 @@ class Flags(dict):
             suggest = "use_snapshot_archives_at_startup"
         elif key == "walRecoveryMode":
             suggest = "wal_recovery_mode"
+        elif key == "allowPrivateAddr":
+            suggest = "allow_private_addr"
         elif key == "entryPoint":
             suggest = "entry_point"
         elif key == "expectedGenesisHash":
             suggest = "expected_genesis_hash"
+        elif key == "extraFlags":
+            suggest = "extra_flags"
         elif key == "fullRpcAPI":
             suggest = "full_rpc_api"
+        elif key == "gossipHost":
+            suggest = "gossip_host"
         elif key == "knownValidator":
             suggest = "known_validator"
         elif key == "noVoting":
@@ -86,9 +92,12 @@ class Flags(dict):
                  rpc_port: int,
                  use_snapshot_archives_at_startup: str,
                  wal_recovery_mode: str,
+                 allow_private_addr: Optional[bool] = None,
                  entry_point: Optional[Sequence[str]] = None,
                  expected_genesis_hash: Optional[str] = None,
+                 extra_flags: Optional[Sequence[str]] = None,
                  full_rpc_api: Optional[bool] = None,
+                 gossip_host: Optional[str] = None,
                  known_validator: Optional[Sequence[str]] = None,
                  no_voting: Optional[bool] = None,
                  tvu_receive_threads: Optional[int] = None):
@@ -104,12 +113,18 @@ class Flags(dict):
         pulumi.set(__self__, "rpc_port", rpc_port)
         pulumi.set(__self__, "use_snapshot_archives_at_startup", use_snapshot_archives_at_startup)
         pulumi.set(__self__, "wal_recovery_mode", wal_recovery_mode)
+        if allow_private_addr is not None:
+            pulumi.set(__self__, "allow_private_addr", allow_private_addr)
         if entry_point is not None:
             pulumi.set(__self__, "entry_point", entry_point)
         if expected_genesis_hash is not None:
             pulumi.set(__self__, "expected_genesis_hash", expected_genesis_hash)
+        if extra_flags is not None:
+            pulumi.set(__self__, "extra_flags", extra_flags)
         if full_rpc_api is not None:
             pulumi.set(__self__, "full_rpc_api", full_rpc_api)
+        if gossip_host is not None:
+            pulumi.set(__self__, "gossip_host", gossip_host)
         if known_validator is not None:
             pulumi.set(__self__, "known_validator", known_validator)
         if no_voting is not None:
@@ -178,6 +193,11 @@ class Flags(dict):
         return pulumi.get(self, "wal_recovery_mode")
 
     @property
+    @pulumi.getter(name="allowPrivateAddr")
+    def allow_private_addr(self) -> Optional[bool]:
+        return pulumi.get(self, "allow_private_addr")
+
+    @property
     @pulumi.getter(name="entryPoint")
     def entry_point(self) -> Optional[Sequence[str]]:
         return pulumi.get(self, "entry_point")
@@ -188,9 +208,19 @@ class Flags(dict):
         return pulumi.get(self, "expected_genesis_hash")
 
     @property
+    @pulumi.getter(name="extraFlags")
+    def extra_flags(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "extra_flags")
+
+    @property
     @pulumi.getter(name="fullRpcAPI")
     def full_rpc_api(self) -> Optional[bool]:
         return pulumi.get(self, "full_rpc_api")
+
+    @property
+    @pulumi.getter(name="gossipHost")
+    def gossip_host(self) -> Optional[str]:
+        return pulumi.get(self, "gossip_host")
 
     @property
     @pulumi.getter(name="knownValidator")
