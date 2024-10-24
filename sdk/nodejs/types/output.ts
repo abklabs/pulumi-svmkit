@@ -9,12 +9,15 @@ import * as utilities from "../utilities";
 
 export namespace agave {
     export interface Flags {
+        allowPrivateAddr?: boolean;
         blockProductionMethod: string;
         dynamicPortRange: string;
         entryPoint?: string[];
         expectedGenesisHash?: string;
+        extraFlags?: string[];
         fullRpcAPI?: boolean;
         fullSnapshotIntervalSlots: number;
+        gossipHost?: string;
         gossipPort: number;
         knownValidator?: string[];
         limitLedgerSize: number;
