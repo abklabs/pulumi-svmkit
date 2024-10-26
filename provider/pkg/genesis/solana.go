@@ -23,6 +23,7 @@ type SolanaArgs struct {
 	// Flags contains the configuration flags for the Solana genesis setup.
 	Flags      solana.GenesisFlags      `pulumi:"flags"`
 	Primordial []genesis.PrimorialEntry `pulumi:"primordial"`
+	Version    genesis.Version          `pulumi:"version,optional"`
 }
 
 // SolanaState represents the state of a Solana genesis resource.
@@ -54,6 +55,7 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 	genesis := &solana.Genesis{
 		Flags:      input.Flags,
 		Primordial: input.Primordial,
+		Version:    input.Version,
 	}
 	command := genesis.Create()
 
