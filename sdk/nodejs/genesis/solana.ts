@@ -37,6 +37,7 @@ export class Solana extends pulumi.CustomResource {
     public readonly flags!: pulumi.Output<outputs.solana.GenesisFlags>;
     public /*out*/ readonly genesisHash!: pulumi.Output<string>;
     public readonly primordial!: pulumi.Output<outputs.genesis.PrimorialEntry[]>;
+    public readonly version!: pulumi.Output<string | undefined>;
 
     /**
      * Create a Solana resource with the given unique name, arguments, and options.
@@ -61,12 +62,14 @@ export class Solana extends pulumi.CustomResource {
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["primordial"] = args ? args.primordial : undefined;
+            resourceInputs["version"] = args ? args.version : undefined;
             resourceInputs["genesisHash"] = undefined /*out*/;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["genesisHash"] = undefined /*out*/;
             resourceInputs["primordial"] = undefined /*out*/;
+            resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Solana.__pulumiType, name, resourceInputs, opts);
@@ -80,4 +83,5 @@ export interface SolanaArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     flags: pulumi.Input<inputs.solana.GenesisFlagsArgs>;
     primordial: pulumi.Input<pulumi.Input<inputs.genesis.PrimorialEntryArgs>[]>;
+    version?: pulumi.Input<string>;
 }

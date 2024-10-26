@@ -25,6 +25,9 @@ namespace ABKLabs.Svmkit.Genesis
         [Output("primordial")]
         public Output<ImmutableArray<Outputs.PrimorialEntry>> Primordial { get; private set; } = null!;
 
+        [Output("version")]
+        public Output<string?> Version { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a Solana resource with the given unique name, arguments, and options.
@@ -84,6 +87,9 @@ namespace ABKLabs.Svmkit.Genesis
             get => _primordial ?? (_primordial = new InputList<Inputs.PrimorialEntryArgs>());
             set => _primordial = value;
         }
+
+        [Input("version")]
+        public Input<string>? Version { get; set; }
 
         public SolanaArgs()
         {

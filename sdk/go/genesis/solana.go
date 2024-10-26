@@ -21,6 +21,7 @@ type Solana struct {
 	Flags       solana.GenesisFlagsOutput `pulumi:"flags"`
 	GenesisHash pulumi.StringOutput       `pulumi:"genesisHash"`
 	Primordial  PrimorialEntryArrayOutput `pulumi:"primordial"`
+	Version     pulumi.StringPtrOutput    `pulumi:"version"`
 }
 
 // NewSolana registers a new resource with the given unique name, arguments, and options.
@@ -76,6 +77,7 @@ type solanaArgs struct {
 	Connection ssh.Connection      `pulumi:"connection"`
 	Flags      solana.GenesisFlags `pulumi:"flags"`
 	Primordial []PrimorialEntry    `pulumi:"primordial"`
+	Version    *string             `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Solana resource.
@@ -83,6 +85,7 @@ type SolanaArgs struct {
 	Connection ssh.ConnectionInput
 	Flags      solana.GenesisFlagsInput
 	Primordial PrimorialEntryArrayInput
+	Version    pulumi.StringPtrInput
 }
 
 func (SolanaArgs) ElementType() reflect.Type {
@@ -136,6 +139,10 @@ func (o SolanaOutput) GenesisHash() pulumi.StringOutput {
 
 func (o SolanaOutput) Primordial() PrimorialEntryArrayOutput {
 	return o.ApplyT(func(v *Solana) PrimorialEntryArrayOutput { return v.Primordial }).(PrimorialEntryArrayOutput)
+}
+
+func (o SolanaOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Solana) pulumi.StringPtrOutput { return v.Version }).(pulumi.StringPtrOutput)
 }
 
 func init() {
