@@ -17,11 +17,13 @@ utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 
 
 // Export sub-modules:
+import * as agave from "./agave";
 import * as genesis from "./genesis";
 import * as types from "./types";
 import * as validator from "./validator";
 
 export {
+    agave,
     genesis,
     types,
     validator,

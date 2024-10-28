@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
+import * as enums from "../types/enums";
 import * as utilities from "../utilities";
 
 export class Agave extends pulumi.CustomResource {
@@ -37,6 +38,7 @@ export class Agave extends pulumi.CustomResource {
     public readonly flags!: pulumi.Output<outputs.agave.Flags>;
     public readonly keyPairs!: pulumi.Output<outputs.agave.KeyPairs>;
     public readonly metrics!: pulumi.Output<outputs.agave.Metrics | undefined>;
+    public readonly variant!: pulumi.Output<enums.agave.Variant | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
     /**
@@ -63,12 +65,14 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
             resourceInputs["metrics"] = args ? args.metrics : undefined;
+            resourceInputs["variant"] = args ? args.variant : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
             resourceInputs["metrics"] = undefined /*out*/;
+            resourceInputs["variant"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -84,5 +88,6 @@ export interface AgaveArgs {
     flags: pulumi.Input<inputs.agave.FlagsArgs>;
     keyPairs: pulumi.Input<inputs.agave.KeyPairsArgs>;
     metrics?: pulumi.Input<inputs.agave.MetricsArgs>;
+    variant?: pulumi.Input<enums.agave.Variant>;
     version?: pulumi.Input<string>;
 }

@@ -21,6 +21,7 @@ type Agave struct {
 	Flags      agave.FlagsOutput      `pulumi:"flags"`
 	KeyPairs   agave.KeyPairsOutput   `pulumi:"keyPairs"`
 	Metrics    agave.MetricsPtrOutput `pulumi:"metrics"`
+	Variant    agave.VariantPtrOutput `pulumi:"variant"`
 	Version    pulumi.StringPtrOutput `pulumi:"version"`
 }
 
@@ -78,6 +79,7 @@ type agaveArgs struct {
 	Flags      agave.Flags    `pulumi:"flags"`
 	KeyPairs   agave.KeyPairs `pulumi:"keyPairs"`
 	Metrics    *agave.Metrics `pulumi:"metrics"`
+	Variant    *agave.Variant `pulumi:"variant"`
 	Version    *string        `pulumi:"version"`
 }
 
@@ -87,6 +89,7 @@ type AgaveArgs struct {
 	Flags      agave.FlagsInput
 	KeyPairs   agave.KeyPairsInput
 	Metrics    agave.MetricsPtrInput
+	Variant    agave.VariantPtrInput
 	Version    pulumi.StringPtrInput
 }
 
@@ -141,6 +144,10 @@ func (o AgaveOutput) KeyPairs() agave.KeyPairsOutput {
 
 func (o AgaveOutput) Metrics() agave.MetricsPtrOutput {
 	return o.ApplyT(func(v *Agave) agave.MetricsPtrOutput { return v.Metrics }).(agave.MetricsPtrOutput)
+}
+
+func (o AgaveOutput) Variant() agave.VariantPtrOutput {
+	return o.ApplyT(func(v *Agave) agave.VariantPtrOutput { return v.Variant }).(agave.VariantPtrOutput)
 }
 
 func (o AgaveOutput) Version() pulumi.StringPtrOutput {

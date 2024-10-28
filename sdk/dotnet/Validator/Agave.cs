@@ -25,6 +25,9 @@ namespace ABKLabs.Svmkit.Validator
         [Output("metrics")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.Metrics?> Metrics { get; private set; } = null!;
 
+        [Output("variant")]
+        public Output<ABKLabs.Svmkit.Agave.Variant?> Variant { get; private set; } = null!;
+
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
 
@@ -85,6 +88,9 @@ namespace ABKLabs.Svmkit.Validator
 
         [Input("metrics")]
         public Input<ABKLabs.Svmkit.Agave.Inputs.MetricsArgs>? Metrics { get; set; }
+
+        [Input("variant")]
+        public Input<ABKLabs.Svmkit.Agave.Variant>? Variant { get; set; }
 
         [Input("version")]
         public Input<string>? Version { get; set; }
