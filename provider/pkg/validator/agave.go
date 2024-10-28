@@ -21,6 +21,7 @@ type AgaveArgs struct {
 	Flags    agave.Flags    `pulumi:"flags"`
 	KeyPairs agave.KeyPairs `pulumi:"keyPairs"`
 	Metrics  *agave.Metrics `pulumi:"metrics,optional"`
+	Variant  *agave.Variant `pulumi:"variant,optional"`
 }
 
 // AgaveState represents the state of an Agave resource.
@@ -53,7 +54,9 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 		KeyPairs: input.KeyPairs,
 		Version:  input.Version,
 		Metrics:  input.Metrics,
+		Variant:  input.Variant,
 	}
+
 	command := client.Install()
 
 	r := runner.Machine(input.Connection).
