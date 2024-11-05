@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
-	"github.com/abklabs/svmkit/pkg/genesis"
 	"github.com/abklabs/svmkit/pkg/runner"
 	"github.com/abklabs/svmkit/pkg/solana"
 	"github.com/abklabs/svmkit/pkg/ssh"
@@ -20,10 +19,7 @@ type Solana struct{}
 // SolanaArgs represents the input arguments required to create a Solana genesis resource.
 type SolanaArgs struct {
 	svm.GenesisArgs
-	// Flags contains the configuration flags for the Solana genesis setup.
-	Flags      solana.GenesisFlags      `pulumi:"flags"`
-	Primordial []genesis.PrimorialEntry `pulumi:"primordial"`
-	Version    genesis.Version          `pulumi:"version,optional"`
+	solana.Genesis
 }
 
 // SolanaState represents the state of a Solana genesis resource.
