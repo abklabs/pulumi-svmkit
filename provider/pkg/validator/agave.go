@@ -9,6 +9,7 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/svmkit/pkg/agave"
 	"github.com/abklabs/svmkit/pkg/runner"
+	"github.com/abklabs/svmkit/pkg/validator"
 )
 
 // Agave represents a Pulumi resource for managing an Agave validator.
@@ -17,6 +18,10 @@ type Agave struct{}
 // AgaveArgs represents the input arguments required to create an Agave resource.
 type AgaveArgs struct {
 	svm.ValidatorArgs
+	// Version specifies the version of the validator to be used.
+	// It is an optional field and can be omitted if not needed.
+	// If omitted, the latest version of the validator will be installed.
+	Version validator.Version `pulumi:"version,optional"`
 	// Flags contains the configuration flags for the Agave validator.
 	Flags    agave.Flags    `pulumi:"flags"`
 	KeyPairs agave.KeyPairs `pulumi:"keyPairs"`
