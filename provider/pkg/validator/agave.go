@@ -53,9 +53,7 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 		return "", AgaveState{}, fmt.Errorf("failed to check validator config: %w", err)
 	}
 
-	r := runner.Machine(input.Connection).
-		Env(command.Env()).
-		Script(command.Script())
+	r := runner.NewRunner(input.Connection, command)
 
 	if err := r.Run(ctx); err != nil {
 		return "", AgaveState{}, fmt.Errorf("failed to install validator: %w", err)
@@ -87,9 +85,7 @@ func (Agave) Update(ctx context.Context, name string, oldInput, newInput AgaveAr
 	client := newInput.Agave
 	command := client.Install()
 
-	r := runner.Machine(newInput.Connection).
-		Env(command.Env()).
-		Script(command.Script())
+	r := runner.NewRunner(newInput.Connection, command)
 
 	if err := r.Run(ctx); err != nil {
 		return "", AgaveState{}, fmt.Errorf("failed to update validator: %w", err)
