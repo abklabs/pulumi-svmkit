@@ -15,6 +15,7 @@ else:
 from .. import _utilities
 from .. import agave
 from .. import agave as _agave
+from .. import solana as _solana
 from .. import ssh as _ssh
 
 __all__ = ['AgaveArgs', 'Agave']
@@ -25,6 +26,7 @@ class AgaveArgs:
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  flags: pulumi.Input['_agave.FlagsArgs'],
                  key_pairs: pulumi.Input['_agave.KeyPairsArgs'],
+                 environment: Optional[pulumi.Input['_solana.EnvironmentArgs']] = None,
                  metrics: Optional[pulumi.Input['_agave.MetricsArgs']] = None,
                  variant: Optional[pulumi.Input['agave.Variant']] = None,
                  version: Optional[pulumi.Input[str]] = None):
@@ -34,6 +36,8 @@ class AgaveArgs:
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "flags", flags)
         pulumi.set(__self__, "key_pairs", key_pairs)
+        if environment is not None:
+            pulumi.set(__self__, "environment", environment)
         if metrics is not None:
             pulumi.set(__self__, "metrics", metrics)
         if variant is not None:
@@ -70,6 +74,15 @@ class AgaveArgs:
 
     @property
     @pulumi.getter
+    def environment(self) -> Optional[pulumi.Input['_solana.EnvironmentArgs']]:
+        return pulumi.get(self, "environment")
+
+    @environment.setter
+    def environment(self, value: Optional[pulumi.Input['_solana.EnvironmentArgs']]):
+        pulumi.set(self, "environment", value)
+
+    @property
+    @pulumi.getter
     def metrics(self) -> Optional[pulumi.Input['_agave.MetricsArgs']]:
         return pulumi.get(self, "metrics")
 
@@ -102,6 +115,7 @@ class Agave(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['_agave.FlagsArgs', '_agave.FlagsArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
                  metrics: Optional[pulumi.Input[Union['_agave.MetricsArgs', '_agave.MetricsArgsDict']]] = None,
@@ -137,6 +151,7 @@ class Agave(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['_agave.FlagsArgs', '_agave.FlagsArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
                  metrics: Optional[pulumi.Input[Union['_agave.MetricsArgs', '_agave.MetricsArgsDict']]] = None,
@@ -154,6 +169,7 @@ class Agave(pulumi.CustomResource):
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
+            __props__.__dict__["environment"] = environment
             if flags is None and not opts.urn:
                 raise TypeError("Missing required property 'flags'")
             __props__.__dict__["flags"] = flags
@@ -186,6 +202,7 @@ class Agave(pulumi.CustomResource):
         __props__ = AgaveArgs.__new__(AgaveArgs)
 
         __props__.__dict__["connection"] = None
+        __props__.__dict__["environment"] = None
         __props__.__dict__["flags"] = None
         __props__.__dict__["key_pairs"] = None
         __props__.__dict__["metrics"] = None
@@ -197,6 +214,11 @@ class Agave(pulumi.CustomResource):
     @pulumi.getter
     def connection(self) -> pulumi.Output['_ssh.outputs.Connection']:
         return pulumi.get(self, "connection")
+
+    @property
+    @pulumi.getter
+    def environment(self) -> pulumi.Output[Optional['_solana.outputs.Environment']]:
+        return pulumi.get(self, "environment")
 
     @property
     @pulumi.getter

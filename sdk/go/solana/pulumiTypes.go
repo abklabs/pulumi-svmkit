@@ -13,6 +13,139 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type Environment struct {
+	RpcURL string `pulumi:"rpcURL"`
+}
+
+// EnvironmentInput is an input type that accepts EnvironmentArgs and EnvironmentOutput values.
+// You can construct a concrete instance of `EnvironmentInput` via:
+//
+//	EnvironmentArgs{...}
+type EnvironmentInput interface {
+	pulumi.Input
+
+	ToEnvironmentOutput() EnvironmentOutput
+	ToEnvironmentOutputWithContext(context.Context) EnvironmentOutput
+}
+
+type EnvironmentArgs struct {
+	RpcURL pulumi.StringInput `pulumi:"rpcURL"`
+}
+
+func (EnvironmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Environment)(nil)).Elem()
+}
+
+func (i EnvironmentArgs) ToEnvironmentOutput() EnvironmentOutput {
+	return i.ToEnvironmentOutputWithContext(context.Background())
+}
+
+func (i EnvironmentArgs) ToEnvironmentOutputWithContext(ctx context.Context) EnvironmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EnvironmentOutput)
+}
+
+func (i EnvironmentArgs) ToEnvironmentPtrOutput() EnvironmentPtrOutput {
+	return i.ToEnvironmentPtrOutputWithContext(context.Background())
+}
+
+func (i EnvironmentArgs) ToEnvironmentPtrOutputWithContext(ctx context.Context) EnvironmentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EnvironmentOutput).ToEnvironmentPtrOutputWithContext(ctx)
+}
+
+// EnvironmentPtrInput is an input type that accepts EnvironmentArgs, EnvironmentPtr and EnvironmentPtrOutput values.
+// You can construct a concrete instance of `EnvironmentPtrInput` via:
+//
+//	        EnvironmentArgs{...}
+//
+//	or:
+//
+//	        nil
+type EnvironmentPtrInput interface {
+	pulumi.Input
+
+	ToEnvironmentPtrOutput() EnvironmentPtrOutput
+	ToEnvironmentPtrOutputWithContext(context.Context) EnvironmentPtrOutput
+}
+
+type environmentPtrType EnvironmentArgs
+
+func EnvironmentPtr(v *EnvironmentArgs) EnvironmentPtrInput {
+	return (*environmentPtrType)(v)
+}
+
+func (*environmentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Environment)(nil)).Elem()
+}
+
+func (i *environmentPtrType) ToEnvironmentPtrOutput() EnvironmentPtrOutput {
+	return i.ToEnvironmentPtrOutputWithContext(context.Background())
+}
+
+func (i *environmentPtrType) ToEnvironmentPtrOutputWithContext(ctx context.Context) EnvironmentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EnvironmentPtrOutput)
+}
+
+type EnvironmentOutput struct{ *pulumi.OutputState }
+
+func (EnvironmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Environment)(nil)).Elem()
+}
+
+func (o EnvironmentOutput) ToEnvironmentOutput() EnvironmentOutput {
+	return o
+}
+
+func (o EnvironmentOutput) ToEnvironmentOutputWithContext(ctx context.Context) EnvironmentOutput {
+	return o
+}
+
+func (o EnvironmentOutput) ToEnvironmentPtrOutput() EnvironmentPtrOutput {
+	return o.ToEnvironmentPtrOutputWithContext(context.Background())
+}
+
+func (o EnvironmentOutput) ToEnvironmentPtrOutputWithContext(ctx context.Context) EnvironmentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Environment) *Environment {
+		return &v
+	}).(EnvironmentPtrOutput)
+}
+
+func (o EnvironmentOutput) RpcURL() pulumi.StringOutput {
+	return o.ApplyT(func(v Environment) string { return v.RpcURL }).(pulumi.StringOutput)
+}
+
+type EnvironmentPtrOutput struct{ *pulumi.OutputState }
+
+func (EnvironmentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Environment)(nil)).Elem()
+}
+
+func (o EnvironmentPtrOutput) ToEnvironmentPtrOutput() EnvironmentPtrOutput {
+	return o
+}
+
+func (o EnvironmentPtrOutput) ToEnvironmentPtrOutputWithContext(ctx context.Context) EnvironmentPtrOutput {
+	return o
+}
+
+func (o EnvironmentPtrOutput) Elem() EnvironmentOutput {
+	return o.ApplyT(func(v *Environment) Environment {
+		if v != nil {
+			return *v
+		}
+		var ret Environment
+		return ret
+	}).(EnvironmentOutput)
+}
+
+func (o EnvironmentPtrOutput) RpcURL() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Environment) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.RpcURL
+	}).(pulumi.StringPtrOutput)
+}
+
 type GenesisFlags struct {
 	ClusterType                *string `pulumi:"clusterType"`
 	FaucetLamports             *string `pulumi:"faucetLamports"`
@@ -123,6 +256,10 @@ func (o GenesisFlagsOutput) VotePubkey() pulumi.StringOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentInput)(nil)).Elem(), EnvironmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentPtrInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GenesisFlagsInput)(nil)).Elem(), GenesisFlagsArgs{})
+	pulumi.RegisterOutputType(EnvironmentOutput{})
+	pulumi.RegisterOutputType(EnvironmentPtrOutput{})
 	pulumi.RegisterOutputType(GenesisFlagsOutput{})
 }

@@ -15,11 +15,35 @@ else:
 from .. import _utilities
 
 __all__ = [
+    'EnvironmentArgs',
+    'EnvironmentArgsDict',
     'GenesisFlagsArgs',
     'GenesisFlagsArgsDict',
 ]
 
 MYPY = False
+
+if not MYPY:
+    class EnvironmentArgsDict(TypedDict):
+        rpc_url: pulumi.Input[str]
+elif False:
+    EnvironmentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class EnvironmentArgs:
+    def __init__(__self__, *,
+                 rpc_url: pulumi.Input[str]):
+        pulumi.set(__self__, "rpc_url", rpc_url)
+
+    @property
+    @pulumi.getter(name="rpcURL")
+    def rpc_url(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "rpc_url")
+
+    @rpc_url.setter
+    def rpc_url(self, value: pulumi.Input[str]):
+        pulumi.set(self, "rpc_url", value)
+
 
 if not MYPY:
     class GenesisFlagsArgsDict(TypedDict):

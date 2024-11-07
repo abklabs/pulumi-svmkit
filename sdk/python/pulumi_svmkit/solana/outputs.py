@@ -15,8 +15,38 @@ else:
 from .. import _utilities
 
 __all__ = [
+    'Environment',
     'GenesisFlags',
 ]
+
+@pulumi.output_type
+class Environment(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rpcURL":
+            suggest = "rpc_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Environment. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Environment.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Environment.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rpc_url: str):
+        pulumi.set(__self__, "rpc_url", rpc_url)
+
+    @property
+    @pulumi.getter(name="rpcURL")
+    def rpc_url(self) -> str:
+        return pulumi.get(self, "rpc_url")
+
 
 @pulumi.output_type
 class GenesisFlags(dict):

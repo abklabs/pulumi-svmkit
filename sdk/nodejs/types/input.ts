@@ -54,6 +54,10 @@ export namespace genesis {
 }
 
 export namespace solana {
+    export interface EnvironmentArgs {
+        rpcURL: pulumi.Input<string>;
+    }
+
     export interface GenesisFlagsArgs {
         clusterType?: pulumi.Input<string>;
         faucetLamports?: pulumi.Input<string>;

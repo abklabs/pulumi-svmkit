@@ -16,6 +16,9 @@ namespace ABKLabs.Svmkit.Validator
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
+        [Output("environment")]
+        public Output<ABKLabs.Svmkit.Solana.Outputs.Environment?> Environment { get; private set; } = null!;
+
         [Output("flags")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.Flags> Flags { get; private set; } = null!;
 
@@ -79,6 +82,9 @@ namespace ABKLabs.Svmkit.Validator
     {
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
+
+        [Input("environment")]
+        public Input<ABKLabs.Svmkit.Solana.Inputs.EnvironmentArgs>? Environment { get; set; }
 
         [Input("flags", required: true)]
         public Input<ABKLabs.Svmkit.Agave.Inputs.FlagsArgs> Flags { get; set; } = null!;
