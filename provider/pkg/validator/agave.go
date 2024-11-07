@@ -45,13 +45,7 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 		return name, state, nil
 	}
 
-	client := &agave.Agave{
-		Flags:    input.Flags,
-		KeyPairs: input.KeyPairs,
-		Version:  input.Version,
-		Metrics:  input.Metrics,
-		Variant:  input.Variant,
-	}
+	client := input.Agave
 
 	command := client.Install()
 
@@ -86,10 +80,7 @@ func (Agave) Update(ctx context.Context, name string, oldInput, newInput AgaveAr
 		return name, state, nil
 	}
 
-	client := &agave.Agave{
-		Flags:    newInput.Flags,
-		KeyPairs: newInput.KeyPairs,
-	}
+	client := newInput.Agave
 	command := client.Install()
 
 	r := runner.Machine(newInput.Connection).

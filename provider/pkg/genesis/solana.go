@@ -48,11 +48,7 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 		return name, state, nil
 	}
 
-	genesis := &solana.Genesis{
-		Flags:      input.Flags,
-		Primordial: input.Primordial,
-		Version:    input.Version,
-	}
+	genesis := input.Genesis
 	command := genesis.Create()
 
 	r := runner.Machine(input.Connection).
