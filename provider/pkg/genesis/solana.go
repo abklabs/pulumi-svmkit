@@ -51,6 +51,10 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 	genesis := input.Genesis
 	command := genesis.Create()
 
+	if err := command.Check(); err != nil {
+		return "", SolanaState{}, fmt.Errorf("failed to check genesis config: %w", err)
+	}
+
 	r := runner.Machine(input.Connection).
 		Env(command.Env()).
 		Script(command.Script())

@@ -49,6 +49,10 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 
 	command := client.Install()
 
+	if err := command.Check(); err != nil {
+		return "", AgaveState{}, fmt.Errorf("failed to check validator config: %w", err)
+	}
+
 	r := runner.Machine(input.Connection).
 		Env(command.Env()).
 		Script(command.Script())
