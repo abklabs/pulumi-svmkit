@@ -35,6 +35,7 @@ export class Agave extends pulumi.CustomResource {
     }
 
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
+    public readonly environment!: pulumi.Output<outputs.solana.Environment | undefined>;
     public readonly flags!: pulumi.Output<outputs.agave.Flags>;
     public readonly keyPairs!: pulumi.Output<outputs.agave.KeyPairs>;
     public readonly metrics!: pulumi.Output<outputs.agave.Metrics | undefined>;
@@ -62,6 +63,7 @@ export class Agave extends pulumi.CustomResource {
                 throw new Error("Missing required property 'keyPairs'");
             }
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
+            resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
             resourceInputs["metrics"] = args ? args.metrics : undefined;
@@ -69,6 +71,7 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["version"] = args ? args.version : undefined;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
+            resourceInputs["environment"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
             resourceInputs["metrics"] = undefined /*out*/;
@@ -85,6 +88,7 @@ export class Agave extends pulumi.CustomResource {
  */
 export interface AgaveArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
+    environment?: pulumi.Input<inputs.solana.EnvironmentArgs>;
     flags: pulumi.Input<inputs.agave.FlagsArgs>;
     keyPairs: pulumi.Input<inputs.agave.KeyPairsArgs>;
     metrics?: pulumi.Input<inputs.agave.MetricsArgs>;

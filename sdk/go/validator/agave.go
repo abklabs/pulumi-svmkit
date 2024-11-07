@@ -10,6 +10,7 @@ import (
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/agave"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -17,12 +18,13 @@ import (
 type Agave struct {
 	pulumi.CustomResourceState
 
-	Connection ssh.ConnectionOutput   `pulumi:"connection"`
-	Flags      agave.FlagsOutput      `pulumi:"flags"`
-	KeyPairs   agave.KeyPairsOutput   `pulumi:"keyPairs"`
-	Metrics    agave.MetricsPtrOutput `pulumi:"metrics"`
-	Variant    agave.VariantPtrOutput `pulumi:"variant"`
-	Version    pulumi.StringPtrOutput `pulumi:"version"`
+	Connection  ssh.ConnectionOutput        `pulumi:"connection"`
+	Environment solana.EnvironmentPtrOutput `pulumi:"environment"`
+	Flags       agave.FlagsOutput           `pulumi:"flags"`
+	KeyPairs    agave.KeyPairsOutput        `pulumi:"keyPairs"`
+	Metrics     agave.MetricsPtrOutput      `pulumi:"metrics"`
+	Variant     agave.VariantPtrOutput      `pulumi:"variant"`
+	Version     pulumi.StringPtrOutput      `pulumi:"version"`
 }
 
 // NewAgave registers a new resource with the given unique name, arguments, and options.
@@ -75,22 +77,24 @@ func (AgaveState) ElementType() reflect.Type {
 }
 
 type agaveArgs struct {
-	Connection ssh.Connection `pulumi:"connection"`
-	Flags      agave.Flags    `pulumi:"flags"`
-	KeyPairs   agave.KeyPairs `pulumi:"keyPairs"`
-	Metrics    *agave.Metrics `pulumi:"metrics"`
-	Variant    *agave.Variant `pulumi:"variant"`
-	Version    *string        `pulumi:"version"`
+	Connection  ssh.Connection      `pulumi:"connection"`
+	Environment *solana.Environment `pulumi:"environment"`
+	Flags       agave.Flags         `pulumi:"flags"`
+	KeyPairs    agave.KeyPairs      `pulumi:"keyPairs"`
+	Metrics     *agave.Metrics      `pulumi:"metrics"`
+	Variant     *agave.Variant      `pulumi:"variant"`
+	Version     *string             `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Agave resource.
 type AgaveArgs struct {
-	Connection ssh.ConnectionInput
-	Flags      agave.FlagsInput
-	KeyPairs   agave.KeyPairsInput
-	Metrics    agave.MetricsPtrInput
-	Variant    agave.VariantPtrInput
-	Version    pulumi.StringPtrInput
+	Connection  ssh.ConnectionInput
+	Environment solana.EnvironmentPtrInput
+	Flags       agave.FlagsInput
+	KeyPairs    agave.KeyPairsInput
+	Metrics     agave.MetricsPtrInput
+	Variant     agave.VariantPtrInput
+	Version     pulumi.StringPtrInput
 }
 
 func (AgaveArgs) ElementType() reflect.Type {
@@ -132,6 +136,10 @@ func (o AgaveOutput) ToAgaveOutputWithContext(ctx context.Context) AgaveOutput {
 
 func (o AgaveOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *Agave) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
+}
+
+func (o AgaveOutput) Environment() solana.EnvironmentPtrOutput {
+	return o.ApplyT(func(v *Agave) solana.EnvironmentPtrOutput { return v.Environment }).(solana.EnvironmentPtrOutput)
 }
 
 func (o AgaveOutput) Flags() agave.FlagsOutput {

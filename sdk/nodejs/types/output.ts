@@ -56,6 +56,10 @@ export namespace genesis {
 }
 
 export namespace solana {
+    export interface Environment {
+        rpcURL: string;
+    }
+
     export interface GenesisFlags {
         clusterType?: string;
         faucetLamports?: string;
