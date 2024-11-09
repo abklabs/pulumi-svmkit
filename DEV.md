@@ -33,6 +33,25 @@ $ make
 
 This will build the pulumi provider, generate language sdks, and prepare host to execute the plugin locally.
 
+## Developing against a local `svmkit`
+
+In order to be able to use/test unreleased local changes to `svmkit` it is important that up you update
+`provider/go.mod` with a [`replace`](https://go.dev/ref/mod#go-mod-file-replace) directive to point at your local `svmkit` e.g.:
+
+```
+--- a/provider/go.mod
++++ b/provider/go.mod
+@@ -12,6 +12,8 @@ require (
+        github.com/pulumi/pulumi/sdk/v3 v3.138.0
+ )
+ 
++replace github.com/abklabs/svmkit/pkg => ../../svmkit/pkg
++
+ require (
+        cloud.google.com/go v0.112.1 // indirect
+        cloud.google.com/go/compute v1.25.0 // indirect
+```
+
 ## Implementation Examples
 
 You can find a catalog of example Pulumi projects to help you get started with SVMkit [here](./examples).
@@ -46,3 +65,15 @@ $ pulumi up
 ```
 
 In this example, an Agave validator is installed on a machine via SSH, joining the Solana testnet.
+
+Keep in mind, these examples work using your local build of `pulumi-svmkit` if the `Pulumi.yaml` includes:
+
+```
+plugins:
+  providers:
+    - name: svmkit
+      path: ../../bin
+```
+
+If you are using an example which doesn't, then you must make sure that `pulumi-svmkit/bin` is in your `PATH` before you run the example.  Otherwise it will attempt to download an unreleased `pulumi-svmkit` which will most likely fail.
+
