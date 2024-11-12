@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"github.com/abklabs/pulumi-svmkit/pkg/account"
 	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/validator"
@@ -69,6 +70,7 @@ func Provider() p.Provider {
 			infer.Resource[svm.KeyPair, svm.KeyPairArgs, svm.KeyPairState](),
 			infer.Resource[validator.Agave, validator.AgaveArgs, validator.AgaveState](),
 			infer.Resource[genesis.Solana, genesis.SolanaArgs, genesis.SolanaState](),
+			infer.Resource[account.VoteAccount, account.VoteAccountArgs, account.VoteAccountState](),
 		},
 		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
 			"svm": "index",
