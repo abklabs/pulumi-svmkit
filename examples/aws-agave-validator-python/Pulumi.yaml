@@ -1,8 +1,12 @@
 name: aws-agave-validator-python
+description: An Agave validator deployed on AWS using Python
 runtime:
   name: python
   options:
     toolchain: pip
     virtualenv: venv
     typechecker: pyright
-description: A Python example of an Agave validator
+plugins:
+  providers:
+    - name: svmkit
+      path: ../../bin
