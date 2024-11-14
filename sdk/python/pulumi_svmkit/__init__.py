@@ -10,6 +10,8 @@ from .provider import *
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
+    import pulumi_svmkit.account as __account
+    account = __account
     import pulumi_svmkit.agave as __agave
     agave = __agave
     import pulumi_svmkit.genesis as __genesis
@@ -21,6 +23,7 @@ if typing.TYPE_CHECKING:
     import pulumi_svmkit.validator as __validator
     validator = __validator
 else:
+    account = _utilities.lazy_import('pulumi_svmkit.account')
     agave = _utilities.lazy_import('pulumi_svmkit.agave')
     genesis = _utilities.lazy_import('pulumi_svmkit.genesis')
     solana = _utilities.lazy_import('pulumi_svmkit.solana')
@@ -30,6 +33,15 @@ else:
 _utilities.register(
     resource_modules="""
 [
+ {
+  "pkg": "svmkit",
+  "mod": "account",
+  "fqn": "pulumi_svmkit.account",
+  "classes": {
+   "svmkit:account:Transfer": "Transfer",
+   "svmkit:account:VoteAccount": "VoteAccount"
+  }
+ },
  {
   "pkg": "svmkit",
   "mod": "genesis",
