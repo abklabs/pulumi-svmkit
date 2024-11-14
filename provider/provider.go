@@ -71,6 +71,7 @@ func Provider() p.Provider {
 			infer.Resource[validator.Agave, validator.AgaveArgs, validator.AgaveState](),
 			infer.Resource[genesis.Solana, genesis.SolanaArgs, genesis.SolanaState](),
 			infer.Resource[account.VoteAccount, account.VoteAccountArgs, account.VoteAccountState](),
+			infer.Resource[account.Transfer, account.TransferArgs, account.TransferState](),
 		},
 		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
 			"svm": "index",
