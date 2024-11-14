@@ -255,11 +255,74 @@ func (o GenesisFlagsOutput) VotePubkey() pulumi.StringOutput {
 	return o.ApplyT(func(v GenesisFlags) string { return v.VotePubkey }).(pulumi.StringOutput)
 }
 
+type VoteAccountKeyPairs struct {
+	AuthWithdrawer string `pulumi:"authWithdrawer"`
+	Identity       string `pulumi:"identity"`
+	VoteAccount    string `pulumi:"voteAccount"`
+}
+
+// VoteAccountKeyPairsInput is an input type that accepts VoteAccountKeyPairsArgs and VoteAccountKeyPairsOutput values.
+// You can construct a concrete instance of `VoteAccountKeyPairsInput` via:
+//
+//	VoteAccountKeyPairsArgs{...}
+type VoteAccountKeyPairsInput interface {
+	pulumi.Input
+
+	ToVoteAccountKeyPairsOutput() VoteAccountKeyPairsOutput
+	ToVoteAccountKeyPairsOutputWithContext(context.Context) VoteAccountKeyPairsOutput
+}
+
+type VoteAccountKeyPairsArgs struct {
+	AuthWithdrawer pulumi.StringInput `pulumi:"authWithdrawer"`
+	Identity       pulumi.StringInput `pulumi:"identity"`
+	VoteAccount    pulumi.StringInput `pulumi:"voteAccount"`
+}
+
+func (VoteAccountKeyPairsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VoteAccountKeyPairs)(nil)).Elem()
+}
+
+func (i VoteAccountKeyPairsArgs) ToVoteAccountKeyPairsOutput() VoteAccountKeyPairsOutput {
+	return i.ToVoteAccountKeyPairsOutputWithContext(context.Background())
+}
+
+func (i VoteAccountKeyPairsArgs) ToVoteAccountKeyPairsOutputWithContext(ctx context.Context) VoteAccountKeyPairsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VoteAccountKeyPairsOutput)
+}
+
+type VoteAccountKeyPairsOutput struct{ *pulumi.OutputState }
+
+func (VoteAccountKeyPairsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VoteAccountKeyPairs)(nil)).Elem()
+}
+
+func (o VoteAccountKeyPairsOutput) ToVoteAccountKeyPairsOutput() VoteAccountKeyPairsOutput {
+	return o
+}
+
+func (o VoteAccountKeyPairsOutput) ToVoteAccountKeyPairsOutputWithContext(ctx context.Context) VoteAccountKeyPairsOutput {
+	return o
+}
+
+func (o VoteAccountKeyPairsOutput) AuthWithdrawer() pulumi.StringOutput {
+	return o.ApplyT(func(v VoteAccountKeyPairs) string { return v.AuthWithdrawer }).(pulumi.StringOutput)
+}
+
+func (o VoteAccountKeyPairsOutput) Identity() pulumi.StringOutput {
+	return o.ApplyT(func(v VoteAccountKeyPairs) string { return v.Identity }).(pulumi.StringOutput)
+}
+
+func (o VoteAccountKeyPairsOutput) VoteAccount() pulumi.StringOutput {
+	return o.ApplyT(func(v VoteAccountKeyPairs) string { return v.VoteAccount }).(pulumi.StringOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentPtrInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GenesisFlagsInput)(nil)).Elem(), GenesisFlagsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VoteAccountKeyPairsInput)(nil)).Elem(), VoteAccountKeyPairsArgs{})
 	pulumi.RegisterOutputType(EnvironmentOutput{})
 	pulumi.RegisterOutputType(EnvironmentPtrOutput{})
 	pulumi.RegisterOutputType(GenesisFlagsOutput{})
+	pulumi.RegisterOutputType(VoteAccountKeyPairsOutput{})
 }

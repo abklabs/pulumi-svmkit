@@ -17,6 +17,7 @@ from .. import _utilities
 __all__ = [
     'Environment',
     'GenesisFlags',
+    'VoteAccountKeyPairs',
 ]
 
 @pulumi.output_type
@@ -169,5 +170,50 @@ class GenesisFlags(dict):
     @pulumi.getter(name="targetLamportsPerSignature")
     def target_lamports_per_signature(self) -> Optional[str]:
         return pulumi.get(self, "target_lamports_per_signature")
+
+
+@pulumi.output_type
+class VoteAccountKeyPairs(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "authWithdrawer":
+            suggest = "auth_withdrawer"
+        elif key == "voteAccount":
+            suggest = "vote_account"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VoteAccountKeyPairs. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VoteAccountKeyPairs.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VoteAccountKeyPairs.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 auth_withdrawer: str,
+                 identity: str,
+                 vote_account: str):
+        pulumi.set(__self__, "auth_withdrawer", auth_withdrawer)
+        pulumi.set(__self__, "identity", identity)
+        pulumi.set(__self__, "vote_account", vote_account)
+
+    @property
+    @pulumi.getter(name="authWithdrawer")
+    def auth_withdrawer(self) -> str:
+        return pulumi.get(self, "auth_withdrawer")
+
+    @property
+    @pulumi.getter
+    def identity(self) -> str:
+        return pulumi.get(self, "identity")
+
+    @property
+    @pulumi.getter(name="voteAccount")
+    def vote_account(self) -> str:
+        return pulumi.get(self, "vote_account")
 
 

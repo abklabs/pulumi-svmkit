@@ -71,6 +71,12 @@ export namespace solana {
         targetLamportsPerSignature?: pulumi.Input<string>;
         votePubkey: pulumi.Input<string>;
     }
+
+    export interface VoteAccountKeyPairsArgs {
+        authWithdrawer: pulumi.Input<string>;
+        identity: pulumi.Input<string>;
+        voteAccount: pulumi.Input<string>;
+    }
 }
 
 export namespace ssh {

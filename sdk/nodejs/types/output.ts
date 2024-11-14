@@ -74,6 +74,12 @@ export namespace solana {
         votePubkey: string;
     }
 
+    export interface VoteAccountKeyPairs {
+        authWithdrawer: string;
+        identity: string;
+        voteAccount: string;
+    }
+
 }
 
 export namespace ssh {

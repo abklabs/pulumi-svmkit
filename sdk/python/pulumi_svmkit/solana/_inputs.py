@@ -19,6 +19,8 @@ __all__ = [
     'EnvironmentArgsDict',
     'GenesisFlagsArgs',
     'GenesisFlagsArgsDict',
+    'VoteAccountKeyPairsArgs',
+    'VoteAccountKeyPairsArgsDict',
 ]
 
 MYPY = False
@@ -191,5 +193,51 @@ class GenesisFlagsArgs:
     @target_lamports_per_signature.setter
     def target_lamports_per_signature(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "target_lamports_per_signature", value)
+
+
+if not MYPY:
+    class VoteAccountKeyPairsArgsDict(TypedDict):
+        auth_withdrawer: pulumi.Input[str]
+        identity: pulumi.Input[str]
+        vote_account: pulumi.Input[str]
+elif False:
+    VoteAccountKeyPairsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class VoteAccountKeyPairsArgs:
+    def __init__(__self__, *,
+                 auth_withdrawer: pulumi.Input[str],
+                 identity: pulumi.Input[str],
+                 vote_account: pulumi.Input[str]):
+        pulumi.set(__self__, "auth_withdrawer", auth_withdrawer)
+        pulumi.set(__self__, "identity", identity)
+        pulumi.set(__self__, "vote_account", vote_account)
+
+    @property
+    @pulumi.getter(name="authWithdrawer")
+    def auth_withdrawer(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "auth_withdrawer")
+
+    @auth_withdrawer.setter
+    def auth_withdrawer(self, value: pulumi.Input[str]):
+        pulumi.set(self, "auth_withdrawer", value)
+
+    @property
+    @pulumi.getter
+    def identity(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "identity")
+
+    @identity.setter
+    def identity(self, value: pulumi.Input[str]):
+        pulumi.set(self, "identity", value)
+
+    @property
+    @pulumi.getter(name="voteAccount")
+    def vote_account(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "vote_account")
+
+    @vote_account.setter
+    def vote_account(self, value: pulumi.Input[str]):
+        pulumi.set(self, "vote_account", value)
 
 

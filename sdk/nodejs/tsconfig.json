@@ -13,6 +13,9 @@
         "strict": true
     },
     "files": [
+        "account/index.ts",
+        "account/transfer.ts",
+        "account/voteAccount.ts",
         "agave/index.ts",
         "genesis/index.ts",
         "genesis/solana.ts",
