@@ -5,5 +5,6 @@
 from .. import _utilities
 import typing
 # Export this package's modules as members:
+from .stake_account import *
 from .transfer import *
 from .vote_account import *

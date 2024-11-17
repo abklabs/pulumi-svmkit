@@ -14,6 +14,7 @@
     },
     "files": [
         "account/index.ts",
+        "account/stakeAccount.ts",
         "account/transfer.ts",
         "account/voteAccount.ts",
         "agave/index.ts",

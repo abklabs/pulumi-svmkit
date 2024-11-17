@@ -74,6 +74,11 @@ export namespace solana {
         votePubkey: string;
     }
 
+    export interface StakeAccountKeyPairs {
+        stakeAccount: string;
+        voteAccount: string;
+    }
+
     export interface VoteAccountKeyPairs {
         authWithdrawer: string;
         identity: string;

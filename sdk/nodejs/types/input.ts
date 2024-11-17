@@ -72,6 +72,11 @@ export namespace solana {
         votePubkey: pulumi.Input<string>;
     }
 
+    export interface StakeAccountKeyPairsArgs {
+        stakeAccount: pulumi.Input<string>;
+        voteAccount: pulumi.Input<string>;
+    }
+
     export interface VoteAccountKeyPairsArgs {
         authWithdrawer: pulumi.Input<string>;
         identity: pulumi.Input<string>;

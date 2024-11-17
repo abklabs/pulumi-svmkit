@@ -38,6 +38,7 @@ _utilities.register(
   "mod": "account",
   "fqn": "pulumi_svmkit.account",
   "classes": {
+   "svmkit:account:StakeAccount": "StakeAccount",
    "svmkit:account:Transfer": "Transfer",
    "svmkit:account:VoteAccount": "VoteAccount"
   }
