@@ -19,6 +19,8 @@ __all__ = [
     'EnvironmentArgsDict',
     'GenesisFlagsArgs',
     'GenesisFlagsArgsDict',
+    'StakeAccountKeyPairsArgs',
+    'StakeAccountKeyPairsArgsDict',
     'VoteAccountKeyPairsArgs',
     'VoteAccountKeyPairsArgsDict',
 ]
@@ -193,6 +195,40 @@ class GenesisFlagsArgs:
     @target_lamports_per_signature.setter
     def target_lamports_per_signature(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "target_lamports_per_signature", value)
+
+
+if not MYPY:
+    class StakeAccountKeyPairsArgsDict(TypedDict):
+        stake_account: pulumi.Input[str]
+        vote_account: pulumi.Input[str]
+elif False:
+    StakeAccountKeyPairsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class StakeAccountKeyPairsArgs:
+    def __init__(__self__, *,
+                 stake_account: pulumi.Input[str],
+                 vote_account: pulumi.Input[str]):
+        pulumi.set(__self__, "stake_account", stake_account)
+        pulumi.set(__self__, "vote_account", vote_account)
+
+    @property
+    @pulumi.getter(name="stakeAccount")
+    def stake_account(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "stake_account")
+
+    @stake_account.setter
+    def stake_account(self, value: pulumi.Input[str]):
+        pulumi.set(self, "stake_account", value)
+
+    @property
+    @pulumi.getter(name="voteAccount")
+    def vote_account(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "vote_account")
+
+    @vote_account.setter
+    def vote_account(self, value: pulumi.Input[str]):
+        pulumi.set(self, "vote_account", value)
 
 
 if not MYPY:

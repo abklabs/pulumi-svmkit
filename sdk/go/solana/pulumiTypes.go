@@ -255,6 +255,61 @@ func (o GenesisFlagsOutput) VotePubkey() pulumi.StringOutput {
 	return o.ApplyT(func(v GenesisFlags) string { return v.VotePubkey }).(pulumi.StringOutput)
 }
 
+type StakeAccountKeyPairs struct {
+	StakeAccount string `pulumi:"stakeAccount"`
+	VoteAccount  string `pulumi:"voteAccount"`
+}
+
+// StakeAccountKeyPairsInput is an input type that accepts StakeAccountKeyPairsArgs and StakeAccountKeyPairsOutput values.
+// You can construct a concrete instance of `StakeAccountKeyPairsInput` via:
+//
+//	StakeAccountKeyPairsArgs{...}
+type StakeAccountKeyPairsInput interface {
+	pulumi.Input
+
+	ToStakeAccountKeyPairsOutput() StakeAccountKeyPairsOutput
+	ToStakeAccountKeyPairsOutputWithContext(context.Context) StakeAccountKeyPairsOutput
+}
+
+type StakeAccountKeyPairsArgs struct {
+	StakeAccount pulumi.StringInput `pulumi:"stakeAccount"`
+	VoteAccount  pulumi.StringInput `pulumi:"voteAccount"`
+}
+
+func (StakeAccountKeyPairsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StakeAccountKeyPairs)(nil)).Elem()
+}
+
+func (i StakeAccountKeyPairsArgs) ToStakeAccountKeyPairsOutput() StakeAccountKeyPairsOutput {
+	return i.ToStakeAccountKeyPairsOutputWithContext(context.Background())
+}
+
+func (i StakeAccountKeyPairsArgs) ToStakeAccountKeyPairsOutputWithContext(ctx context.Context) StakeAccountKeyPairsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StakeAccountKeyPairsOutput)
+}
+
+type StakeAccountKeyPairsOutput struct{ *pulumi.OutputState }
+
+func (StakeAccountKeyPairsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StakeAccountKeyPairs)(nil)).Elem()
+}
+
+func (o StakeAccountKeyPairsOutput) ToStakeAccountKeyPairsOutput() StakeAccountKeyPairsOutput {
+	return o
+}
+
+func (o StakeAccountKeyPairsOutput) ToStakeAccountKeyPairsOutputWithContext(ctx context.Context) StakeAccountKeyPairsOutput {
+	return o
+}
+
+func (o StakeAccountKeyPairsOutput) StakeAccount() pulumi.StringOutput {
+	return o.ApplyT(func(v StakeAccountKeyPairs) string { return v.StakeAccount }).(pulumi.StringOutput)
+}
+
+func (o StakeAccountKeyPairsOutput) VoteAccount() pulumi.StringOutput {
+	return o.ApplyT(func(v StakeAccountKeyPairs) string { return v.VoteAccount }).(pulumi.StringOutput)
+}
+
 type VoteAccountKeyPairs struct {
 	AuthWithdrawer string `pulumi:"authWithdrawer"`
 	Identity       string `pulumi:"identity"`
@@ -320,9 +375,11 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentPtrInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GenesisFlagsInput)(nil)).Elem(), GenesisFlagsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StakeAccountKeyPairsInput)(nil)).Elem(), StakeAccountKeyPairsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VoteAccountKeyPairsInput)(nil)).Elem(), VoteAccountKeyPairsArgs{})
 	pulumi.RegisterOutputType(EnvironmentOutput{})
 	pulumi.RegisterOutputType(EnvironmentPtrOutput{})
 	pulumi.RegisterOutputType(GenesisFlagsOutput{})
+	pulumi.RegisterOutputType(StakeAccountKeyPairsOutput{})
 	pulumi.RegisterOutputType(VoteAccountKeyPairsOutput{})
 }

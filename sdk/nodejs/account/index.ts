@@ -5,6 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 // Export members:
+export { StakeAccountArgs } from "./stakeAccount";
+export type StakeAccount = import("./stakeAccount").StakeAccount;
+export const StakeAccount: typeof import("./stakeAccount").StakeAccount = null as any;
+utilities.lazyLoad(exports, ["StakeAccount"], () => require("./stakeAccount"));
+
 export { TransferArgs } from "./transfer";
 export type Transfer = import("./transfer").Transfer;
 export const Transfer: typeof import("./transfer").Transfer = null as any;
@@ -20,6 +25,8 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "svmkit:account:StakeAccount":
+                return new StakeAccount(name, <any>undefined, { urn })
             case "svmkit:account:Transfer":
                 return new Transfer(name, <any>undefined, { urn })
             case "svmkit:account:VoteAccount":

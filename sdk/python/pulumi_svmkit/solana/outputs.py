@@ -17,6 +17,7 @@ from .. import _utilities
 __all__ = [
     'Environment',
     'GenesisFlags',
+    'StakeAccountKeyPairs',
     'VoteAccountKeyPairs',
 ]
 
@@ -170,6 +171,44 @@ class GenesisFlags(dict):
     @pulumi.getter(name="targetLamportsPerSignature")
     def target_lamports_per_signature(self) -> Optional[str]:
         return pulumi.get(self, "target_lamports_per_signature")
+
+
+@pulumi.output_type
+class StakeAccountKeyPairs(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "stakeAccount":
+            suggest = "stake_account"
+        elif key == "voteAccount":
+            suggest = "vote_account"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StakeAccountKeyPairs. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StakeAccountKeyPairs.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StakeAccountKeyPairs.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 stake_account: str,
+                 vote_account: str):
+        pulumi.set(__self__, "stake_account", stake_account)
+        pulumi.set(__self__, "vote_account", vote_account)
+
+    @property
+    @pulumi.getter(name="stakeAccount")
+    def stake_account(self) -> str:
+        return pulumi.get(self, "stake_account")
+
+    @property
+    @pulumi.getter(name="voteAccount")
+    def vote_account(self) -> str:
+        return pulumi.get(self, "vote_account")
 
 
 @pulumi.output_type
