@@ -153,6 +153,8 @@ github.com/abklabs/svmkit/pkg v0.6.0/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpe
 github.com/abklabs/svmkit/pkg v0.6.2/go.mod h1:w79J0BHvVwbAhGZ2tZxMMzDKKx6+nrNpeWGzUTZZipY=
 github.com/abklabs/svmkit/pkg v0.8.1 h1:dDib+NnWoyySkQ8pkMr2nuEp/5rDRdLeiij8cXIhL6Q=
 github.com/abklabs/svmkit/pkg v0.8.1/go.mod h1:URV9jCtIgy2I7RtrptTNGwd10cWrBiJ32kyPFhRObcE=
+github.com/abklabs/svmkit/pkg v0.10.0 h1:DQrYofoX3wzW/FG/5B1ZSzCx2n+Ie9f4rUVv9HGfxHs=
+github.com/abklabs/svmkit/pkg v0.10.0/go.mod h1:URV9jCtIgy2I7RtrptTNGwd10cWrBiJ32kyPFhRObcE=
 github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d/go.mod h1:asat636LX7Bqt5lYEZ27JNDcqxfjdBQuJ/MM4CN/Lzo=
 github.com/agext/levenshtein v1.2.1/go.mod h1:JEDfjyjHDjOF/1e4FlBE/PkbqA9OfWu2ki2W0IB5558=
 github.com/ajstarks/svgo v0.0.0-20180226025133-644b8db467af/go.mod h1:K08gAheRH3/J6wwsYMMT4xOr94bZjxIelGM0+d/wbFw=
@@ -308,6 +310,8 @@ github.com/pulumi/pulumi/pkg/v3 v3.139.0 h1:vWwAvEL0US8Z6emggo+OI/ZducMq9m9LKCJb
 github.com/pulumi/pulumi/pkg/v3 v3.139.0/go.mod h1:LtEg3PKYzbFnAKWFOENGRwGRNBpv16xKtbK+7esiSHU=
 github.com/pulumi/pulumi/sdk/v3 v3.131.0/go.mod h1:J5kQEX8v87aeUhk6NdQXnjCo1DbiOnOiL3Sf2DuDda8=
 github.com/pulumi/pulumi/sdk/v3 v3.136.0/go.mod h1:PvKsX88co8XuwuPdzolMvew5lZV+4JmZfkeSjj7A6dI=
+github.com/pulumi/pulumi/sdk/v3 v3.139.0 h1:oBGP58b2Yw1HbPA3LHO/jHmOaVqFSEjw5BXd36ZbPLw=
+github.com/pulumi/pulumi/sdk/v3 v3.139.0/go.mod h1:PvKsX88co8XuwuPdzolMvew5lZV+4JmZfkeSjj7A6dI=
 github.com/rogpeppe/fastuuid v1.2.0/go.mod h1:jVj6XXZzXRy/MSR5jhDC/2q6DgLz+nrA6LYCDYWNEvQ=
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
 github.com/rogpeppe/go-internal v1.9.0/go.mod h1:WtVeX8xhTBvf0smdhujwtBcq4Qrzq/fJaraNFVN+nFs=
