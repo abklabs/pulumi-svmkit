@@ -49,9 +49,9 @@ func (VoteAccount) Update(ctx context.Context, name string, old VoteAccountState
 	if preview {
 		return VoteAccountState{VoteAccountArgs: new}, nil
 	}
-	
+
 	old.VoteAccountArgs = new
-	
+
 	return old, nil
 }
 
