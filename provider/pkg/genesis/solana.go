@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
-	"github.com/abklabs/svmkit/pkg/runner"
+	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/solana"
 	"github.com/abklabs/svmkit/pkg/ssh"
 )
@@ -51,14 +51,8 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 	genesis := input.Genesis
 	command := genesis.Create()
 
-	if err := command.Check(); err != nil {
-		return "", SolanaState{}, fmt.Errorf("failed to check genesis config: %w", err)
-	}
-
-	r := runner.NewRunner(input.Connection, command)
-
-	if err := r.Run(ctx); err != nil {
-		return "", SolanaState{}, fmt.Errorf("failed to setup Solana genesis: %w", err)
+	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+		return "", SolanaState{}, err
 	}
 
 	// Establish SSH connection

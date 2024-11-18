@@ -3,10 +3,8 @@ package account
 import (
 	"context"
 
-	"fmt"
-
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
-	"github.com/abklabs/svmkit/pkg/runner"
+	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/solana"
 )
 
@@ -32,14 +30,8 @@ func (Transfer) Create(ctx context.Context, name string, input TransferArgs, pre
 
 	command := client.Create()
 
-	if err := command.Check(); err != nil {
-		return "", TransferState{}, fmt.Errorf("failed to check validator config: %w", err)
-	}
-
-	r := runner.NewRunner(input.Connection, command)
-
-	if err := r.Run(ctx); err != nil {
-		return "", TransferState{}, fmt.Errorf("failed to install validator: %w", err)
+	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+		return "", TransferState{}, err
 	}
 
 	return name, state, nil
