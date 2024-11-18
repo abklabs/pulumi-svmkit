@@ -4,11 +4,10 @@ import (
 	"context"
 
 	_ "embed"
-	"fmt"
 
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
+	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/agave"
-	"github.com/abklabs/svmkit/pkg/runner"
 )
 
 // Agave represents a Pulumi resource for managing an Agave validator.
@@ -45,19 +44,14 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 		return name, state, nil
 	}
 
-	client := input.Agave
+	agave := input.Agave
 
-	command := client.Install()
+	command := agave.Install()
 
-	if err := command.Check(); err != nil {
-		return "", AgaveState{}, fmt.Errorf("failed to check validator config: %w", err)
+	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+		return "", AgaveState{}, err
 	}
 
-	r := runner.NewRunner(input.Connection, command)
-
-	if err := r.Run(ctx); err != nil {
-		return "", AgaveState{}, fmt.Errorf("failed to install validator: %w", err)
-	}
 	return name, state, nil
 }
 
@@ -82,13 +76,11 @@ func (Agave) Update(ctx context.Context, name string, oldInput, newInput AgaveAr
 		return name, state, nil
 	}
 
-	client := newInput.Agave
-	command := client.Install()
+	agave := newInput.Agave
+	command := agave.Install()
 
-	r := runner.NewRunner(newInput.Connection, command)
-
-	if err := r.Run(ctx); err != nil {
-		return "", AgaveState{}, fmt.Errorf("failed to update validator: %w", err)
+	if err := utils.RunnerHelper(ctx, newInput.Connection, command); err != nil {
+		return "", AgaveState{}, err
 	}
 
 	return name, state, nil

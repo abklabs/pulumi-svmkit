@@ -10,13 +10,13 @@ import (
 
 func RunnerHelper(ctx context.Context, connection ssh.Connection, command runner.Command) error {
 	if err := command.Check(); err != nil {
-		return fmt.Errorf("failed to check validator config: %w", err)
+		return fmt.Errorf("failed to check component config: %w", err)
 	}
 
 	r := runner.NewRunner(connection, command)
 
 	if err := r.Run(ctx); err != nil {
-		return fmt.Errorf("failed to install validator: %w", err)
+		return err
 	}
 
 	return nil
