@@ -1,7 +1,7 @@
 package svm
 
 import (
-	"github.com/abklabs/svmkit/pkg/ssh"
+	"github.com/abklabs/pulumi-svmkit/pkg/ssh"
 )
 
 // GenesisArgs represents the arguments required to configure a genesis ledger.
