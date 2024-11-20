@@ -97,7 +97,7 @@ export namespace ssh {
          */
         agentSocketPath?: string;
         /**
-         * Max allowed errors on trying to dial the remote host. -1 set count to unlimited. Default value is 1000.
+         * Max allowed errors on trying to dial the remote host. -1 set count to unlimited. Default value is 10.
          */
         dialErrorLimit?: number;
         /**
@@ -125,6 +125,10 @@ export namespace ssh {
          */
         privateKeyPassword?: string;
         /**
+         * The connection settings for the bastion/proxy host.
+         */
+        proxy?: outputs.ssh.ProxyConnection;
+        /**
          * The user that we should use for the connection.
          */
         user?: string;
@@ -135,7 +139,62 @@ export namespace ssh {
     export function connectionProvideDefaults(val: Connection): Connection {
         return {
             ...val,
-            dialErrorLimit: (val.dialErrorLimit) ?? 1000,
+            dialErrorLimit: (val.dialErrorLimit) ?? 10,
+            perDialTimeout: (val.perDialTimeout) ?? 15,
+            port: (val.port) ?? 22,
+            proxy: (val.proxy ? outputs.ssh.proxyConnectionProvideDefaults(val.proxy) : undefined),
+            user: (val.user) ?? "root",
+        };
+    }
+
+    /**
+     * Instructions for how to connect to a remote endpoint via a bastion host.
+     */
+    export interface ProxyConnection {
+        /**
+         * SSH Agent socket path. Default to environment variable SSH_AUTH_SOCK if present.
+         */
+        agentSocketPath?: string;
+        /**
+         * Max allowed errors on trying to dial the remote host. -1 set count to unlimited. Default value is 10.
+         */
+        dialErrorLimit?: number;
+        /**
+         * The address of the bastion host to connect to.
+         */
+        host: string;
+        /**
+         * The password we should use for the connection to the bastion host.
+         */
+        password?: string;
+        /**
+         * Max number of seconds for each dial attempt. 0 implies no maximum. Default value is 15 seconds.
+         */
+        perDialTimeout?: number;
+        /**
+         * The port of the bastion host to connect to.
+         */
+        port?: number;
+        /**
+         * The contents of an SSH key to use for the connection. This takes preference over the password if provided.
+         */
+        privateKey?: string;
+        /**
+         * The password to use in case the private key is encrypted.
+         */
+        privateKeyPassword?: string;
+        /**
+         * The user that we should use for the connection to the bastion host.
+         */
+        user?: string;
+    }
+    /**
+     * proxyConnectionProvideDefaults sets the appropriate defaults for ProxyConnection
+     */
+    export function proxyConnectionProvideDefaults(val: ProxyConnection): ProxyConnection {
+        return {
+            ...val,
+            dialErrorLimit: (val.dialErrorLimit) ?? 10,
             perDialTimeout: (val.perDialTimeout) ?? 15,
             port: (val.port) ?? 22,
             user: (val.user) ?? "root",

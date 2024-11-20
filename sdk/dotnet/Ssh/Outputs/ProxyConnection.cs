@@ -12,10 +12,10 @@ namespace ABKLabs.Svmkit.Ssh.Outputs
 {
 
     /// <summary>
-    /// Instructions for how to connect to a remote endpoint.
+    /// Instructions for how to connect to a remote endpoint via a bastion host.
     /// </summary>
     [OutputType]
-    public sealed class Connection
+    public sealed class ProxyConnection
     {
         /// <summary>
         /// SSH Agent socket path. Default to environment variable SSH_AUTH_SOCK if present.
@@ -26,11 +26,11 @@ namespace ABKLabs.Svmkit.Ssh.Outputs
         /// </summary>
         public readonly int? DialErrorLimit;
         /// <summary>
-        /// The address of the resource to connect to.
+        /// The address of the bastion host to connect to.
         /// </summary>
         public readonly string Host;
         /// <summary>
-        /// The password we should use for the connection.
+        /// The password we should use for the connection to the bastion host.
         /// </summary>
         public readonly string? Password;
         /// <summary>
@@ -38,7 +38,7 @@ namespace ABKLabs.Svmkit.Ssh.Outputs
         /// </summary>
         public readonly int? PerDialTimeout;
         /// <summary>
-        /// The port to connect to. Defaults to 22.
+        /// The port of the bastion host to connect to.
         /// </summary>
         public readonly double? Port;
         /// <summary>
@@ -50,16 +50,12 @@ namespace ABKLabs.Svmkit.Ssh.Outputs
         /// </summary>
         public readonly string? PrivateKeyPassword;
         /// <summary>
-        /// The connection settings for the bastion/proxy host.
-        /// </summary>
-        public readonly Outputs.ProxyConnection? Proxy;
-        /// <summary>
-        /// The user that we should use for the connection.
+        /// The user that we should use for the connection to the bastion host.
         /// </summary>
         public readonly string? User;
 
         [OutputConstructor]
-        private Connection(
+        private ProxyConnection(
             string? agentSocketPath,
 
             int? dialErrorLimit,
@@ -76,8 +72,6 @@ namespace ABKLabs.Svmkit.Ssh.Outputs
 
             string? privateKeyPassword,
 
-            Outputs.ProxyConnection? proxy,
-
             string? user)
         {
             AgentSocketPath = agentSocketPath;
@@ -88,7 +82,6 @@ namespace ABKLabs.Svmkit.Ssh.Outputs
             Port = port;
             PrivateKey = privateKey;
             PrivateKeyPassword = privateKeyPassword;
-            Proxy = proxy;
             User = user;
         }
     }
