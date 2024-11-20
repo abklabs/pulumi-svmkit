@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/abklabs/pulumi-svmkit/pkg/ssh"
 	"github.com/abklabs/svmkit/pkg/runner"
-	"github.com/abklabs/svmkit/pkg/ssh"
 )
 
 func RunnerHelper(ctx context.Context, connection ssh.Connection, command runner.Command) error {
