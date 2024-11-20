@@ -5,11 +5,12 @@ go 1.22
 toolchain go1.22.7
 
 require (
-	github.com/abklabs/svmkit/pkg v0.11.0
+	github.com/abklabs/svmkit/pkg v0.12.0
 	github.com/gagliardetto/solana-go v1.11.0
 	github.com/pulumi/pulumi-go-provider v0.23.0
 	github.com/pulumi/pulumi/pkg/v3 v3.139.0
 	github.com/pulumi/pulumi/sdk/v3 v3.139.0
+	golang.org/x/crypto v0.27.0
 )
 
 require (
@@ -113,7 +114,6 @@ require (
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	golang.org/x/crypto v0.27.0 // indirect
 	golang.org/x/exp v0.0.0-20240604190554-fc45aab8b7f8 // indirect
 	golang.org/x/mod v0.18.0 // indirect
 	golang.org/x/net v0.28.0 // indirect
