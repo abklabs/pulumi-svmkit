@@ -37,6 +37,7 @@ export class StakeAccount extends pulumi.CustomResource {
     public readonly amount!: pulumi.Output<number>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly keyPairs!: pulumi.Output<outputs.solana.StakeAccountKeyPairs>;
+    public readonly transactionOptions!: pulumi.Output<outputs.solana.TxnOptions>;
 
     /**
      * Create a StakeAccount resource with the given unique name, arguments, and options.
@@ -58,13 +59,18 @@ export class StakeAccount extends pulumi.CustomResource {
             if ((!args || args.keyPairs === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'keyPairs'");
             }
+            if ((!args || args.transactionOptions === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'transactionOptions'");
+            }
             resourceInputs["amount"] = args ? args.amount : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
+            resourceInputs["transactionOptions"] = args ? args.transactionOptions : undefined;
         } else {
             resourceInputs["amount"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
+            resourceInputs["transactionOptions"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(StakeAccount.__pulumiType, name, resourceInputs, opts);
@@ -78,4 +84,5 @@ export interface StakeAccountArgs {
     amount: pulumi.Input<number>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     keyPairs: pulumi.Input<inputs.solana.StakeAccountKeyPairsArgs>;
+    transactionOptions: pulumi.Input<inputs.solana.TxnOptionsArgs>;
 }

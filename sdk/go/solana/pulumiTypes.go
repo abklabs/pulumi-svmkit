@@ -255,6 +255,106 @@ func (o GenesisFlagsOutput) VotePubkey() pulumi.StringOutput {
 	return o.ApplyT(func(v GenesisFlags) string { return v.VotePubkey }).(pulumi.StringOutput)
 }
 
+type PrimorialEntry struct {
+	Lamports string `pulumi:"lamports"`
+	Pubkey   string `pulumi:"pubkey"`
+}
+
+// PrimorialEntryInput is an input type that accepts PrimorialEntryArgs and PrimorialEntryOutput values.
+// You can construct a concrete instance of `PrimorialEntryInput` via:
+//
+//	PrimorialEntryArgs{...}
+type PrimorialEntryInput interface {
+	pulumi.Input
+
+	ToPrimorialEntryOutput() PrimorialEntryOutput
+	ToPrimorialEntryOutputWithContext(context.Context) PrimorialEntryOutput
+}
+
+type PrimorialEntryArgs struct {
+	Lamports pulumi.StringInput `pulumi:"lamports"`
+	Pubkey   pulumi.StringInput `pulumi:"pubkey"`
+}
+
+func (PrimorialEntryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PrimorialEntry)(nil)).Elem()
+}
+
+func (i PrimorialEntryArgs) ToPrimorialEntryOutput() PrimorialEntryOutput {
+	return i.ToPrimorialEntryOutputWithContext(context.Background())
+}
+
+func (i PrimorialEntryArgs) ToPrimorialEntryOutputWithContext(ctx context.Context) PrimorialEntryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PrimorialEntryOutput)
+}
+
+// PrimorialEntryArrayInput is an input type that accepts PrimorialEntryArray and PrimorialEntryArrayOutput values.
+// You can construct a concrete instance of `PrimorialEntryArrayInput` via:
+//
+//	PrimorialEntryArray{ PrimorialEntryArgs{...} }
+type PrimorialEntryArrayInput interface {
+	pulumi.Input
+
+	ToPrimorialEntryArrayOutput() PrimorialEntryArrayOutput
+	ToPrimorialEntryArrayOutputWithContext(context.Context) PrimorialEntryArrayOutput
+}
+
+type PrimorialEntryArray []PrimorialEntryInput
+
+func (PrimorialEntryArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PrimorialEntry)(nil)).Elem()
+}
+
+func (i PrimorialEntryArray) ToPrimorialEntryArrayOutput() PrimorialEntryArrayOutput {
+	return i.ToPrimorialEntryArrayOutputWithContext(context.Background())
+}
+
+func (i PrimorialEntryArray) ToPrimorialEntryArrayOutputWithContext(ctx context.Context) PrimorialEntryArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PrimorialEntryArrayOutput)
+}
+
+type PrimorialEntryOutput struct{ *pulumi.OutputState }
+
+func (PrimorialEntryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PrimorialEntry)(nil)).Elem()
+}
+
+func (o PrimorialEntryOutput) ToPrimorialEntryOutput() PrimorialEntryOutput {
+	return o
+}
+
+func (o PrimorialEntryOutput) ToPrimorialEntryOutputWithContext(ctx context.Context) PrimorialEntryOutput {
+	return o
+}
+
+func (o PrimorialEntryOutput) Lamports() pulumi.StringOutput {
+	return o.ApplyT(func(v PrimorialEntry) string { return v.Lamports }).(pulumi.StringOutput)
+}
+
+func (o PrimorialEntryOutput) Pubkey() pulumi.StringOutput {
+	return o.ApplyT(func(v PrimorialEntry) string { return v.Pubkey }).(pulumi.StringOutput)
+}
+
+type PrimorialEntryArrayOutput struct{ *pulumi.OutputState }
+
+func (PrimorialEntryArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PrimorialEntry)(nil)).Elem()
+}
+
+func (o PrimorialEntryArrayOutput) ToPrimorialEntryArrayOutput() PrimorialEntryArrayOutput {
+	return o
+}
+
+func (o PrimorialEntryArrayOutput) ToPrimorialEntryArrayOutputWithContext(ctx context.Context) PrimorialEntryArrayOutput {
+	return o
+}
+
+func (o PrimorialEntryArrayOutput) Index(i pulumi.IntInput) PrimorialEntryOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PrimorialEntry {
+		return vs[0].([]PrimorialEntry)[vs[1].(int)]
+	}).(PrimorialEntryOutput)
+}
+
 type StakeAccountKeyPairs struct {
 	StakeAccount string `pulumi:"stakeAccount"`
 	VoteAccount  string `pulumi:"voteAccount"`
@@ -308,6 +408,299 @@ func (o StakeAccountKeyPairsOutput) StakeAccount() pulumi.StringOutput {
 
 func (o StakeAccountKeyPairsOutput) VoteAccount() pulumi.StringOutput {
 	return o.ApplyT(func(v StakeAccountKeyPairs) string { return v.VoteAccount }).(pulumi.StringOutput)
+}
+
+type TxnOptions struct {
+	BlockHash            *string  `pulumi:"blockHash"`
+	Commitment           *string  `pulumi:"commitment"`
+	FeePayer             *string  `pulumi:"feePayer"`
+	From                 *string  `pulumi:"from"`
+	KeyPair              *string  `pulumi:"keyPair"`
+	Nonce                *string  `pulumi:"nonce"`
+	NonceAuthority       *string  `pulumi:"nonceAuthority"`
+	Signer               []string `pulumi:"signer"`
+	Url                  *string  `pulumi:"url"`
+	WithComputeUnitPrice *float64 `pulumi:"withComputeUnitPrice"`
+	WithMemo             *string  `pulumi:"withMemo"`
+	Ws                   *string  `pulumi:"ws"`
+}
+
+// TxnOptionsInput is an input type that accepts TxnOptionsArgs and TxnOptionsOutput values.
+// You can construct a concrete instance of `TxnOptionsInput` via:
+//
+//	TxnOptionsArgs{...}
+type TxnOptionsInput interface {
+	pulumi.Input
+
+	ToTxnOptionsOutput() TxnOptionsOutput
+	ToTxnOptionsOutputWithContext(context.Context) TxnOptionsOutput
+}
+
+type TxnOptionsArgs struct {
+	BlockHash            pulumi.StringPtrInput   `pulumi:"blockHash"`
+	Commitment           pulumi.StringPtrInput   `pulumi:"commitment"`
+	FeePayer             pulumi.StringPtrInput   `pulumi:"feePayer"`
+	From                 pulumi.StringPtrInput   `pulumi:"from"`
+	KeyPair              pulumi.StringPtrInput   `pulumi:"keyPair"`
+	Nonce                pulumi.StringPtrInput   `pulumi:"nonce"`
+	NonceAuthority       pulumi.StringPtrInput   `pulumi:"nonceAuthority"`
+	Signer               pulumi.StringArrayInput `pulumi:"signer"`
+	Url                  pulumi.StringPtrInput   `pulumi:"url"`
+	WithComputeUnitPrice pulumi.Float64PtrInput  `pulumi:"withComputeUnitPrice"`
+	WithMemo             pulumi.StringPtrInput   `pulumi:"withMemo"`
+	Ws                   pulumi.StringPtrInput   `pulumi:"ws"`
+}
+
+func (TxnOptionsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TxnOptions)(nil)).Elem()
+}
+
+func (i TxnOptionsArgs) ToTxnOptionsOutput() TxnOptionsOutput {
+	return i.ToTxnOptionsOutputWithContext(context.Background())
+}
+
+func (i TxnOptionsArgs) ToTxnOptionsOutputWithContext(ctx context.Context) TxnOptionsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TxnOptionsOutput)
+}
+
+type TxnOptionsOutput struct{ *pulumi.OutputState }
+
+func (TxnOptionsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TxnOptions)(nil)).Elem()
+}
+
+func (o TxnOptionsOutput) ToTxnOptionsOutput() TxnOptionsOutput {
+	return o
+}
+
+func (o TxnOptionsOutput) ToTxnOptionsOutputWithContext(ctx context.Context) TxnOptionsOutput {
+	return o
+}
+
+func (o TxnOptionsOutput) BlockHash() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.BlockHash }).(pulumi.StringPtrOutput)
+}
+
+func (o TxnOptionsOutput) Commitment() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.Commitment }).(pulumi.StringPtrOutput)
+}
+
+func (o TxnOptionsOutput) FeePayer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.FeePayer }).(pulumi.StringPtrOutput)
+}
+
+func (o TxnOptionsOutput) From() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.From }).(pulumi.StringPtrOutput)
+}
+
+func (o TxnOptionsOutput) KeyPair() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.KeyPair }).(pulumi.StringPtrOutput)
+}
+
+func (o TxnOptionsOutput) Nonce() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.Nonce }).(pulumi.StringPtrOutput)
+}
+
+func (o TxnOptionsOutput) NonceAuthority() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.NonceAuthority }).(pulumi.StringPtrOutput)
+}
+
+func (o TxnOptionsOutput) Signer() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v TxnOptions) []string { return v.Signer }).(pulumi.StringArrayOutput)
+}
+
+func (o TxnOptionsOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+func (o TxnOptionsOutput) WithComputeUnitPrice() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v TxnOptions) *float64 { return v.WithComputeUnitPrice }).(pulumi.Float64PtrOutput)
+}
+
+func (o TxnOptionsOutput) WithMemo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.WithMemo }).(pulumi.StringPtrOutput)
+}
+
+func (o TxnOptionsOutput) Ws() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TxnOptions) *string { return v.Ws }).(pulumi.StringPtrOutput)
+}
+
+type ValidatorInfo struct {
+	Details *string `pulumi:"details"`
+	IconURL *string `pulumi:"iconURL"`
+	Name    string  `pulumi:"name"`
+	Website *string `pulumi:"website"`
+}
+
+// ValidatorInfoInput is an input type that accepts ValidatorInfoArgs and ValidatorInfoOutput values.
+// You can construct a concrete instance of `ValidatorInfoInput` via:
+//
+//	ValidatorInfoArgs{...}
+type ValidatorInfoInput interface {
+	pulumi.Input
+
+	ToValidatorInfoOutput() ValidatorInfoOutput
+	ToValidatorInfoOutputWithContext(context.Context) ValidatorInfoOutput
+}
+
+type ValidatorInfoArgs struct {
+	Details pulumi.StringPtrInput `pulumi:"details"`
+	IconURL pulumi.StringPtrInput `pulumi:"iconURL"`
+	Name    pulumi.StringInput    `pulumi:"name"`
+	Website pulumi.StringPtrInput `pulumi:"website"`
+}
+
+func (ValidatorInfoArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatorInfo)(nil)).Elem()
+}
+
+func (i ValidatorInfoArgs) ToValidatorInfoOutput() ValidatorInfoOutput {
+	return i.ToValidatorInfoOutputWithContext(context.Background())
+}
+
+func (i ValidatorInfoArgs) ToValidatorInfoOutputWithContext(ctx context.Context) ValidatorInfoOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatorInfoOutput)
+}
+
+func (i ValidatorInfoArgs) ToValidatorInfoPtrOutput() ValidatorInfoPtrOutput {
+	return i.ToValidatorInfoPtrOutputWithContext(context.Background())
+}
+
+func (i ValidatorInfoArgs) ToValidatorInfoPtrOutputWithContext(ctx context.Context) ValidatorInfoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatorInfoOutput).ToValidatorInfoPtrOutputWithContext(ctx)
+}
+
+// ValidatorInfoPtrInput is an input type that accepts ValidatorInfoArgs, ValidatorInfoPtr and ValidatorInfoPtrOutput values.
+// You can construct a concrete instance of `ValidatorInfoPtrInput` via:
+//
+//	        ValidatorInfoArgs{...}
+//
+//	or:
+//
+//	        nil
+type ValidatorInfoPtrInput interface {
+	pulumi.Input
+
+	ToValidatorInfoPtrOutput() ValidatorInfoPtrOutput
+	ToValidatorInfoPtrOutputWithContext(context.Context) ValidatorInfoPtrOutput
+}
+
+type validatorInfoPtrType ValidatorInfoArgs
+
+func ValidatorInfoPtr(v *ValidatorInfoArgs) ValidatorInfoPtrInput {
+	return (*validatorInfoPtrType)(v)
+}
+
+func (*validatorInfoPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ValidatorInfo)(nil)).Elem()
+}
+
+func (i *validatorInfoPtrType) ToValidatorInfoPtrOutput() ValidatorInfoPtrOutput {
+	return i.ToValidatorInfoPtrOutputWithContext(context.Background())
+}
+
+func (i *validatorInfoPtrType) ToValidatorInfoPtrOutputWithContext(ctx context.Context) ValidatorInfoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatorInfoPtrOutput)
+}
+
+type ValidatorInfoOutput struct{ *pulumi.OutputState }
+
+func (ValidatorInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatorInfo)(nil)).Elem()
+}
+
+func (o ValidatorInfoOutput) ToValidatorInfoOutput() ValidatorInfoOutput {
+	return o
+}
+
+func (o ValidatorInfoOutput) ToValidatorInfoOutputWithContext(ctx context.Context) ValidatorInfoOutput {
+	return o
+}
+
+func (o ValidatorInfoOutput) ToValidatorInfoPtrOutput() ValidatorInfoPtrOutput {
+	return o.ToValidatorInfoPtrOutputWithContext(context.Background())
+}
+
+func (o ValidatorInfoOutput) ToValidatorInfoPtrOutputWithContext(ctx context.Context) ValidatorInfoPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatorInfo) *ValidatorInfo {
+		return &v
+	}).(ValidatorInfoPtrOutput)
+}
+
+func (o ValidatorInfoOutput) Details() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ValidatorInfo) *string { return v.Details }).(pulumi.StringPtrOutput)
+}
+
+func (o ValidatorInfoOutput) IconURL() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ValidatorInfo) *string { return v.IconURL }).(pulumi.StringPtrOutput)
+}
+
+func (o ValidatorInfoOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ValidatorInfo) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o ValidatorInfoOutput) Website() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ValidatorInfo) *string { return v.Website }).(pulumi.StringPtrOutput)
+}
+
+type ValidatorInfoPtrOutput struct{ *pulumi.OutputState }
+
+func (ValidatorInfoPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ValidatorInfo)(nil)).Elem()
+}
+
+func (o ValidatorInfoPtrOutput) ToValidatorInfoPtrOutput() ValidatorInfoPtrOutput {
+	return o
+}
+
+func (o ValidatorInfoPtrOutput) ToValidatorInfoPtrOutputWithContext(ctx context.Context) ValidatorInfoPtrOutput {
+	return o
+}
+
+func (o ValidatorInfoPtrOutput) Elem() ValidatorInfoOutput {
+	return o.ApplyT(func(v *ValidatorInfo) ValidatorInfo {
+		if v != nil {
+			return *v
+		}
+		var ret ValidatorInfo
+		return ret
+	}).(ValidatorInfoOutput)
+}
+
+func (o ValidatorInfoPtrOutput) Details() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ValidatorInfo) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Details
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ValidatorInfoPtrOutput) IconURL() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ValidatorInfo) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IconURL
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ValidatorInfoPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ValidatorInfo) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ValidatorInfoPtrOutput) Website() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ValidatorInfo) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Website
+	}).(pulumi.StringPtrOutput)
 }
 
 type VoteAccountKeyPairs struct {
@@ -375,11 +768,21 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentPtrInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GenesisFlagsInput)(nil)).Elem(), GenesisFlagsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PrimorialEntryInput)(nil)).Elem(), PrimorialEntryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PrimorialEntryArrayInput)(nil)).Elem(), PrimorialEntryArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StakeAccountKeyPairsInput)(nil)).Elem(), StakeAccountKeyPairsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TxnOptionsInput)(nil)).Elem(), TxnOptionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatorInfoInput)(nil)).Elem(), ValidatorInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatorInfoPtrInput)(nil)).Elem(), ValidatorInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VoteAccountKeyPairsInput)(nil)).Elem(), VoteAccountKeyPairsArgs{})
 	pulumi.RegisterOutputType(EnvironmentOutput{})
 	pulumi.RegisterOutputType(EnvironmentPtrOutput{})
 	pulumi.RegisterOutputType(GenesisFlagsOutput{})
+	pulumi.RegisterOutputType(PrimorialEntryOutput{})
+	pulumi.RegisterOutputType(PrimorialEntryArrayOutput{})
 	pulumi.RegisterOutputType(StakeAccountKeyPairsOutput{})
+	pulumi.RegisterOutputType(TxnOptionsOutput{})
+	pulumi.RegisterOutputType(ValidatorInfoOutput{})
+	pulumi.RegisterOutputType(ValidatorInfoPtrOutput{})
 	pulumi.RegisterOutputType(VoteAccountKeyPairsOutput{})
 }

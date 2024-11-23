@@ -415,13 +415,150 @@ func (o MetricsPtrOutput) User() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type TimeoutConfig struct {
+	RpcServiceTimeout *int `pulumi:"rpcServiceTimeout"`
+}
+
+// TimeoutConfigInput is an input type that accepts TimeoutConfigArgs and TimeoutConfigOutput values.
+// You can construct a concrete instance of `TimeoutConfigInput` via:
+//
+//	TimeoutConfigArgs{...}
+type TimeoutConfigInput interface {
+	pulumi.Input
+
+	ToTimeoutConfigOutput() TimeoutConfigOutput
+	ToTimeoutConfigOutputWithContext(context.Context) TimeoutConfigOutput
+}
+
+type TimeoutConfigArgs struct {
+	RpcServiceTimeout pulumi.IntPtrInput `pulumi:"rpcServiceTimeout"`
+}
+
+func (TimeoutConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TimeoutConfig)(nil)).Elem()
+}
+
+func (i TimeoutConfigArgs) ToTimeoutConfigOutput() TimeoutConfigOutput {
+	return i.ToTimeoutConfigOutputWithContext(context.Background())
+}
+
+func (i TimeoutConfigArgs) ToTimeoutConfigOutputWithContext(ctx context.Context) TimeoutConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TimeoutConfigOutput)
+}
+
+func (i TimeoutConfigArgs) ToTimeoutConfigPtrOutput() TimeoutConfigPtrOutput {
+	return i.ToTimeoutConfigPtrOutputWithContext(context.Background())
+}
+
+func (i TimeoutConfigArgs) ToTimeoutConfigPtrOutputWithContext(ctx context.Context) TimeoutConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TimeoutConfigOutput).ToTimeoutConfigPtrOutputWithContext(ctx)
+}
+
+// TimeoutConfigPtrInput is an input type that accepts TimeoutConfigArgs, TimeoutConfigPtr and TimeoutConfigPtrOutput values.
+// You can construct a concrete instance of `TimeoutConfigPtrInput` via:
+//
+//	        TimeoutConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type TimeoutConfigPtrInput interface {
+	pulumi.Input
+
+	ToTimeoutConfigPtrOutput() TimeoutConfigPtrOutput
+	ToTimeoutConfigPtrOutputWithContext(context.Context) TimeoutConfigPtrOutput
+}
+
+type timeoutConfigPtrType TimeoutConfigArgs
+
+func TimeoutConfigPtr(v *TimeoutConfigArgs) TimeoutConfigPtrInput {
+	return (*timeoutConfigPtrType)(v)
+}
+
+func (*timeoutConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TimeoutConfig)(nil)).Elem()
+}
+
+func (i *timeoutConfigPtrType) ToTimeoutConfigPtrOutput() TimeoutConfigPtrOutput {
+	return i.ToTimeoutConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *timeoutConfigPtrType) ToTimeoutConfigPtrOutputWithContext(ctx context.Context) TimeoutConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TimeoutConfigPtrOutput)
+}
+
+type TimeoutConfigOutput struct{ *pulumi.OutputState }
+
+func (TimeoutConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TimeoutConfig)(nil)).Elem()
+}
+
+func (o TimeoutConfigOutput) ToTimeoutConfigOutput() TimeoutConfigOutput {
+	return o
+}
+
+func (o TimeoutConfigOutput) ToTimeoutConfigOutputWithContext(ctx context.Context) TimeoutConfigOutput {
+	return o
+}
+
+func (o TimeoutConfigOutput) ToTimeoutConfigPtrOutput() TimeoutConfigPtrOutput {
+	return o.ToTimeoutConfigPtrOutputWithContext(context.Background())
+}
+
+func (o TimeoutConfigOutput) ToTimeoutConfigPtrOutputWithContext(ctx context.Context) TimeoutConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TimeoutConfig) *TimeoutConfig {
+		return &v
+	}).(TimeoutConfigPtrOutput)
+}
+
+func (o TimeoutConfigOutput) RpcServiceTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TimeoutConfig) *int { return v.RpcServiceTimeout }).(pulumi.IntPtrOutput)
+}
+
+type TimeoutConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (TimeoutConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TimeoutConfig)(nil)).Elem()
+}
+
+func (o TimeoutConfigPtrOutput) ToTimeoutConfigPtrOutput() TimeoutConfigPtrOutput {
+	return o
+}
+
+func (o TimeoutConfigPtrOutput) ToTimeoutConfigPtrOutputWithContext(ctx context.Context) TimeoutConfigPtrOutput {
+	return o
+}
+
+func (o TimeoutConfigPtrOutput) Elem() TimeoutConfigOutput {
+	return o.ApplyT(func(v *TimeoutConfig) TimeoutConfig {
+		if v != nil {
+			return *v
+		}
+		var ret TimeoutConfig
+		return ret
+	}).(TimeoutConfigOutput)
+}
+
+func (o TimeoutConfigPtrOutput) RpcServiceTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TimeoutConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.RpcServiceTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlagsInput)(nil)).Elem(), FlagsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*KeyPairsInput)(nil)).Elem(), KeyPairsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MetricsInput)(nil)).Elem(), MetricsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MetricsPtrInput)(nil)).Elem(), MetricsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TimeoutConfigInput)(nil)).Elem(), TimeoutConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TimeoutConfigPtrInput)(nil)).Elem(), TimeoutConfigArgs{})
 	pulumi.RegisterOutputType(FlagsOutput{})
 	pulumi.RegisterOutputType(KeyPairsOutput{})
 	pulumi.RegisterOutputType(MetricsOutput{})
 	pulumi.RegisterOutputType(MetricsPtrOutput{})
+	pulumi.RegisterOutputType(TimeoutConfigOutput{})
+	pulumi.RegisterOutputType(TimeoutConfigPtrOutput{})
 }

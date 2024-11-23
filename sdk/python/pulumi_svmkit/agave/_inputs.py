@@ -22,6 +22,8 @@ __all__ = [
     'KeyPairsArgsDict',
     'MetricsArgs',
     'MetricsArgsDict',
+    'TimeoutConfigArgs',
+    'TimeoutConfigArgsDict',
 ]
 
 MYPY = False
@@ -387,5 +389,28 @@ class MetricsArgs:
     @user.setter
     def user(self, value: pulumi.Input[str]):
         pulumi.set(self, "user", value)
+
+
+if not MYPY:
+    class TimeoutConfigArgsDict(TypedDict):
+        rpc_service_timeout: NotRequired[pulumi.Input[int]]
+elif False:
+    TimeoutConfigArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TimeoutConfigArgs:
+    def __init__(__self__, *,
+                 rpc_service_timeout: Optional[pulumi.Input[int]] = None):
+        if rpc_service_timeout is not None:
+            pulumi.set(__self__, "rpc_service_timeout", rpc_service_timeout)
+
+    @property
+    @pulumi.getter(name="rpcServiceTimeout")
+    def rpc_service_timeout(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_service_timeout")
+
+    @rpc_service_timeout.setter
+    def rpc_service_timeout(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_service_timeout", value)
 
 

@@ -37,8 +37,10 @@ export class Agave extends pulumi.CustomResource {
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly environment!: pulumi.Output<outputs.solana.Environment | undefined>;
     public readonly flags!: pulumi.Output<outputs.agave.Flags>;
+    public readonly info!: pulumi.Output<outputs.solana.ValidatorInfo | undefined>;
     public readonly keyPairs!: pulumi.Output<outputs.agave.KeyPairs>;
     public readonly metrics!: pulumi.Output<outputs.agave.Metrics | undefined>;
+    public readonly timeoutConfig!: pulumi.Output<outputs.agave.TimeoutConfig | undefined>;
     public readonly variant!: pulumi.Output<enums.agave.Variant | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
@@ -65,16 +67,20 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
+            resourceInputs["info"] = args ? args.info : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
             resourceInputs["metrics"] = args ? args.metrics : undefined;
+            resourceInputs["timeoutConfig"] = args ? args.timeoutConfig : undefined;
             resourceInputs["variant"] = args ? args.variant : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["environment"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
+            resourceInputs["info"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
             resourceInputs["metrics"] = undefined /*out*/;
+            resourceInputs["timeoutConfig"] = undefined /*out*/;
             resourceInputs["variant"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
@@ -90,8 +96,10 @@ export interface AgaveArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     environment?: pulumi.Input<inputs.solana.EnvironmentArgs>;
     flags: pulumi.Input<inputs.agave.FlagsArgs>;
+    info?: pulumi.Input<inputs.solana.ValidatorInfoArgs>;
     keyPairs: pulumi.Input<inputs.agave.KeyPairsArgs>;
     metrics?: pulumi.Input<inputs.agave.MetricsArgs>;
+    timeoutConfig?: pulumi.Input<inputs.agave.TimeoutConfigArgs>;
     variant?: pulumi.Input<enums.agave.Variant>;
     version?: pulumi.Input<string>;
 }

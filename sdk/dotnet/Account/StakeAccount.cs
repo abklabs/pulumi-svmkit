@@ -22,6 +22,9 @@ namespace ABKLabs.Svmkit.Account
         [Output("keyPairs")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.StakeAccountKeyPairs> KeyPairs { get; private set; } = null!;
 
+        [Output("transactionOptions")]
+        public Output<ABKLabs.Svmkit.Solana.Outputs.TxnOptions> TransactionOptions { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a StakeAccount resource with the given unique name, arguments, and options.
@@ -76,6 +79,9 @@ namespace ABKLabs.Svmkit.Account
 
         [Input("keyPairs", required: true)]
         public Input<ABKLabs.Svmkit.Solana.Inputs.StakeAccountKeyPairsArgs> KeyPairs { get; set; } = null!;
+
+        [Input("transactionOptions", required: true)]
+        public Input<ABKLabs.Svmkit.Solana.Inputs.TxnOptionsArgs> TransactionOptions { get; set; } = null!;
 
         public StakeAccountArgs()
         {

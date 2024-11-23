@@ -44,12 +44,9 @@ export namespace agave {
         url: pulumi.Input<string>;
         user: pulumi.Input<string>;
     }
-}
 
-export namespace genesis {
-    export interface PrimorialEntryArgs {
-        lamports: pulumi.Input<string>;
-        pubkey: pulumi.Input<string>;
+    export interface TimeoutConfigArgs {
+        rpcServiceTimeout?: pulumi.Input<number>;
     }
 }
 
@@ -72,9 +69,36 @@ export namespace solana {
         votePubkey: pulumi.Input<string>;
     }
 
+    export interface PrimorialEntryArgs {
+        lamports: pulumi.Input<string>;
+        pubkey: pulumi.Input<string>;
+    }
+
     export interface StakeAccountKeyPairsArgs {
         stakeAccount: pulumi.Input<string>;
         voteAccount: pulumi.Input<string>;
+    }
+
+    export interface TxnOptionsArgs {
+        blockHash?: pulumi.Input<string>;
+        commitment?: pulumi.Input<string>;
+        feePayer?: pulumi.Input<string>;
+        from?: pulumi.Input<string>;
+        keyPair?: pulumi.Input<string>;
+        nonce?: pulumi.Input<string>;
+        nonceAuthority?: pulumi.Input<string>;
+        signer?: pulumi.Input<pulumi.Input<string>[]>;
+        url?: pulumi.Input<string>;
+        withComputeUnitPrice?: pulumi.Input<number>;
+        withMemo?: pulumi.Input<string>;
+        ws?: pulumi.Input<string>;
+    }
+
+    export interface ValidatorInfoArgs {
+        details?: pulumi.Input<string>;
+        iconURL?: pulumi.Input<string>;
+        name: pulumi.Input<string>;
+        website?: pulumi.Input<string>;
     }
 
     export interface VoteAccountKeyPairsArgs {

@@ -17,9 +17,10 @@ import (
 type StakeAccount struct {
 	pulumi.CustomResourceState
 
-	Amount     pulumi.Float64Output              `pulumi:"amount"`
-	Connection ssh.ConnectionOutput              `pulumi:"connection"`
-	KeyPairs   solana.StakeAccountKeyPairsOutput `pulumi:"keyPairs"`
+	Amount             pulumi.Float64Output              `pulumi:"amount"`
+	Connection         ssh.ConnectionOutput              `pulumi:"connection"`
+	KeyPairs           solana.StakeAccountKeyPairsOutput `pulumi:"keyPairs"`
+	TransactionOptions solana.TxnOptionsOutput           `pulumi:"transactionOptions"`
 }
 
 // NewStakeAccount registers a new resource with the given unique name, arguments, and options.
@@ -37,6 +38,9 @@ func NewStakeAccount(ctx *pulumi.Context,
 	}
 	if args.KeyPairs == nil {
 		return nil, errors.New("invalid value for required argument 'KeyPairs'")
+	}
+	if args.TransactionOptions == nil {
+		return nil, errors.New("invalid value for required argument 'TransactionOptions'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
 	opts = internal.PkgResourceDefaultOpts(opts)
@@ -72,16 +76,18 @@ func (StakeAccountState) ElementType() reflect.Type {
 }
 
 type stakeAccountArgs struct {
-	Amount     float64                     `pulumi:"amount"`
-	Connection ssh.Connection              `pulumi:"connection"`
-	KeyPairs   solana.StakeAccountKeyPairs `pulumi:"keyPairs"`
+	Amount             float64                     `pulumi:"amount"`
+	Connection         ssh.Connection              `pulumi:"connection"`
+	KeyPairs           solana.StakeAccountKeyPairs `pulumi:"keyPairs"`
+	TransactionOptions solana.TxnOptions           `pulumi:"transactionOptions"`
 }
 
 // The set of arguments for constructing a StakeAccount resource.
 type StakeAccountArgs struct {
-	Amount     pulumi.Float64Input
-	Connection ssh.ConnectionInput
-	KeyPairs   solana.StakeAccountKeyPairsInput
+	Amount             pulumi.Float64Input
+	Connection         ssh.ConnectionInput
+	KeyPairs           solana.StakeAccountKeyPairsInput
+	TransactionOptions solana.TxnOptionsInput
 }
 
 func (StakeAccountArgs) ElementType() reflect.Type {
@@ -131,6 +137,10 @@ func (o StakeAccountOutput) Connection() ssh.ConnectionOutput {
 
 func (o StakeAccountOutput) KeyPairs() solana.StakeAccountKeyPairsOutput {
 	return o.ApplyT(func(v *StakeAccount) solana.StakeAccountKeyPairsOutput { return v.KeyPairs }).(solana.StakeAccountKeyPairsOutput)
+}
+
+func (o StakeAccountOutput) TransactionOptions() solana.TxnOptionsOutput {
+	return o.ApplyT(func(v *StakeAccount) solana.TxnOptionsOutput { return v.TransactionOptions }).(solana.TxnOptionsOutput)
 }
 
 func init() {

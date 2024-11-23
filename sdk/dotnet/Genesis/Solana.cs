@@ -23,7 +23,7 @@ namespace ABKLabs.Svmkit.Genesis
         public Output<string> GenesisHash { get; private set; } = null!;
 
         [Output("primordial")]
-        public Output<ImmutableArray<Outputs.PrimorialEntry>> Primordial { get; private set; } = null!;
+        public Output<ImmutableArray<ABKLabs.Svmkit.Solana.Outputs.PrimorialEntry>> Primordial { get; private set; } = null!;
 
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
@@ -81,10 +81,10 @@ namespace ABKLabs.Svmkit.Genesis
         public Input<ABKLabs.Svmkit.Solana.Inputs.GenesisFlagsArgs> Flags { get; set; } = null!;
 
         [Input("primordial", required: true)]
-        private InputList<Inputs.PrimorialEntryArgs>? _primordial;
-        public InputList<Inputs.PrimorialEntryArgs> Primordial
+        private InputList<ABKLabs.Svmkit.Solana.Inputs.PrimorialEntryArgs>? _primordial;
+        public InputList<ABKLabs.Svmkit.Solana.Inputs.PrimorialEntryArgs> Primordial
         {
-            get => _primordial ?? (_primordial = new InputList<Inputs.PrimorialEntryArgs>());
+            get => _primordial ?? (_primordial = new InputList<ABKLabs.Svmkit.Solana.Inputs.PrimorialEntryArgs>());
             set => _primordial = value;
         }
 

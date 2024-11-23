@@ -17,7 +17,10 @@ from .. import _utilities
 __all__ = [
     'Environment',
     'GenesisFlags',
+    'PrimorialEntry',
     'StakeAccountKeyPairs',
+    'TxnOptions',
+    'ValidatorInfo',
     'VoteAccountKeyPairs',
 ]
 
@@ -174,6 +177,25 @@ class GenesisFlags(dict):
 
 
 @pulumi.output_type
+class PrimorialEntry(dict):
+    def __init__(__self__, *,
+                 lamports: str,
+                 pubkey: str):
+        pulumi.set(__self__, "lamports", lamports)
+        pulumi.set(__self__, "pubkey", pubkey)
+
+    @property
+    @pulumi.getter
+    def lamports(self) -> str:
+        return pulumi.get(self, "lamports")
+
+    @property
+    @pulumi.getter
+    def pubkey(self) -> str:
+        return pulumi.get(self, "pubkey")
+
+
+@pulumi.output_type
 class StakeAccountKeyPairs(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -209,6 +231,189 @@ class StakeAccountKeyPairs(dict):
     @pulumi.getter(name="voteAccount")
     def vote_account(self) -> str:
         return pulumi.get(self, "vote_account")
+
+
+@pulumi.output_type
+class TxnOptions(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "blockHash":
+            suggest = "block_hash"
+        elif key == "feePayer":
+            suggest = "fee_payer"
+        elif key == "from":
+            suggest = "from_"
+        elif key == "keyPair":
+            suggest = "key_pair"
+        elif key == "nonceAuthority":
+            suggest = "nonce_authority"
+        elif key == "withComputeUnitPrice":
+            suggest = "with_compute_unit_price"
+        elif key == "withMemo":
+            suggest = "with_memo"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TxnOptions. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TxnOptions.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TxnOptions.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 block_hash: Optional[str] = None,
+                 commitment: Optional[str] = None,
+                 fee_payer: Optional[str] = None,
+                 from_: Optional[str] = None,
+                 key_pair: Optional[str] = None,
+                 nonce: Optional[str] = None,
+                 nonce_authority: Optional[str] = None,
+                 signer: Optional[Sequence[str]] = None,
+                 url: Optional[str] = None,
+                 with_compute_unit_price: Optional[float] = None,
+                 with_memo: Optional[str] = None,
+                 ws: Optional[str] = None):
+        if block_hash is not None:
+            pulumi.set(__self__, "block_hash", block_hash)
+        if commitment is not None:
+            pulumi.set(__self__, "commitment", commitment)
+        if fee_payer is not None:
+            pulumi.set(__self__, "fee_payer", fee_payer)
+        if from_ is not None:
+            pulumi.set(__self__, "from_", from_)
+        if key_pair is not None:
+            pulumi.set(__self__, "key_pair", key_pair)
+        if nonce is not None:
+            pulumi.set(__self__, "nonce", nonce)
+        if nonce_authority is not None:
+            pulumi.set(__self__, "nonce_authority", nonce_authority)
+        if signer is not None:
+            pulumi.set(__self__, "signer", signer)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+        if with_compute_unit_price is not None:
+            pulumi.set(__self__, "with_compute_unit_price", with_compute_unit_price)
+        if with_memo is not None:
+            pulumi.set(__self__, "with_memo", with_memo)
+        if ws is not None:
+            pulumi.set(__self__, "ws", ws)
+
+    @property
+    @pulumi.getter(name="blockHash")
+    def block_hash(self) -> Optional[str]:
+        return pulumi.get(self, "block_hash")
+
+    @property
+    @pulumi.getter
+    def commitment(self) -> Optional[str]:
+        return pulumi.get(self, "commitment")
+
+    @property
+    @pulumi.getter(name="feePayer")
+    def fee_payer(self) -> Optional[str]:
+        return pulumi.get(self, "fee_payer")
+
+    @property
+    @pulumi.getter(name="from")
+    def from_(self) -> Optional[str]:
+        return pulumi.get(self, "from_")
+
+    @property
+    @pulumi.getter(name="keyPair")
+    def key_pair(self) -> Optional[str]:
+        return pulumi.get(self, "key_pair")
+
+    @property
+    @pulumi.getter
+    def nonce(self) -> Optional[str]:
+        return pulumi.get(self, "nonce")
+
+    @property
+    @pulumi.getter(name="nonceAuthority")
+    def nonce_authority(self) -> Optional[str]:
+        return pulumi.get(self, "nonce_authority")
+
+    @property
+    @pulumi.getter
+    def signer(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "signer")
+
+    @property
+    @pulumi.getter
+    def url(self) -> Optional[str]:
+        return pulumi.get(self, "url")
+
+    @property
+    @pulumi.getter(name="withComputeUnitPrice")
+    def with_compute_unit_price(self) -> Optional[float]:
+        return pulumi.get(self, "with_compute_unit_price")
+
+    @property
+    @pulumi.getter(name="withMemo")
+    def with_memo(self) -> Optional[str]:
+        return pulumi.get(self, "with_memo")
+
+    @property
+    @pulumi.getter
+    def ws(self) -> Optional[str]:
+        return pulumi.get(self, "ws")
+
+
+@pulumi.output_type
+class ValidatorInfo(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "iconURL":
+            suggest = "icon_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ValidatorInfo. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ValidatorInfo.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ValidatorInfo.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: str,
+                 details: Optional[str] = None,
+                 icon_url: Optional[str] = None,
+                 website: Optional[str] = None):
+        pulumi.set(__self__, "name", name)
+        if details is not None:
+            pulumi.set(__self__, "details", details)
+        if icon_url is not None:
+            pulumi.set(__self__, "icon_url", icon_url)
+        if website is not None:
+            pulumi.set(__self__, "website", website)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def details(self) -> Optional[str]:
+        return pulumi.get(self, "details")
+
+    @property
+    @pulumi.getter(name="iconURL")
+    def icon_url(self) -> Optional[str]:
+        return pulumi.get(self, "icon_url")
+
+    @property
+    @pulumi.getter
+    def website(self) -> Optional[str]:
+        return pulumi.get(self, "website")
 
 
 @pulumi.output_type

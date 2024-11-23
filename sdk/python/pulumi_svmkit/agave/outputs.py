@@ -19,6 +19,7 @@ __all__ = [
     'Flags',
     'KeyPairs',
     'Metrics',
+    'TimeoutConfig',
 ]
 
 @pulumi.output_type
@@ -306,5 +307,35 @@ class Metrics(dict):
     @pulumi.getter
     def user(self) -> str:
         return pulumi.get(self, "user")
+
+
+@pulumi.output_type
+class TimeoutConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rpcServiceTimeout":
+            suggest = "rpc_service_timeout"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TimeoutConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TimeoutConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TimeoutConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rpc_service_timeout: Optional[int] = None):
+        if rpc_service_timeout is not None:
+            pulumi.set(__self__, "rpc_service_timeout", rpc_service_timeout)
+
+    @property
+    @pulumi.getter(name="rpcServiceTimeout")
+    def rpc_service_timeout(self) -> Optional[int]:
+        return pulumi.get(self, "rpc_service_timeout")
 
 

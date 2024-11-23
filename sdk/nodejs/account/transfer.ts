@@ -37,8 +37,8 @@ export class Transfer extends pulumi.CustomResource {
     public readonly allowUnfundedRecipient!: pulumi.Output<boolean | undefined>;
     public readonly amount!: pulumi.Output<number>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly payerKeyPair!: pulumi.Output<string>;
     public readonly recipientPubkey!: pulumi.Output<string>;
+    public readonly transactionOptions!: pulumi.Output<outputs.solana.TxnOptions>;
 
     /**
      * Create a Transfer resource with the given unique name, arguments, and options.
@@ -57,27 +57,25 @@ export class Transfer extends pulumi.CustomResource {
             if ((!args || args.connection === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.payerKeyPair === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'payerKeyPair'");
-            }
             if ((!args || args.recipientPubkey === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'recipientPubkey'");
+            }
+            if ((!args || args.transactionOptions === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'transactionOptions'");
             }
             resourceInputs["allowUnfundedRecipient"] = args ? args.allowUnfundedRecipient : undefined;
             resourceInputs["amount"] = args ? args.amount : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["payerKeyPair"] = args?.payerKeyPair ? pulumi.secret(args.payerKeyPair) : undefined;
             resourceInputs["recipientPubkey"] = args ? args.recipientPubkey : undefined;
+            resourceInputs["transactionOptions"] = args ? args.transactionOptions : undefined;
         } else {
             resourceInputs["allowUnfundedRecipient"] = undefined /*out*/;
             resourceInputs["amount"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
-            resourceInputs["payerKeyPair"] = undefined /*out*/;
             resourceInputs["recipientPubkey"] = undefined /*out*/;
+            resourceInputs["transactionOptions"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["payerKeyPair"] };
-        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Transfer.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -89,6 +87,6 @@ export interface TransferArgs {
     allowUnfundedRecipient?: pulumi.Input<boolean>;
     amount: pulumi.Input<number>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
-    payerKeyPair: pulumi.Input<string>;
     recipientPubkey: pulumi.Input<string>;
+    transactionOptions: pulumi.Input<inputs.solana.TxnOptionsArgs>;
 }

@@ -22,11 +22,17 @@ namespace ABKLabs.Svmkit.Validator
         [Output("flags")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.Flags> Flags { get; private set; } = null!;
 
+        [Output("info")]
+        public Output<ABKLabs.Svmkit.Solana.Outputs.ValidatorInfo?> Info { get; private set; } = null!;
+
         [Output("keyPairs")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.KeyPairs> KeyPairs { get; private set; } = null!;
 
         [Output("metrics")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.Metrics?> Metrics { get; private set; } = null!;
+
+        [Output("timeoutConfig")]
+        public Output<ABKLabs.Svmkit.Agave.Outputs.TimeoutConfig?> TimeoutConfig { get; private set; } = null!;
 
         [Output("variant")]
         public Output<ABKLabs.Svmkit.Agave.Variant?> Variant { get; private set; } = null!;
@@ -89,11 +95,17 @@ namespace ABKLabs.Svmkit.Validator
         [Input("flags", required: true)]
         public Input<ABKLabs.Svmkit.Agave.Inputs.FlagsArgs> Flags { get; set; } = null!;
 
+        [Input("info")]
+        public Input<ABKLabs.Svmkit.Solana.Inputs.ValidatorInfoArgs>? Info { get; set; }
+
         [Input("keyPairs", required: true)]
         public Input<ABKLabs.Svmkit.Agave.Inputs.KeyPairsArgs> KeyPairs { get; set; } = null!;
 
         [Input("metrics")]
         public Input<ABKLabs.Svmkit.Agave.Inputs.MetricsArgs>? Metrics { get; set; }
+
+        [Input("timeoutConfig")]
+        public Input<ABKLabs.Svmkit.Agave.Inputs.TimeoutConfigArgs>? TimeoutConfig { get; set; }
 
         [Input("variant")]
         public Input<ABKLabs.Svmkit.Agave.Variant>? Variant { get; set; }

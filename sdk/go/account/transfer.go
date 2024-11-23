@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -16,11 +17,11 @@ import (
 type Transfer struct {
 	pulumi.CustomResourceState
 
-	AllowUnfundedRecipient pulumi.BoolPtrOutput `pulumi:"allowUnfundedRecipient"`
-	Amount                 pulumi.Float64Output `pulumi:"amount"`
-	Connection             ssh.ConnectionOutput `pulumi:"connection"`
-	PayerKeyPair           pulumi.StringOutput  `pulumi:"payerKeyPair"`
-	RecipientPubkey        pulumi.StringOutput  `pulumi:"recipientPubkey"`
+	AllowUnfundedRecipient pulumi.BoolPtrOutput    `pulumi:"allowUnfundedRecipient"`
+	Amount                 pulumi.Float64Output    `pulumi:"amount"`
+	Connection             ssh.ConnectionOutput    `pulumi:"connection"`
+	RecipientPubkey        pulumi.StringOutput     `pulumi:"recipientPubkey"`
+	TransactionOptions     solana.TxnOptionsOutput `pulumi:"transactionOptions"`
 }
 
 // NewTransfer registers a new resource with the given unique name, arguments, and options.
@@ -36,20 +37,13 @@ func NewTransfer(ctx *pulumi.Context,
 	if args.Connection == nil {
 		return nil, errors.New("invalid value for required argument 'Connection'")
 	}
-	if args.PayerKeyPair == nil {
-		return nil, errors.New("invalid value for required argument 'PayerKeyPair'")
-	}
 	if args.RecipientPubkey == nil {
 		return nil, errors.New("invalid value for required argument 'RecipientPubkey'")
 	}
-	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
-	if args.PayerKeyPair != nil {
-		args.PayerKeyPair = pulumi.ToSecret(args.PayerKeyPair).(pulumi.StringInput)
+	if args.TransactionOptions == nil {
+		return nil, errors.New("invalid value for required argument 'TransactionOptions'")
 	}
-	secrets := pulumi.AdditionalSecretOutputs([]string{
-		"payerKeyPair",
-	})
-	opts = append(opts, secrets)
+	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Transfer
 	err := ctx.RegisterResource("svmkit:account:Transfer", name, args, &resource, opts...)
@@ -83,11 +77,11 @@ func (TransferState) ElementType() reflect.Type {
 }
 
 type transferArgs struct {
-	AllowUnfundedRecipient *bool          `pulumi:"allowUnfundedRecipient"`
-	Amount                 float64        `pulumi:"amount"`
-	Connection             ssh.Connection `pulumi:"connection"`
-	PayerKeyPair           string         `pulumi:"payerKeyPair"`
-	RecipientPubkey        string         `pulumi:"recipientPubkey"`
+	AllowUnfundedRecipient *bool             `pulumi:"allowUnfundedRecipient"`
+	Amount                 float64           `pulumi:"amount"`
+	Connection             ssh.Connection    `pulumi:"connection"`
+	RecipientPubkey        string            `pulumi:"recipientPubkey"`
+	TransactionOptions     solana.TxnOptions `pulumi:"transactionOptions"`
 }
 
 // The set of arguments for constructing a Transfer resource.
@@ -95,8 +89,8 @@ type TransferArgs struct {
 	AllowUnfundedRecipient pulumi.BoolPtrInput
 	Amount                 pulumi.Float64Input
 	Connection             ssh.ConnectionInput
-	PayerKeyPair           pulumi.StringInput
 	RecipientPubkey        pulumi.StringInput
+	TransactionOptions     solana.TxnOptionsInput
 }
 
 func (TransferArgs) ElementType() reflect.Type {
@@ -148,12 +142,12 @@ func (o TransferOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *Transfer) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
 }
 
-func (o TransferOutput) PayerKeyPair() pulumi.StringOutput {
-	return o.ApplyT(func(v *Transfer) pulumi.StringOutput { return v.PayerKeyPair }).(pulumi.StringOutput)
-}
-
 func (o TransferOutput) RecipientPubkey() pulumi.StringOutput {
 	return o.ApplyT(func(v *Transfer) pulumi.StringOutput { return v.RecipientPubkey }).(pulumi.StringOutput)
+}
+
+func (o TransferOutput) TransactionOptions() solana.TxnOptionsOutput {
+	return o.ApplyT(func(v *Transfer) solana.TxnOptionsOutput { return v.TransactionOptions }).(solana.TxnOptionsOutput)
 }
 
 func init() {

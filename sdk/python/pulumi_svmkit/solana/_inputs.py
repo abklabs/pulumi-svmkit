@@ -19,8 +19,14 @@ __all__ = [
     'EnvironmentArgsDict',
     'GenesisFlagsArgs',
     'GenesisFlagsArgsDict',
+    'PrimorialEntryArgs',
+    'PrimorialEntryArgsDict',
     'StakeAccountKeyPairsArgs',
     'StakeAccountKeyPairsArgsDict',
+    'TxnOptionsArgs',
+    'TxnOptionsArgsDict',
+    'ValidatorInfoArgs',
+    'ValidatorInfoArgsDict',
     'VoteAccountKeyPairsArgs',
     'VoteAccountKeyPairsArgsDict',
 ]
@@ -198,6 +204,40 @@ class GenesisFlagsArgs:
 
 
 if not MYPY:
+    class PrimorialEntryArgsDict(TypedDict):
+        lamports: pulumi.Input[str]
+        pubkey: pulumi.Input[str]
+elif False:
+    PrimorialEntryArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PrimorialEntryArgs:
+    def __init__(__self__, *,
+                 lamports: pulumi.Input[str],
+                 pubkey: pulumi.Input[str]):
+        pulumi.set(__self__, "lamports", lamports)
+        pulumi.set(__self__, "pubkey", pubkey)
+
+    @property
+    @pulumi.getter
+    def lamports(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "lamports")
+
+    @lamports.setter
+    def lamports(self, value: pulumi.Input[str]):
+        pulumi.set(self, "lamports", value)
+
+    @property
+    @pulumi.getter
+    def pubkey(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "pubkey")
+
+    @pubkey.setter
+    def pubkey(self, value: pulumi.Input[str]):
+        pulumi.set(self, "pubkey", value)
+
+
+if not MYPY:
     class StakeAccountKeyPairsArgsDict(TypedDict):
         stake_account: pulumi.Input[str]
         vote_account: pulumi.Input[str]
@@ -229,6 +269,233 @@ class StakeAccountKeyPairsArgs:
     @vote_account.setter
     def vote_account(self, value: pulumi.Input[str]):
         pulumi.set(self, "vote_account", value)
+
+
+if not MYPY:
+    class TxnOptionsArgsDict(TypedDict):
+        block_hash: NotRequired[pulumi.Input[str]]
+        commitment: NotRequired[pulumi.Input[str]]
+        fee_payer: NotRequired[pulumi.Input[str]]
+        from_: NotRequired[pulumi.Input[str]]
+        key_pair: NotRequired[pulumi.Input[str]]
+        nonce: NotRequired[pulumi.Input[str]]
+        nonce_authority: NotRequired[pulumi.Input[str]]
+        signer: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        url: NotRequired[pulumi.Input[str]]
+        with_compute_unit_price: NotRequired[pulumi.Input[float]]
+        with_memo: NotRequired[pulumi.Input[str]]
+        ws: NotRequired[pulumi.Input[str]]
+elif False:
+    TxnOptionsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TxnOptionsArgs:
+    def __init__(__self__, *,
+                 block_hash: Optional[pulumi.Input[str]] = None,
+                 commitment: Optional[pulumi.Input[str]] = None,
+                 fee_payer: Optional[pulumi.Input[str]] = None,
+                 from_: Optional[pulumi.Input[str]] = None,
+                 key_pair: Optional[pulumi.Input[str]] = None,
+                 nonce: Optional[pulumi.Input[str]] = None,
+                 nonce_authority: Optional[pulumi.Input[str]] = None,
+                 signer: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 url: Optional[pulumi.Input[str]] = None,
+                 with_compute_unit_price: Optional[pulumi.Input[float]] = None,
+                 with_memo: Optional[pulumi.Input[str]] = None,
+                 ws: Optional[pulumi.Input[str]] = None):
+        if block_hash is not None:
+            pulumi.set(__self__, "block_hash", block_hash)
+        if commitment is not None:
+            pulumi.set(__self__, "commitment", commitment)
+        if fee_payer is not None:
+            pulumi.set(__self__, "fee_payer", fee_payer)
+        if from_ is not None:
+            pulumi.set(__self__, "from_", from_)
+        if key_pair is not None:
+            pulumi.set(__self__, "key_pair", key_pair)
+        if nonce is not None:
+            pulumi.set(__self__, "nonce", nonce)
+        if nonce_authority is not None:
+            pulumi.set(__self__, "nonce_authority", nonce_authority)
+        if signer is not None:
+            pulumi.set(__self__, "signer", signer)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+        if with_compute_unit_price is not None:
+            pulumi.set(__self__, "with_compute_unit_price", with_compute_unit_price)
+        if with_memo is not None:
+            pulumi.set(__self__, "with_memo", with_memo)
+        if ws is not None:
+            pulumi.set(__self__, "ws", ws)
+
+    @property
+    @pulumi.getter(name="blockHash")
+    def block_hash(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "block_hash")
+
+    @block_hash.setter
+    def block_hash(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "block_hash", value)
+
+    @property
+    @pulumi.getter
+    def commitment(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "commitment")
+
+    @commitment.setter
+    def commitment(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "commitment", value)
+
+    @property
+    @pulumi.getter(name="feePayer")
+    def fee_payer(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "fee_payer")
+
+    @fee_payer.setter
+    def fee_payer(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "fee_payer", value)
+
+    @property
+    @pulumi.getter(name="from")
+    def from_(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "from_")
+
+    @from_.setter
+    def from_(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "from_", value)
+
+    @property
+    @pulumi.getter(name="keyPair")
+    def key_pair(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key_pair")
+
+    @key_pair.setter
+    def key_pair(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key_pair", value)
+
+    @property
+    @pulumi.getter
+    def nonce(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "nonce")
+
+    @nonce.setter
+    def nonce(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "nonce", value)
+
+    @property
+    @pulumi.getter(name="nonceAuthority")
+    def nonce_authority(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "nonce_authority")
+
+    @nonce_authority.setter
+    def nonce_authority(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "nonce_authority", value)
+
+    @property
+    @pulumi.getter
+    def signer(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "signer")
+
+    @signer.setter
+    def signer(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "signer", value)
+
+    @property
+    @pulumi.getter
+    def url(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "url", value)
+
+    @property
+    @pulumi.getter(name="withComputeUnitPrice")
+    def with_compute_unit_price(self) -> Optional[pulumi.Input[float]]:
+        return pulumi.get(self, "with_compute_unit_price")
+
+    @with_compute_unit_price.setter
+    def with_compute_unit_price(self, value: Optional[pulumi.Input[float]]):
+        pulumi.set(self, "with_compute_unit_price", value)
+
+    @property
+    @pulumi.getter(name="withMemo")
+    def with_memo(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "with_memo")
+
+    @with_memo.setter
+    def with_memo(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "with_memo", value)
+
+    @property
+    @pulumi.getter
+    def ws(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "ws")
+
+    @ws.setter
+    def ws(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ws", value)
+
+
+if not MYPY:
+    class ValidatorInfoArgsDict(TypedDict):
+        name: pulumi.Input[str]
+        details: NotRequired[pulumi.Input[str]]
+        icon_url: NotRequired[pulumi.Input[str]]
+        website: NotRequired[pulumi.Input[str]]
+elif False:
+    ValidatorInfoArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class ValidatorInfoArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 details: Optional[pulumi.Input[str]] = None,
+                 icon_url: Optional[pulumi.Input[str]] = None,
+                 website: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "name", name)
+        if details is not None:
+            pulumi.set(__self__, "details", details)
+        if icon_url is not None:
+            pulumi.set(__self__, "icon_url", icon_url)
+        if website is not None:
+            pulumi.set(__self__, "website", website)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def details(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "details")
+
+    @details.setter
+    def details(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "details", value)
+
+    @property
+    @pulumi.getter(name="iconURL")
+    def icon_url(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "icon_url")
+
+    @icon_url.setter
+    def icon_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "icon_url", value)
+
+    @property
+    @pulumi.getter
+    def website(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "website")
+
+    @website.setter
+    def website(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "website", value)
 
 
 if not MYPY:

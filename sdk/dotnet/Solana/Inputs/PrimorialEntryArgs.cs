@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace ABKLabs.Svmkit.Genesis.Inputs
+namespace ABKLabs.Svmkit.Solana.Inputs
 {
 
     public sealed class PrimorialEntryArgs : global::Pulumi.ResourceArgs

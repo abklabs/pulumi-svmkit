@@ -13,6 +13,7 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
+from .. import solana as _solana
 from .. import ssh as _ssh
 
 __all__ = ['TransferArgs', 'Transfer']
@@ -22,16 +23,16 @@ class TransferArgs:
     def __init__(__self__, *,
                  amount: pulumi.Input[float],
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
-                 payer_key_pair: pulumi.Input[str],
                  recipient_pubkey: pulumi.Input[str],
+                 transaction_options: pulumi.Input['_solana.TxnOptionsArgs'],
                  allow_unfunded_recipient: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a Transfer resource.
         """
         pulumi.set(__self__, "amount", amount)
         pulumi.set(__self__, "connection", connection)
-        pulumi.set(__self__, "payer_key_pair", payer_key_pair)
         pulumi.set(__self__, "recipient_pubkey", recipient_pubkey)
+        pulumi.set(__self__, "transaction_options", transaction_options)
         if allow_unfunded_recipient is not None:
             pulumi.set(__self__, "allow_unfunded_recipient", allow_unfunded_recipient)
 
@@ -54,15 +55,6 @@ class TransferArgs:
         pulumi.set(self, "connection", value)
 
     @property
-    @pulumi.getter(name="payerKeyPair")
-    def payer_key_pair(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "payer_key_pair")
-
-    @payer_key_pair.setter
-    def payer_key_pair(self, value: pulumi.Input[str]):
-        pulumi.set(self, "payer_key_pair", value)
-
-    @property
     @pulumi.getter(name="recipientPubkey")
     def recipient_pubkey(self) -> pulumi.Input[str]:
         return pulumi.get(self, "recipient_pubkey")
@@ -70,6 +62,15 @@ class TransferArgs:
     @recipient_pubkey.setter
     def recipient_pubkey(self, value: pulumi.Input[str]):
         pulumi.set(self, "recipient_pubkey", value)
+
+    @property
+    @pulumi.getter(name="transactionOptions")
+    def transaction_options(self) -> pulumi.Input['_solana.TxnOptionsArgs']:
+        return pulumi.get(self, "transaction_options")
+
+    @transaction_options.setter
+    def transaction_options(self, value: pulumi.Input['_solana.TxnOptionsArgs']):
+        pulumi.set(self, "transaction_options", value)
 
     @property
     @pulumi.getter(name="allowUnfundedRecipient")
@@ -89,8 +90,8 @@ class Transfer(pulumi.CustomResource):
                  allow_unfunded_recipient: Optional[pulumi.Input[bool]] = None,
                  amount: Optional[pulumi.Input[float]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
-                 payer_key_pair: Optional[pulumi.Input[str]] = None,
                  recipient_pubkey: Optional[pulumi.Input[str]] = None,
+                 transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
                  __props__=None):
         """
         Create a Transfer resource with the given unique name, props, and options.
@@ -123,8 +124,8 @@ class Transfer(pulumi.CustomResource):
                  allow_unfunded_recipient: Optional[pulumi.Input[bool]] = None,
                  amount: Optional[pulumi.Input[float]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
-                 payer_key_pair: Optional[pulumi.Input[str]] = None,
                  recipient_pubkey: Optional[pulumi.Input[str]] = None,
+                 transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -141,14 +142,12 @@ class Transfer(pulumi.CustomResource):
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
-            if payer_key_pair is None and not opts.urn:
-                raise TypeError("Missing required property 'payer_key_pair'")
-            __props__.__dict__["payer_key_pair"] = None if payer_key_pair is None else pulumi.Output.secret(payer_key_pair)
             if recipient_pubkey is None and not opts.urn:
                 raise TypeError("Missing required property 'recipient_pubkey'")
             __props__.__dict__["recipient_pubkey"] = recipient_pubkey
-        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["payerKeyPair"])
-        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
+            if transaction_options is None and not opts.urn:
+                raise TypeError("Missing required property 'transaction_options'")
+            __props__.__dict__["transaction_options"] = transaction_options
         super(Transfer, __self__).__init__(
             'svmkit:account:Transfer',
             resource_name,
@@ -174,8 +173,8 @@ class Transfer(pulumi.CustomResource):
         __props__.__dict__["allow_unfunded_recipient"] = None
         __props__.__dict__["amount"] = None
         __props__.__dict__["connection"] = None
-        __props__.__dict__["payer_key_pair"] = None
         __props__.__dict__["recipient_pubkey"] = None
+        __props__.__dict__["transaction_options"] = None
         return Transfer(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -194,12 +193,12 @@ class Transfer(pulumi.CustomResource):
         return pulumi.get(self, "connection")
 
     @property
-    @pulumi.getter(name="payerKeyPair")
-    def payer_key_pair(self) -> pulumi.Output[str]:
-        return pulumi.get(self, "payer_key_pair")
-
-    @property
     @pulumi.getter(name="recipientPubkey")
     def recipient_pubkey(self) -> pulumi.Output[str]:
         return pulumi.get(self, "recipient_pubkey")
+
+    @property
+    @pulumi.getter(name="transactionOptions")
+    def transaction_options(self) -> pulumi.Output['_solana.outputs.TxnOptions']:
+        return pulumi.get(self, "transaction_options")
 

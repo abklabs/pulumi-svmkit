@@ -8,23 +8,18 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace ABKLabs.Svmkit.Genesis.Outputs
+namespace ABKLabs.Svmkit.Agave.Outputs
 {
 
     [OutputType]
-    public sealed class PrimorialEntry
+    public sealed class TimeoutConfig
     {
-        public readonly string Lamports;
-        public readonly string Pubkey;
+        public readonly int? RpcServiceTimeout;
 
         [OutputConstructor]
-        private PrimorialEntry(
-            string lamports,
-
-            string pubkey)
+        private TimeoutConfig(int? rpcServiceTimeout)
         {
-            Lamports = lamports;
-            Pubkey = pubkey;
+            RpcServiceTimeout = rpcServiceTimeout;
         }
     }
 }

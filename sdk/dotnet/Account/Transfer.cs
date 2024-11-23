@@ -22,11 +22,11 @@ namespace ABKLabs.Svmkit.Account
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
-        [Output("payerKeyPair")]
-        public Output<string> PayerKeyPair { get; private set; } = null!;
-
         [Output("recipientPubkey")]
         public Output<string> RecipientPubkey { get; private set; } = null!;
+
+        [Output("transactionOptions")]
+        public Output<ABKLabs.Svmkit.Solana.Outputs.TxnOptions> TransactionOptions { get; private set; } = null!;
 
 
         /// <summary>
@@ -52,10 +52,6 @@ namespace ABKLabs.Svmkit.Account
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/abklabs",
-                AdditionalSecretOutputs =
-                {
-                    "payerKeyPair",
-                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -87,20 +83,11 @@ namespace ABKLabs.Svmkit.Account
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 
-        [Input("payerKeyPair", required: true)]
-        private Input<string>? _payerKeyPair;
-        public Input<string>? PayerKeyPair
-        {
-            get => _payerKeyPair;
-            set
-            {
-                var emptySecret = Output.CreateSecret(0);
-                _payerKeyPair = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
-            }
-        }
-
         [Input("recipientPubkey", required: true)]
         public Input<string> RecipientPubkey { get; set; } = null!;
+
+        [Input("transactionOptions", required: true)]
+        public Input<ABKLabs.Svmkit.Solana.Inputs.TxnOptionsArgs> TransactionOptions { get; set; } = null!;
 
         public TransferArgs()
         {

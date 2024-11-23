@@ -45,12 +45,8 @@ export namespace agave {
         user: string;
     }
 
-}
-
-export namespace genesis {
-    export interface PrimorialEntry {
-        lamports: string;
-        pubkey: string;
+    export interface TimeoutConfig {
+        rpcServiceTimeout?: number;
     }
 
 }
@@ -74,9 +70,36 @@ export namespace solana {
         votePubkey: string;
     }
 
+    export interface PrimorialEntry {
+        lamports: string;
+        pubkey: string;
+    }
+
     export interface StakeAccountKeyPairs {
         stakeAccount: string;
         voteAccount: string;
+    }
+
+    export interface TxnOptions {
+        blockHash?: string;
+        commitment?: string;
+        feePayer?: string;
+        from?: string;
+        keyPair?: string;
+        nonce?: string;
+        nonceAuthority?: string;
+        signer?: string[];
+        url?: string;
+        withComputeUnitPrice?: number;
+        withMemo?: string;
+        ws?: string;
+    }
+
+    export interface ValidatorInfo {
+        details?: string;
+        iconURL?: string;
+        name: string;
+        website?: string;
     }
 
     export interface VoteAccountKeyPairs {
