@@ -6,7 +6,7 @@ require (
 	github.com/abklabs/pulumi-svmkit/sdk/go v0.0.12
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.56.1
 	github.com/pulumi/pulumi-tls/sdk/v5 v5.0.9
-	github.com/pulumi/pulumi/sdk/v3 v3.140.0
+	github.com/pulumi/pulumi/sdk/v3 v3.141.0
 )
 
 replace github.com/abklabs/pulumi-svmkit/sdk/go => ../../sdk/go

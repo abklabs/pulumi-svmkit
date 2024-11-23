@@ -9,7 +9,7 @@ require (
 	github.com/gagliardetto/solana-go v1.11.0
 	github.com/pulumi/pulumi-go-provider v0.23.0
 	github.com/pulumi/pulumi/pkg/v3 v3.139.0
-	github.com/pulumi/pulumi/sdk/v3 v3.140.0
+	github.com/pulumi/pulumi/sdk/v3 v3.141.0
 	golang.org/x/crypto v0.27.0
 )
 
