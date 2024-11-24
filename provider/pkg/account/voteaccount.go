@@ -2,6 +2,7 @@ package account
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
@@ -38,13 +39,7 @@ func (VoteAccount) Create(ctx context.Context, name string, input VoteAccountArg
 }
 
 func (VoteAccount) Update(ctx context.Context, name string, old VoteAccountState, new VoteAccountArgs, preview bool) (VoteAccountState, error) {
-	if preview {
-		return VoteAccountState{VoteAccountArgs: new}, nil
-	}
-
-	old.VoteAccountArgs = new
-
-	return old, nil
+	return old, fmt.Errorf("Vote accounts may not be modified after creation!")
 }
 
 func (VoteAccount) Delete(ctx context.Context, name string, output VoteAccountState) error {
