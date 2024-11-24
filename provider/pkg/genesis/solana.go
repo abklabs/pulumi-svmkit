@@ -72,3 +72,7 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 
 	return name, state, nil
 }
+
+func (Solana) Update(ctx context.Context, name string, oldState SolanaState, newInput SolanaArgs, preview bool) (SolanaState, error) {
+	return oldState, fmt.Errorf("Genesis configuration may not be modified after initial creation!")
+}
