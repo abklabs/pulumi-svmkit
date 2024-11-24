@@ -2,6 +2,7 @@ package account
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
@@ -38,11 +39,6 @@ func (StakeAccount) Create(ctx context.Context, name string, input StakeAccountA
 }
 
 func (StakeAccount) Update(ctx context.Context, name string, old StakeAccountState, new StakeAccountArgs, preview bool) (StakeAccountState, error) {
-	if preview {
-		return StakeAccountState{StakeAccountArgs: new}, nil
-	}
-
-	old.StakeAccountArgs = new
-
-	return old, nil
+	// XXX - Remove this when we support redelegating stake in future.
+	return old, fmt.Errorf("Stake accounts may not be modified after creation!")
 }
