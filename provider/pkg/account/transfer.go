@@ -2,6 +2,7 @@ package account
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
@@ -35,4 +36,8 @@ func (Transfer) Create(ctx context.Context, name string, input TransferArgs, pre
 	}
 
 	return name, state, nil
+}
+
+func (Transfer) Update(ctx context.Context, name string, old TransferState, new TransferArgs, preview bool) (TransferState, error) {
+	return old, fmt.Errorf("Transfers are sent once, and may not be modified after creation!")
 }
