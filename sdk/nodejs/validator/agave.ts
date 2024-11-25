@@ -40,6 +40,8 @@ export class Agave extends pulumi.CustomResource {
     public readonly info!: pulumi.Output<outputs.solana.ValidatorInfo | undefined>;
     public readonly keyPairs!: pulumi.Output<outputs.agave.KeyPairs>;
     public readonly metrics!: pulumi.Output<outputs.agave.Metrics | undefined>;
+    public readonly shutdownPolicy!: pulumi.Output<outputs.agave.ShutdownPolicy | undefined>;
+    public readonly startupPolicy!: pulumi.Output<outputs.agave.StartupPolicy | undefined>;
     public readonly timeoutConfig!: pulumi.Output<outputs.agave.TimeoutConfig | undefined>;
     public readonly variant!: pulumi.Output<enums.agave.Variant | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
@@ -70,6 +72,8 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["info"] = args ? args.info : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
             resourceInputs["metrics"] = args ? args.metrics : undefined;
+            resourceInputs["shutdownPolicy"] = args ? args.shutdownPolicy : undefined;
+            resourceInputs["startupPolicy"] = args ? args.startupPolicy : undefined;
             resourceInputs["timeoutConfig"] = args ? args.timeoutConfig : undefined;
             resourceInputs["variant"] = args ? args.variant : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
@@ -80,6 +84,8 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["info"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
             resourceInputs["metrics"] = undefined /*out*/;
+            resourceInputs["shutdownPolicy"] = undefined /*out*/;
+            resourceInputs["startupPolicy"] = undefined /*out*/;
             resourceInputs["timeoutConfig"] = undefined /*out*/;
             resourceInputs["variant"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
@@ -99,6 +105,8 @@ export interface AgaveArgs {
     info?: pulumi.Input<inputs.solana.ValidatorInfoArgs>;
     keyPairs: pulumi.Input<inputs.agave.KeyPairsArgs>;
     metrics?: pulumi.Input<inputs.agave.MetricsArgs>;
+    shutdownPolicy?: pulumi.Input<inputs.agave.ShutdownPolicyArgs>;
+    startupPolicy?: pulumi.Input<inputs.agave.StartupPolicyArgs>;
     timeoutConfig?: pulumi.Input<inputs.agave.TimeoutConfigArgs>;
     variant?: pulumi.Input<enums.agave.Variant>;
     version?: pulumi.Input<string>;

@@ -415,6 +415,332 @@ func (o MetricsPtrOutput) User() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type ShutdownPolicy struct {
+	Force                *bool `pulumi:"force"`
+	MaxDelinquentStake   *int  `pulumi:"maxDelinquentStake"`
+	MinIdleTime          *int  `pulumi:"minIdleTime"`
+	SkipHealthCheck      *bool `pulumi:"skipHealthCheck"`
+	SkipNewSnapshotCheck *bool `pulumi:"skipNewSnapshotCheck"`
+}
+
+// ShutdownPolicyInput is an input type that accepts ShutdownPolicyArgs and ShutdownPolicyOutput values.
+// You can construct a concrete instance of `ShutdownPolicyInput` via:
+//
+//	ShutdownPolicyArgs{...}
+type ShutdownPolicyInput interface {
+	pulumi.Input
+
+	ToShutdownPolicyOutput() ShutdownPolicyOutput
+	ToShutdownPolicyOutputWithContext(context.Context) ShutdownPolicyOutput
+}
+
+type ShutdownPolicyArgs struct {
+	Force                pulumi.BoolPtrInput `pulumi:"force"`
+	MaxDelinquentStake   pulumi.IntPtrInput  `pulumi:"maxDelinquentStake"`
+	MinIdleTime          pulumi.IntPtrInput  `pulumi:"minIdleTime"`
+	SkipHealthCheck      pulumi.BoolPtrInput `pulumi:"skipHealthCheck"`
+	SkipNewSnapshotCheck pulumi.BoolPtrInput `pulumi:"skipNewSnapshotCheck"`
+}
+
+func (ShutdownPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShutdownPolicy)(nil)).Elem()
+}
+
+func (i ShutdownPolicyArgs) ToShutdownPolicyOutput() ShutdownPolicyOutput {
+	return i.ToShutdownPolicyOutputWithContext(context.Background())
+}
+
+func (i ShutdownPolicyArgs) ToShutdownPolicyOutputWithContext(ctx context.Context) ShutdownPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShutdownPolicyOutput)
+}
+
+func (i ShutdownPolicyArgs) ToShutdownPolicyPtrOutput() ShutdownPolicyPtrOutput {
+	return i.ToShutdownPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i ShutdownPolicyArgs) ToShutdownPolicyPtrOutputWithContext(ctx context.Context) ShutdownPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShutdownPolicyOutput).ToShutdownPolicyPtrOutputWithContext(ctx)
+}
+
+// ShutdownPolicyPtrInput is an input type that accepts ShutdownPolicyArgs, ShutdownPolicyPtr and ShutdownPolicyPtrOutput values.
+// You can construct a concrete instance of `ShutdownPolicyPtrInput` via:
+//
+//	        ShutdownPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type ShutdownPolicyPtrInput interface {
+	pulumi.Input
+
+	ToShutdownPolicyPtrOutput() ShutdownPolicyPtrOutput
+	ToShutdownPolicyPtrOutputWithContext(context.Context) ShutdownPolicyPtrOutput
+}
+
+type shutdownPolicyPtrType ShutdownPolicyArgs
+
+func ShutdownPolicyPtr(v *ShutdownPolicyArgs) ShutdownPolicyPtrInput {
+	return (*shutdownPolicyPtrType)(v)
+}
+
+func (*shutdownPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShutdownPolicy)(nil)).Elem()
+}
+
+func (i *shutdownPolicyPtrType) ToShutdownPolicyPtrOutput() ShutdownPolicyPtrOutput {
+	return i.ToShutdownPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *shutdownPolicyPtrType) ToShutdownPolicyPtrOutputWithContext(ctx context.Context) ShutdownPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShutdownPolicyPtrOutput)
+}
+
+type ShutdownPolicyOutput struct{ *pulumi.OutputState }
+
+func (ShutdownPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShutdownPolicy)(nil)).Elem()
+}
+
+func (o ShutdownPolicyOutput) ToShutdownPolicyOutput() ShutdownPolicyOutput {
+	return o
+}
+
+func (o ShutdownPolicyOutput) ToShutdownPolicyOutputWithContext(ctx context.Context) ShutdownPolicyOutput {
+	return o
+}
+
+func (o ShutdownPolicyOutput) ToShutdownPolicyPtrOutput() ShutdownPolicyPtrOutput {
+	return o.ToShutdownPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o ShutdownPolicyOutput) ToShutdownPolicyPtrOutputWithContext(ctx context.Context) ShutdownPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ShutdownPolicy) *ShutdownPolicy {
+		return &v
+	}).(ShutdownPolicyPtrOutput)
+}
+
+func (o ShutdownPolicyOutput) Force() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ShutdownPolicy) *bool { return v.Force }).(pulumi.BoolPtrOutput)
+}
+
+func (o ShutdownPolicyOutput) MaxDelinquentStake() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ShutdownPolicy) *int { return v.MaxDelinquentStake }).(pulumi.IntPtrOutput)
+}
+
+func (o ShutdownPolicyOutput) MinIdleTime() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ShutdownPolicy) *int { return v.MinIdleTime }).(pulumi.IntPtrOutput)
+}
+
+func (o ShutdownPolicyOutput) SkipHealthCheck() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ShutdownPolicy) *bool { return v.SkipHealthCheck }).(pulumi.BoolPtrOutput)
+}
+
+func (o ShutdownPolicyOutput) SkipNewSnapshotCheck() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ShutdownPolicy) *bool { return v.SkipNewSnapshotCheck }).(pulumi.BoolPtrOutput)
+}
+
+type ShutdownPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (ShutdownPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShutdownPolicy)(nil)).Elem()
+}
+
+func (o ShutdownPolicyPtrOutput) ToShutdownPolicyPtrOutput() ShutdownPolicyPtrOutput {
+	return o
+}
+
+func (o ShutdownPolicyPtrOutput) ToShutdownPolicyPtrOutputWithContext(ctx context.Context) ShutdownPolicyPtrOutput {
+	return o
+}
+
+func (o ShutdownPolicyPtrOutput) Elem() ShutdownPolicyOutput {
+	return o.ApplyT(func(v *ShutdownPolicy) ShutdownPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret ShutdownPolicy
+		return ret
+	}).(ShutdownPolicyOutput)
+}
+
+func (o ShutdownPolicyPtrOutput) Force() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ShutdownPolicy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Force
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o ShutdownPolicyPtrOutput) MaxDelinquentStake() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ShutdownPolicy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxDelinquentStake
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ShutdownPolicyPtrOutput) MinIdleTime() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ShutdownPolicy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MinIdleTime
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ShutdownPolicyPtrOutput) SkipHealthCheck() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ShutdownPolicy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SkipHealthCheck
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o ShutdownPolicyPtrOutput) SkipNewSnapshotCheck() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ShutdownPolicy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SkipNewSnapshotCheck
+	}).(pulumi.BoolPtrOutput)
+}
+
+type StartupPolicy struct {
+	WaitForRPCHealth *bool `pulumi:"waitForRPCHealth"`
+}
+
+// StartupPolicyInput is an input type that accepts StartupPolicyArgs and StartupPolicyOutput values.
+// You can construct a concrete instance of `StartupPolicyInput` via:
+//
+//	StartupPolicyArgs{...}
+type StartupPolicyInput interface {
+	pulumi.Input
+
+	ToStartupPolicyOutput() StartupPolicyOutput
+	ToStartupPolicyOutputWithContext(context.Context) StartupPolicyOutput
+}
+
+type StartupPolicyArgs struct {
+	WaitForRPCHealth pulumi.BoolPtrInput `pulumi:"waitForRPCHealth"`
+}
+
+func (StartupPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StartupPolicy)(nil)).Elem()
+}
+
+func (i StartupPolicyArgs) ToStartupPolicyOutput() StartupPolicyOutput {
+	return i.ToStartupPolicyOutputWithContext(context.Background())
+}
+
+func (i StartupPolicyArgs) ToStartupPolicyOutputWithContext(ctx context.Context) StartupPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StartupPolicyOutput)
+}
+
+func (i StartupPolicyArgs) ToStartupPolicyPtrOutput() StartupPolicyPtrOutput {
+	return i.ToStartupPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i StartupPolicyArgs) ToStartupPolicyPtrOutputWithContext(ctx context.Context) StartupPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StartupPolicyOutput).ToStartupPolicyPtrOutputWithContext(ctx)
+}
+
+// StartupPolicyPtrInput is an input type that accepts StartupPolicyArgs, StartupPolicyPtr and StartupPolicyPtrOutput values.
+// You can construct a concrete instance of `StartupPolicyPtrInput` via:
+//
+//	        StartupPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type StartupPolicyPtrInput interface {
+	pulumi.Input
+
+	ToStartupPolicyPtrOutput() StartupPolicyPtrOutput
+	ToStartupPolicyPtrOutputWithContext(context.Context) StartupPolicyPtrOutput
+}
+
+type startupPolicyPtrType StartupPolicyArgs
+
+func StartupPolicyPtr(v *StartupPolicyArgs) StartupPolicyPtrInput {
+	return (*startupPolicyPtrType)(v)
+}
+
+func (*startupPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StartupPolicy)(nil)).Elem()
+}
+
+func (i *startupPolicyPtrType) ToStartupPolicyPtrOutput() StartupPolicyPtrOutput {
+	return i.ToStartupPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *startupPolicyPtrType) ToStartupPolicyPtrOutputWithContext(ctx context.Context) StartupPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StartupPolicyPtrOutput)
+}
+
+type StartupPolicyOutput struct{ *pulumi.OutputState }
+
+func (StartupPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StartupPolicy)(nil)).Elem()
+}
+
+func (o StartupPolicyOutput) ToStartupPolicyOutput() StartupPolicyOutput {
+	return o
+}
+
+func (o StartupPolicyOutput) ToStartupPolicyOutputWithContext(ctx context.Context) StartupPolicyOutput {
+	return o
+}
+
+func (o StartupPolicyOutput) ToStartupPolicyPtrOutput() StartupPolicyPtrOutput {
+	return o.ToStartupPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o StartupPolicyOutput) ToStartupPolicyPtrOutputWithContext(ctx context.Context) StartupPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StartupPolicy) *StartupPolicy {
+		return &v
+	}).(StartupPolicyPtrOutput)
+}
+
+func (o StartupPolicyOutput) WaitForRPCHealth() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v StartupPolicy) *bool { return v.WaitForRPCHealth }).(pulumi.BoolPtrOutput)
+}
+
+type StartupPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (StartupPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StartupPolicy)(nil)).Elem()
+}
+
+func (o StartupPolicyPtrOutput) ToStartupPolicyPtrOutput() StartupPolicyPtrOutput {
+	return o
+}
+
+func (o StartupPolicyPtrOutput) ToStartupPolicyPtrOutputWithContext(ctx context.Context) StartupPolicyPtrOutput {
+	return o
+}
+
+func (o StartupPolicyPtrOutput) Elem() StartupPolicyOutput {
+	return o.ApplyT(func(v *StartupPolicy) StartupPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret StartupPolicy
+		return ret
+	}).(StartupPolicyOutput)
+}
+
+func (o StartupPolicyPtrOutput) WaitForRPCHealth() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *StartupPolicy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.WaitForRPCHealth
+	}).(pulumi.BoolPtrOutput)
+}
+
 type TimeoutConfig struct {
 	RpcServiceTimeout *int `pulumi:"rpcServiceTimeout"`
 }
@@ -553,12 +879,20 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*KeyPairsInput)(nil)).Elem(), KeyPairsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MetricsInput)(nil)).Elem(), MetricsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MetricsPtrInput)(nil)).Elem(), MetricsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShutdownPolicyInput)(nil)).Elem(), ShutdownPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShutdownPolicyPtrInput)(nil)).Elem(), ShutdownPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StartupPolicyInput)(nil)).Elem(), StartupPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StartupPolicyPtrInput)(nil)).Elem(), StartupPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TimeoutConfigInput)(nil)).Elem(), TimeoutConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TimeoutConfigPtrInput)(nil)).Elem(), TimeoutConfigArgs{})
 	pulumi.RegisterOutputType(FlagsOutput{})
 	pulumi.RegisterOutputType(KeyPairsOutput{})
 	pulumi.RegisterOutputType(MetricsOutput{})
 	pulumi.RegisterOutputType(MetricsPtrOutput{})
+	pulumi.RegisterOutputType(ShutdownPolicyOutput{})
+	pulumi.RegisterOutputType(ShutdownPolicyPtrOutput{})
+	pulumi.RegisterOutputType(StartupPolicyOutput{})
+	pulumi.RegisterOutputType(StartupPolicyPtrOutput{})
 	pulumi.RegisterOutputType(TimeoutConfigOutput{})
 	pulumi.RegisterOutputType(TimeoutConfigPtrOutput{})
 }

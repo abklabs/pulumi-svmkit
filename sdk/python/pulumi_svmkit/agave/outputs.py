@@ -19,6 +19,8 @@ __all__ = [
     'Flags',
     'KeyPairs',
     'Metrics',
+    'ShutdownPolicy',
+    'StartupPolicy',
     'TimeoutConfig',
 ]
 
@@ -307,6 +309,104 @@ class Metrics(dict):
     @pulumi.getter
     def user(self) -> str:
         return pulumi.get(self, "user")
+
+
+@pulumi.output_type
+class ShutdownPolicy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxDelinquentStake":
+            suggest = "max_delinquent_stake"
+        elif key == "minIdleTime":
+            suggest = "min_idle_time"
+        elif key == "skipHealthCheck":
+            suggest = "skip_health_check"
+        elif key == "skipNewSnapshotCheck":
+            suggest = "skip_new_snapshot_check"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ShutdownPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ShutdownPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ShutdownPolicy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 force: Optional[bool] = None,
+                 max_delinquent_stake: Optional[int] = None,
+                 min_idle_time: Optional[int] = None,
+                 skip_health_check: Optional[bool] = None,
+                 skip_new_snapshot_check: Optional[bool] = None):
+        if force is not None:
+            pulumi.set(__self__, "force", force)
+        if max_delinquent_stake is not None:
+            pulumi.set(__self__, "max_delinquent_stake", max_delinquent_stake)
+        if min_idle_time is not None:
+            pulumi.set(__self__, "min_idle_time", min_idle_time)
+        if skip_health_check is not None:
+            pulumi.set(__self__, "skip_health_check", skip_health_check)
+        if skip_new_snapshot_check is not None:
+            pulumi.set(__self__, "skip_new_snapshot_check", skip_new_snapshot_check)
+
+    @property
+    @pulumi.getter
+    def force(self) -> Optional[bool]:
+        return pulumi.get(self, "force")
+
+    @property
+    @pulumi.getter(name="maxDelinquentStake")
+    def max_delinquent_stake(self) -> Optional[int]:
+        return pulumi.get(self, "max_delinquent_stake")
+
+    @property
+    @pulumi.getter(name="minIdleTime")
+    def min_idle_time(self) -> Optional[int]:
+        return pulumi.get(self, "min_idle_time")
+
+    @property
+    @pulumi.getter(name="skipHealthCheck")
+    def skip_health_check(self) -> Optional[bool]:
+        return pulumi.get(self, "skip_health_check")
+
+    @property
+    @pulumi.getter(name="skipNewSnapshotCheck")
+    def skip_new_snapshot_check(self) -> Optional[bool]:
+        return pulumi.get(self, "skip_new_snapshot_check")
+
+
+@pulumi.output_type
+class StartupPolicy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "waitForRPCHealth":
+            suggest = "wait_for_rpc_health"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StartupPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StartupPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StartupPolicy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 wait_for_rpc_health: Optional[bool] = None):
+        if wait_for_rpc_health is not None:
+            pulumi.set(__self__, "wait_for_rpc_health", wait_for_rpc_health)
+
+    @property
+    @pulumi.getter(name="waitForRPCHealth")
+    def wait_for_rpc_health(self) -> Optional[bool]:
+        return pulumi.get(self, "wait_for_rpc_health")
 
 
 @pulumi.output_type

@@ -31,6 +31,12 @@ namespace ABKLabs.Svmkit.Validator
         [Output("metrics")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.Metrics?> Metrics { get; private set; } = null!;
 
+        [Output("shutdownPolicy")]
+        public Output<ABKLabs.Svmkit.Agave.Outputs.ShutdownPolicy?> ShutdownPolicy { get; private set; } = null!;
+
+        [Output("startupPolicy")]
+        public Output<ABKLabs.Svmkit.Agave.Outputs.StartupPolicy?> StartupPolicy { get; private set; } = null!;
+
         [Output("timeoutConfig")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.TimeoutConfig?> TimeoutConfig { get; private set; } = null!;
 
@@ -103,6 +109,12 @@ namespace ABKLabs.Svmkit.Validator
 
         [Input("metrics")]
         public Input<ABKLabs.Svmkit.Agave.Inputs.MetricsArgs>? Metrics { get; set; }
+
+        [Input("shutdownPolicy")]
+        public Input<ABKLabs.Svmkit.Agave.Inputs.ShutdownPolicyArgs>? ShutdownPolicy { get; set; }
+
+        [Input("startupPolicy")]
+        public Input<ABKLabs.Svmkit.Agave.Inputs.StartupPolicyArgs>? StartupPolicy { get; set; }
 
         [Input("timeoutConfig")]
         public Input<ABKLabs.Svmkit.Agave.Inputs.TimeoutConfigArgs>? TimeoutConfig { get; set; }

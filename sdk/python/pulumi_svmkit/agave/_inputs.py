@@ -22,6 +22,10 @@ __all__ = [
     'KeyPairsArgsDict',
     'MetricsArgs',
     'MetricsArgsDict',
+    'ShutdownPolicyArgs',
+    'ShutdownPolicyArgsDict',
+    'StartupPolicyArgs',
+    'StartupPolicyArgsDict',
     'TimeoutConfigArgs',
     'TimeoutConfigArgsDict',
 ]
@@ -389,6 +393,104 @@ class MetricsArgs:
     @user.setter
     def user(self, value: pulumi.Input[str]):
         pulumi.set(self, "user", value)
+
+
+if not MYPY:
+    class ShutdownPolicyArgsDict(TypedDict):
+        force: NotRequired[pulumi.Input[bool]]
+        max_delinquent_stake: NotRequired[pulumi.Input[int]]
+        min_idle_time: NotRequired[pulumi.Input[int]]
+        skip_health_check: NotRequired[pulumi.Input[bool]]
+        skip_new_snapshot_check: NotRequired[pulumi.Input[bool]]
+elif False:
+    ShutdownPolicyArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class ShutdownPolicyArgs:
+    def __init__(__self__, *,
+                 force: Optional[pulumi.Input[bool]] = None,
+                 max_delinquent_stake: Optional[pulumi.Input[int]] = None,
+                 min_idle_time: Optional[pulumi.Input[int]] = None,
+                 skip_health_check: Optional[pulumi.Input[bool]] = None,
+                 skip_new_snapshot_check: Optional[pulumi.Input[bool]] = None):
+        if force is not None:
+            pulumi.set(__self__, "force", force)
+        if max_delinquent_stake is not None:
+            pulumi.set(__self__, "max_delinquent_stake", max_delinquent_stake)
+        if min_idle_time is not None:
+            pulumi.set(__self__, "min_idle_time", min_idle_time)
+        if skip_health_check is not None:
+            pulumi.set(__self__, "skip_health_check", skip_health_check)
+        if skip_new_snapshot_check is not None:
+            pulumi.set(__self__, "skip_new_snapshot_check", skip_new_snapshot_check)
+
+    @property
+    @pulumi.getter
+    def force(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "force")
+
+    @force.setter
+    def force(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "force", value)
+
+    @property
+    @pulumi.getter(name="maxDelinquentStake")
+    def max_delinquent_stake(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "max_delinquent_stake")
+
+    @max_delinquent_stake.setter
+    def max_delinquent_stake(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_delinquent_stake", value)
+
+    @property
+    @pulumi.getter(name="minIdleTime")
+    def min_idle_time(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "min_idle_time")
+
+    @min_idle_time.setter
+    def min_idle_time(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "min_idle_time", value)
+
+    @property
+    @pulumi.getter(name="skipHealthCheck")
+    def skip_health_check(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "skip_health_check")
+
+    @skip_health_check.setter
+    def skip_health_check(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_health_check", value)
+
+    @property
+    @pulumi.getter(name="skipNewSnapshotCheck")
+    def skip_new_snapshot_check(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "skip_new_snapshot_check")
+
+    @skip_new_snapshot_check.setter
+    def skip_new_snapshot_check(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_new_snapshot_check", value)
+
+
+if not MYPY:
+    class StartupPolicyArgsDict(TypedDict):
+        wait_for_rpc_health: NotRequired[pulumi.Input[bool]]
+elif False:
+    StartupPolicyArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class StartupPolicyArgs:
+    def __init__(__self__, *,
+                 wait_for_rpc_health: Optional[pulumi.Input[bool]] = None):
+        if wait_for_rpc_health is not None:
+            pulumi.set(__self__, "wait_for_rpc_health", wait_for_rpc_health)
+
+    @property
+    @pulumi.getter(name="waitForRPCHealth")
+    def wait_for_rpc_health(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "wait_for_rpc_health")
+
+    @wait_for_rpc_health.setter
+    def wait_for_rpc_health(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "wait_for_rpc_health", value)
 
 
 if not MYPY:

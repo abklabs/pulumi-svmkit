@@ -29,6 +29,8 @@ class AgaveArgs:
                  environment: Optional[pulumi.Input['_solana.EnvironmentArgs']] = None,
                  info: Optional[pulumi.Input['_solana.ValidatorInfoArgs']] = None,
                  metrics: Optional[pulumi.Input['_agave.MetricsArgs']] = None,
+                 shutdown_policy: Optional[pulumi.Input['_agave.ShutdownPolicyArgs']] = None,
+                 startup_policy: Optional[pulumi.Input['_agave.StartupPolicyArgs']] = None,
                  timeout_config: Optional[pulumi.Input['_agave.TimeoutConfigArgs']] = None,
                  variant: Optional[pulumi.Input['agave.Variant']] = None,
                  version: Optional[pulumi.Input[str]] = None):
@@ -44,6 +46,10 @@ class AgaveArgs:
             pulumi.set(__self__, "info", info)
         if metrics is not None:
             pulumi.set(__self__, "metrics", metrics)
+        if shutdown_policy is not None:
+            pulumi.set(__self__, "shutdown_policy", shutdown_policy)
+        if startup_policy is not None:
+            pulumi.set(__self__, "startup_policy", startup_policy)
         if timeout_config is not None:
             pulumi.set(__self__, "timeout_config", timeout_config)
         if variant is not None:
@@ -106,6 +112,24 @@ class AgaveArgs:
         pulumi.set(self, "metrics", value)
 
     @property
+    @pulumi.getter(name="shutdownPolicy")
+    def shutdown_policy(self) -> Optional[pulumi.Input['_agave.ShutdownPolicyArgs']]:
+        return pulumi.get(self, "shutdown_policy")
+
+    @shutdown_policy.setter
+    def shutdown_policy(self, value: Optional[pulumi.Input['_agave.ShutdownPolicyArgs']]):
+        pulumi.set(self, "shutdown_policy", value)
+
+    @property
+    @pulumi.getter(name="startupPolicy")
+    def startup_policy(self) -> Optional[pulumi.Input['_agave.StartupPolicyArgs']]:
+        return pulumi.get(self, "startup_policy")
+
+    @startup_policy.setter
+    def startup_policy(self, value: Optional[pulumi.Input['_agave.StartupPolicyArgs']]):
+        pulumi.set(self, "startup_policy", value)
+
+    @property
     @pulumi.getter(name="timeoutConfig")
     def timeout_config(self) -> Optional[pulumi.Input['_agave.TimeoutConfigArgs']]:
         return pulumi.get(self, "timeout_config")
@@ -144,6 +168,8 @@ class Agave(pulumi.CustomResource):
                  info: Optional[pulumi.Input[Union['_solana.ValidatorInfoArgs', '_solana.ValidatorInfoArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
                  metrics: Optional[pulumi.Input[Union['_agave.MetricsArgs', '_agave.MetricsArgsDict']]] = None,
+                 shutdown_policy: Optional[pulumi.Input[Union['_agave.ShutdownPolicyArgs', '_agave.ShutdownPolicyArgsDict']]] = None,
+                 startup_policy: Optional[pulumi.Input[Union['_agave.StartupPolicyArgs', '_agave.StartupPolicyArgsDict']]] = None,
                  timeout_config: Optional[pulumi.Input[Union['_agave.TimeoutConfigArgs', '_agave.TimeoutConfigArgsDict']]] = None,
                  variant: Optional[pulumi.Input['agave.Variant']] = None,
                  version: Optional[pulumi.Input[str]] = None,
@@ -182,6 +208,8 @@ class Agave(pulumi.CustomResource):
                  info: Optional[pulumi.Input[Union['_solana.ValidatorInfoArgs', '_solana.ValidatorInfoArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
                  metrics: Optional[pulumi.Input[Union['_agave.MetricsArgs', '_agave.MetricsArgsDict']]] = None,
+                 shutdown_policy: Optional[pulumi.Input[Union['_agave.ShutdownPolicyArgs', '_agave.ShutdownPolicyArgsDict']]] = None,
+                 startup_policy: Optional[pulumi.Input[Union['_agave.StartupPolicyArgs', '_agave.StartupPolicyArgsDict']]] = None,
                  timeout_config: Optional[pulumi.Input[Union['_agave.TimeoutConfigArgs', '_agave.TimeoutConfigArgsDict']]] = None,
                  variant: Optional[pulumi.Input['agave.Variant']] = None,
                  version: Optional[pulumi.Input[str]] = None,
@@ -206,6 +234,8 @@ class Agave(pulumi.CustomResource):
                 raise TypeError("Missing required property 'key_pairs'")
             __props__.__dict__["key_pairs"] = key_pairs
             __props__.__dict__["metrics"] = metrics
+            __props__.__dict__["shutdown_policy"] = shutdown_policy
+            __props__.__dict__["startup_policy"] = startup_policy
             __props__.__dict__["timeout_config"] = timeout_config
             __props__.__dict__["variant"] = variant
             __props__.__dict__["version"] = version
@@ -237,6 +267,8 @@ class Agave(pulumi.CustomResource):
         __props__.__dict__["info"] = None
         __props__.__dict__["key_pairs"] = None
         __props__.__dict__["metrics"] = None
+        __props__.__dict__["shutdown_policy"] = None
+        __props__.__dict__["startup_policy"] = None
         __props__.__dict__["timeout_config"] = None
         __props__.__dict__["variant"] = None
         __props__.__dict__["version"] = None
@@ -271,6 +303,16 @@ class Agave(pulumi.CustomResource):
     @pulumi.getter
     def metrics(self) -> pulumi.Output[Optional['_agave.outputs.Metrics']]:
         return pulumi.get(self, "metrics")
+
+    @property
+    @pulumi.getter(name="shutdownPolicy")
+    def shutdown_policy(self) -> pulumi.Output[Optional['_agave.outputs.ShutdownPolicy']]:
+        return pulumi.get(self, "shutdown_policy")
+
+    @property
+    @pulumi.getter(name="startupPolicy")
+    def startup_policy(self) -> pulumi.Output[Optional['_agave.outputs.StartupPolicy']]:
+        return pulumi.get(self, "startup_policy")
 
     @property
     @pulumi.getter(name="timeoutConfig")

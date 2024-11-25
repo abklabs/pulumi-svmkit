@@ -45,6 +45,18 @@ export namespace agave {
         user: string;
     }
 
+    export interface ShutdownPolicy {
+        force?: boolean;
+        maxDelinquentStake?: number;
+        minIdleTime?: number;
+        skipHealthCheck?: boolean;
+        skipNewSnapshotCheck?: boolean;
+    }
+
+    export interface StartupPolicy {
+        waitForRPCHealth?: boolean;
+    }
+
     export interface TimeoutConfig {
         rpcServiceTimeout?: number;
     }

@@ -45,6 +45,18 @@ export namespace agave {
         user: pulumi.Input<string>;
     }
 
+    export interface ShutdownPolicyArgs {
+        force?: pulumi.Input<boolean>;
+        maxDelinquentStake?: pulumi.Input<number>;
+        minIdleTime?: pulumi.Input<number>;
+        skipHealthCheck?: pulumi.Input<boolean>;
+        skipNewSnapshotCheck?: pulumi.Input<boolean>;
+    }
+
+    export interface StartupPolicyArgs {
+        waitForRPCHealth?: pulumi.Input<boolean>;
+    }
+
     export interface TimeoutConfigArgs {
         rpcServiceTimeout?: pulumi.Input<number>;
     }

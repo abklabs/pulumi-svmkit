@@ -18,15 +18,17 @@ import (
 type Agave struct {
 	pulumi.CustomResourceState
 
-	Connection    ssh.ConnectionOutput          `pulumi:"connection"`
-	Environment   solana.EnvironmentPtrOutput   `pulumi:"environment"`
-	Flags         agave.FlagsOutput             `pulumi:"flags"`
-	Info          solana.ValidatorInfoPtrOutput `pulumi:"info"`
-	KeyPairs      agave.KeyPairsOutput          `pulumi:"keyPairs"`
-	Metrics       agave.MetricsPtrOutput        `pulumi:"metrics"`
-	TimeoutConfig agave.TimeoutConfigPtrOutput  `pulumi:"timeoutConfig"`
-	Variant       agave.VariantPtrOutput        `pulumi:"variant"`
-	Version       pulumi.StringPtrOutput        `pulumi:"version"`
+	Connection     ssh.ConnectionOutput          `pulumi:"connection"`
+	Environment    solana.EnvironmentPtrOutput   `pulumi:"environment"`
+	Flags          agave.FlagsOutput             `pulumi:"flags"`
+	Info           solana.ValidatorInfoPtrOutput `pulumi:"info"`
+	KeyPairs       agave.KeyPairsOutput          `pulumi:"keyPairs"`
+	Metrics        agave.MetricsPtrOutput        `pulumi:"metrics"`
+	ShutdownPolicy agave.ShutdownPolicyPtrOutput `pulumi:"shutdownPolicy"`
+	StartupPolicy  agave.StartupPolicyPtrOutput  `pulumi:"startupPolicy"`
+	TimeoutConfig  agave.TimeoutConfigPtrOutput  `pulumi:"timeoutConfig"`
+	Variant        agave.VariantPtrOutput        `pulumi:"variant"`
+	Version        pulumi.StringPtrOutput        `pulumi:"version"`
 }
 
 // NewAgave registers a new resource with the given unique name, arguments, and options.
@@ -79,28 +81,32 @@ func (AgaveState) ElementType() reflect.Type {
 }
 
 type agaveArgs struct {
-	Connection    ssh.Connection        `pulumi:"connection"`
-	Environment   *solana.Environment   `pulumi:"environment"`
-	Flags         agave.Flags           `pulumi:"flags"`
-	Info          *solana.ValidatorInfo `pulumi:"info"`
-	KeyPairs      agave.KeyPairs        `pulumi:"keyPairs"`
-	Metrics       *agave.Metrics        `pulumi:"metrics"`
-	TimeoutConfig *agave.TimeoutConfig  `pulumi:"timeoutConfig"`
-	Variant       *agave.Variant        `pulumi:"variant"`
-	Version       *string               `pulumi:"version"`
+	Connection     ssh.Connection        `pulumi:"connection"`
+	Environment    *solana.Environment   `pulumi:"environment"`
+	Flags          agave.Flags           `pulumi:"flags"`
+	Info           *solana.ValidatorInfo `pulumi:"info"`
+	KeyPairs       agave.KeyPairs        `pulumi:"keyPairs"`
+	Metrics        *agave.Metrics        `pulumi:"metrics"`
+	ShutdownPolicy *agave.ShutdownPolicy `pulumi:"shutdownPolicy"`
+	StartupPolicy  *agave.StartupPolicy  `pulumi:"startupPolicy"`
+	TimeoutConfig  *agave.TimeoutConfig  `pulumi:"timeoutConfig"`
+	Variant        *agave.Variant        `pulumi:"variant"`
+	Version        *string               `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Agave resource.
 type AgaveArgs struct {
-	Connection    ssh.ConnectionInput
-	Environment   solana.EnvironmentPtrInput
-	Flags         agave.FlagsInput
-	Info          solana.ValidatorInfoPtrInput
-	KeyPairs      agave.KeyPairsInput
-	Metrics       agave.MetricsPtrInput
-	TimeoutConfig agave.TimeoutConfigPtrInput
-	Variant       agave.VariantPtrInput
-	Version       pulumi.StringPtrInput
+	Connection     ssh.ConnectionInput
+	Environment    solana.EnvironmentPtrInput
+	Flags          agave.FlagsInput
+	Info           solana.ValidatorInfoPtrInput
+	KeyPairs       agave.KeyPairsInput
+	Metrics        agave.MetricsPtrInput
+	ShutdownPolicy agave.ShutdownPolicyPtrInput
+	StartupPolicy  agave.StartupPolicyPtrInput
+	TimeoutConfig  agave.TimeoutConfigPtrInput
+	Variant        agave.VariantPtrInput
+	Version        pulumi.StringPtrInput
 }
 
 func (AgaveArgs) ElementType() reflect.Type {
@@ -162,6 +168,14 @@ func (o AgaveOutput) KeyPairs() agave.KeyPairsOutput {
 
 func (o AgaveOutput) Metrics() agave.MetricsPtrOutput {
 	return o.ApplyT(func(v *Agave) agave.MetricsPtrOutput { return v.Metrics }).(agave.MetricsPtrOutput)
+}
+
+func (o AgaveOutput) ShutdownPolicy() agave.ShutdownPolicyPtrOutput {
+	return o.ApplyT(func(v *Agave) agave.ShutdownPolicyPtrOutput { return v.ShutdownPolicy }).(agave.ShutdownPolicyPtrOutput)
+}
+
+func (o AgaveOutput) StartupPolicy() agave.StartupPolicyPtrOutput {
+	return o.ApplyT(func(v *Agave) agave.StartupPolicyPtrOutput { return v.StartupPolicy }).(agave.StartupPolicyPtrOutput)
 }
 
 func (o AgaveOutput) TimeoutConfig() agave.TimeoutConfigPtrOutput {
