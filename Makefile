@@ -18,8 +18,9 @@ OS			:= $(shell uname)
 all: build install
 
 ensure::
+	go work sync
 	cd provider && go mod tidy
-	cd sdk && go mod tidy
+	cd sdk/go && go mod tidy
 
 provider $(WORKING_DIR)/bin/$(PROVIDER)::
 	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} ${GOLANG_FLAGS} $(PROJECT)/cmd/$(PROVIDER))
