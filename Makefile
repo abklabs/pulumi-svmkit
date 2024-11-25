@@ -41,6 +41,7 @@ go_sdk:: $(WORKING_DIR)/bin/$(PROVIDER)
 	rm -rf sdk/go
 	pulumi package gen-sdk $(WORKING_DIR)/bin/$(PROVIDER) --language go
 	cd sdk/go && go mod init $(PROJECT)/sdk/go && go mod tidy && go mod edit -go=1.22
+	$(MAKE) ensure
 
 nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript)
 nodejs_sdk:: $(WORKING_DIR)/bin/$(PROVIDER)
