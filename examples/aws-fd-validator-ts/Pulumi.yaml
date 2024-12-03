@@ -1,0 +1,7 @@
+name: aws-fd-validator-ts
+description: An example of an Firedancer validator on AWS using TypeScript
+runtime: nodejs
+plugins:
+  providers:
+    - name: svmkit
+      path: ../../bin
