@@ -1,0 +1,14 @@
+{
+    "name": "aws-agave-validator",
+    "devDependencies": {
+        "@types/node": "^14",
+        "typescript-language-server": "^4.3.3"
+    },
+    "dependencies": {
+        "@pulumi/aws": "^6.51.1",
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/tls": "^5.0.6",
+        "@svmkit/pulumi-svmkit": "^0.0.7",
+        "typescript": "^4.0.0"
+    }
+}
