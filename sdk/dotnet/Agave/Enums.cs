@@ -41,6 +41,10 @@ namespace ABKLabs.Svmkit.Agave
         /// The Mantis validator
         /// </summary>
         public static Variant Mantis { get; } = new Variant("mantis");
+        /// <summary>
+        /// The Xen validator
+        /// </summary>
+        public static Variant Xen { get; } = new Variant("xen");
 
         public static bool operator ==(Variant left, Variant right) => left.Equals(right);
         public static bool operator !=(Variant left, Variant right) => !left.Equals(right);

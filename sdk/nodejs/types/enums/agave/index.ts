@@ -27,6 +27,10 @@ export const Variant = {
      * The Mantis validator
      */
     Mantis: "mantis",
+    /**
+     * The Xen validator
+     */
+    Xen: "xen",
 } as const;
 
 export type Variant = (typeof Variant)[keyof typeof Variant];

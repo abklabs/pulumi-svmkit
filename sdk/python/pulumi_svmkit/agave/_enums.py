@@ -34,3 +34,7 @@ class Variant(str, Enum):
     """
     The Mantis validator
     """
+    XEN = "xen"
+    """
+    The Xen validator
+    """
