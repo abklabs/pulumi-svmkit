@@ -69,6 +69,7 @@ func Provider() p.Provider {
 		Resources: []infer.InferredResource{
 			infer.Resource[svm.KeyPair, svm.KeyPairArgs, svm.KeyPairState](),
 			infer.Resource[validator.Agave, validator.AgaveArgs, validator.AgaveState](),
+			infer.Resource[validator.Firedancer, validator.FiredancerArgs, validator.FiredancerState](),
 			infer.Resource[genesis.Solana, genesis.SolanaArgs, genesis.SolanaState](),
 			infer.Resource[account.VoteAccount, account.VoteAccountArgs, account.VoteAccountState](),
 			infer.Resource[account.StakeAccount, account.StakeAccountArgs, account.StakeAccountState](),
