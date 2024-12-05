@@ -159,6 +159,115 @@ export namespace agave {
     }
 }
 
+export namespace firedancer {
+    export interface ConfigArgs {
+        consensus?: pulumi.Input<inputs.firedancer.ConfigConsensusArgs>;
+        dynamicPortRange?: pulumi.Input<string>;
+        extraConfig?: pulumi.Input<pulumi.Input<string>[]>;
+        gossip?: pulumi.Input<inputs.firedancer.ConfigGossipArgs>;
+        hugetlbfs?: pulumi.Input<inputs.firedancer.ConfigHugeTLBFSArgs>;
+        layout?: pulumi.Input<inputs.firedancer.ConfigLayoutArgs>;
+        ledger?: pulumi.Input<inputs.firedancer.ConfigLedgerArgs>;
+        log?: pulumi.Input<inputs.firedancer.ConfigLogArgs>;
+        name?: pulumi.Input<string>;
+        reporting?: pulumi.Input<inputs.firedancer.ConfigReportingArgs>;
+        rpc?: pulumi.Input<inputs.firedancer.ConfigRPCArgs>;
+        scratchDirectory?: pulumi.Input<string>;
+        snapshots?: pulumi.Input<inputs.firedancer.ConfigSnapshotsArgs>;
+        user?: pulumi.Input<string>;
+    }
+
+    export interface ConfigConsensusArgs {
+        authorizedVoterPaths?: pulumi.Input<pulumi.Input<string>[]>;
+        expectedBankHash?: pulumi.Input<string>;
+        expectedGenesisHash?: pulumi.Input<string>;
+        expectedShredVersion?: pulumi.Input<number>;
+        genesisFetch?: pulumi.Input<boolean>;
+        hardForkAtSlots?: pulumi.Input<pulumi.Input<string>[]>;
+        identityPath?: pulumi.Input<string>;
+        knownValidators?: pulumi.Input<pulumi.Input<string>[]>;
+        osNetworkLimitsTest?: pulumi.Input<boolean>;
+        pohSpeedTest?: pulumi.Input<boolean>;
+        snapshotFetch?: pulumi.Input<boolean>;
+        voteAccountPath?: pulumi.Input<string>;
+        waitForSupermajorityAtSlot?: pulumi.Input<number>;
+        waitForVoteToStartLeader?: pulumi.Input<boolean>;
+    }
+
+    export interface ConfigGossipArgs {
+        entrypoints?: pulumi.Input<pulumi.Input<string>[]>;
+        host?: pulumi.Input<string>;
+        port?: pulumi.Input<number>;
+        portCheck?: pulumi.Input<boolean>;
+    }
+
+    export interface ConfigHugeTLBFSArgs {
+        mountPath?: pulumi.Input<string>;
+    }
+
+    export interface ConfigLayoutArgs {
+        affinity?: pulumi.Input<string>;
+        agaveAffinity?: pulumi.Input<string>;
+        bankTileCount?: pulumi.Input<number>;
+        netTileCount?: pulumi.Input<number>;
+        quicTileCount?: pulumi.Input<number>;
+        resolvTileCount?: pulumi.Input<number>;
+        shredTileCount?: pulumi.Input<number>;
+        verifyTileCount?: pulumi.Input<number>;
+    }
+
+    export interface ConfigLedgerArgs {
+        accountIndexExcludeKeys?: pulumi.Input<pulumi.Input<string>[]>;
+        accountIndexIncludeKeys?: pulumi.Input<pulumi.Input<string>[]>;
+        accountIndexes?: pulumi.Input<pulumi.Input<string>[]>;
+        accountsPath?: pulumi.Input<string>;
+        limitSize?: pulumi.Input<number>;
+        path?: pulumi.Input<string>;
+        requireTower?: pulumi.Input<boolean>;
+        snapshotArchiveFormat?: pulumi.Input<string>;
+    }
+
+    export interface ConfigLogArgs {
+        colorize?: pulumi.Input<string>;
+        levelFlush?: pulumi.Input<string>;
+        levelLogfile?: pulumi.Input<string>;
+        levelStderr?: pulumi.Input<string>;
+        path?: pulumi.Input<string>;
+    }
+
+    export interface ConfigRPCArgs {
+        bigtableLedgerStorage?: pulumi.Input<boolean>;
+        extendedTxMetadataStorage?: pulumi.Input<boolean>;
+        fullApi?: pulumi.Input<boolean>;
+        onlyKnown?: pulumi.Input<boolean>;
+        port?: pulumi.Input<number>;
+        private?: pulumi.Input<boolean>;
+        pubsubEnableBlockSubscription?: pulumi.Input<boolean>;
+        pubsubEnableVoteSubscription?: pulumi.Input<boolean>;
+        transactionHistory?: pulumi.Input<boolean>;
+    }
+
+    export interface ConfigReportingArgs {
+        solanaMetricsConfig?: pulumi.Input<string>;
+    }
+
+    export interface ConfigSnapshotsArgs {
+        fullSnapshotIntervalSlots?: pulumi.Input<number>;
+        incrementalPath?: pulumi.Input<string>;
+        incrementalSnapshotIntervalSlots?: pulumi.Input<number>;
+        incrementalSnapshots?: pulumi.Input<boolean>;
+        maximumFullSnapshotsToRetain?: pulumi.Input<number>;
+        maximumIncrementalSnapshotsToRetain?: pulumi.Input<number>;
+        minimumSnapshotDownloadSpeed?: pulumi.Input<number>;
+        path?: pulumi.Input<string>;
+    }
+
+    export interface KeyPairsArgs {
+        identity: pulumi.Input<string>;
+        voteAccount: pulumi.Input<string>;
+    }
+}
+
 export namespace solana {
     export interface EnvironmentArgs {
         rpcURL: pulumi.Input<string>;

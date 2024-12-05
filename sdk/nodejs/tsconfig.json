@@ -30,6 +30,7 @@
         "types/output.ts",
         "utilities.ts",
         "validator/agave.ts",
+        "validator/firedancer.ts",
         "validator/index.ts"
     ]
 }

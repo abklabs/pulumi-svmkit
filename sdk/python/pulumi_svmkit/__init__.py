@@ -14,6 +14,8 @@ if typing.TYPE_CHECKING:
     account = __account
     import pulumi_svmkit.agave as __agave
     agave = __agave
+    import pulumi_svmkit.firedancer as __firedancer
+    firedancer = __firedancer
     import pulumi_svmkit.genesis as __genesis
     genesis = __genesis
     import pulumi_svmkit.solana as __solana
@@ -25,6 +27,7 @@ if typing.TYPE_CHECKING:
 else:
     account = _utilities.lazy_import('pulumi_svmkit.account')
     agave = _utilities.lazy_import('pulumi_svmkit.agave')
+    firedancer = _utilities.lazy_import('pulumi_svmkit.firedancer')
     genesis = _utilities.lazy_import('pulumi_svmkit.genesis')
     solana = _utilities.lazy_import('pulumi_svmkit.solana')
     ssh = _utilities.lazy_import('pulumi_svmkit.ssh')
@@ -64,7 +67,8 @@ _utilities.register(
   "mod": "validator",
   "fqn": "pulumi_svmkit.validator",
   "classes": {
-   "svmkit:validator:Agave": "Agave"
+   "svmkit:validator:Agave": "Agave",
+   "svmkit:validator:Firedancer": "Firedancer"
   }
  }
 ]

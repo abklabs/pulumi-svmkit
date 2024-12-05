@@ -160,6 +160,116 @@ export namespace agave {
 
 }
 
+export namespace firedancer {
+    export interface Config {
+        consensus?: outputs.firedancer.ConfigConsensus;
+        dynamicPortRange?: string;
+        extraConfig?: string[];
+        gossip?: outputs.firedancer.ConfigGossip;
+        hugetlbfs?: outputs.firedancer.ConfigHugeTLBFS;
+        layout?: outputs.firedancer.ConfigLayout;
+        ledger?: outputs.firedancer.ConfigLedger;
+        log?: outputs.firedancer.ConfigLog;
+        name?: string;
+        reporting?: outputs.firedancer.ConfigReporting;
+        rpc?: outputs.firedancer.ConfigRPC;
+        scratchDirectory?: string;
+        snapshots?: outputs.firedancer.ConfigSnapshots;
+        user?: string;
+    }
+
+    export interface ConfigConsensus {
+        authorizedVoterPaths?: string[];
+        expectedBankHash?: string;
+        expectedGenesisHash?: string;
+        expectedShredVersion?: number;
+        genesisFetch?: boolean;
+        hardForkAtSlots?: string[];
+        identityPath?: string;
+        knownValidators?: string[];
+        osNetworkLimitsTest?: boolean;
+        pohSpeedTest?: boolean;
+        snapshotFetch?: boolean;
+        voteAccountPath?: string;
+        waitForSupermajorityAtSlot?: number;
+        waitForVoteToStartLeader?: boolean;
+    }
+
+    export interface ConfigGossip {
+        entrypoints?: string[];
+        host?: string;
+        port?: number;
+        portCheck?: boolean;
+    }
+
+    export interface ConfigHugeTLBFS {
+        mountPath?: string;
+    }
+
+    export interface ConfigLayout {
+        affinity?: string;
+        agaveAffinity?: string;
+        bankTileCount?: number;
+        netTileCount?: number;
+        quicTileCount?: number;
+        resolvTileCount?: number;
+        shredTileCount?: number;
+        verifyTileCount?: number;
+    }
+
+    export interface ConfigLedger {
+        accountIndexExcludeKeys?: string[];
+        accountIndexIncludeKeys?: string[];
+        accountIndexes?: string[];
+        accountsPath?: string;
+        limitSize?: number;
+        path?: string;
+        requireTower?: boolean;
+        snapshotArchiveFormat?: string;
+    }
+
+    export interface ConfigLog {
+        colorize?: string;
+        levelFlush?: string;
+        levelLogfile?: string;
+        levelStderr?: string;
+        path?: string;
+    }
+
+    export interface ConfigRPC {
+        bigtableLedgerStorage?: boolean;
+        extendedTxMetadataStorage?: boolean;
+        fullApi?: boolean;
+        onlyKnown?: boolean;
+        port?: number;
+        private?: boolean;
+        pubsubEnableBlockSubscription?: boolean;
+        pubsubEnableVoteSubscription?: boolean;
+        transactionHistory?: boolean;
+    }
+
+    export interface ConfigReporting {
+        solanaMetricsConfig?: string;
+    }
+
+    export interface ConfigSnapshots {
+        fullSnapshotIntervalSlots?: number;
+        incrementalPath?: string;
+        incrementalSnapshotIntervalSlots?: number;
+        incrementalSnapshots?: boolean;
+        maximumFullSnapshotsToRetain?: number;
+        maximumIncrementalSnapshotsToRetain?: number;
+        minimumSnapshotDownloadSpeed?: number;
+        path?: string;
+    }
+
+    export interface KeyPairs {
+        identity: string;
+        voteAccount: string;
+    }
+
+}
+
 export namespace solana {
     export interface Environment {
         rpcURL: string;

@@ -10,6 +10,11 @@ export type Agave = import("./agave").Agave;
 export const Agave: typeof import("./agave").Agave = null as any;
 utilities.lazyLoad(exports, ["Agave"], () => require("./agave"));
 
+export { FiredancerArgs } from "./firedancer";
+export type Firedancer = import("./firedancer").Firedancer;
+export const Firedancer: typeof import("./firedancer").Firedancer = null as any;
+utilities.lazyLoad(exports, ["Firedancer"], () => require("./firedancer"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -17,6 +22,8 @@ const _module = {
         switch (type) {
             case "svmkit:validator:Agave":
                 return new Agave(name, <any>undefined, { urn })
+            case "svmkit:validator:Firedancer":
+                return new Firedancer(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
