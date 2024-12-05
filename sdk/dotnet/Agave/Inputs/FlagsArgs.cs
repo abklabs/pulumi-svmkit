@@ -13,14 +13,127 @@ namespace ABKLabs.Svmkit.Agave.Inputs
 
     public sealed class FlagsArgs : global::Pulumi.ResourceArgs
     {
+        [Input("accountIndex")]
+        private InputList<string>? _accountIndex;
+        public InputList<string> AccountIndex
+        {
+            get => _accountIndex ?? (_accountIndex = new InputList<string>());
+            set => _accountIndex = value;
+        }
+
+        [Input("accountIndexExcludeKey")]
+        private InputList<string>? _accountIndexExcludeKey;
+        public InputList<string> AccountIndexExcludeKey
+        {
+            get => _accountIndexExcludeKey ?? (_accountIndexExcludeKey = new InputList<string>());
+            set => _accountIndexExcludeKey = value;
+        }
+
+        [Input("accountIndexIncludeKey")]
+        private InputList<string>? _accountIndexIncludeKey;
+        public InputList<string> AccountIndexIncludeKey
+        {
+            get => _accountIndexIncludeKey ?? (_accountIndexIncludeKey = new InputList<string>());
+            set => _accountIndexIncludeKey = value;
+        }
+
+        [Input("accountShrinkPath")]
+        private InputList<string>? _accountShrinkPath;
+        public InputList<string> AccountShrinkPath
+        {
+            get => _accountShrinkPath ?? (_accountShrinkPath = new InputList<string>());
+            set => _accountShrinkPath = value;
+        }
+
+        [Input("accountsDbCacheLimitMb")]
+        public Input<int>? AccountsDbCacheLimitMb { get; set; }
+
+        [Input("accountsDbTestHashCalculation")]
+        public Input<bool>? AccountsDbTestHashCalculation { get; set; }
+
+        [Input("accountsHashCachePath")]
+        public Input<string>? AccountsHashCachePath { get; set; }
+
+        [Input("accountsIndexBins")]
+        public Input<int>? AccountsIndexBins { get; set; }
+
+        [Input("accountsIndexPath")]
+        private InputList<string>? _accountsIndexPath;
+        public InputList<string> AccountsIndexPath
+        {
+            get => _accountsIndexPath ?? (_accountsIndexPath = new InputList<string>());
+            set => _accountsIndexPath = value;
+        }
+
+        [Input("accountsIndexScanResultsLimitMb")]
+        public Input<int>? AccountsIndexScanResultsLimitMb { get; set; }
+
+        [Input("accountsShrinkOptimizeTotalSpace")]
+        public Input<bool>? AccountsShrinkOptimizeTotalSpace { get; set; }
+
+        [Input("accountsShrinkRatio")]
+        public Input<string>? AccountsShrinkRatio { get; set; }
+
         [Input("allowPrivateAddr")]
         public Input<bool>? AllowPrivateAddr { get; set; }
 
-        [Input("blockProductionMethod", required: true)]
-        public Input<string> BlockProductionMethod { get; set; } = null!;
+        [Input("authorizedVoter")]
+        private InputList<string>? _authorizedVoter;
+        public InputList<string> AuthorizedVoter
+        {
+            get => _authorizedVoter ?? (_authorizedVoter = new InputList<string>());
+            set => _authorizedVoter = value;
+        }
 
-        [Input("dynamicPortRange", required: true)]
-        public Input<string> DynamicPortRange { get; set; } = null!;
+        [Input("bindAddress")]
+        public Input<string>? BindAddress { get; set; }
+
+        [Input("blockProductionMethod")]
+        public Input<string>? BlockProductionMethod { get; set; }
+
+        [Input("blockVerificationMethod")]
+        public Input<string>? BlockVerificationMethod { get; set; }
+
+        [Input("checkVoteAccount")]
+        public Input<string>? CheckVoteAccount { get; set; }
+
+        [Input("contactDebugInterval")]
+        public Input<int>? ContactDebugInterval { get; set; }
+
+        [Input("cuda")]
+        public Input<bool>? Cuda { get; set; }
+
+        [Input("debugKey")]
+        private InputList<string>? _debugKey;
+        public InputList<string> DebugKey
+        {
+            get => _debugKey ?? (_debugKey = new InputList<string>());
+            set => _debugKey = value;
+        }
+
+        [Input("devHaltAtSlot")]
+        public Input<int>? DevHaltAtSlot { get; set; }
+
+        [Input("disableBankingTrace")]
+        public Input<bool>? DisableBankingTrace { get; set; }
+
+        [Input("dynamicPortRange")]
+        public Input<string>? DynamicPortRange { get; set; }
+
+        [Input("enableBankingTrace")]
+        public Input<int>? EnableBankingTrace { get; set; }
+
+        [Input("enableBigtableLedgerUpload")]
+        public Input<bool>? EnableBigtableLedgerUpload { get; set; }
+
+        [Input("enableExtendedTxMetadataStorage")]
+        public Input<bool>? EnableExtendedTxMetadataStorage { get; set; }
+
+        [Input("enableRpcBigtableLedgerStorage")]
+        public Input<bool>? EnableRpcBigtableLedgerStorage { get; set; }
+
+        [Input("enableRpcTransactionHistory")]
+        public Input<bool>? EnableRpcTransactionHistory { get; set; }
 
         [Input("entryPoint")]
         private InputList<string>? _entryPoint;
@@ -30,8 +143,34 @@ namespace ABKLabs.Svmkit.Agave.Inputs
             set => _entryPoint = value;
         }
 
+        [Input("etcdCacertFile")]
+        public Input<string>? EtcdCacertFile { get; set; }
+
+        [Input("etcdCertFile")]
+        public Input<string>? EtcdCertFile { get; set; }
+
+        [Input("etcdDomainName")]
+        public Input<string>? EtcdDomainName { get; set; }
+
+        [Input("etcdEndpoint")]
+        private InputList<string>? _etcdEndpoint;
+        public InputList<string> EtcdEndpoint
+        {
+            get => _etcdEndpoint ?? (_etcdEndpoint = new InputList<string>());
+            set => _etcdEndpoint = value;
+        }
+
+        [Input("etcdKeyFile")]
+        public Input<string>? EtcdKeyFile { get; set; }
+
+        [Input("expectedBankHash")]
+        public Input<string>? ExpectedBankHash { get; set; }
+
         [Input("expectedGenesisHash")]
         public Input<string>? ExpectedGenesisHash { get; set; }
+
+        [Input("expectedShredVersion")]
+        public Input<int>? ExpectedShredVersion { get; set; }
 
         [Input("extraFlags")]
         private InputList<string>? _extraFlags;
@@ -44,14 +183,53 @@ namespace ABKLabs.Svmkit.Agave.Inputs
         [Input("fullRpcAPI")]
         public Input<bool>? FullRpcAPI { get; set; }
 
-        [Input("fullSnapshotIntervalSlots", required: true)]
-        public Input<int> FullSnapshotIntervalSlots { get; set; } = null!;
+        [Input("fullSnapshotArchivePath")]
+        public Input<string>? FullSnapshotArchivePath { get; set; }
+
+        [Input("fullSnapshotIntervalSlots")]
+        public Input<int>? FullSnapshotIntervalSlots { get; set; }
+
+        [Input("geyserPluginAlwaysEnabled")]
+        public Input<bool>? GeyserPluginAlwaysEnabled { get; set; }
+
+        [Input("geyserPluginConfig")]
+        private InputList<string>? _geyserPluginConfig;
+        public InputList<string> GeyserPluginConfig
+        {
+            get => _geyserPluginConfig ?? (_geyserPluginConfig = new InputList<string>());
+            set => _geyserPluginConfig = value;
+        }
 
         [Input("gossipHost")]
         public Input<string>? GossipHost { get; set; }
 
-        [Input("gossipPort", required: true)]
-        public Input<int> GossipPort { get; set; } = null!;
+        [Input("gossipPort")]
+        public Input<int>? GossipPort { get; set; }
+
+        [Input("gossipValidator")]
+        private InputList<string>? _gossipValidator;
+        public InputList<string> GossipValidator
+        {
+            get => _gossipValidator ?? (_gossipValidator = new InputList<string>());
+            set => _gossipValidator = value;
+        }
+
+        [Input("hardFork")]
+        private InputList<int>? _hardFork;
+        public InputList<int> HardFork
+        {
+            get => _hardFork ?? (_hardFork = new InputList<int>());
+            set => _hardFork = value;
+        }
+
+        [Input("healthCheckSlotDistance")]
+        public Input<int>? HealthCheckSlotDistance { get; set; }
+
+        [Input("incrementalSnapshotArchivePath")]
+        public Input<string>? IncrementalSnapshotArchivePath { get; set; }
+
+        [Input("initCompleteFile")]
+        public Input<string>? InitCompleteFile { get; set; }
 
         [Input("knownValidator")]
         private InputList<string>? _knownValidator;
@@ -61,8 +239,38 @@ namespace ABKLabs.Svmkit.Agave.Inputs
             set => _knownValidator = value;
         }
 
-        [Input("limitLedgerSize", required: true)]
-        public Input<int> LimitLedgerSize { get; set; } = null!;
+        [Input("limitLedgerSize")]
+        public Input<int>? LimitLedgerSize { get; set; }
+
+        [Input("logMessagesBytesLimit")]
+        public Input<int>? LogMessagesBytesLimit { get; set; }
+
+        [Input("maxGenesisArchiveUnpackedSize")]
+        public Input<int>? MaxGenesisArchiveUnpackedSize { get; set; }
+
+        [Input("maximumFullSnapshotsToRetain")]
+        public Input<int>? MaximumFullSnapshotsToRetain { get; set; }
+
+        [Input("maximumIncrementalSnapshotsToRetain")]
+        public Input<int>? MaximumIncrementalSnapshotsToRetain { get; set; }
+
+        [Input("maximumLocalSnapshotAge")]
+        public Input<int>? MaximumLocalSnapshotAge { get; set; }
+
+        [Input("maximumSnapshotDownloadAbort")]
+        public Input<int>? MaximumSnapshotDownloadAbort { get; set; }
+
+        [Input("minimalSnapshotDownloadSpeed")]
+        public Input<int>? MinimalSnapshotDownloadSpeed { get; set; }
+
+        [Input("noGenesisFetch")]
+        public Input<bool>? NoGenesisFetch { get; set; }
+
+        [Input("noIncrementalSnapshots")]
+        public Input<bool>? NoIncrementalSnapshots { get; set; }
+
+        [Input("noSnapshotFetch")]
+        public Input<bool>? NoSnapshotFetch { get; set; }
 
         [Input("noVoting")]
         public Input<bool>? NoVoting { get; set; }
@@ -70,23 +278,171 @@ namespace ABKLabs.Svmkit.Agave.Inputs
         [Input("noWaitForVoteToStartLeader", required: true)]
         public Input<bool> NoWaitForVoteToStartLeader { get; set; } = null!;
 
-        [Input("onlyKnownRPC", required: true)]
-        public Input<bool> OnlyKnownRPC { get; set; } = null!;
+        [Input("onlyKnownRPC")]
+        public Input<bool>? OnlyKnownRPC { get; set; }
 
-        [Input("privateRPC", required: true)]
-        public Input<bool> PrivateRPC { get; set; } = null!;
+        [Input("privateRPC")]
+        public Input<bool>? PrivateRPC { get; set; }
+
+        [Input("publicRpcAddress")]
+        public Input<string>? PublicRpcAddress { get; set; }
+
+        [Input("publicTpuAddress")]
+        public Input<string>? PublicTpuAddress { get; set; }
+
+        [Input("publicTpuForwardsAddress")]
+        public Input<string>? PublicTpuForwardsAddress { get; set; }
+
+        [Input("repairValidator")]
+        private InputList<string>? _repairValidator;
+        public InputList<string> RepairValidator
+        {
+            get => _repairValidator ?? (_repairValidator = new InputList<string>());
+            set => _repairValidator = value;
+        }
+
+        [Input("requireTower")]
+        public Input<bool>? RequireTower { get; set; }
+
+        [Input("restrictedRepairOnlyMode")]
+        public Input<bool>? RestrictedRepairOnlyMode { get; set; }
+
+        [Input("rocksdbFifoShredStorageSize")]
+        public Input<int>? RocksdbFifoShredStorageSize { get; set; }
+
+        [Input("rocksdbShredCompaction")]
+        public Input<string>? RocksdbShredCompaction { get; set; }
+
+        [Input("rpcBigtableAppProfileId")]
+        public Input<string>? RpcBigtableAppProfileId { get; set; }
+
+        [Input("rpcBigtableInstanceName")]
+        public Input<string>? RpcBigtableInstanceName { get; set; }
+
+        [Input("rpcBigtableMaxMessageSize")]
+        public Input<int>? RpcBigtableMaxMessageSize { get; set; }
+
+        [Input("rpcBigtableTimeout")]
+        public Input<int>? RpcBigtableTimeout { get; set; }
 
         [Input("rpcBindAddress", required: true)]
         public Input<string> RpcBindAddress { get; set; } = null!;
 
+        [Input("rpcFaucetAddress")]
+        public Input<string>? RpcFaucetAddress { get; set; }
+
+        [Input("rpcMaxMultipleAccounts")]
+        public Input<int>? RpcMaxMultipleAccounts { get; set; }
+
+        [Input("rpcMaxRequestBodySize")]
+        public Input<int>? RpcMaxRequestBodySize { get; set; }
+
+        [Input("rpcNicenessAdjustment")]
+        public Input<int>? RpcNicenessAdjustment { get; set; }
+
         [Input("rpcPort", required: true)]
         public Input<int> RpcPort { get; set; } = null!;
+
+        [Input("rpcPubsubEnableBlockSubscription")]
+        public Input<bool>? RpcPubsubEnableBlockSubscription { get; set; }
+
+        [Input("rpcPubsubEnableVoteSubscription")]
+        public Input<bool>? RpcPubsubEnableVoteSubscription { get; set; }
+
+        [Input("rpcPubsubMaxActiveSubscriptions")]
+        public Input<int>? RpcPubsubMaxActiveSubscriptions { get; set; }
+
+        [Input("rpcPubsubNotificationThreads")]
+        public Input<int>? RpcPubsubNotificationThreads { get; set; }
+
+        [Input("rpcPubsubQueueCapacityBytes")]
+        public Input<int>? RpcPubsubQueueCapacityBytes { get; set; }
+
+        [Input("rpcPubsubQueueCapacityItems")]
+        public Input<int>? RpcPubsubQueueCapacityItems { get; set; }
+
+        [Input("rpcPubsubWorkerThreads")]
+        public Input<int>? RpcPubsubWorkerThreads { get; set; }
+
+        [Input("rpcScanAndFixRoots")]
+        public Input<bool>? RpcScanAndFixRoots { get; set; }
+
+        [Input("rpcSendLeaderCount")]
+        public Input<int>? RpcSendLeaderCount { get; set; }
+
+        [Input("rpcSendRetryMs")]
+        public Input<int>? RpcSendRetryMs { get; set; }
+
+        [Input("rpcSendServiceMaxRetries")]
+        public Input<int>? RpcSendServiceMaxRetries { get; set; }
+
+        [Input("rpcSendTransactionAlsoLeader")]
+        public Input<bool>? RpcSendTransactionAlsoLeader { get; set; }
+
+        [Input("rpcSendTransactionRetryPoolMaxSize")]
+        public Input<int>? RpcSendTransactionRetryPoolMaxSize { get; set; }
+
+        [Input("rpcSendTransactionTpuPeer")]
+        private InputList<string>? _rpcSendTransactionTpuPeer;
+        public InputList<string> RpcSendTransactionTpuPeer
+        {
+            get => _rpcSendTransactionTpuPeer ?? (_rpcSendTransactionTpuPeer = new InputList<string>());
+            set => _rpcSendTransactionTpuPeer = value;
+        }
+
+        [Input("rpcThreads")]
+        public Input<int>? RpcThreads { get; set; }
+
+        [Input("skipPreflightHealthCheck")]
+        public Input<bool>? SkipPreflightHealthCheck { get; set; }
+
+        [Input("skipSeedPhraseValidation")]
+        public Input<bool>? SkipSeedPhraseValidation { get; set; }
+
+        [Input("skipStartupLedgerVerification")]
+        public Input<bool>? SkipStartupLedgerVerification { get; set; }
+
+        [Input("snapshotArchiveFormat")]
+        public Input<string>? SnapshotArchiveFormat { get; set; }
+
+        [Input("snapshotIntervalSlots")]
+        public Input<int>? SnapshotIntervalSlots { get; set; }
+
+        [Input("snapshotPackagerNicenessAdjustment")]
+        public Input<int>? SnapshotPackagerNicenessAdjustment { get; set; }
+
+        [Input("snapshotVersion")]
+        public Input<string>? SnapshotVersion { get; set; }
+
+        [Input("stakedNodesOverrides")]
+        public Input<string>? StakedNodesOverrides { get; set; }
+
+        [Input("towerStorage")]
+        public Input<string>? TowerStorage { get; set; }
+
+        [Input("tpuCoalesceMs")]
+        public Input<int>? TpuCoalesceMs { get; set; }
+
+        [Input("tpuConnectionPoolSize")]
+        public Input<int>? TpuConnectionPoolSize { get; set; }
+
+        [Input("tpuDisableQuic")]
+        public Input<bool>? TpuDisableQuic { get; set; }
+
+        [Input("tpuEnableUdp")]
+        public Input<bool>? TpuEnableUdp { get; set; }
 
         [Input("tvuReceiveThreads")]
         public Input<int>? TvuReceiveThreads { get; set; }
 
-        [Input("useSnapshotArchivesAtStartup", required: true)]
-        public Input<string> UseSnapshotArchivesAtStartup { get; set; } = null!;
+        [Input("unifiedSchedulerHandlerThreads")]
+        public Input<int>? UnifiedSchedulerHandlerThreads { get; set; }
+
+        [Input("useSnapshotArchivesAtStartup")]
+        public Input<string>? UseSnapshotArchivesAtStartup { get; set; }
+
+        [Input("waitForSupermajority")]
+        public Input<int>? WaitForSupermajority { get; set; }
 
         [Input("walRecoveryMode", required: true)]
         public Input<string> WalRecoveryMode { get; set; } = null!;

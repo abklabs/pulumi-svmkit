@@ -34,129 +34,480 @@ MYPY = False
 
 if not MYPY:
     class FlagsArgsDict(TypedDict):
-        block_production_method: pulumi.Input[str]
-        dynamic_port_range: pulumi.Input[str]
-        full_snapshot_interval_slots: pulumi.Input[int]
-        gossip_port: pulumi.Input[int]
-        limit_ledger_size: pulumi.Input[int]
         no_wait_for_vote_to_start_leader: pulumi.Input[bool]
-        only_known_rpc: pulumi.Input[bool]
-        private_rpc: pulumi.Input[bool]
         rpc_bind_address: pulumi.Input[str]
         rpc_port: pulumi.Input[int]
-        use_snapshot_archives_at_startup: pulumi.Input[str]
         wal_recovery_mode: pulumi.Input[str]
+        account_index: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        account_index_exclude_key: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        account_index_include_key: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        account_shrink_path: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        accounts_db_cache_limit_mb: NotRequired[pulumi.Input[int]]
+        accounts_db_test_hash_calculation: NotRequired[pulumi.Input[bool]]
+        accounts_hash_cache_path: NotRequired[pulumi.Input[str]]
+        accounts_index_bins: NotRequired[pulumi.Input[int]]
+        accounts_index_path: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        accounts_index_scan_results_limit_mb: NotRequired[pulumi.Input[int]]
+        accounts_shrink_optimize_total_space: NotRequired[pulumi.Input[bool]]
+        accounts_shrink_ratio: NotRequired[pulumi.Input[str]]
         allow_private_addr: NotRequired[pulumi.Input[bool]]
+        authorized_voter: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        bind_address: NotRequired[pulumi.Input[str]]
+        block_production_method: NotRequired[pulumi.Input[str]]
+        block_verification_method: NotRequired[pulumi.Input[str]]
+        check_vote_account: NotRequired[pulumi.Input[str]]
+        contact_debug_interval: NotRequired[pulumi.Input[int]]
+        cuda: NotRequired[pulumi.Input[bool]]
+        debug_key: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        dev_halt_at_slot: NotRequired[pulumi.Input[int]]
+        disable_banking_trace: NotRequired[pulumi.Input[bool]]
+        dynamic_port_range: NotRequired[pulumi.Input[str]]
+        enable_banking_trace: NotRequired[pulumi.Input[int]]
+        enable_bigtable_ledger_upload: NotRequired[pulumi.Input[bool]]
+        enable_extended_tx_metadata_storage: NotRequired[pulumi.Input[bool]]
+        enable_rpc_bigtable_ledger_storage: NotRequired[pulumi.Input[bool]]
+        enable_rpc_transaction_history: NotRequired[pulumi.Input[bool]]
         entry_point: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        etcd_cacert_file: NotRequired[pulumi.Input[str]]
+        etcd_cert_file: NotRequired[pulumi.Input[str]]
+        etcd_domain_name: NotRequired[pulumi.Input[str]]
+        etcd_endpoint: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        etcd_key_file: NotRequired[pulumi.Input[str]]
+        expected_bank_hash: NotRequired[pulumi.Input[str]]
         expected_genesis_hash: NotRequired[pulumi.Input[str]]
+        expected_shred_version: NotRequired[pulumi.Input[int]]
         extra_flags: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         full_rpc_api: NotRequired[pulumi.Input[bool]]
+        full_snapshot_archive_path: NotRequired[pulumi.Input[str]]
+        full_snapshot_interval_slots: NotRequired[pulumi.Input[int]]
+        geyser_plugin_always_enabled: NotRequired[pulumi.Input[bool]]
+        geyser_plugin_config: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         gossip_host: NotRequired[pulumi.Input[str]]
+        gossip_port: NotRequired[pulumi.Input[int]]
+        gossip_validator: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        hard_fork: NotRequired[pulumi.Input[Sequence[pulumi.Input[int]]]]
+        health_check_slot_distance: NotRequired[pulumi.Input[int]]
+        incremental_snapshot_archive_path: NotRequired[pulumi.Input[str]]
+        init_complete_file: NotRequired[pulumi.Input[str]]
         known_validator: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        limit_ledger_size: NotRequired[pulumi.Input[int]]
+        log_messages_bytes_limit: NotRequired[pulumi.Input[int]]
+        max_genesis_archive_unpacked_size: NotRequired[pulumi.Input[int]]
+        maximum_full_snapshots_to_retain: NotRequired[pulumi.Input[int]]
+        maximum_incremental_snapshots_to_retain: NotRequired[pulumi.Input[int]]
+        maximum_local_snapshot_age: NotRequired[pulumi.Input[int]]
+        maximum_snapshot_download_abort: NotRequired[pulumi.Input[int]]
+        minimal_snapshot_download_speed: NotRequired[pulumi.Input[int]]
+        no_genesis_fetch: NotRequired[pulumi.Input[bool]]
+        no_incremental_snapshots: NotRequired[pulumi.Input[bool]]
+        no_snapshot_fetch: NotRequired[pulumi.Input[bool]]
         no_voting: NotRequired[pulumi.Input[bool]]
+        only_known_rpc: NotRequired[pulumi.Input[bool]]
+        private_rpc: NotRequired[pulumi.Input[bool]]
+        public_rpc_address: NotRequired[pulumi.Input[str]]
+        public_tpu_address: NotRequired[pulumi.Input[str]]
+        public_tpu_forwards_address: NotRequired[pulumi.Input[str]]
+        repair_validator: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        require_tower: NotRequired[pulumi.Input[bool]]
+        restricted_repair_only_mode: NotRequired[pulumi.Input[bool]]
+        rocksdb_fifo_shred_storage_size: NotRequired[pulumi.Input[int]]
+        rocksdb_shred_compaction: NotRequired[pulumi.Input[str]]
+        rpc_bigtable_app_profile_id: NotRequired[pulumi.Input[str]]
+        rpc_bigtable_instance_name: NotRequired[pulumi.Input[str]]
+        rpc_bigtable_max_message_size: NotRequired[pulumi.Input[int]]
+        rpc_bigtable_timeout: NotRequired[pulumi.Input[int]]
+        rpc_faucet_address: NotRequired[pulumi.Input[str]]
+        rpc_max_multiple_accounts: NotRequired[pulumi.Input[int]]
+        rpc_max_request_body_size: NotRequired[pulumi.Input[int]]
+        rpc_niceness_adjustment: NotRequired[pulumi.Input[int]]
+        rpc_pubsub_enable_block_subscription: NotRequired[pulumi.Input[bool]]
+        rpc_pubsub_enable_vote_subscription: NotRequired[pulumi.Input[bool]]
+        rpc_pubsub_max_active_subscriptions: NotRequired[pulumi.Input[int]]
+        rpc_pubsub_notification_threads: NotRequired[pulumi.Input[int]]
+        rpc_pubsub_queue_capacity_bytes: NotRequired[pulumi.Input[int]]
+        rpc_pubsub_queue_capacity_items: NotRequired[pulumi.Input[int]]
+        rpc_pubsub_worker_threads: NotRequired[pulumi.Input[int]]
+        rpc_scan_and_fix_roots: NotRequired[pulumi.Input[bool]]
+        rpc_send_leader_count: NotRequired[pulumi.Input[int]]
+        rpc_send_retry_ms: NotRequired[pulumi.Input[int]]
+        rpc_send_service_max_retries: NotRequired[pulumi.Input[int]]
+        rpc_send_transaction_also_leader: NotRequired[pulumi.Input[bool]]
+        rpc_send_transaction_retry_pool_max_size: NotRequired[pulumi.Input[int]]
+        rpc_send_transaction_tpu_peer: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        rpc_threads: NotRequired[pulumi.Input[int]]
+        skip_preflight_health_check: NotRequired[pulumi.Input[bool]]
+        skip_seed_phrase_validation: NotRequired[pulumi.Input[bool]]
+        skip_startup_ledger_verification: NotRequired[pulumi.Input[bool]]
+        snapshot_archive_format: NotRequired[pulumi.Input[str]]
+        snapshot_interval_slots: NotRequired[pulumi.Input[int]]
+        snapshot_packager_niceness_adjustment: NotRequired[pulumi.Input[int]]
+        snapshot_version: NotRequired[pulumi.Input[str]]
+        staked_nodes_overrides: NotRequired[pulumi.Input[str]]
+        tower_storage: NotRequired[pulumi.Input[str]]
+        tpu_coalesce_ms: NotRequired[pulumi.Input[int]]
+        tpu_connection_pool_size: NotRequired[pulumi.Input[int]]
+        tpu_disable_quic: NotRequired[pulumi.Input[bool]]
+        tpu_enable_udp: NotRequired[pulumi.Input[bool]]
         tvu_receive_threads: NotRequired[pulumi.Input[int]]
+        unified_scheduler_handler_threads: NotRequired[pulumi.Input[int]]
+        use_snapshot_archives_at_startup: NotRequired[pulumi.Input[str]]
+        wait_for_supermajority: NotRequired[pulumi.Input[int]]
 elif False:
     FlagsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class FlagsArgs:
     def __init__(__self__, *,
-                 block_production_method: pulumi.Input[str],
-                 dynamic_port_range: pulumi.Input[str],
-                 full_snapshot_interval_slots: pulumi.Input[int],
-                 gossip_port: pulumi.Input[int],
-                 limit_ledger_size: pulumi.Input[int],
                  no_wait_for_vote_to_start_leader: pulumi.Input[bool],
-                 only_known_rpc: pulumi.Input[bool],
-                 private_rpc: pulumi.Input[bool],
                  rpc_bind_address: pulumi.Input[str],
                  rpc_port: pulumi.Input[int],
-                 use_snapshot_archives_at_startup: pulumi.Input[str],
                  wal_recovery_mode: pulumi.Input[str],
+                 account_index: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 account_index_exclude_key: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 account_index_include_key: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 account_shrink_path: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 accounts_db_cache_limit_mb: Optional[pulumi.Input[int]] = None,
+                 accounts_db_test_hash_calculation: Optional[pulumi.Input[bool]] = None,
+                 accounts_hash_cache_path: Optional[pulumi.Input[str]] = None,
+                 accounts_index_bins: Optional[pulumi.Input[int]] = None,
+                 accounts_index_path: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 accounts_index_scan_results_limit_mb: Optional[pulumi.Input[int]] = None,
+                 accounts_shrink_optimize_total_space: Optional[pulumi.Input[bool]] = None,
+                 accounts_shrink_ratio: Optional[pulumi.Input[str]] = None,
                  allow_private_addr: Optional[pulumi.Input[bool]] = None,
+                 authorized_voter: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 bind_address: Optional[pulumi.Input[str]] = None,
+                 block_production_method: Optional[pulumi.Input[str]] = None,
+                 block_verification_method: Optional[pulumi.Input[str]] = None,
+                 check_vote_account: Optional[pulumi.Input[str]] = None,
+                 contact_debug_interval: Optional[pulumi.Input[int]] = None,
+                 cuda: Optional[pulumi.Input[bool]] = None,
+                 debug_key: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 dev_halt_at_slot: Optional[pulumi.Input[int]] = None,
+                 disable_banking_trace: Optional[pulumi.Input[bool]] = None,
+                 dynamic_port_range: Optional[pulumi.Input[str]] = None,
+                 enable_banking_trace: Optional[pulumi.Input[int]] = None,
+                 enable_bigtable_ledger_upload: Optional[pulumi.Input[bool]] = None,
+                 enable_extended_tx_metadata_storage: Optional[pulumi.Input[bool]] = None,
+                 enable_rpc_bigtable_ledger_storage: Optional[pulumi.Input[bool]] = None,
+                 enable_rpc_transaction_history: Optional[pulumi.Input[bool]] = None,
                  entry_point: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 etcd_cacert_file: Optional[pulumi.Input[str]] = None,
+                 etcd_cert_file: Optional[pulumi.Input[str]] = None,
+                 etcd_domain_name: Optional[pulumi.Input[str]] = None,
+                 etcd_endpoint: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 etcd_key_file: Optional[pulumi.Input[str]] = None,
+                 expected_bank_hash: Optional[pulumi.Input[str]] = None,
                  expected_genesis_hash: Optional[pulumi.Input[str]] = None,
+                 expected_shred_version: Optional[pulumi.Input[int]] = None,
                  extra_flags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  full_rpc_api: Optional[pulumi.Input[bool]] = None,
+                 full_snapshot_archive_path: Optional[pulumi.Input[str]] = None,
+                 full_snapshot_interval_slots: Optional[pulumi.Input[int]] = None,
+                 geyser_plugin_always_enabled: Optional[pulumi.Input[bool]] = None,
+                 geyser_plugin_config: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  gossip_host: Optional[pulumi.Input[str]] = None,
+                 gossip_port: Optional[pulumi.Input[int]] = None,
+                 gossip_validator: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 hard_fork: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
+                 health_check_slot_distance: Optional[pulumi.Input[int]] = None,
+                 incremental_snapshot_archive_path: Optional[pulumi.Input[str]] = None,
+                 init_complete_file: Optional[pulumi.Input[str]] = None,
                  known_validator: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 limit_ledger_size: Optional[pulumi.Input[int]] = None,
+                 log_messages_bytes_limit: Optional[pulumi.Input[int]] = None,
+                 max_genesis_archive_unpacked_size: Optional[pulumi.Input[int]] = None,
+                 maximum_full_snapshots_to_retain: Optional[pulumi.Input[int]] = None,
+                 maximum_incremental_snapshots_to_retain: Optional[pulumi.Input[int]] = None,
+                 maximum_local_snapshot_age: Optional[pulumi.Input[int]] = None,
+                 maximum_snapshot_download_abort: Optional[pulumi.Input[int]] = None,
+                 minimal_snapshot_download_speed: Optional[pulumi.Input[int]] = None,
+                 no_genesis_fetch: Optional[pulumi.Input[bool]] = None,
+                 no_incremental_snapshots: Optional[pulumi.Input[bool]] = None,
+                 no_snapshot_fetch: Optional[pulumi.Input[bool]] = None,
                  no_voting: Optional[pulumi.Input[bool]] = None,
-                 tvu_receive_threads: Optional[pulumi.Input[int]] = None):
-        pulumi.set(__self__, "block_production_method", block_production_method)
-        pulumi.set(__self__, "dynamic_port_range", dynamic_port_range)
-        pulumi.set(__self__, "full_snapshot_interval_slots", full_snapshot_interval_slots)
-        pulumi.set(__self__, "gossip_port", gossip_port)
-        pulumi.set(__self__, "limit_ledger_size", limit_ledger_size)
+                 only_known_rpc: Optional[pulumi.Input[bool]] = None,
+                 private_rpc: Optional[pulumi.Input[bool]] = None,
+                 public_rpc_address: Optional[pulumi.Input[str]] = None,
+                 public_tpu_address: Optional[pulumi.Input[str]] = None,
+                 public_tpu_forwards_address: Optional[pulumi.Input[str]] = None,
+                 repair_validator: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 require_tower: Optional[pulumi.Input[bool]] = None,
+                 restricted_repair_only_mode: Optional[pulumi.Input[bool]] = None,
+                 rocksdb_fifo_shred_storage_size: Optional[pulumi.Input[int]] = None,
+                 rocksdb_shred_compaction: Optional[pulumi.Input[str]] = None,
+                 rpc_bigtable_app_profile_id: Optional[pulumi.Input[str]] = None,
+                 rpc_bigtable_instance_name: Optional[pulumi.Input[str]] = None,
+                 rpc_bigtable_max_message_size: Optional[pulumi.Input[int]] = None,
+                 rpc_bigtable_timeout: Optional[pulumi.Input[int]] = None,
+                 rpc_faucet_address: Optional[pulumi.Input[str]] = None,
+                 rpc_max_multiple_accounts: Optional[pulumi.Input[int]] = None,
+                 rpc_max_request_body_size: Optional[pulumi.Input[int]] = None,
+                 rpc_niceness_adjustment: Optional[pulumi.Input[int]] = None,
+                 rpc_pubsub_enable_block_subscription: Optional[pulumi.Input[bool]] = None,
+                 rpc_pubsub_enable_vote_subscription: Optional[pulumi.Input[bool]] = None,
+                 rpc_pubsub_max_active_subscriptions: Optional[pulumi.Input[int]] = None,
+                 rpc_pubsub_notification_threads: Optional[pulumi.Input[int]] = None,
+                 rpc_pubsub_queue_capacity_bytes: Optional[pulumi.Input[int]] = None,
+                 rpc_pubsub_queue_capacity_items: Optional[pulumi.Input[int]] = None,
+                 rpc_pubsub_worker_threads: Optional[pulumi.Input[int]] = None,
+                 rpc_scan_and_fix_roots: Optional[pulumi.Input[bool]] = None,
+                 rpc_send_leader_count: Optional[pulumi.Input[int]] = None,
+                 rpc_send_retry_ms: Optional[pulumi.Input[int]] = None,
+                 rpc_send_service_max_retries: Optional[pulumi.Input[int]] = None,
+                 rpc_send_transaction_also_leader: Optional[pulumi.Input[bool]] = None,
+                 rpc_send_transaction_retry_pool_max_size: Optional[pulumi.Input[int]] = None,
+                 rpc_send_transaction_tpu_peer: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 rpc_threads: Optional[pulumi.Input[int]] = None,
+                 skip_preflight_health_check: Optional[pulumi.Input[bool]] = None,
+                 skip_seed_phrase_validation: Optional[pulumi.Input[bool]] = None,
+                 skip_startup_ledger_verification: Optional[pulumi.Input[bool]] = None,
+                 snapshot_archive_format: Optional[pulumi.Input[str]] = None,
+                 snapshot_interval_slots: Optional[pulumi.Input[int]] = None,
+                 snapshot_packager_niceness_adjustment: Optional[pulumi.Input[int]] = None,
+                 snapshot_version: Optional[pulumi.Input[str]] = None,
+                 staked_nodes_overrides: Optional[pulumi.Input[str]] = None,
+                 tower_storage: Optional[pulumi.Input[str]] = None,
+                 tpu_coalesce_ms: Optional[pulumi.Input[int]] = None,
+                 tpu_connection_pool_size: Optional[pulumi.Input[int]] = None,
+                 tpu_disable_quic: Optional[pulumi.Input[bool]] = None,
+                 tpu_enable_udp: Optional[pulumi.Input[bool]] = None,
+                 tvu_receive_threads: Optional[pulumi.Input[int]] = None,
+                 unified_scheduler_handler_threads: Optional[pulumi.Input[int]] = None,
+                 use_snapshot_archives_at_startup: Optional[pulumi.Input[str]] = None,
+                 wait_for_supermajority: Optional[pulumi.Input[int]] = None):
         pulumi.set(__self__, "no_wait_for_vote_to_start_leader", no_wait_for_vote_to_start_leader)
-        pulumi.set(__self__, "only_known_rpc", only_known_rpc)
-        pulumi.set(__self__, "private_rpc", private_rpc)
         pulumi.set(__self__, "rpc_bind_address", rpc_bind_address)
         pulumi.set(__self__, "rpc_port", rpc_port)
-        pulumi.set(__self__, "use_snapshot_archives_at_startup", use_snapshot_archives_at_startup)
         pulumi.set(__self__, "wal_recovery_mode", wal_recovery_mode)
+        if account_index is not None:
+            pulumi.set(__self__, "account_index", account_index)
+        if account_index_exclude_key is not None:
+            pulumi.set(__self__, "account_index_exclude_key", account_index_exclude_key)
+        if account_index_include_key is not None:
+            pulumi.set(__self__, "account_index_include_key", account_index_include_key)
+        if account_shrink_path is not None:
+            pulumi.set(__self__, "account_shrink_path", account_shrink_path)
+        if accounts_db_cache_limit_mb is not None:
+            pulumi.set(__self__, "accounts_db_cache_limit_mb", accounts_db_cache_limit_mb)
+        if accounts_db_test_hash_calculation is not None:
+            pulumi.set(__self__, "accounts_db_test_hash_calculation", accounts_db_test_hash_calculation)
+        if accounts_hash_cache_path is not None:
+            pulumi.set(__self__, "accounts_hash_cache_path", accounts_hash_cache_path)
+        if accounts_index_bins is not None:
+            pulumi.set(__self__, "accounts_index_bins", accounts_index_bins)
+        if accounts_index_path is not None:
+            pulumi.set(__self__, "accounts_index_path", accounts_index_path)
+        if accounts_index_scan_results_limit_mb is not None:
+            pulumi.set(__self__, "accounts_index_scan_results_limit_mb", accounts_index_scan_results_limit_mb)
+        if accounts_shrink_optimize_total_space is not None:
+            pulumi.set(__self__, "accounts_shrink_optimize_total_space", accounts_shrink_optimize_total_space)
+        if accounts_shrink_ratio is not None:
+            pulumi.set(__self__, "accounts_shrink_ratio", accounts_shrink_ratio)
         if allow_private_addr is not None:
             pulumi.set(__self__, "allow_private_addr", allow_private_addr)
+        if authorized_voter is not None:
+            pulumi.set(__self__, "authorized_voter", authorized_voter)
+        if bind_address is not None:
+            pulumi.set(__self__, "bind_address", bind_address)
+        if block_production_method is not None:
+            pulumi.set(__self__, "block_production_method", block_production_method)
+        if block_verification_method is not None:
+            pulumi.set(__self__, "block_verification_method", block_verification_method)
+        if check_vote_account is not None:
+            pulumi.set(__self__, "check_vote_account", check_vote_account)
+        if contact_debug_interval is not None:
+            pulumi.set(__self__, "contact_debug_interval", contact_debug_interval)
+        if cuda is not None:
+            pulumi.set(__self__, "cuda", cuda)
+        if debug_key is not None:
+            pulumi.set(__self__, "debug_key", debug_key)
+        if dev_halt_at_slot is not None:
+            pulumi.set(__self__, "dev_halt_at_slot", dev_halt_at_slot)
+        if disable_banking_trace is not None:
+            pulumi.set(__self__, "disable_banking_trace", disable_banking_trace)
+        if dynamic_port_range is not None:
+            pulumi.set(__self__, "dynamic_port_range", dynamic_port_range)
+        if enable_banking_trace is not None:
+            pulumi.set(__self__, "enable_banking_trace", enable_banking_trace)
+        if enable_bigtable_ledger_upload is not None:
+            pulumi.set(__self__, "enable_bigtable_ledger_upload", enable_bigtable_ledger_upload)
+        if enable_extended_tx_metadata_storage is not None:
+            pulumi.set(__self__, "enable_extended_tx_metadata_storage", enable_extended_tx_metadata_storage)
+        if enable_rpc_bigtable_ledger_storage is not None:
+            pulumi.set(__self__, "enable_rpc_bigtable_ledger_storage", enable_rpc_bigtable_ledger_storage)
+        if enable_rpc_transaction_history is not None:
+            pulumi.set(__self__, "enable_rpc_transaction_history", enable_rpc_transaction_history)
         if entry_point is not None:
             pulumi.set(__self__, "entry_point", entry_point)
+        if etcd_cacert_file is not None:
+            pulumi.set(__self__, "etcd_cacert_file", etcd_cacert_file)
+        if etcd_cert_file is not None:
+            pulumi.set(__self__, "etcd_cert_file", etcd_cert_file)
+        if etcd_domain_name is not None:
+            pulumi.set(__self__, "etcd_domain_name", etcd_domain_name)
+        if etcd_endpoint is not None:
+            pulumi.set(__self__, "etcd_endpoint", etcd_endpoint)
+        if etcd_key_file is not None:
+            pulumi.set(__self__, "etcd_key_file", etcd_key_file)
+        if expected_bank_hash is not None:
+            pulumi.set(__self__, "expected_bank_hash", expected_bank_hash)
         if expected_genesis_hash is not None:
             pulumi.set(__self__, "expected_genesis_hash", expected_genesis_hash)
+        if expected_shred_version is not None:
+            pulumi.set(__self__, "expected_shred_version", expected_shred_version)
         if extra_flags is not None:
             pulumi.set(__self__, "extra_flags", extra_flags)
         if full_rpc_api is not None:
             pulumi.set(__self__, "full_rpc_api", full_rpc_api)
+        if full_snapshot_archive_path is not None:
+            pulumi.set(__self__, "full_snapshot_archive_path", full_snapshot_archive_path)
+        if full_snapshot_interval_slots is not None:
+            pulumi.set(__self__, "full_snapshot_interval_slots", full_snapshot_interval_slots)
+        if geyser_plugin_always_enabled is not None:
+            pulumi.set(__self__, "geyser_plugin_always_enabled", geyser_plugin_always_enabled)
+        if geyser_plugin_config is not None:
+            pulumi.set(__self__, "geyser_plugin_config", geyser_plugin_config)
         if gossip_host is not None:
             pulumi.set(__self__, "gossip_host", gossip_host)
+        if gossip_port is not None:
+            pulumi.set(__self__, "gossip_port", gossip_port)
+        if gossip_validator is not None:
+            pulumi.set(__self__, "gossip_validator", gossip_validator)
+        if hard_fork is not None:
+            pulumi.set(__self__, "hard_fork", hard_fork)
+        if health_check_slot_distance is not None:
+            pulumi.set(__self__, "health_check_slot_distance", health_check_slot_distance)
+        if incremental_snapshot_archive_path is not None:
+            pulumi.set(__self__, "incremental_snapshot_archive_path", incremental_snapshot_archive_path)
+        if init_complete_file is not None:
+            pulumi.set(__self__, "init_complete_file", init_complete_file)
         if known_validator is not None:
             pulumi.set(__self__, "known_validator", known_validator)
+        if limit_ledger_size is not None:
+            pulumi.set(__self__, "limit_ledger_size", limit_ledger_size)
+        if log_messages_bytes_limit is not None:
+            pulumi.set(__self__, "log_messages_bytes_limit", log_messages_bytes_limit)
+        if max_genesis_archive_unpacked_size is not None:
+            pulumi.set(__self__, "max_genesis_archive_unpacked_size", max_genesis_archive_unpacked_size)
+        if maximum_full_snapshots_to_retain is not None:
+            pulumi.set(__self__, "maximum_full_snapshots_to_retain", maximum_full_snapshots_to_retain)
+        if maximum_incremental_snapshots_to_retain is not None:
+            pulumi.set(__self__, "maximum_incremental_snapshots_to_retain", maximum_incremental_snapshots_to_retain)
+        if maximum_local_snapshot_age is not None:
+            pulumi.set(__self__, "maximum_local_snapshot_age", maximum_local_snapshot_age)
+        if maximum_snapshot_download_abort is not None:
+            pulumi.set(__self__, "maximum_snapshot_download_abort", maximum_snapshot_download_abort)
+        if minimal_snapshot_download_speed is not None:
+            pulumi.set(__self__, "minimal_snapshot_download_speed", minimal_snapshot_download_speed)
+        if no_genesis_fetch is not None:
+            pulumi.set(__self__, "no_genesis_fetch", no_genesis_fetch)
+        if no_incremental_snapshots is not None:
+            pulumi.set(__self__, "no_incremental_snapshots", no_incremental_snapshots)
+        if no_snapshot_fetch is not None:
+            pulumi.set(__self__, "no_snapshot_fetch", no_snapshot_fetch)
         if no_voting is not None:
             pulumi.set(__self__, "no_voting", no_voting)
+        if only_known_rpc is not None:
+            pulumi.set(__self__, "only_known_rpc", only_known_rpc)
+        if private_rpc is not None:
+            pulumi.set(__self__, "private_rpc", private_rpc)
+        if public_rpc_address is not None:
+            pulumi.set(__self__, "public_rpc_address", public_rpc_address)
+        if public_tpu_address is not None:
+            pulumi.set(__self__, "public_tpu_address", public_tpu_address)
+        if public_tpu_forwards_address is not None:
+            pulumi.set(__self__, "public_tpu_forwards_address", public_tpu_forwards_address)
+        if repair_validator is not None:
+            pulumi.set(__self__, "repair_validator", repair_validator)
+        if require_tower is not None:
+            pulumi.set(__self__, "require_tower", require_tower)
+        if restricted_repair_only_mode is not None:
+            pulumi.set(__self__, "restricted_repair_only_mode", restricted_repair_only_mode)
+        if rocksdb_fifo_shred_storage_size is not None:
+            pulumi.set(__self__, "rocksdb_fifo_shred_storage_size", rocksdb_fifo_shred_storage_size)
+        if rocksdb_shred_compaction is not None:
+            pulumi.set(__self__, "rocksdb_shred_compaction", rocksdb_shred_compaction)
+        if rpc_bigtable_app_profile_id is not None:
+            pulumi.set(__self__, "rpc_bigtable_app_profile_id", rpc_bigtable_app_profile_id)
+        if rpc_bigtable_instance_name is not None:
+            pulumi.set(__self__, "rpc_bigtable_instance_name", rpc_bigtable_instance_name)
+        if rpc_bigtable_max_message_size is not None:
+            pulumi.set(__self__, "rpc_bigtable_max_message_size", rpc_bigtable_max_message_size)
+        if rpc_bigtable_timeout is not None:
+            pulumi.set(__self__, "rpc_bigtable_timeout", rpc_bigtable_timeout)
+        if rpc_faucet_address is not None:
+            pulumi.set(__self__, "rpc_faucet_address", rpc_faucet_address)
+        if rpc_max_multiple_accounts is not None:
+            pulumi.set(__self__, "rpc_max_multiple_accounts", rpc_max_multiple_accounts)
+        if rpc_max_request_body_size is not None:
+            pulumi.set(__self__, "rpc_max_request_body_size", rpc_max_request_body_size)
+        if rpc_niceness_adjustment is not None:
+            pulumi.set(__self__, "rpc_niceness_adjustment", rpc_niceness_adjustment)
+        if rpc_pubsub_enable_block_subscription is not None:
+            pulumi.set(__self__, "rpc_pubsub_enable_block_subscription", rpc_pubsub_enable_block_subscription)
+        if rpc_pubsub_enable_vote_subscription is not None:
+            pulumi.set(__self__, "rpc_pubsub_enable_vote_subscription", rpc_pubsub_enable_vote_subscription)
+        if rpc_pubsub_max_active_subscriptions is not None:
+            pulumi.set(__self__, "rpc_pubsub_max_active_subscriptions", rpc_pubsub_max_active_subscriptions)
+        if rpc_pubsub_notification_threads is not None:
+            pulumi.set(__self__, "rpc_pubsub_notification_threads", rpc_pubsub_notification_threads)
+        if rpc_pubsub_queue_capacity_bytes is not None:
+            pulumi.set(__self__, "rpc_pubsub_queue_capacity_bytes", rpc_pubsub_queue_capacity_bytes)
+        if rpc_pubsub_queue_capacity_items is not None:
+            pulumi.set(__self__, "rpc_pubsub_queue_capacity_items", rpc_pubsub_queue_capacity_items)
+        if rpc_pubsub_worker_threads is not None:
+            pulumi.set(__self__, "rpc_pubsub_worker_threads", rpc_pubsub_worker_threads)
+        if rpc_scan_and_fix_roots is not None:
+            pulumi.set(__self__, "rpc_scan_and_fix_roots", rpc_scan_and_fix_roots)
+        if rpc_send_leader_count is not None:
+            pulumi.set(__self__, "rpc_send_leader_count", rpc_send_leader_count)
+        if rpc_send_retry_ms is not None:
+            pulumi.set(__self__, "rpc_send_retry_ms", rpc_send_retry_ms)
+        if rpc_send_service_max_retries is not None:
+            pulumi.set(__self__, "rpc_send_service_max_retries", rpc_send_service_max_retries)
+        if rpc_send_transaction_also_leader is not None:
+            pulumi.set(__self__, "rpc_send_transaction_also_leader", rpc_send_transaction_also_leader)
+        if rpc_send_transaction_retry_pool_max_size is not None:
+            pulumi.set(__self__, "rpc_send_transaction_retry_pool_max_size", rpc_send_transaction_retry_pool_max_size)
+        if rpc_send_transaction_tpu_peer is not None:
+            pulumi.set(__self__, "rpc_send_transaction_tpu_peer", rpc_send_transaction_tpu_peer)
+        if rpc_threads is not None:
+            pulumi.set(__self__, "rpc_threads", rpc_threads)
+        if skip_preflight_health_check is not None:
+            pulumi.set(__self__, "skip_preflight_health_check", skip_preflight_health_check)
+        if skip_seed_phrase_validation is not None:
+            pulumi.set(__self__, "skip_seed_phrase_validation", skip_seed_phrase_validation)
+        if skip_startup_ledger_verification is not None:
+            pulumi.set(__self__, "skip_startup_ledger_verification", skip_startup_ledger_verification)
+        if snapshot_archive_format is not None:
+            pulumi.set(__self__, "snapshot_archive_format", snapshot_archive_format)
+        if snapshot_interval_slots is not None:
+            pulumi.set(__self__, "snapshot_interval_slots", snapshot_interval_slots)
+        if snapshot_packager_niceness_adjustment is not None:
+            pulumi.set(__self__, "snapshot_packager_niceness_adjustment", snapshot_packager_niceness_adjustment)
+        if snapshot_version is not None:
+            pulumi.set(__self__, "snapshot_version", snapshot_version)
+        if staked_nodes_overrides is not None:
+            pulumi.set(__self__, "staked_nodes_overrides", staked_nodes_overrides)
+        if tower_storage is not None:
+            pulumi.set(__self__, "tower_storage", tower_storage)
+        if tpu_coalesce_ms is not None:
+            pulumi.set(__self__, "tpu_coalesce_ms", tpu_coalesce_ms)
+        if tpu_connection_pool_size is not None:
+            pulumi.set(__self__, "tpu_connection_pool_size", tpu_connection_pool_size)
+        if tpu_disable_quic is not None:
+            pulumi.set(__self__, "tpu_disable_quic", tpu_disable_quic)
+        if tpu_enable_udp is not None:
+            pulumi.set(__self__, "tpu_enable_udp", tpu_enable_udp)
         if tvu_receive_threads is not None:
             pulumi.set(__self__, "tvu_receive_threads", tvu_receive_threads)
-
-    @property
-    @pulumi.getter(name="blockProductionMethod")
-    def block_production_method(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "block_production_method")
-
-    @block_production_method.setter
-    def block_production_method(self, value: pulumi.Input[str]):
-        pulumi.set(self, "block_production_method", value)
-
-    @property
-    @pulumi.getter(name="dynamicPortRange")
-    def dynamic_port_range(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "dynamic_port_range")
-
-    @dynamic_port_range.setter
-    def dynamic_port_range(self, value: pulumi.Input[str]):
-        pulumi.set(self, "dynamic_port_range", value)
-
-    @property
-    @pulumi.getter(name="fullSnapshotIntervalSlots")
-    def full_snapshot_interval_slots(self) -> pulumi.Input[int]:
-        return pulumi.get(self, "full_snapshot_interval_slots")
-
-    @full_snapshot_interval_slots.setter
-    def full_snapshot_interval_slots(self, value: pulumi.Input[int]):
-        pulumi.set(self, "full_snapshot_interval_slots", value)
-
-    @property
-    @pulumi.getter(name="gossipPort")
-    def gossip_port(self) -> pulumi.Input[int]:
-        return pulumi.get(self, "gossip_port")
-
-    @gossip_port.setter
-    def gossip_port(self, value: pulumi.Input[int]):
-        pulumi.set(self, "gossip_port", value)
-
-    @property
-    @pulumi.getter(name="limitLedgerSize")
-    def limit_ledger_size(self) -> pulumi.Input[int]:
-        return pulumi.get(self, "limit_ledger_size")
-
-    @limit_ledger_size.setter
-    def limit_ledger_size(self, value: pulumi.Input[int]):
-        pulumi.set(self, "limit_ledger_size", value)
+        if unified_scheduler_handler_threads is not None:
+            pulumi.set(__self__, "unified_scheduler_handler_threads", unified_scheduler_handler_threads)
+        if use_snapshot_archives_at_startup is not None:
+            pulumi.set(__self__, "use_snapshot_archives_at_startup", use_snapshot_archives_at_startup)
+        if wait_for_supermajority is not None:
+            pulumi.set(__self__, "wait_for_supermajority", wait_for_supermajority)
 
     @property
     @pulumi.getter(name="noWaitForVoteToStartLeader")
@@ -166,24 +517,6 @@ class FlagsArgs:
     @no_wait_for_vote_to_start_leader.setter
     def no_wait_for_vote_to_start_leader(self, value: pulumi.Input[bool]):
         pulumi.set(self, "no_wait_for_vote_to_start_leader", value)
-
-    @property
-    @pulumi.getter(name="onlyKnownRPC")
-    def only_known_rpc(self) -> pulumi.Input[bool]:
-        return pulumi.get(self, "only_known_rpc")
-
-    @only_known_rpc.setter
-    def only_known_rpc(self, value: pulumi.Input[bool]):
-        pulumi.set(self, "only_known_rpc", value)
-
-    @property
-    @pulumi.getter(name="privateRPC")
-    def private_rpc(self) -> pulumi.Input[bool]:
-        return pulumi.get(self, "private_rpc")
-
-    @private_rpc.setter
-    def private_rpc(self, value: pulumi.Input[bool]):
-        pulumi.set(self, "private_rpc", value)
 
     @property
     @pulumi.getter(name="rpcBindAddress")
@@ -204,15 +537,6 @@ class FlagsArgs:
         pulumi.set(self, "rpc_port", value)
 
     @property
-    @pulumi.getter(name="useSnapshotArchivesAtStartup")
-    def use_snapshot_archives_at_startup(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "use_snapshot_archives_at_startup")
-
-    @use_snapshot_archives_at_startup.setter
-    def use_snapshot_archives_at_startup(self, value: pulumi.Input[str]):
-        pulumi.set(self, "use_snapshot_archives_at_startup", value)
-
-    @property
     @pulumi.getter(name="walRecoveryMode")
     def wal_recovery_mode(self) -> pulumi.Input[str]:
         return pulumi.get(self, "wal_recovery_mode")
@@ -220,6 +544,114 @@ class FlagsArgs:
     @wal_recovery_mode.setter
     def wal_recovery_mode(self, value: pulumi.Input[str]):
         pulumi.set(self, "wal_recovery_mode", value)
+
+    @property
+    @pulumi.getter(name="accountIndex")
+    def account_index(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "account_index")
+
+    @account_index.setter
+    def account_index(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "account_index", value)
+
+    @property
+    @pulumi.getter(name="accountIndexExcludeKey")
+    def account_index_exclude_key(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "account_index_exclude_key")
+
+    @account_index_exclude_key.setter
+    def account_index_exclude_key(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "account_index_exclude_key", value)
+
+    @property
+    @pulumi.getter(name="accountIndexIncludeKey")
+    def account_index_include_key(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "account_index_include_key")
+
+    @account_index_include_key.setter
+    def account_index_include_key(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "account_index_include_key", value)
+
+    @property
+    @pulumi.getter(name="accountShrinkPath")
+    def account_shrink_path(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "account_shrink_path")
+
+    @account_shrink_path.setter
+    def account_shrink_path(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "account_shrink_path", value)
+
+    @property
+    @pulumi.getter(name="accountsDbCacheLimitMb")
+    def accounts_db_cache_limit_mb(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "accounts_db_cache_limit_mb")
+
+    @accounts_db_cache_limit_mb.setter
+    def accounts_db_cache_limit_mb(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "accounts_db_cache_limit_mb", value)
+
+    @property
+    @pulumi.getter(name="accountsDbTestHashCalculation")
+    def accounts_db_test_hash_calculation(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "accounts_db_test_hash_calculation")
+
+    @accounts_db_test_hash_calculation.setter
+    def accounts_db_test_hash_calculation(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "accounts_db_test_hash_calculation", value)
+
+    @property
+    @pulumi.getter(name="accountsHashCachePath")
+    def accounts_hash_cache_path(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "accounts_hash_cache_path")
+
+    @accounts_hash_cache_path.setter
+    def accounts_hash_cache_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "accounts_hash_cache_path", value)
+
+    @property
+    @pulumi.getter(name="accountsIndexBins")
+    def accounts_index_bins(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "accounts_index_bins")
+
+    @accounts_index_bins.setter
+    def accounts_index_bins(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "accounts_index_bins", value)
+
+    @property
+    @pulumi.getter(name="accountsIndexPath")
+    def accounts_index_path(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "accounts_index_path")
+
+    @accounts_index_path.setter
+    def accounts_index_path(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "accounts_index_path", value)
+
+    @property
+    @pulumi.getter(name="accountsIndexScanResultsLimitMb")
+    def accounts_index_scan_results_limit_mb(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "accounts_index_scan_results_limit_mb")
+
+    @accounts_index_scan_results_limit_mb.setter
+    def accounts_index_scan_results_limit_mb(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "accounts_index_scan_results_limit_mb", value)
+
+    @property
+    @pulumi.getter(name="accountsShrinkOptimizeTotalSpace")
+    def accounts_shrink_optimize_total_space(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "accounts_shrink_optimize_total_space")
+
+    @accounts_shrink_optimize_total_space.setter
+    def accounts_shrink_optimize_total_space(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "accounts_shrink_optimize_total_space", value)
+
+    @property
+    @pulumi.getter(name="accountsShrinkRatio")
+    def accounts_shrink_ratio(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "accounts_shrink_ratio")
+
+    @accounts_shrink_ratio.setter
+    def accounts_shrink_ratio(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "accounts_shrink_ratio", value)
 
     @property
     @pulumi.getter(name="allowPrivateAddr")
@@ -231,6 +663,150 @@ class FlagsArgs:
         pulumi.set(self, "allow_private_addr", value)
 
     @property
+    @pulumi.getter(name="authorizedVoter")
+    def authorized_voter(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "authorized_voter")
+
+    @authorized_voter.setter
+    def authorized_voter(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "authorized_voter", value)
+
+    @property
+    @pulumi.getter(name="bindAddress")
+    def bind_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "bind_address")
+
+    @bind_address.setter
+    def bind_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "bind_address", value)
+
+    @property
+    @pulumi.getter(name="blockProductionMethod")
+    def block_production_method(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "block_production_method")
+
+    @block_production_method.setter
+    def block_production_method(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "block_production_method", value)
+
+    @property
+    @pulumi.getter(name="blockVerificationMethod")
+    def block_verification_method(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "block_verification_method")
+
+    @block_verification_method.setter
+    def block_verification_method(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "block_verification_method", value)
+
+    @property
+    @pulumi.getter(name="checkVoteAccount")
+    def check_vote_account(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "check_vote_account")
+
+    @check_vote_account.setter
+    def check_vote_account(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "check_vote_account", value)
+
+    @property
+    @pulumi.getter(name="contactDebugInterval")
+    def contact_debug_interval(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "contact_debug_interval")
+
+    @contact_debug_interval.setter
+    def contact_debug_interval(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "contact_debug_interval", value)
+
+    @property
+    @pulumi.getter
+    def cuda(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "cuda")
+
+    @cuda.setter
+    def cuda(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "cuda", value)
+
+    @property
+    @pulumi.getter(name="debugKey")
+    def debug_key(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "debug_key")
+
+    @debug_key.setter
+    def debug_key(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "debug_key", value)
+
+    @property
+    @pulumi.getter(name="devHaltAtSlot")
+    def dev_halt_at_slot(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "dev_halt_at_slot")
+
+    @dev_halt_at_slot.setter
+    def dev_halt_at_slot(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "dev_halt_at_slot", value)
+
+    @property
+    @pulumi.getter(name="disableBankingTrace")
+    def disable_banking_trace(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "disable_banking_trace")
+
+    @disable_banking_trace.setter
+    def disable_banking_trace(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "disable_banking_trace", value)
+
+    @property
+    @pulumi.getter(name="dynamicPortRange")
+    def dynamic_port_range(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "dynamic_port_range")
+
+    @dynamic_port_range.setter
+    def dynamic_port_range(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "dynamic_port_range", value)
+
+    @property
+    @pulumi.getter(name="enableBankingTrace")
+    def enable_banking_trace(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "enable_banking_trace")
+
+    @enable_banking_trace.setter
+    def enable_banking_trace(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "enable_banking_trace", value)
+
+    @property
+    @pulumi.getter(name="enableBigtableLedgerUpload")
+    def enable_bigtable_ledger_upload(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enable_bigtable_ledger_upload")
+
+    @enable_bigtable_ledger_upload.setter
+    def enable_bigtable_ledger_upload(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_bigtable_ledger_upload", value)
+
+    @property
+    @pulumi.getter(name="enableExtendedTxMetadataStorage")
+    def enable_extended_tx_metadata_storage(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enable_extended_tx_metadata_storage")
+
+    @enable_extended_tx_metadata_storage.setter
+    def enable_extended_tx_metadata_storage(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_extended_tx_metadata_storage", value)
+
+    @property
+    @pulumi.getter(name="enableRpcBigtableLedgerStorage")
+    def enable_rpc_bigtable_ledger_storage(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enable_rpc_bigtable_ledger_storage")
+
+    @enable_rpc_bigtable_ledger_storage.setter
+    def enable_rpc_bigtable_ledger_storage(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_rpc_bigtable_ledger_storage", value)
+
+    @property
+    @pulumi.getter(name="enableRpcTransactionHistory")
+    def enable_rpc_transaction_history(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enable_rpc_transaction_history")
+
+    @enable_rpc_transaction_history.setter
+    def enable_rpc_transaction_history(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_rpc_transaction_history", value)
+
+    @property
     @pulumi.getter(name="entryPoint")
     def entry_point(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         return pulumi.get(self, "entry_point")
@@ -240,6 +816,60 @@ class FlagsArgs:
         pulumi.set(self, "entry_point", value)
 
     @property
+    @pulumi.getter(name="etcdCacertFile")
+    def etcd_cacert_file(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "etcd_cacert_file")
+
+    @etcd_cacert_file.setter
+    def etcd_cacert_file(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "etcd_cacert_file", value)
+
+    @property
+    @pulumi.getter(name="etcdCertFile")
+    def etcd_cert_file(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "etcd_cert_file")
+
+    @etcd_cert_file.setter
+    def etcd_cert_file(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "etcd_cert_file", value)
+
+    @property
+    @pulumi.getter(name="etcdDomainName")
+    def etcd_domain_name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "etcd_domain_name")
+
+    @etcd_domain_name.setter
+    def etcd_domain_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "etcd_domain_name", value)
+
+    @property
+    @pulumi.getter(name="etcdEndpoint")
+    def etcd_endpoint(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "etcd_endpoint")
+
+    @etcd_endpoint.setter
+    def etcd_endpoint(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "etcd_endpoint", value)
+
+    @property
+    @pulumi.getter(name="etcdKeyFile")
+    def etcd_key_file(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "etcd_key_file")
+
+    @etcd_key_file.setter
+    def etcd_key_file(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "etcd_key_file", value)
+
+    @property
+    @pulumi.getter(name="expectedBankHash")
+    def expected_bank_hash(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "expected_bank_hash")
+
+    @expected_bank_hash.setter
+    def expected_bank_hash(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "expected_bank_hash", value)
+
+    @property
     @pulumi.getter(name="expectedGenesisHash")
     def expected_genesis_hash(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "expected_genesis_hash")
@@ -247,6 +877,15 @@ class FlagsArgs:
     @expected_genesis_hash.setter
     def expected_genesis_hash(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "expected_genesis_hash", value)
+
+    @property
+    @pulumi.getter(name="expectedShredVersion")
+    def expected_shred_version(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "expected_shred_version")
+
+    @expected_shred_version.setter
+    def expected_shred_version(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "expected_shred_version", value)
 
     @property
     @pulumi.getter(name="extraFlags")
@@ -267,6 +906,42 @@ class FlagsArgs:
         pulumi.set(self, "full_rpc_api", value)
 
     @property
+    @pulumi.getter(name="fullSnapshotArchivePath")
+    def full_snapshot_archive_path(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "full_snapshot_archive_path")
+
+    @full_snapshot_archive_path.setter
+    def full_snapshot_archive_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "full_snapshot_archive_path", value)
+
+    @property
+    @pulumi.getter(name="fullSnapshotIntervalSlots")
+    def full_snapshot_interval_slots(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "full_snapshot_interval_slots")
+
+    @full_snapshot_interval_slots.setter
+    def full_snapshot_interval_slots(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "full_snapshot_interval_slots", value)
+
+    @property
+    @pulumi.getter(name="geyserPluginAlwaysEnabled")
+    def geyser_plugin_always_enabled(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "geyser_plugin_always_enabled")
+
+    @geyser_plugin_always_enabled.setter
+    def geyser_plugin_always_enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "geyser_plugin_always_enabled", value)
+
+    @property
+    @pulumi.getter(name="geyserPluginConfig")
+    def geyser_plugin_config(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "geyser_plugin_config")
+
+    @geyser_plugin_config.setter
+    def geyser_plugin_config(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "geyser_plugin_config", value)
+
+    @property
     @pulumi.getter(name="gossipHost")
     def gossip_host(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "gossip_host")
@@ -274,6 +949,60 @@ class FlagsArgs:
     @gossip_host.setter
     def gossip_host(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "gossip_host", value)
+
+    @property
+    @pulumi.getter(name="gossipPort")
+    def gossip_port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "gossip_port")
+
+    @gossip_port.setter
+    def gossip_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "gossip_port", value)
+
+    @property
+    @pulumi.getter(name="gossipValidator")
+    def gossip_validator(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "gossip_validator")
+
+    @gossip_validator.setter
+    def gossip_validator(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "gossip_validator", value)
+
+    @property
+    @pulumi.getter(name="hardFork")
+    def hard_fork(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[int]]]]:
+        return pulumi.get(self, "hard_fork")
+
+    @hard_fork.setter
+    def hard_fork(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]]):
+        pulumi.set(self, "hard_fork", value)
+
+    @property
+    @pulumi.getter(name="healthCheckSlotDistance")
+    def health_check_slot_distance(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "health_check_slot_distance")
+
+    @health_check_slot_distance.setter
+    def health_check_slot_distance(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "health_check_slot_distance", value)
+
+    @property
+    @pulumi.getter(name="incrementalSnapshotArchivePath")
+    def incremental_snapshot_archive_path(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "incremental_snapshot_archive_path")
+
+    @incremental_snapshot_archive_path.setter
+    def incremental_snapshot_archive_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "incremental_snapshot_archive_path", value)
+
+    @property
+    @pulumi.getter(name="initCompleteFile")
+    def init_complete_file(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "init_complete_file")
+
+    @init_complete_file.setter
+    def init_complete_file(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "init_complete_file", value)
 
     @property
     @pulumi.getter(name="knownValidator")
@@ -285,6 +1014,105 @@ class FlagsArgs:
         pulumi.set(self, "known_validator", value)
 
     @property
+    @pulumi.getter(name="limitLedgerSize")
+    def limit_ledger_size(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "limit_ledger_size")
+
+    @limit_ledger_size.setter
+    def limit_ledger_size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "limit_ledger_size", value)
+
+    @property
+    @pulumi.getter(name="logMessagesBytesLimit")
+    def log_messages_bytes_limit(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "log_messages_bytes_limit")
+
+    @log_messages_bytes_limit.setter
+    def log_messages_bytes_limit(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "log_messages_bytes_limit", value)
+
+    @property
+    @pulumi.getter(name="maxGenesisArchiveUnpackedSize")
+    def max_genesis_archive_unpacked_size(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "max_genesis_archive_unpacked_size")
+
+    @max_genesis_archive_unpacked_size.setter
+    def max_genesis_archive_unpacked_size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_genesis_archive_unpacked_size", value)
+
+    @property
+    @pulumi.getter(name="maximumFullSnapshotsToRetain")
+    def maximum_full_snapshots_to_retain(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "maximum_full_snapshots_to_retain")
+
+    @maximum_full_snapshots_to_retain.setter
+    def maximum_full_snapshots_to_retain(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "maximum_full_snapshots_to_retain", value)
+
+    @property
+    @pulumi.getter(name="maximumIncrementalSnapshotsToRetain")
+    def maximum_incremental_snapshots_to_retain(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "maximum_incremental_snapshots_to_retain")
+
+    @maximum_incremental_snapshots_to_retain.setter
+    def maximum_incremental_snapshots_to_retain(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "maximum_incremental_snapshots_to_retain", value)
+
+    @property
+    @pulumi.getter(name="maximumLocalSnapshotAge")
+    def maximum_local_snapshot_age(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "maximum_local_snapshot_age")
+
+    @maximum_local_snapshot_age.setter
+    def maximum_local_snapshot_age(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "maximum_local_snapshot_age", value)
+
+    @property
+    @pulumi.getter(name="maximumSnapshotDownloadAbort")
+    def maximum_snapshot_download_abort(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "maximum_snapshot_download_abort")
+
+    @maximum_snapshot_download_abort.setter
+    def maximum_snapshot_download_abort(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "maximum_snapshot_download_abort", value)
+
+    @property
+    @pulumi.getter(name="minimalSnapshotDownloadSpeed")
+    def minimal_snapshot_download_speed(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "minimal_snapshot_download_speed")
+
+    @minimal_snapshot_download_speed.setter
+    def minimal_snapshot_download_speed(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "minimal_snapshot_download_speed", value)
+
+    @property
+    @pulumi.getter(name="noGenesisFetch")
+    def no_genesis_fetch(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "no_genesis_fetch")
+
+    @no_genesis_fetch.setter
+    def no_genesis_fetch(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "no_genesis_fetch", value)
+
+    @property
+    @pulumi.getter(name="noIncrementalSnapshots")
+    def no_incremental_snapshots(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "no_incremental_snapshots")
+
+    @no_incremental_snapshots.setter
+    def no_incremental_snapshots(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "no_incremental_snapshots", value)
+
+    @property
+    @pulumi.getter(name="noSnapshotFetch")
+    def no_snapshot_fetch(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "no_snapshot_fetch")
+
+    @no_snapshot_fetch.setter
+    def no_snapshot_fetch(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "no_snapshot_fetch", value)
+
+    @property
     @pulumi.getter(name="noVoting")
     def no_voting(self) -> Optional[pulumi.Input[bool]]:
         return pulumi.get(self, "no_voting")
@@ -294,6 +1122,420 @@ class FlagsArgs:
         pulumi.set(self, "no_voting", value)
 
     @property
+    @pulumi.getter(name="onlyKnownRPC")
+    def only_known_rpc(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "only_known_rpc")
+
+    @only_known_rpc.setter
+    def only_known_rpc(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "only_known_rpc", value)
+
+    @property
+    @pulumi.getter(name="privateRPC")
+    def private_rpc(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "private_rpc")
+
+    @private_rpc.setter
+    def private_rpc(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "private_rpc", value)
+
+    @property
+    @pulumi.getter(name="publicRpcAddress")
+    def public_rpc_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "public_rpc_address")
+
+    @public_rpc_address.setter
+    def public_rpc_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "public_rpc_address", value)
+
+    @property
+    @pulumi.getter(name="publicTpuAddress")
+    def public_tpu_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "public_tpu_address")
+
+    @public_tpu_address.setter
+    def public_tpu_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "public_tpu_address", value)
+
+    @property
+    @pulumi.getter(name="publicTpuForwardsAddress")
+    def public_tpu_forwards_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "public_tpu_forwards_address")
+
+    @public_tpu_forwards_address.setter
+    def public_tpu_forwards_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "public_tpu_forwards_address", value)
+
+    @property
+    @pulumi.getter(name="repairValidator")
+    def repair_validator(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "repair_validator")
+
+    @repair_validator.setter
+    def repair_validator(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "repair_validator", value)
+
+    @property
+    @pulumi.getter(name="requireTower")
+    def require_tower(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "require_tower")
+
+    @require_tower.setter
+    def require_tower(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "require_tower", value)
+
+    @property
+    @pulumi.getter(name="restrictedRepairOnlyMode")
+    def restricted_repair_only_mode(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "restricted_repair_only_mode")
+
+    @restricted_repair_only_mode.setter
+    def restricted_repair_only_mode(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "restricted_repair_only_mode", value)
+
+    @property
+    @pulumi.getter(name="rocksdbFifoShredStorageSize")
+    def rocksdb_fifo_shred_storage_size(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rocksdb_fifo_shred_storage_size")
+
+    @rocksdb_fifo_shred_storage_size.setter
+    def rocksdb_fifo_shred_storage_size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rocksdb_fifo_shred_storage_size", value)
+
+    @property
+    @pulumi.getter(name="rocksdbShredCompaction")
+    def rocksdb_shred_compaction(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "rocksdb_shred_compaction")
+
+    @rocksdb_shred_compaction.setter
+    def rocksdb_shred_compaction(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "rocksdb_shred_compaction", value)
+
+    @property
+    @pulumi.getter(name="rpcBigtableAppProfileId")
+    def rpc_bigtable_app_profile_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "rpc_bigtable_app_profile_id")
+
+    @rpc_bigtable_app_profile_id.setter
+    def rpc_bigtable_app_profile_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "rpc_bigtable_app_profile_id", value)
+
+    @property
+    @pulumi.getter(name="rpcBigtableInstanceName")
+    def rpc_bigtable_instance_name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "rpc_bigtable_instance_name")
+
+    @rpc_bigtable_instance_name.setter
+    def rpc_bigtable_instance_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "rpc_bigtable_instance_name", value)
+
+    @property
+    @pulumi.getter(name="rpcBigtableMaxMessageSize")
+    def rpc_bigtable_max_message_size(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_bigtable_max_message_size")
+
+    @rpc_bigtable_max_message_size.setter
+    def rpc_bigtable_max_message_size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_bigtable_max_message_size", value)
+
+    @property
+    @pulumi.getter(name="rpcBigtableTimeout")
+    def rpc_bigtable_timeout(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_bigtable_timeout")
+
+    @rpc_bigtable_timeout.setter
+    def rpc_bigtable_timeout(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_bigtable_timeout", value)
+
+    @property
+    @pulumi.getter(name="rpcFaucetAddress")
+    def rpc_faucet_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "rpc_faucet_address")
+
+    @rpc_faucet_address.setter
+    def rpc_faucet_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "rpc_faucet_address", value)
+
+    @property
+    @pulumi.getter(name="rpcMaxMultipleAccounts")
+    def rpc_max_multiple_accounts(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_max_multiple_accounts")
+
+    @rpc_max_multiple_accounts.setter
+    def rpc_max_multiple_accounts(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_max_multiple_accounts", value)
+
+    @property
+    @pulumi.getter(name="rpcMaxRequestBodySize")
+    def rpc_max_request_body_size(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_max_request_body_size")
+
+    @rpc_max_request_body_size.setter
+    def rpc_max_request_body_size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_max_request_body_size", value)
+
+    @property
+    @pulumi.getter(name="rpcNicenessAdjustment")
+    def rpc_niceness_adjustment(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_niceness_adjustment")
+
+    @rpc_niceness_adjustment.setter
+    def rpc_niceness_adjustment(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_niceness_adjustment", value)
+
+    @property
+    @pulumi.getter(name="rpcPubsubEnableBlockSubscription")
+    def rpc_pubsub_enable_block_subscription(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "rpc_pubsub_enable_block_subscription")
+
+    @rpc_pubsub_enable_block_subscription.setter
+    def rpc_pubsub_enable_block_subscription(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "rpc_pubsub_enable_block_subscription", value)
+
+    @property
+    @pulumi.getter(name="rpcPubsubEnableVoteSubscription")
+    def rpc_pubsub_enable_vote_subscription(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "rpc_pubsub_enable_vote_subscription")
+
+    @rpc_pubsub_enable_vote_subscription.setter
+    def rpc_pubsub_enable_vote_subscription(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "rpc_pubsub_enable_vote_subscription", value)
+
+    @property
+    @pulumi.getter(name="rpcPubsubMaxActiveSubscriptions")
+    def rpc_pubsub_max_active_subscriptions(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_pubsub_max_active_subscriptions")
+
+    @rpc_pubsub_max_active_subscriptions.setter
+    def rpc_pubsub_max_active_subscriptions(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_pubsub_max_active_subscriptions", value)
+
+    @property
+    @pulumi.getter(name="rpcPubsubNotificationThreads")
+    def rpc_pubsub_notification_threads(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_pubsub_notification_threads")
+
+    @rpc_pubsub_notification_threads.setter
+    def rpc_pubsub_notification_threads(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_pubsub_notification_threads", value)
+
+    @property
+    @pulumi.getter(name="rpcPubsubQueueCapacityBytes")
+    def rpc_pubsub_queue_capacity_bytes(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_pubsub_queue_capacity_bytes")
+
+    @rpc_pubsub_queue_capacity_bytes.setter
+    def rpc_pubsub_queue_capacity_bytes(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_pubsub_queue_capacity_bytes", value)
+
+    @property
+    @pulumi.getter(name="rpcPubsubQueueCapacityItems")
+    def rpc_pubsub_queue_capacity_items(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_pubsub_queue_capacity_items")
+
+    @rpc_pubsub_queue_capacity_items.setter
+    def rpc_pubsub_queue_capacity_items(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_pubsub_queue_capacity_items", value)
+
+    @property
+    @pulumi.getter(name="rpcPubsubWorkerThreads")
+    def rpc_pubsub_worker_threads(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_pubsub_worker_threads")
+
+    @rpc_pubsub_worker_threads.setter
+    def rpc_pubsub_worker_threads(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_pubsub_worker_threads", value)
+
+    @property
+    @pulumi.getter(name="rpcScanAndFixRoots")
+    def rpc_scan_and_fix_roots(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "rpc_scan_and_fix_roots")
+
+    @rpc_scan_and_fix_roots.setter
+    def rpc_scan_and_fix_roots(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "rpc_scan_and_fix_roots", value)
+
+    @property
+    @pulumi.getter(name="rpcSendLeaderCount")
+    def rpc_send_leader_count(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_send_leader_count")
+
+    @rpc_send_leader_count.setter
+    def rpc_send_leader_count(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_send_leader_count", value)
+
+    @property
+    @pulumi.getter(name="rpcSendRetryMs")
+    def rpc_send_retry_ms(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_send_retry_ms")
+
+    @rpc_send_retry_ms.setter
+    def rpc_send_retry_ms(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_send_retry_ms", value)
+
+    @property
+    @pulumi.getter(name="rpcSendServiceMaxRetries")
+    def rpc_send_service_max_retries(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_send_service_max_retries")
+
+    @rpc_send_service_max_retries.setter
+    def rpc_send_service_max_retries(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_send_service_max_retries", value)
+
+    @property
+    @pulumi.getter(name="rpcSendTransactionAlsoLeader")
+    def rpc_send_transaction_also_leader(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "rpc_send_transaction_also_leader")
+
+    @rpc_send_transaction_also_leader.setter
+    def rpc_send_transaction_also_leader(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "rpc_send_transaction_also_leader", value)
+
+    @property
+    @pulumi.getter(name="rpcSendTransactionRetryPoolMaxSize")
+    def rpc_send_transaction_retry_pool_max_size(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_send_transaction_retry_pool_max_size")
+
+    @rpc_send_transaction_retry_pool_max_size.setter
+    def rpc_send_transaction_retry_pool_max_size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_send_transaction_retry_pool_max_size", value)
+
+    @property
+    @pulumi.getter(name="rpcSendTransactionTpuPeer")
+    def rpc_send_transaction_tpu_peer(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "rpc_send_transaction_tpu_peer")
+
+    @rpc_send_transaction_tpu_peer.setter
+    def rpc_send_transaction_tpu_peer(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "rpc_send_transaction_tpu_peer", value)
+
+    @property
+    @pulumi.getter(name="rpcThreads")
+    def rpc_threads(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rpc_threads")
+
+    @rpc_threads.setter
+    def rpc_threads(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rpc_threads", value)
+
+    @property
+    @pulumi.getter(name="skipPreflightHealthCheck")
+    def skip_preflight_health_check(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "skip_preflight_health_check")
+
+    @skip_preflight_health_check.setter
+    def skip_preflight_health_check(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_preflight_health_check", value)
+
+    @property
+    @pulumi.getter(name="skipSeedPhraseValidation")
+    def skip_seed_phrase_validation(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "skip_seed_phrase_validation")
+
+    @skip_seed_phrase_validation.setter
+    def skip_seed_phrase_validation(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_seed_phrase_validation", value)
+
+    @property
+    @pulumi.getter(name="skipStartupLedgerVerification")
+    def skip_startup_ledger_verification(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "skip_startup_ledger_verification")
+
+    @skip_startup_ledger_verification.setter
+    def skip_startup_ledger_verification(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_startup_ledger_verification", value)
+
+    @property
+    @pulumi.getter(name="snapshotArchiveFormat")
+    def snapshot_archive_format(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "snapshot_archive_format")
+
+    @snapshot_archive_format.setter
+    def snapshot_archive_format(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "snapshot_archive_format", value)
+
+    @property
+    @pulumi.getter(name="snapshotIntervalSlots")
+    def snapshot_interval_slots(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "snapshot_interval_slots")
+
+    @snapshot_interval_slots.setter
+    def snapshot_interval_slots(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "snapshot_interval_slots", value)
+
+    @property
+    @pulumi.getter(name="snapshotPackagerNicenessAdjustment")
+    def snapshot_packager_niceness_adjustment(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "snapshot_packager_niceness_adjustment")
+
+    @snapshot_packager_niceness_adjustment.setter
+    def snapshot_packager_niceness_adjustment(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "snapshot_packager_niceness_adjustment", value)
+
+    @property
+    @pulumi.getter(name="snapshotVersion")
+    def snapshot_version(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "snapshot_version")
+
+    @snapshot_version.setter
+    def snapshot_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "snapshot_version", value)
+
+    @property
+    @pulumi.getter(name="stakedNodesOverrides")
+    def staked_nodes_overrides(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "staked_nodes_overrides")
+
+    @staked_nodes_overrides.setter
+    def staked_nodes_overrides(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "staked_nodes_overrides", value)
+
+    @property
+    @pulumi.getter(name="towerStorage")
+    def tower_storage(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "tower_storage")
+
+    @tower_storage.setter
+    def tower_storage(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "tower_storage", value)
+
+    @property
+    @pulumi.getter(name="tpuCoalesceMs")
+    def tpu_coalesce_ms(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "tpu_coalesce_ms")
+
+    @tpu_coalesce_ms.setter
+    def tpu_coalesce_ms(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "tpu_coalesce_ms", value)
+
+    @property
+    @pulumi.getter(name="tpuConnectionPoolSize")
+    def tpu_connection_pool_size(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "tpu_connection_pool_size")
+
+    @tpu_connection_pool_size.setter
+    def tpu_connection_pool_size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "tpu_connection_pool_size", value)
+
+    @property
+    @pulumi.getter(name="tpuDisableQuic")
+    def tpu_disable_quic(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "tpu_disable_quic")
+
+    @tpu_disable_quic.setter
+    def tpu_disable_quic(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "tpu_disable_quic", value)
+
+    @property
+    @pulumi.getter(name="tpuEnableUdp")
+    def tpu_enable_udp(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "tpu_enable_udp")
+
+    @tpu_enable_udp.setter
+    def tpu_enable_udp(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "tpu_enable_udp", value)
+
+    @property
     @pulumi.getter(name="tvuReceiveThreads")
     def tvu_receive_threads(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "tvu_receive_threads")
@@ -301,6 +1543,33 @@ class FlagsArgs:
     @tvu_receive_threads.setter
     def tvu_receive_threads(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "tvu_receive_threads", value)
+
+    @property
+    @pulumi.getter(name="unifiedSchedulerHandlerThreads")
+    def unified_scheduler_handler_threads(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "unified_scheduler_handler_threads")
+
+    @unified_scheduler_handler_threads.setter
+    def unified_scheduler_handler_threads(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "unified_scheduler_handler_threads", value)
+
+    @property
+    @pulumi.getter(name="useSnapshotArchivesAtStartup")
+    def use_snapshot_archives_at_startup(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "use_snapshot_archives_at_startup")
+
+    @use_snapshot_archives_at_startup.setter
+    def use_snapshot_archives_at_startup(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "use_snapshot_archives_at_startup", value)
+
+    @property
+    @pulumi.getter(name="waitForSupermajority")
+    def wait_for_supermajority(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "wait_for_supermajority")
+
+    @wait_for_supermajority.setter
+    def wait_for_supermajority(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "wait_for_supermajority", value)
 
 
 if not MYPY:
