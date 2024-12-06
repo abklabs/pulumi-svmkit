@@ -70,6 +70,8 @@ class GenesisFlags(dict):
             suggest = "vote_pubkey"
         elif key == "clusterType":
             suggest = "cluster_type"
+        elif key == "extraFlags":
+            suggest = "extra_flags"
         elif key == "faucetLamports":
             suggest = "faucet_lamports"
         elif key == "lamportsPerByteYear":
@@ -97,6 +99,7 @@ class GenesisFlags(dict):
                  stake_pubkey: str,
                  vote_pubkey: str,
                  cluster_type: Optional[str] = None,
+                 extra_flags: Optional[Sequence[str]] = None,
                  faucet_lamports: Optional[str] = None,
                  inflation: Optional[str] = None,
                  lamports_per_byte_year: Optional[str] = None,
@@ -109,6 +112,8 @@ class GenesisFlags(dict):
         pulumi.set(__self__, "vote_pubkey", vote_pubkey)
         if cluster_type is not None:
             pulumi.set(__self__, "cluster_type", cluster_type)
+        if extra_flags is not None:
+            pulumi.set(__self__, "extra_flags", extra_flags)
         if faucet_lamports is not None:
             pulumi.set(__self__, "faucet_lamports", faucet_lamports)
         if inflation is not None:
@@ -149,6 +154,11 @@ class GenesisFlags(dict):
     @pulumi.getter(name="clusterType")
     def cluster_type(self) -> Optional[str]:
         return pulumi.get(self, "cluster_type")
+
+    @property
+    @pulumi.getter(name="extraFlags")
+    def extra_flags(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "extra_flags")
 
     @property
     @pulumi.getter(name="faucetLamports")

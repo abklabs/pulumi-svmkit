@@ -15,6 +15,7 @@ namespace ABKLabs.Svmkit.Solana.Outputs
     public sealed class GenesisFlags
     {
         public readonly string? ClusterType;
+        public readonly ImmutableArray<string> ExtraFlags;
         public readonly string? FaucetLamports;
         public readonly string FaucetPubkey;
         public readonly string IdentityPubkey;
@@ -29,6 +30,8 @@ namespace ABKLabs.Svmkit.Solana.Outputs
         [OutputConstructor]
         private GenesisFlags(
             string? clusterType,
+
+            ImmutableArray<string> extraFlags,
 
             string? faucetLamports,
 
@@ -51,6 +54,7 @@ namespace ABKLabs.Svmkit.Solana.Outputs
             string votePubkey)
         {
             ClusterType = clusterType;
+            ExtraFlags = extraFlags;
             FaucetLamports = faucetLamports;
             FaucetPubkey = faucetPubkey;
             IdentityPubkey = identityPubkey;

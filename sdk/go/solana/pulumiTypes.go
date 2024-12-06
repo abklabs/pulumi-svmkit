@@ -147,17 +147,18 @@ func (o EnvironmentPtrOutput) RpcURL() pulumi.StringPtrOutput {
 }
 
 type GenesisFlags struct {
-	ClusterType                *string `pulumi:"clusterType"`
-	FaucetLamports             *string `pulumi:"faucetLamports"`
-	FaucetPubkey               string  `pulumi:"faucetPubkey"`
-	IdentityPubkey             string  `pulumi:"identityPubkey"`
-	Inflation                  *string `pulumi:"inflation"`
-	LamportsPerByteYear        *string `pulumi:"lamportsPerByteYear"`
-	LedgerPath                 string  `pulumi:"ledgerPath"`
-	SlotPerEpoch               *string `pulumi:"slotPerEpoch"`
-	StakePubkey                string  `pulumi:"stakePubkey"`
-	TargetLamportsPerSignature *string `pulumi:"targetLamportsPerSignature"`
-	VotePubkey                 string  `pulumi:"votePubkey"`
+	ClusterType                *string  `pulumi:"clusterType"`
+	ExtraFlags                 []string `pulumi:"extraFlags"`
+	FaucetLamports             *string  `pulumi:"faucetLamports"`
+	FaucetPubkey               string   `pulumi:"faucetPubkey"`
+	IdentityPubkey             string   `pulumi:"identityPubkey"`
+	Inflation                  *string  `pulumi:"inflation"`
+	LamportsPerByteYear        *string  `pulumi:"lamportsPerByteYear"`
+	LedgerPath                 string   `pulumi:"ledgerPath"`
+	SlotPerEpoch               *string  `pulumi:"slotPerEpoch"`
+	StakePubkey                string   `pulumi:"stakePubkey"`
+	TargetLamportsPerSignature *string  `pulumi:"targetLamportsPerSignature"`
+	VotePubkey                 string   `pulumi:"votePubkey"`
 }
 
 // GenesisFlagsInput is an input type that accepts GenesisFlagsArgs and GenesisFlagsOutput values.
@@ -172,17 +173,18 @@ type GenesisFlagsInput interface {
 }
 
 type GenesisFlagsArgs struct {
-	ClusterType                pulumi.StringPtrInput `pulumi:"clusterType"`
-	FaucetLamports             pulumi.StringPtrInput `pulumi:"faucetLamports"`
-	FaucetPubkey               pulumi.StringInput    `pulumi:"faucetPubkey"`
-	IdentityPubkey             pulumi.StringInput    `pulumi:"identityPubkey"`
-	Inflation                  pulumi.StringPtrInput `pulumi:"inflation"`
-	LamportsPerByteYear        pulumi.StringPtrInput `pulumi:"lamportsPerByteYear"`
-	LedgerPath                 pulumi.StringInput    `pulumi:"ledgerPath"`
-	SlotPerEpoch               pulumi.StringPtrInput `pulumi:"slotPerEpoch"`
-	StakePubkey                pulumi.StringInput    `pulumi:"stakePubkey"`
-	TargetLamportsPerSignature pulumi.StringPtrInput `pulumi:"targetLamportsPerSignature"`
-	VotePubkey                 pulumi.StringInput    `pulumi:"votePubkey"`
+	ClusterType                pulumi.StringPtrInput   `pulumi:"clusterType"`
+	ExtraFlags                 pulumi.StringArrayInput `pulumi:"extraFlags"`
+	FaucetLamports             pulumi.StringPtrInput   `pulumi:"faucetLamports"`
+	FaucetPubkey               pulumi.StringInput      `pulumi:"faucetPubkey"`
+	IdentityPubkey             pulumi.StringInput      `pulumi:"identityPubkey"`
+	Inflation                  pulumi.StringPtrInput   `pulumi:"inflation"`
+	LamportsPerByteYear        pulumi.StringPtrInput   `pulumi:"lamportsPerByteYear"`
+	LedgerPath                 pulumi.StringInput      `pulumi:"ledgerPath"`
+	SlotPerEpoch               pulumi.StringPtrInput   `pulumi:"slotPerEpoch"`
+	StakePubkey                pulumi.StringInput      `pulumi:"stakePubkey"`
+	TargetLamportsPerSignature pulumi.StringPtrInput   `pulumi:"targetLamportsPerSignature"`
+	VotePubkey                 pulumi.StringInput      `pulumi:"votePubkey"`
 }
 
 func (GenesisFlagsArgs) ElementType() reflect.Type {
@@ -213,6 +215,10 @@ func (o GenesisFlagsOutput) ToGenesisFlagsOutputWithContext(ctx context.Context)
 
 func (o GenesisFlagsOutput) ClusterType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *string { return v.ClusterType }).(pulumi.StringPtrOutput)
+}
+
+func (o GenesisFlagsOutput) ExtraFlags() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GenesisFlags) []string { return v.ExtraFlags }).(pulumi.StringArrayOutput)
 }
 
 func (o GenesisFlagsOutput) FaucetLamports() pulumi.StringPtrOutput {

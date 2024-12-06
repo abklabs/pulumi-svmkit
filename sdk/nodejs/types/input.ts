@@ -275,6 +275,7 @@ export namespace solana {
 
     export interface GenesisFlagsArgs {
         clusterType?: pulumi.Input<string>;
+        extraFlags?: pulumi.Input<pulumi.Input<string>[]>;
         faucetLamports?: pulumi.Input<string>;
         faucetPubkey: pulumi.Input<string>;
         identityPubkey: pulumi.Input<string>;

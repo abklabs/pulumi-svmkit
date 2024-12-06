@@ -277,6 +277,7 @@ export namespace solana {
 
     export interface GenesisFlags {
         clusterType?: string;
+        extraFlags?: string[];
         faucetLamports?: string;
         faucetPubkey: string;
         identityPubkey: string;

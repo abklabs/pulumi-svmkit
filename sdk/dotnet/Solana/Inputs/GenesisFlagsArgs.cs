@@ -16,6 +16,14 @@ namespace ABKLabs.Svmkit.Solana.Inputs
         [Input("clusterType")]
         public Input<string>? ClusterType { get; set; }
 
+        [Input("extraFlags")]
+        private InputList<string>? _extraFlags;
+        public InputList<string> ExtraFlags
+        {
+            get => _extraFlags ?? (_extraFlags = new InputList<string>());
+            set => _extraFlags = value;
+        }
+
         [Input("faucetLamports")]
         public Input<string>? FaucetLamports { get; set; }
 

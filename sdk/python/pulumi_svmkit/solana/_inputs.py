@@ -63,6 +63,7 @@ if not MYPY:
         stake_pubkey: pulumi.Input[str]
         vote_pubkey: pulumi.Input[str]
         cluster_type: NotRequired[pulumi.Input[str]]
+        extra_flags: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         faucet_lamports: NotRequired[pulumi.Input[str]]
         inflation: NotRequired[pulumi.Input[str]]
         lamports_per_byte_year: NotRequired[pulumi.Input[str]]
@@ -80,6 +81,7 @@ class GenesisFlagsArgs:
                  stake_pubkey: pulumi.Input[str],
                  vote_pubkey: pulumi.Input[str],
                  cluster_type: Optional[pulumi.Input[str]] = None,
+                 extra_flags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  faucet_lamports: Optional[pulumi.Input[str]] = None,
                  inflation: Optional[pulumi.Input[str]] = None,
                  lamports_per_byte_year: Optional[pulumi.Input[str]] = None,
@@ -92,6 +94,8 @@ class GenesisFlagsArgs:
         pulumi.set(__self__, "vote_pubkey", vote_pubkey)
         if cluster_type is not None:
             pulumi.set(__self__, "cluster_type", cluster_type)
+        if extra_flags is not None:
+            pulumi.set(__self__, "extra_flags", extra_flags)
         if faucet_lamports is not None:
             pulumi.set(__self__, "faucet_lamports", faucet_lamports)
         if inflation is not None:
@@ -156,6 +160,15 @@ class GenesisFlagsArgs:
     @cluster_type.setter
     def cluster_type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "cluster_type", value)
+
+    @property
+    @pulumi.getter(name="extraFlags")
+    def extra_flags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_flags")
+
+    @extra_flags.setter
+    def extra_flags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_flags", value)
 
     @property
     @pulumi.getter(name="faucetLamports")
