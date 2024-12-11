@@ -1,0 +1,12 @@
+name: aws-solana-faucet-python
+description: An Solana Faucet deployed on AWS using Python
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+    typechecker: pyright
+plugins:
+  providers:
+    - name: svmkit
+      path: ../../bin
