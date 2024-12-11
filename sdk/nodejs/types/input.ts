@@ -273,6 +273,13 @@ export namespace solana {
         rpcURL: pulumi.Input<string>;
     }
 
+    export interface FaucetFlagsArgs {
+        allowIPs?: pulumi.Input<pulumi.Input<string>[]>;
+        perRequestCap?: pulumi.Input<number>;
+        perTimeCap?: pulumi.Input<number>;
+        sliceSeconds?: pulumi.Input<number>;
+    }
+
     export interface GenesisFlagsArgs {
         clusterType?: pulumi.Input<string>;
         extraFlags?: pulumi.Input<pulumi.Input<string>[]>;

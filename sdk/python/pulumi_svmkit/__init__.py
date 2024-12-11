@@ -14,6 +14,8 @@ if typing.TYPE_CHECKING:
     account = __account
     import pulumi_svmkit.agave as __agave
     agave = __agave
+    import pulumi_svmkit.faucet as __faucet
+    faucet = __faucet
     import pulumi_svmkit.firedancer as __firedancer
     firedancer = __firedancer
     import pulumi_svmkit.genesis as __genesis
@@ -27,6 +29,7 @@ if typing.TYPE_CHECKING:
 else:
     account = _utilities.lazy_import('pulumi_svmkit.account')
     agave = _utilities.lazy_import('pulumi_svmkit.agave')
+    faucet = _utilities.lazy_import('pulumi_svmkit.faucet')
     firedancer = _utilities.lazy_import('pulumi_svmkit.firedancer')
     genesis = _utilities.lazy_import('pulumi_svmkit.genesis')
     solana = _utilities.lazy_import('pulumi_svmkit.solana')
@@ -44,6 +47,14 @@ _utilities.register(
    "svmkit:account:StakeAccount": "StakeAccount",
    "svmkit:account:Transfer": "Transfer",
    "svmkit:account:VoteAccount": "VoteAccount"
+  }
+ },
+ {
+  "pkg": "svmkit",
+  "mod": "faucet",
+  "fqn": "pulumi_svmkit.faucet",
+  "classes": {
+   "svmkit:faucet:Faucet": "Faucet"
   }
  },
  {

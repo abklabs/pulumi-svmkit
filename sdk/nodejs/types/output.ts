@@ -275,6 +275,13 @@ export namespace solana {
         rpcURL: string;
     }
 
+    export interface FaucetFlags {
+        allowIPs?: string[];
+        perRequestCap?: number;
+        perTimeCap?: number;
+        sliceSeconds?: number;
+    }
+
     export interface GenesisFlags {
         clusterType?: string;
         extraFlags?: string[];

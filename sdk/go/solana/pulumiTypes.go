@@ -146,6 +146,73 @@ func (o EnvironmentPtrOutput) RpcURL() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type FaucetFlags struct {
+	AllowIPs      []string `pulumi:"allowIPs"`
+	PerRequestCap *int     `pulumi:"perRequestCap"`
+	PerTimeCap    *int     `pulumi:"perTimeCap"`
+	SliceSeconds  *int     `pulumi:"sliceSeconds"`
+}
+
+// FaucetFlagsInput is an input type that accepts FaucetFlagsArgs and FaucetFlagsOutput values.
+// You can construct a concrete instance of `FaucetFlagsInput` via:
+//
+//	FaucetFlagsArgs{...}
+type FaucetFlagsInput interface {
+	pulumi.Input
+
+	ToFaucetFlagsOutput() FaucetFlagsOutput
+	ToFaucetFlagsOutputWithContext(context.Context) FaucetFlagsOutput
+}
+
+type FaucetFlagsArgs struct {
+	AllowIPs      pulumi.StringArrayInput `pulumi:"allowIPs"`
+	PerRequestCap pulumi.IntPtrInput      `pulumi:"perRequestCap"`
+	PerTimeCap    pulumi.IntPtrInput      `pulumi:"perTimeCap"`
+	SliceSeconds  pulumi.IntPtrInput      `pulumi:"sliceSeconds"`
+}
+
+func (FaucetFlagsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FaucetFlags)(nil)).Elem()
+}
+
+func (i FaucetFlagsArgs) ToFaucetFlagsOutput() FaucetFlagsOutput {
+	return i.ToFaucetFlagsOutputWithContext(context.Background())
+}
+
+func (i FaucetFlagsArgs) ToFaucetFlagsOutputWithContext(ctx context.Context) FaucetFlagsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FaucetFlagsOutput)
+}
+
+type FaucetFlagsOutput struct{ *pulumi.OutputState }
+
+func (FaucetFlagsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FaucetFlags)(nil)).Elem()
+}
+
+func (o FaucetFlagsOutput) ToFaucetFlagsOutput() FaucetFlagsOutput {
+	return o
+}
+
+func (o FaucetFlagsOutput) ToFaucetFlagsOutputWithContext(ctx context.Context) FaucetFlagsOutput {
+	return o
+}
+
+func (o FaucetFlagsOutput) AllowIPs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FaucetFlags) []string { return v.AllowIPs }).(pulumi.StringArrayOutput)
+}
+
+func (o FaucetFlagsOutput) PerRequestCap() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v FaucetFlags) *int { return v.PerRequestCap }).(pulumi.IntPtrOutput)
+}
+
+func (o FaucetFlagsOutput) PerTimeCap() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v FaucetFlags) *int { return v.PerTimeCap }).(pulumi.IntPtrOutput)
+}
+
+func (o FaucetFlagsOutput) SliceSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v FaucetFlags) *int { return v.SliceSeconds }).(pulumi.IntPtrOutput)
+}
+
 type GenesisFlags struct {
 	ClusterType                *string  `pulumi:"clusterType"`
 	ExtraFlags                 []string `pulumi:"extraFlags"`
@@ -773,6 +840,7 @@ func (o VoteAccountKeyPairsOutput) VoteAccount() pulumi.StringOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentPtrInput)(nil)).Elem(), EnvironmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FaucetFlagsInput)(nil)).Elem(), FaucetFlagsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GenesisFlagsInput)(nil)).Elem(), GenesisFlagsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PrimorialEntryInput)(nil)).Elem(), PrimorialEntryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PrimorialEntryArrayInput)(nil)).Elem(), PrimorialEntryArray{})
@@ -783,6 +851,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*VoteAccountKeyPairsInput)(nil)).Elem(), VoteAccountKeyPairsArgs{})
 	pulumi.RegisterOutputType(EnvironmentOutput{})
 	pulumi.RegisterOutputType(EnvironmentPtrOutput{})
+	pulumi.RegisterOutputType(FaucetFlagsOutput{})
 	pulumi.RegisterOutputType(GenesisFlagsOutput{})
 	pulumi.RegisterOutputType(PrimorialEntryOutput{})
 	pulumi.RegisterOutputType(PrimorialEntryArrayOutput{})

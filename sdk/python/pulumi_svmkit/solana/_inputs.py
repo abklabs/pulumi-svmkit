@@ -17,6 +17,8 @@ from .. import _utilities
 __all__ = [
     'EnvironmentArgs',
     'EnvironmentArgsDict',
+    'FaucetFlagsArgs',
+    'FaucetFlagsArgsDict',
     'GenesisFlagsArgs',
     'GenesisFlagsArgsDict',
     'PrimorialEntryArgs',
@@ -53,6 +55,68 @@ class EnvironmentArgs:
     @rpc_url.setter
     def rpc_url(self, value: pulumi.Input[str]):
         pulumi.set(self, "rpc_url", value)
+
+
+if not MYPY:
+    class FaucetFlagsArgsDict(TypedDict):
+        allow_ips: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        per_request_cap: NotRequired[pulumi.Input[int]]
+        per_time_cap: NotRequired[pulumi.Input[int]]
+        slice_seconds: NotRequired[pulumi.Input[int]]
+elif False:
+    FaucetFlagsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class FaucetFlagsArgs:
+    def __init__(__self__, *,
+                 allow_ips: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 per_request_cap: Optional[pulumi.Input[int]] = None,
+                 per_time_cap: Optional[pulumi.Input[int]] = None,
+                 slice_seconds: Optional[pulumi.Input[int]] = None):
+        if allow_ips is not None:
+            pulumi.set(__self__, "allow_ips", allow_ips)
+        if per_request_cap is not None:
+            pulumi.set(__self__, "per_request_cap", per_request_cap)
+        if per_time_cap is not None:
+            pulumi.set(__self__, "per_time_cap", per_time_cap)
+        if slice_seconds is not None:
+            pulumi.set(__self__, "slice_seconds", slice_seconds)
+
+    @property
+    @pulumi.getter(name="allowIPs")
+    def allow_ips(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "allow_ips")
+
+    @allow_ips.setter
+    def allow_ips(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "allow_ips", value)
+
+    @property
+    @pulumi.getter(name="perRequestCap")
+    def per_request_cap(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "per_request_cap")
+
+    @per_request_cap.setter
+    def per_request_cap(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "per_request_cap", value)
+
+    @property
+    @pulumi.getter(name="perTimeCap")
+    def per_time_cap(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "per_time_cap")
+
+    @per_time_cap.setter
+    def per_time_cap(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "per_time_cap", value)
+
+    @property
+    @pulumi.getter(name="sliceSeconds")
+    def slice_seconds(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "slice_seconds")
+
+    @slice_seconds.setter
+    def slice_seconds(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "slice_seconds", value)
 
 
 if not MYPY:
