@@ -19,6 +19,7 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/validator"
+	"github.com/abklabs/pulumi-svmkit/pkg/faucet"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi-go-provider/middleware/schema"
@@ -70,6 +71,7 @@ func Provider() p.Provider {
 			infer.Resource[svm.KeyPair, svm.KeyPairArgs, svm.KeyPairState](),
 			infer.Resource[validator.Agave, validator.AgaveArgs, validator.AgaveState](),
 			infer.Resource[validator.Firedancer, validator.FiredancerArgs, validator.FiredancerState](),
+			infer.Resource[faucet.Faucet, faucet.FaucetArgs, faucet.FaucetState](),
 			infer.Resource[genesis.Solana, genesis.SolanaArgs, genesis.SolanaState](),
 			infer.Resource[account.VoteAccount, account.VoteAccountArgs, account.VoteAccountState](),
 			infer.Resource[account.StakeAccount, account.StakeAccountArgs, account.StakeAccountState](),
