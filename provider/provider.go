@@ -18,6 +18,7 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/account"
 	"github.com/abklabs/pulumi-svmkit/pkg/faucet"
 	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
+	"github.com/abklabs/pulumi-svmkit/pkg/networkinfo"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/validator"
 	p "github.com/pulumi/pulumi-go-provider"
@@ -76,6 +77,9 @@ func Provider() p.Provider {
 			infer.Resource[account.VoteAccount, account.VoteAccountArgs, account.VoteAccountState](),
 			infer.Resource[account.StakeAccount, account.StakeAccountArgs, account.StakeAccountState](),
 			infer.Resource[account.Transfer, account.TransferArgs, account.TransferState](),
+		},
+		Functions: []infer.InferredFunction{
+			infer.Function[networkinfo.GetNetworkInfo, networkinfo.GetNetworkInfoInput, networkinfo.GetNetworkInfoOutput](),
 		},
 		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
 			"svm": "index",
