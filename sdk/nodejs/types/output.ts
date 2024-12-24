@@ -283,17 +283,33 @@ export namespace solana {
     }
 
     export interface GenesisFlags {
+        bootstrapStakeAuthorizedPubkey?: string;
+        bootstrapValidatorLamports?: number;
+        bootstrapValidatorStakeLamports?: number;
         clusterType?: string;
+        creationTime?: string;
+        deactivateFeatures?: string[];
+        enableWarmupEpochs?: boolean;
         extraFlags?: string[];
-        faucetLamports?: string;
-        faucetPubkey: string;
+        faucetLamports?: number;
+        faucetPubkey?: string;
+        feeBurnPercentage?: number;
+        hashesPerTick?: string;
         identityPubkey: string;
         inflation?: string;
-        lamportsPerByteYear?: string;
+        lamportsPerByteYear?: number;
         ledgerPath: string;
-        slotPerEpoch?: string;
+        maxGenesisArchiveUnpackedSize?: number;
+        rentBurnPercentage?: number;
+        rentExemptionThreshold?: number;
+        slotPerEpoch?: number;
         stakePubkey: string;
-        targetLamportsPerSignature?: string;
+        targetLamportsPerSignature?: number;
+        targetSignaturesPerSlot?: number;
+        targetTickDuration?: number;
+        ticksPerSlot?: number;
+        url?: string;
+        voteCommissionPercentage?: number;
         votePubkey: string;
     }
 

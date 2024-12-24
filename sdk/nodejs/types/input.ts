@@ -281,17 +281,33 @@ export namespace solana {
     }
 
     export interface GenesisFlagsArgs {
+        bootstrapStakeAuthorizedPubkey?: pulumi.Input<string>;
+        bootstrapValidatorLamports?: pulumi.Input<number>;
+        bootstrapValidatorStakeLamports?: pulumi.Input<number>;
         clusterType?: pulumi.Input<string>;
+        creationTime?: pulumi.Input<string>;
+        deactivateFeatures?: pulumi.Input<pulumi.Input<string>[]>;
+        enableWarmupEpochs?: pulumi.Input<boolean>;
         extraFlags?: pulumi.Input<pulumi.Input<string>[]>;
-        faucetLamports?: pulumi.Input<string>;
-        faucetPubkey: pulumi.Input<string>;
+        faucetLamports?: pulumi.Input<number>;
+        faucetPubkey?: pulumi.Input<string>;
+        feeBurnPercentage?: pulumi.Input<number>;
+        hashesPerTick?: pulumi.Input<string>;
         identityPubkey: pulumi.Input<string>;
         inflation?: pulumi.Input<string>;
-        lamportsPerByteYear?: pulumi.Input<string>;
+        lamportsPerByteYear?: pulumi.Input<number>;
         ledgerPath: pulumi.Input<string>;
-        slotPerEpoch?: pulumi.Input<string>;
+        maxGenesisArchiveUnpackedSize?: pulumi.Input<number>;
+        rentBurnPercentage?: pulumi.Input<number>;
+        rentExemptionThreshold?: pulumi.Input<number>;
+        slotPerEpoch?: pulumi.Input<number>;
         stakePubkey: pulumi.Input<string>;
-        targetLamportsPerSignature?: pulumi.Input<string>;
+        targetLamportsPerSignature?: pulumi.Input<number>;
+        targetSignaturesPerSlot?: pulumi.Input<number>;
+        targetTickDuration?: pulumi.Input<number>;
+        ticksPerSlot?: pulumi.Input<number>;
+        url?: pulumi.Input<string>;
+        voteCommissionPercentage?: pulumi.Input<number>;
         votePubkey: pulumi.Input<string>;
     }
 

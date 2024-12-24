@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
 from .. import firedancer as _firedancer
+from .. import solana as _solana
 from .. import ssh as _ssh
 
 __all__ = ['FiredancerArgs', 'Firedancer']
@@ -23,13 +24,19 @@ class FiredancerArgs:
     def __init__(__self__, *,
                  config: pulumi.Input['_firedancer.ConfigArgs'],
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
-                 key_pairs: pulumi.Input['_firedancer.KeyPairsArgs']):
+                 key_pairs: pulumi.Input['_firedancer.KeyPairsArgs'],
+                 environment: Optional[pulumi.Input['_solana.EnvironmentArgs']] = None,
+                 version: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Firedancer resource.
         """
         pulumi.set(__self__, "config", config)
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "key_pairs", key_pairs)
+        if environment is not None:
+            pulumi.set(__self__, "environment", environment)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
 
     @property
     @pulumi.getter
@@ -58,6 +65,24 @@ class FiredancerArgs:
     def key_pairs(self, value: pulumi.Input['_firedancer.KeyPairsArgs']):
         pulumi.set(self, "key_pairs", value)
 
+    @property
+    @pulumi.getter
+    def environment(self) -> Optional[pulumi.Input['_solana.EnvironmentArgs']]:
+        return pulumi.get(self, "environment")
+
+    @environment.setter
+    def environment(self, value: Optional[pulumi.Input['_solana.EnvironmentArgs']]):
+        pulumi.set(self, "environment", value)
+
+    @property
+    @pulumi.getter
+    def version(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "version")
+
+    @version.setter
+    def version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "version", value)
+
 
 class Firedancer(pulumi.CustomResource):
     @overload
@@ -66,7 +91,9 @@ class Firedancer(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  config: Optional[pulumi.Input[Union['_firedancer.ConfigArgs', '_firedancer.ConfigArgsDict']]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_firedancer.KeyPairsArgs', '_firedancer.KeyPairsArgsDict']]] = None,
+                 version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         Create a Firedancer resource with the given unique name, props, and options.
@@ -98,7 +125,9 @@ class Firedancer(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  config: Optional[pulumi.Input[Union['_firedancer.ConfigArgs', '_firedancer.ConfigArgsDict']]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_firedancer.KeyPairsArgs', '_firedancer.KeyPairsArgsDict']]] = None,
+                 version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -114,9 +143,11 @@ class Firedancer(pulumi.CustomResource):
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
+            __props__.__dict__["environment"] = environment
             if key_pairs is None and not opts.urn:
                 raise TypeError("Missing required property 'key_pairs'")
             __props__.__dict__["key_pairs"] = key_pairs
+            __props__.__dict__["version"] = version
         super(Firedancer, __self__).__init__(
             'svmkit:validator:Firedancer',
             resource_name,
@@ -141,7 +172,9 @@ class Firedancer(pulumi.CustomResource):
 
         __props__.__dict__["config"] = None
         __props__.__dict__["connection"] = None
+        __props__.__dict__["environment"] = None
         __props__.__dict__["key_pairs"] = None
+        __props__.__dict__["version"] = None
         return Firedancer(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -155,7 +188,17 @@ class Firedancer(pulumi.CustomResource):
         return pulumi.get(self, "connection")
 
     @property
+    @pulumi.getter
+    def environment(self) -> pulumi.Output[Optional['_solana.outputs.Environment']]:
+        return pulumi.get(self, "environment")
+
+    @property
     @pulumi.getter(name="keyPairs")
     def key_pairs(self) -> pulumi.Output['_firedancer.outputs.KeyPairs']:
         return pulumi.get(self, "key_pairs")
+
+    @property
+    @pulumi.getter
+    def version(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "version")
 

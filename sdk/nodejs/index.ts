@@ -21,6 +21,8 @@ import * as account from "./account";
 import * as agave from "./agave";
 import * as faucet from "./faucet";
 import * as genesis from "./genesis";
+import * as networkinfo from "./networkinfo";
+import * as solana from "./solana";
 import * as types from "./types";
 import * as validator from "./validator";
 
@@ -29,6 +31,8 @@ export {
     agave,
     faucet,
     genesis,
+    networkinfo,
+    solana,
     types,
     validator,
 };

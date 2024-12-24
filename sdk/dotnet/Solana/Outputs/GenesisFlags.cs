@@ -14,56 +14,120 @@ namespace ABKLabs.Svmkit.Solana.Outputs
     [OutputType]
     public sealed class GenesisFlags
     {
+        public readonly string? BootstrapStakeAuthorizedPubkey;
+        public readonly int? BootstrapValidatorLamports;
+        public readonly int? BootstrapValidatorStakeLamports;
         public readonly string? ClusterType;
+        public readonly string? CreationTime;
+        public readonly ImmutableArray<string> DeactivateFeatures;
+        public readonly bool? EnableWarmupEpochs;
         public readonly ImmutableArray<string> ExtraFlags;
-        public readonly string? FaucetLamports;
-        public readonly string FaucetPubkey;
+        public readonly int? FaucetLamports;
+        public readonly string? FaucetPubkey;
+        public readonly int? FeeBurnPercentage;
+        public readonly string? HashesPerTick;
         public readonly string IdentityPubkey;
         public readonly string? Inflation;
-        public readonly string? LamportsPerByteYear;
+        public readonly int? LamportsPerByteYear;
         public readonly string LedgerPath;
-        public readonly string? SlotPerEpoch;
+        public readonly int? MaxGenesisArchiveUnpackedSize;
+        public readonly int? RentBurnPercentage;
+        public readonly int? RentExemptionThreshold;
+        public readonly int? SlotPerEpoch;
         public readonly string StakePubkey;
-        public readonly string? TargetLamportsPerSignature;
+        public readonly int? TargetLamportsPerSignature;
+        public readonly int? TargetSignaturesPerSlot;
+        public readonly int? TargetTickDuration;
+        public readonly int? TicksPerSlot;
+        public readonly string? Url;
+        public readonly int? VoteCommissionPercentage;
         public readonly string VotePubkey;
 
         [OutputConstructor]
         private GenesisFlags(
+            string? bootstrapStakeAuthorizedPubkey,
+
+            int? bootstrapValidatorLamports,
+
+            int? bootstrapValidatorStakeLamports,
+
             string? clusterType,
+
+            string? creationTime,
+
+            ImmutableArray<string> deactivateFeatures,
+
+            bool? enableWarmupEpochs,
 
             ImmutableArray<string> extraFlags,
 
-            string? faucetLamports,
+            int? faucetLamports,
 
-            string faucetPubkey,
+            string? faucetPubkey,
+
+            int? feeBurnPercentage,
+
+            string? hashesPerTick,
 
             string identityPubkey,
 
             string? inflation,
 
-            string? lamportsPerByteYear,
+            int? lamportsPerByteYear,
 
             string ledgerPath,
 
-            string? slotPerEpoch,
+            int? maxGenesisArchiveUnpackedSize,
+
+            int? rentBurnPercentage,
+
+            int? rentExemptionThreshold,
+
+            int? slotPerEpoch,
 
             string stakePubkey,
 
-            string? targetLamportsPerSignature,
+            int? targetLamportsPerSignature,
+
+            int? targetSignaturesPerSlot,
+
+            int? targetTickDuration,
+
+            int? ticksPerSlot,
+
+            string? url,
+
+            int? voteCommissionPercentage,
 
             string votePubkey)
         {
+            BootstrapStakeAuthorizedPubkey = bootstrapStakeAuthorizedPubkey;
+            BootstrapValidatorLamports = bootstrapValidatorLamports;
+            BootstrapValidatorStakeLamports = bootstrapValidatorStakeLamports;
             ClusterType = clusterType;
+            CreationTime = creationTime;
+            DeactivateFeatures = deactivateFeatures;
+            EnableWarmupEpochs = enableWarmupEpochs;
             ExtraFlags = extraFlags;
             FaucetLamports = faucetLamports;
             FaucetPubkey = faucetPubkey;
+            FeeBurnPercentage = feeBurnPercentage;
+            HashesPerTick = hashesPerTick;
             IdentityPubkey = identityPubkey;
             Inflation = inflation;
             LamportsPerByteYear = lamportsPerByteYear;
             LedgerPath = ledgerPath;
+            MaxGenesisArchiveUnpackedSize = maxGenesisArchiveUnpackedSize;
+            RentBurnPercentage = rentBurnPercentage;
+            RentExemptionThreshold = rentExemptionThreshold;
             SlotPerEpoch = slotPerEpoch;
             StakePubkey = stakePubkey;
             TargetLamportsPerSignature = targetLamportsPerSignature;
+            TargetSignaturesPerSlot = targetSignaturesPerSlot;
+            TargetTickDuration = targetTickDuration;
+            TicksPerSlot = ticksPerSlot;
+            Url = url;
+            VoteCommissionPercentage = voteCommissionPercentage;
             VotePubkey = votePubkey;
         }
     }

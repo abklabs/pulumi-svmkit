@@ -36,7 +36,9 @@ export class Firedancer extends pulumi.CustomResource {
 
     public readonly config!: pulumi.Output<outputs.firedancer.Config>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
+    public readonly environment!: pulumi.Output<outputs.solana.Environment | undefined>;
     public readonly keyPairs!: pulumi.Output<outputs.firedancer.KeyPairs>;
+    public readonly version!: pulumi.Output<string | undefined>;
 
     /**
      * Create a Firedancer resource with the given unique name, arguments, and options.
@@ -60,11 +62,15 @@ export class Firedancer extends pulumi.CustomResource {
             }
             resourceInputs["config"] = args ? args.config : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
+            resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
+            resourceInputs["version"] = args ? args.version : undefined;
         } else {
             resourceInputs["config"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
+            resourceInputs["environment"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
+            resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Firedancer.__pulumiType, name, resourceInputs, opts);
@@ -77,5 +83,7 @@ export class Firedancer extends pulumi.CustomResource {
 export interface FiredancerArgs {
     config: pulumi.Input<inputs.firedancer.ConfigArgs>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
+    environment?: pulumi.Input<inputs.solana.EnvironmentArgs>;
     keyPairs: pulumi.Input<inputs.firedancer.KeyPairsArgs>;
+    version?: pulumi.Input<string>;
 }

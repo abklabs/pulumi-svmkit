@@ -214,18 +214,34 @@ func (o FaucetFlagsOutput) SliceSeconds() pulumi.IntPtrOutput {
 }
 
 type GenesisFlags struct {
-	ClusterType                *string  `pulumi:"clusterType"`
-	ExtraFlags                 []string `pulumi:"extraFlags"`
-	FaucetLamports             *string  `pulumi:"faucetLamports"`
-	FaucetPubkey               string   `pulumi:"faucetPubkey"`
-	IdentityPubkey             string   `pulumi:"identityPubkey"`
-	Inflation                  *string  `pulumi:"inflation"`
-	LamportsPerByteYear        *string  `pulumi:"lamportsPerByteYear"`
-	LedgerPath                 string   `pulumi:"ledgerPath"`
-	SlotPerEpoch               *string  `pulumi:"slotPerEpoch"`
-	StakePubkey                string   `pulumi:"stakePubkey"`
-	TargetLamportsPerSignature *string  `pulumi:"targetLamportsPerSignature"`
-	VotePubkey                 string   `pulumi:"votePubkey"`
+	BootstrapStakeAuthorizedPubkey  *string  `pulumi:"bootstrapStakeAuthorizedPubkey"`
+	BootstrapValidatorLamports      *int     `pulumi:"bootstrapValidatorLamports"`
+	BootstrapValidatorStakeLamports *int     `pulumi:"bootstrapValidatorStakeLamports"`
+	ClusterType                     *string  `pulumi:"clusterType"`
+	CreationTime                    *string  `pulumi:"creationTime"`
+	DeactivateFeatures              []string `pulumi:"deactivateFeatures"`
+	EnableWarmupEpochs              *bool    `pulumi:"enableWarmupEpochs"`
+	ExtraFlags                      []string `pulumi:"extraFlags"`
+	FaucetLamports                  *int     `pulumi:"faucetLamports"`
+	FaucetPubkey                    *string  `pulumi:"faucetPubkey"`
+	FeeBurnPercentage               *int     `pulumi:"feeBurnPercentage"`
+	HashesPerTick                   *string  `pulumi:"hashesPerTick"`
+	IdentityPubkey                  string   `pulumi:"identityPubkey"`
+	Inflation                       *string  `pulumi:"inflation"`
+	LamportsPerByteYear             *int     `pulumi:"lamportsPerByteYear"`
+	LedgerPath                      string   `pulumi:"ledgerPath"`
+	MaxGenesisArchiveUnpackedSize   *int     `pulumi:"maxGenesisArchiveUnpackedSize"`
+	RentBurnPercentage              *int     `pulumi:"rentBurnPercentage"`
+	RentExemptionThreshold          *int     `pulumi:"rentExemptionThreshold"`
+	SlotPerEpoch                    *int     `pulumi:"slotPerEpoch"`
+	StakePubkey                     string   `pulumi:"stakePubkey"`
+	TargetLamportsPerSignature      *int     `pulumi:"targetLamportsPerSignature"`
+	TargetSignaturesPerSlot         *int     `pulumi:"targetSignaturesPerSlot"`
+	TargetTickDuration              *int     `pulumi:"targetTickDuration"`
+	TicksPerSlot                    *int     `pulumi:"ticksPerSlot"`
+	Url                             *string  `pulumi:"url"`
+	VoteCommissionPercentage        *int     `pulumi:"voteCommissionPercentage"`
+	VotePubkey                      string   `pulumi:"votePubkey"`
 }
 
 // GenesisFlagsInput is an input type that accepts GenesisFlagsArgs and GenesisFlagsOutput values.
@@ -240,18 +256,34 @@ type GenesisFlagsInput interface {
 }
 
 type GenesisFlagsArgs struct {
-	ClusterType                pulumi.StringPtrInput   `pulumi:"clusterType"`
-	ExtraFlags                 pulumi.StringArrayInput `pulumi:"extraFlags"`
-	FaucetLamports             pulumi.StringPtrInput   `pulumi:"faucetLamports"`
-	FaucetPubkey               pulumi.StringInput      `pulumi:"faucetPubkey"`
-	IdentityPubkey             pulumi.StringInput      `pulumi:"identityPubkey"`
-	Inflation                  pulumi.StringPtrInput   `pulumi:"inflation"`
-	LamportsPerByteYear        pulumi.StringPtrInput   `pulumi:"lamportsPerByteYear"`
-	LedgerPath                 pulumi.StringInput      `pulumi:"ledgerPath"`
-	SlotPerEpoch               pulumi.StringPtrInput   `pulumi:"slotPerEpoch"`
-	StakePubkey                pulumi.StringInput      `pulumi:"stakePubkey"`
-	TargetLamportsPerSignature pulumi.StringPtrInput   `pulumi:"targetLamportsPerSignature"`
-	VotePubkey                 pulumi.StringInput      `pulumi:"votePubkey"`
+	BootstrapStakeAuthorizedPubkey  pulumi.StringPtrInput   `pulumi:"bootstrapStakeAuthorizedPubkey"`
+	BootstrapValidatorLamports      pulumi.IntPtrInput      `pulumi:"bootstrapValidatorLamports"`
+	BootstrapValidatorStakeLamports pulumi.IntPtrInput      `pulumi:"bootstrapValidatorStakeLamports"`
+	ClusterType                     pulumi.StringPtrInput   `pulumi:"clusterType"`
+	CreationTime                    pulumi.StringPtrInput   `pulumi:"creationTime"`
+	DeactivateFeatures              pulumi.StringArrayInput `pulumi:"deactivateFeatures"`
+	EnableWarmupEpochs              pulumi.BoolPtrInput     `pulumi:"enableWarmupEpochs"`
+	ExtraFlags                      pulumi.StringArrayInput `pulumi:"extraFlags"`
+	FaucetLamports                  pulumi.IntPtrInput      `pulumi:"faucetLamports"`
+	FaucetPubkey                    pulumi.StringPtrInput   `pulumi:"faucetPubkey"`
+	FeeBurnPercentage               pulumi.IntPtrInput      `pulumi:"feeBurnPercentage"`
+	HashesPerTick                   pulumi.StringPtrInput   `pulumi:"hashesPerTick"`
+	IdentityPubkey                  pulumi.StringInput      `pulumi:"identityPubkey"`
+	Inflation                       pulumi.StringPtrInput   `pulumi:"inflation"`
+	LamportsPerByteYear             pulumi.IntPtrInput      `pulumi:"lamportsPerByteYear"`
+	LedgerPath                      pulumi.StringInput      `pulumi:"ledgerPath"`
+	MaxGenesisArchiveUnpackedSize   pulumi.IntPtrInput      `pulumi:"maxGenesisArchiveUnpackedSize"`
+	RentBurnPercentage              pulumi.IntPtrInput      `pulumi:"rentBurnPercentage"`
+	RentExemptionThreshold          pulumi.IntPtrInput      `pulumi:"rentExemptionThreshold"`
+	SlotPerEpoch                    pulumi.IntPtrInput      `pulumi:"slotPerEpoch"`
+	StakePubkey                     pulumi.StringInput      `pulumi:"stakePubkey"`
+	TargetLamportsPerSignature      pulumi.IntPtrInput      `pulumi:"targetLamportsPerSignature"`
+	TargetSignaturesPerSlot         pulumi.IntPtrInput      `pulumi:"targetSignaturesPerSlot"`
+	TargetTickDuration              pulumi.IntPtrInput      `pulumi:"targetTickDuration"`
+	TicksPerSlot                    pulumi.IntPtrInput      `pulumi:"ticksPerSlot"`
+	Url                             pulumi.StringPtrInput   `pulumi:"url"`
+	VoteCommissionPercentage        pulumi.IntPtrInput      `pulumi:"voteCommissionPercentage"`
+	VotePubkey                      pulumi.StringInput      `pulumi:"votePubkey"`
 }
 
 func (GenesisFlagsArgs) ElementType() reflect.Type {
@@ -280,20 +312,52 @@ func (o GenesisFlagsOutput) ToGenesisFlagsOutputWithContext(ctx context.Context)
 	return o
 }
 
+func (o GenesisFlagsOutput) BootstrapStakeAuthorizedPubkey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *string { return v.BootstrapStakeAuthorizedPubkey }).(pulumi.StringPtrOutput)
+}
+
+func (o GenesisFlagsOutput) BootstrapValidatorLamports() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.BootstrapValidatorLamports }).(pulumi.IntPtrOutput)
+}
+
+func (o GenesisFlagsOutput) BootstrapValidatorStakeLamports() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.BootstrapValidatorStakeLamports }).(pulumi.IntPtrOutput)
+}
+
 func (o GenesisFlagsOutput) ClusterType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *string { return v.ClusterType }).(pulumi.StringPtrOutput)
+}
+
+func (o GenesisFlagsOutput) CreationTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *string { return v.CreationTime }).(pulumi.StringPtrOutput)
+}
+
+func (o GenesisFlagsOutput) DeactivateFeatures() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GenesisFlags) []string { return v.DeactivateFeatures }).(pulumi.StringArrayOutput)
+}
+
+func (o GenesisFlagsOutput) EnableWarmupEpochs() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *bool { return v.EnableWarmupEpochs }).(pulumi.BoolPtrOutput)
 }
 
 func (o GenesisFlagsOutput) ExtraFlags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GenesisFlags) []string { return v.ExtraFlags }).(pulumi.StringArrayOutput)
 }
 
-func (o GenesisFlagsOutput) FaucetLamports() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GenesisFlags) *string { return v.FaucetLamports }).(pulumi.StringPtrOutput)
+func (o GenesisFlagsOutput) FaucetLamports() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.FaucetLamports }).(pulumi.IntPtrOutput)
 }
 
-func (o GenesisFlagsOutput) FaucetPubkey() pulumi.StringOutput {
-	return o.ApplyT(func(v GenesisFlags) string { return v.FaucetPubkey }).(pulumi.StringOutput)
+func (o GenesisFlagsOutput) FaucetPubkey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *string { return v.FaucetPubkey }).(pulumi.StringPtrOutput)
+}
+
+func (o GenesisFlagsOutput) FeeBurnPercentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.FeeBurnPercentage }).(pulumi.IntPtrOutput)
+}
+
+func (o GenesisFlagsOutput) HashesPerTick() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *string { return v.HashesPerTick }).(pulumi.StringPtrOutput)
 }
 
 func (o GenesisFlagsOutput) IdentityPubkey() pulumi.StringOutput {
@@ -304,24 +368,56 @@ func (o GenesisFlagsOutput) Inflation() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *string { return v.Inflation }).(pulumi.StringPtrOutput)
 }
 
-func (o GenesisFlagsOutput) LamportsPerByteYear() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GenesisFlags) *string { return v.LamportsPerByteYear }).(pulumi.StringPtrOutput)
+func (o GenesisFlagsOutput) LamportsPerByteYear() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.LamportsPerByteYear }).(pulumi.IntPtrOutput)
 }
 
 func (o GenesisFlagsOutput) LedgerPath() pulumi.StringOutput {
 	return o.ApplyT(func(v GenesisFlags) string { return v.LedgerPath }).(pulumi.StringOutput)
 }
 
-func (o GenesisFlagsOutput) SlotPerEpoch() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GenesisFlags) *string { return v.SlotPerEpoch }).(pulumi.StringPtrOutput)
+func (o GenesisFlagsOutput) MaxGenesisArchiveUnpackedSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.MaxGenesisArchiveUnpackedSize }).(pulumi.IntPtrOutput)
+}
+
+func (o GenesisFlagsOutput) RentBurnPercentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.RentBurnPercentage }).(pulumi.IntPtrOutput)
+}
+
+func (o GenesisFlagsOutput) RentExemptionThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.RentExemptionThreshold }).(pulumi.IntPtrOutput)
+}
+
+func (o GenesisFlagsOutput) SlotPerEpoch() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.SlotPerEpoch }).(pulumi.IntPtrOutput)
 }
 
 func (o GenesisFlagsOutput) StakePubkey() pulumi.StringOutput {
 	return o.ApplyT(func(v GenesisFlags) string { return v.StakePubkey }).(pulumi.StringOutput)
 }
 
-func (o GenesisFlagsOutput) TargetLamportsPerSignature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GenesisFlags) *string { return v.TargetLamportsPerSignature }).(pulumi.StringPtrOutput)
+func (o GenesisFlagsOutput) TargetLamportsPerSignature() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.TargetLamportsPerSignature }).(pulumi.IntPtrOutput)
+}
+
+func (o GenesisFlagsOutput) TargetSignaturesPerSlot() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.TargetSignaturesPerSlot }).(pulumi.IntPtrOutput)
+}
+
+func (o GenesisFlagsOutput) TargetTickDuration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.TargetTickDuration }).(pulumi.IntPtrOutput)
+}
+
+func (o GenesisFlagsOutput) TicksPerSlot() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.TicksPerSlot }).(pulumi.IntPtrOutput)
+}
+
+func (o GenesisFlagsOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+func (o GenesisFlagsOutput) VoteCommissionPercentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.VoteCommissionPercentage }).(pulumi.IntPtrOutput)
 }
 
 func (o GenesisFlagsOutput) VotePubkey() pulumi.StringOutput {

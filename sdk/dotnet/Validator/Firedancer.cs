@@ -19,8 +19,14 @@ namespace ABKLabs.Svmkit.Validator
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
+        [Output("environment")]
+        public Output<ABKLabs.Svmkit.Solana.Outputs.Environment?> Environment { get; private set; } = null!;
+
         [Output("keyPairs")]
         public Output<ABKLabs.Svmkit.Firedancer.Outputs.KeyPairs> KeyPairs { get; private set; } = null!;
+
+        [Output("version")]
+        public Output<string?> Version { get; private set; } = null!;
 
 
         /// <summary>
@@ -74,8 +80,14 @@ namespace ABKLabs.Svmkit.Validator
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 
+        [Input("environment")]
+        public Input<ABKLabs.Svmkit.Solana.Inputs.EnvironmentArgs>? Environment { get; set; }
+
         [Input("keyPairs", required: true)]
         public Input<ABKLabs.Svmkit.Firedancer.Inputs.KeyPairsArgs> KeyPairs { get; set; } = null!;
+
+        [Input("version")]
+        public Input<string>? Version { get; set; }
 
         public FiredancerArgs()
         {
