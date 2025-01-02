@@ -1,0 +1,12 @@
+name: aws-solana-explorer-python
+description: An Solana Explorer deployed on AWS using Python
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+    typechecker: pyright
+plugins:
+  providers:
+    - name: svmkit
+      path: ../../bin
