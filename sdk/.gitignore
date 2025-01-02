@@ -1,2 +1,4 @@
+python/bin
+nodejs/bin
+dotnet/bin
 dotnet/obj
-
