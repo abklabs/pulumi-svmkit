@@ -275,6 +275,12 @@ export namespace solana {
         rpcURL: string;
     }
 
+    export interface ExplorerFlags {
+        hostname?: string;
+        keepAliveTimeout?: number;
+        port?: number;
+    }
+
     export interface FaucetFlags {
         allowIPs?: string[];
         perRequestCap?: number;

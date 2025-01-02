@@ -18,6 +18,8 @@
         "account/transfer.ts",
         "account/voteAccount.ts",
         "agave/index.ts",
+        "explorer/explorer.ts",
+        "explorer/index.ts",
         "faucet/faucet.ts",
         "faucet/index.ts",
         "genesis/index.ts",

@@ -17,6 +17,7 @@ from ._enums import *
 
 __all__ = [
     'Environment',
+    'ExplorerFlags',
     'FaucetFlags',
     'GenesisFlags',
     'PrimorialEntry',
@@ -53,6 +54,52 @@ class Environment(dict):
     @pulumi.getter(name="rpcURL")
     def rpc_url(self) -> str:
         return pulumi.get(self, "rpc_url")
+
+
+@pulumi.output_type
+class ExplorerFlags(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "keepAliveTimeout":
+            suggest = "keep_alive_timeout"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ExplorerFlags. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ExplorerFlags.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ExplorerFlags.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hostname: Optional[str] = None,
+                 keep_alive_timeout: Optional[int] = None,
+                 port: Optional[int] = None):
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
+        if keep_alive_timeout is not None:
+            pulumi.set(__self__, "keep_alive_timeout", keep_alive_timeout)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> Optional[str]:
+        return pulumi.get(self, "hostname")
+
+    @property
+    @pulumi.getter(name="keepAliveTimeout")
+    def keep_alive_timeout(self) -> Optional[int]:
+        return pulumi.get(self, "keep_alive_timeout")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
+        return pulumi.get(self, "port")
 
 
 @pulumi.output_type

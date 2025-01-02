@@ -146,6 +146,67 @@ func (o EnvironmentPtrOutput) RpcURL() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type ExplorerFlags struct {
+	Hostname         *string `pulumi:"hostname"`
+	KeepAliveTimeout *int    `pulumi:"keepAliveTimeout"`
+	Port             *int    `pulumi:"port"`
+}
+
+// ExplorerFlagsInput is an input type that accepts ExplorerFlagsArgs and ExplorerFlagsOutput values.
+// You can construct a concrete instance of `ExplorerFlagsInput` via:
+//
+//	ExplorerFlagsArgs{...}
+type ExplorerFlagsInput interface {
+	pulumi.Input
+
+	ToExplorerFlagsOutput() ExplorerFlagsOutput
+	ToExplorerFlagsOutputWithContext(context.Context) ExplorerFlagsOutput
+}
+
+type ExplorerFlagsArgs struct {
+	Hostname         pulumi.StringPtrInput `pulumi:"hostname"`
+	KeepAliveTimeout pulumi.IntPtrInput    `pulumi:"keepAliveTimeout"`
+	Port             pulumi.IntPtrInput    `pulumi:"port"`
+}
+
+func (ExplorerFlagsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExplorerFlags)(nil)).Elem()
+}
+
+func (i ExplorerFlagsArgs) ToExplorerFlagsOutput() ExplorerFlagsOutput {
+	return i.ToExplorerFlagsOutputWithContext(context.Background())
+}
+
+func (i ExplorerFlagsArgs) ToExplorerFlagsOutputWithContext(ctx context.Context) ExplorerFlagsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExplorerFlagsOutput)
+}
+
+type ExplorerFlagsOutput struct{ *pulumi.OutputState }
+
+func (ExplorerFlagsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExplorerFlags)(nil)).Elem()
+}
+
+func (o ExplorerFlagsOutput) ToExplorerFlagsOutput() ExplorerFlagsOutput {
+	return o
+}
+
+func (o ExplorerFlagsOutput) ToExplorerFlagsOutputWithContext(ctx context.Context) ExplorerFlagsOutput {
+	return o
+}
+
+func (o ExplorerFlagsOutput) Hostname() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ExplorerFlags) *string { return v.Hostname }).(pulumi.StringPtrOutput)
+}
+
+func (o ExplorerFlagsOutput) KeepAliveTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ExplorerFlags) *int { return v.KeepAliveTimeout }).(pulumi.IntPtrOutput)
+}
+
+func (o ExplorerFlagsOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ExplorerFlags) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
 type FaucetFlags struct {
 	AllowIPs      []string `pulumi:"allowIPs"`
 	PerRequestCap *int     `pulumi:"perRequestCap"`
@@ -936,6 +997,7 @@ func (o VoteAccountKeyPairsOutput) VoteAccount() pulumi.StringOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentPtrInput)(nil)).Elem(), EnvironmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExplorerFlagsInput)(nil)).Elem(), ExplorerFlagsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FaucetFlagsInput)(nil)).Elem(), FaucetFlagsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GenesisFlagsInput)(nil)).Elem(), GenesisFlagsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PrimorialEntryInput)(nil)).Elem(), PrimorialEntryArgs{})
@@ -947,6 +1009,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*VoteAccountKeyPairsInput)(nil)).Elem(), VoteAccountKeyPairsArgs{})
 	pulumi.RegisterOutputType(EnvironmentOutput{})
 	pulumi.RegisterOutputType(EnvironmentPtrOutput{})
+	pulumi.RegisterOutputType(ExplorerFlagsOutput{})
 	pulumi.RegisterOutputType(FaucetFlagsOutput{})
 	pulumi.RegisterOutputType(GenesisFlagsOutput{})
 	pulumi.RegisterOutputType(PrimorialEntryOutput{})

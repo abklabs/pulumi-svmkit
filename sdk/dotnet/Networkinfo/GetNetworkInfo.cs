@@ -17,9 +17,6 @@ namespace ABKLabs.Svmkit.Networkinfo
 
         public static Output<GetNetworkInfoResult> Invoke(GetNetworkInfoInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetNetworkInfoResult>("svmkit:networkinfo:getNetworkInfo", args ?? new GetNetworkInfoInvokeArgs(), options.WithDefaults());
-
-        public static Output<GetNetworkInfoResult> Invoke(GetNetworkInfoInvokeArgs args, InvokeOutputOptions options)
-            => global::Pulumi.Deployment.Instance.Invoke<GetNetworkInfoResult>("svmkit:networkinfo:getNetworkInfo", args ?? new GetNetworkInfoInvokeArgs(), options.WithDefaults());
     }
 
 

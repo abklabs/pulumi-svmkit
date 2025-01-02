@@ -19,6 +19,7 @@ utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 // Export sub-modules:
 import * as account from "./account";
 import * as agave from "./agave";
+import * as explorer from "./explorer";
 import * as faucet from "./faucet";
 import * as genesis from "./genesis";
 import * as networkinfo from "./networkinfo";
@@ -29,6 +30,7 @@ import * as validator from "./validator";
 export {
     account,
     agave,
+    explorer,
     faucet,
     genesis,
     networkinfo,

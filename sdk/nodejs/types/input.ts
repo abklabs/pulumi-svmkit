@@ -273,6 +273,12 @@ export namespace solana {
         rpcURL: pulumi.Input<string>;
     }
 
+    export interface ExplorerFlagsArgs {
+        hostname?: pulumi.Input<string>;
+        keepAliveTimeout?: pulumi.Input<number>;
+        port?: pulumi.Input<number>;
+    }
+
     export interface FaucetFlagsArgs {
         allowIPs?: pulumi.Input<pulumi.Input<string>[]>;
         perRequestCap?: pulumi.Input<number>;

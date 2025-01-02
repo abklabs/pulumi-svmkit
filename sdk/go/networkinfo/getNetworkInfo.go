@@ -35,11 +35,21 @@ type GetNetworkInfoResult struct {
 }
 
 func GetNetworkInfoOutput(ctx *pulumi.Context, args GetNetworkInfoOutputArgs, opts ...pulumi.InvokeOption) GetNetworkInfoResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
+	return pulumi.ToOutputWithContext(context.Background(), args).
 		ApplyT(func(v interface{}) (GetNetworkInfoResultOutput, error) {
 			args := v.(GetNetworkInfoArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("svmkit:networkinfo:getNetworkInfo", args, GetNetworkInfoResultOutput{}, options).(GetNetworkInfoResultOutput), nil
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetNetworkInfoResult
+			secret, err := ctx.InvokePackageRaw("svmkit:networkinfo:getNetworkInfo", args, &rv, "", opts...)
+			if err != nil {
+				return GetNetworkInfoResultOutput{}, err
+			}
+
+			output := pulumi.ToOutput(rv).(GetNetworkInfoResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetNetworkInfoResultOutput), nil
+			}
+			return output, nil
 		}).(GetNetworkInfoResultOutput)
 }
 
