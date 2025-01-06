@@ -193,9 +193,10 @@ mount -a
 		if err != nil {
 			return err
 		}
-
-		ctx.Export("PUBLIC_DNS_NAME", instance.PublicDns)
-		ctx.Export("SSH_PRIVATE_KEY", sshKey.PrivateKeyOpenssh)
+		
+		ctx.Export("nodes_name", pulumi.StringArray{pulumi.String("instance")})
+		ctx.Export("nodes_public_ip", pulumi.StringArray{instance.PublicIp})
+		ctx.Export("nodes_private_key", pulumi.StringArray{sshKey.PrivateKeyOpenssh})
 
 		return nil
 	})
