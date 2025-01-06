@@ -71,7 +71,9 @@ const securityGroup = new aws.ec2.SecurityGroup("security-group", {
     ],
 });
 
-const instance = new aws.ec2.Instance("instance", {
+const instanceName = "instance";
+
+const instance = new aws.ec2.Instance(instanceName, {
     ami,
     instanceType: nodeConfig.get("instanceType") ?? "r7a.8xlarge",
     keyName: keyPair.keyName,
@@ -156,12 +158,13 @@ new svmkit.validator.Firedancer(
     },
 );
 
+export const nodes_name = [instanceName];
+export const nodes_public_ip = [instance.publicIp];
+export const nodes_private_key = [sshKey.privateKeyOpenssh];
+
 export const username = connection.user;
 export const ipAddress = connection.host;
 export const sshPrivateKey = connection.privateKey;
 
 export const validatorPublicKey = validatorKey.publicKey;
 export const voteAccountPublicKey = voteAccountKey.publicKey;
-
-export const PUBLIC_DNS_NAME = instance.publicDns;
-export const SSH_PRIVATE_KEY = sshKey.privateKeyOpenssh;

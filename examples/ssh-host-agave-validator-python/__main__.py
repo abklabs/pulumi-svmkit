@@ -53,9 +53,9 @@ svmkit.validator.Agave(
     }
 )
 
-pulumi.export("PUBLIC_DNS_NAME",
-              pulumi.Output.format(connection["host"]))
-
+pulumi.export("nodes_name", ["instance"])
+pulumi.export("nodes_public_ip",
+              [pulumi.Output.format(connection["host"])])
 if "private_key" in connection:
-    pulumi.export("SSH_PRIVATE_KEY",
-                  pulumi.Output.format(connection["private_key"]))
+    pulumi.export("nodes_private_key",
+                    [pulumi.Output.format(connection["private_key"])])

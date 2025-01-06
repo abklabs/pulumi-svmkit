@@ -78,5 +78,6 @@ svmkit.faucet.Faucet(
     opts=pulumi.ResourceOptions(depends_on=[instance])
 )
 
-pulumi.export("PUBLIC_DNS_NAME", instance.public_dns)
-pulumi.export("SSH_PRIVATE_KEY", ssh_key.private_key_openssh)
+pulumi.export("nodes_name", ["instance"])
+pulumi.export("nodes_public_ip", [instance.public_ip])
+pulumi.export("nodes_private_key", [ssh_key.private_key_openssh])
