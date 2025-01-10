@@ -150,7 +150,7 @@ github.com/pulumi/pulumi-aws/sdk/v6 v6.56.1 h1:wA38Ep4sEphX+3YGwFfaxRHs7NQv8dNOb
 github.com/pulumi/pulumi-aws/sdk/v6 v6.56.1/go.mod h1:m/ejZ2INurqq/ncDjJfgC1Ff/lnbt0J/uO33BnPVots=
 github.com/pulumi/pulumi-tls/sdk/v5 v5.0.9 h1:JH5TkGJDwlTqKdSJxd49DfrJOpVkRyGDvgKS9gwcV9U=
 github.com/pulumi/pulumi-tls/sdk/v5 v5.0.9/go.mod h1:3B+v+HC4bjAYf1mVxRVL/bDY20+VEMwfxRKgc3oeCrs=
-github.com/pulumi/pulumi/sdk/v3 v3.144.1 h1:QQtCDERihhlfvcmRzqHeBmOER1Fg1VkFj9933Lxqv00=
+github.com/pulumi/pulumi/sdk/v3 v3.145.0 h1:r5iOgz67RElFXJt4GVVY2SBGh5sR24mL9NOcKBiBi/k=
 github.com/rivo/uniseg v0.1.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.4.4 h1:8TfxU8dW6PdqD27gjM8MVNuicgxIjxpm4K7x4jp8sis=
