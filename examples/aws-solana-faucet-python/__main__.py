@@ -71,7 +71,7 @@ svmkit.faucet.Faucet(
         "private_key": ssh_key.private_key_openssh
     },
     version="1.18.24-1",
-    keypair: faucet_key.json,
+    keypair=faucet_key.json,
     flags={
         "per_request_cap": 10,
     },
