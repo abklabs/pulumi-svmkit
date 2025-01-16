@@ -34,9 +34,13 @@ export class Explorer extends pulumi.CustomResource {
         return obj['__pulumiType'] === Explorer.__pulumiType;
     }
 
+    public readonly RPCURL!: pulumi.Output<string | undefined>;
+    public readonly clusterName!: pulumi.Output<string | undefined>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly environment!: pulumi.Output<outputs.solana.Environment>;
     public readonly flags!: pulumi.Output<outputs.solana.ExplorerFlags>;
+    public readonly name!: pulumi.Output<string | undefined>;
+    public readonly symbol!: pulumi.Output<string | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
     /**
@@ -59,14 +63,22 @@ export class Explorer extends pulumi.CustomResource {
             if ((!args || args.flags === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'flags'");
             }
+            resourceInputs["RPCURL"] = args ? args.RPCURL : undefined;
+            resourceInputs["clusterName"] = args ? args.clusterName : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
+            resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["symbol"] = args ? args.symbol : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
         } else {
+            resourceInputs["RPCURL"] = undefined /*out*/;
+            resourceInputs["clusterName"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["environment"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
+            resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["symbol"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -78,8 +90,12 @@ export class Explorer extends pulumi.CustomResource {
  * The set of arguments for constructing a Explorer resource.
  */
 export interface ExplorerArgs {
+    RPCURL?: pulumi.Input<string>;
+    clusterName?: pulumi.Input<string>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     environment: pulumi.Input<inputs.solana.EnvironmentArgs>;
     flags: pulumi.Input<inputs.solana.ExplorerFlagsArgs>;
+    name?: pulumi.Input<string>;
+    symbol?: pulumi.Input<string>;
     version?: pulumi.Input<string>;
 }

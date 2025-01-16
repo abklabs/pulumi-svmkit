@@ -17,9 +17,13 @@ import (
 type Explorer struct {
 	pulumi.CustomResourceState
 
+	RPCURL      pulumi.StringPtrOutput     `pulumi:"RPCURL"`
+	ClusterName pulumi.StringPtrOutput     `pulumi:"clusterName"`
 	Connection  ssh.ConnectionOutput       `pulumi:"connection"`
 	Environment solana.EnvironmentOutput   `pulumi:"environment"`
 	Flags       solana.ExplorerFlagsOutput `pulumi:"flags"`
+	Name        pulumi.StringPtrOutput     `pulumi:"name"`
+	Symbol      pulumi.StringPtrOutput     `pulumi:"symbol"`
 	Version     pulumi.StringPtrOutput     `pulumi:"version"`
 }
 
@@ -73,17 +77,25 @@ func (ExplorerState) ElementType() reflect.Type {
 }
 
 type explorerArgs struct {
+	RPCURL      *string              `pulumi:"RPCURL"`
+	ClusterName *string              `pulumi:"clusterName"`
 	Connection  ssh.Connection       `pulumi:"connection"`
 	Environment solana.Environment   `pulumi:"environment"`
 	Flags       solana.ExplorerFlags `pulumi:"flags"`
+	Name        *string              `pulumi:"name"`
+	Symbol      *string              `pulumi:"symbol"`
 	Version     *string              `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Explorer resource.
 type ExplorerArgs struct {
+	RPCURL      pulumi.StringPtrInput
+	ClusterName pulumi.StringPtrInput
 	Connection  ssh.ConnectionInput
 	Environment solana.EnvironmentInput
 	Flags       solana.ExplorerFlagsInput
+	Name        pulumi.StringPtrInput
+	Symbol      pulumi.StringPtrInput
 	Version     pulumi.StringPtrInput
 }
 
@@ -124,6 +136,14 @@ func (o ExplorerOutput) ToExplorerOutputWithContext(ctx context.Context) Explore
 	return o
 }
 
+func (o ExplorerOutput) RPCURL() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Explorer) pulumi.StringPtrOutput { return v.RPCURL }).(pulumi.StringPtrOutput)
+}
+
+func (o ExplorerOutput) ClusterName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Explorer) pulumi.StringPtrOutput { return v.ClusterName }).(pulumi.StringPtrOutput)
+}
+
 func (o ExplorerOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *Explorer) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
 }
@@ -134,6 +154,14 @@ func (o ExplorerOutput) Environment() solana.EnvironmentOutput {
 
 func (o ExplorerOutput) Flags() solana.ExplorerFlagsOutput {
 	return o.ApplyT(func(v *Explorer) solana.ExplorerFlagsOutput { return v.Flags }).(solana.ExplorerFlagsOutput)
+}
+
+func (o ExplorerOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Explorer) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+func (o ExplorerOutput) Symbol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Explorer) pulumi.StringPtrOutput { return v.Symbol }).(pulumi.StringPtrOutput)
 }
 
 func (o ExplorerOutput) Version() pulumi.StringPtrOutput {

@@ -24,6 +24,10 @@ class ExplorerArgs:
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  environment: pulumi.Input['_solana.EnvironmentArgs'],
                  flags: pulumi.Input['_solana.ExplorerFlagsArgs'],
+                 rpcurl: Optional[pulumi.Input[str]] = None,
+                 cluster_name: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 symbol: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Explorer resource.
@@ -31,6 +35,14 @@ class ExplorerArgs:
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "environment", environment)
         pulumi.set(__self__, "flags", flags)
+        if rpcurl is not None:
+            pulumi.set(__self__, "rpcurl", rpcurl)
+        if cluster_name is not None:
+            pulumi.set(__self__, "cluster_name", cluster_name)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if symbol is not None:
+            pulumi.set(__self__, "symbol", symbol)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -62,6 +74,42 @@ class ExplorerArgs:
         pulumi.set(self, "flags", value)
 
     @property
+    @pulumi.getter(name="RPCURL")
+    def rpcurl(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "rpcurl")
+
+    @rpcurl.setter
+    def rpcurl(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "rpcurl", value)
+
+    @property
+    @pulumi.getter(name="clusterName")
+    def cluster_name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "cluster_name")
+
+    @cluster_name.setter
+    def cluster_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cluster_name", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def symbol(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "symbol")
+
+    @symbol.setter
+    def symbol(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "symbol", value)
+
+    @property
     @pulumi.getter
     def version(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "version")
@@ -76,9 +124,13 @@ class Explorer(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 rpcurl: Optional[pulumi.Input[str]] = None,
+                 cluster_name: Optional[pulumi.Input[str]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['_solana.ExplorerFlagsArgs', '_solana.ExplorerFlagsArgsDict']]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 symbol: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -109,9 +161,13 @@ class Explorer(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 rpcurl: Optional[pulumi.Input[str]] = None,
+                 cluster_name: Optional[pulumi.Input[str]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['_solana.ExplorerFlagsArgs', '_solana.ExplorerFlagsArgsDict']]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 symbol: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -122,6 +178,8 @@ class Explorer(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ExplorerArgs.__new__(ExplorerArgs)
 
+            __props__.__dict__["rpcurl"] = rpcurl
+            __props__.__dict__["cluster_name"] = cluster_name
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
@@ -131,6 +189,8 @@ class Explorer(pulumi.CustomResource):
             if flags is None and not opts.urn:
                 raise TypeError("Missing required property 'flags'")
             __props__.__dict__["flags"] = flags
+            __props__.__dict__["name"] = name
+            __props__.__dict__["symbol"] = symbol
             __props__.__dict__["version"] = version
         super(Explorer, __self__).__init__(
             'svmkit:explorer:Explorer',
@@ -154,11 +214,25 @@ class Explorer(pulumi.CustomResource):
 
         __props__ = ExplorerArgs.__new__(ExplorerArgs)
 
+        __props__.__dict__["rpcurl"] = None
+        __props__.__dict__["cluster_name"] = None
         __props__.__dict__["connection"] = None
         __props__.__dict__["environment"] = None
         __props__.__dict__["flags"] = None
+        __props__.__dict__["name"] = None
+        __props__.__dict__["symbol"] = None
         __props__.__dict__["version"] = None
         return Explorer(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="RPCURL")
+    def rpcurl(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "rpcurl")
+
+    @property
+    @pulumi.getter(name="clusterName")
+    def cluster_name(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "cluster_name")
 
     @property
     @pulumi.getter
@@ -174,6 +248,16 @@ class Explorer(pulumi.CustomResource):
     @pulumi.getter
     def flags(self) -> pulumi.Output['_solana.outputs.ExplorerFlags']:
         return pulumi.get(self, "flags")
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def symbol(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "symbol")
 
     @property
     @pulumi.getter

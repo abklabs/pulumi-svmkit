@@ -13,6 +13,12 @@ namespace ABKLabs.Svmkit.Explorer
     [SvmkitResourceType("svmkit:explorer:Explorer")]
     public partial class Explorer : global::Pulumi.CustomResource
     {
+        [Output("RPCURL")]
+        public Output<string?> RPCURL { get; private set; } = null!;
+
+        [Output("clusterName")]
+        public Output<string?> ClusterName { get; private set; } = null!;
+
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
@@ -21,6 +27,12 @@ namespace ABKLabs.Svmkit.Explorer
 
         [Output("flags")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.ExplorerFlags> Flags { get; private set; } = null!;
+
+        [Output("name")]
+        public Output<string?> Name { get; private set; } = null!;
+
+        [Output("symbol")]
+        public Output<string?> Symbol { get; private set; } = null!;
 
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
@@ -71,6 +83,12 @@ namespace ABKLabs.Svmkit.Explorer
 
     public sealed class ExplorerArgs : global::Pulumi.ResourceArgs
     {
+        [Input("RPCURL")]
+        public Input<string>? RPCURL { get; set; }
+
+        [Input("clusterName")]
+        public Input<string>? ClusterName { get; set; }
+
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 
@@ -79,6 +97,12 @@ namespace ABKLabs.Svmkit.Explorer
 
         [Input("flags", required: true)]
         public Input<ABKLabs.Svmkit.Solana.Inputs.ExplorerFlagsArgs> Flags { get; set; } = null!;
+
+        [Input("name")]
+        public Input<string>? Name { get; set; }
+
+        [Input("symbol")]
+        public Input<string>? Symbol { get; set; }
 
         [Input("version")]
         public Input<string>? Version { get; set; }
