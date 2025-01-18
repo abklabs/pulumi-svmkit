@@ -18,6 +18,7 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/account"
 	"github.com/abklabs/pulumi-svmkit/pkg/faucet"
 	"github.com/abklabs/pulumi-svmkit/pkg/explorer"
+	"github.com/abklabs/pulumi-svmkit/pkg/watchtower"
 	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
 	"github.com/abklabs/pulumi-svmkit/pkg/networkinfo"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
@@ -75,6 +76,7 @@ func Provider() p.Provider {
 			infer.Resource[validator.Firedancer, validator.FiredancerArgs, validator.FiredancerState](),
 			infer.Resource[faucet.Faucet, faucet.FaucetArgs, faucet.FaucetState](),
 			infer.Resource[explorer.Explorer, explorer.ExplorerArgs, explorer.ExplorerState](),
+			infer.Resource[watchtower.Watchtower, watchtower.WatchtowerArgs, watchtower.WatchtowerState](),
 			infer.Resource[genesis.Solana, genesis.SolanaArgs, genesis.SolanaState](),
 			infer.Resource[account.VoteAccount, account.VoteAccountArgs, account.VoteAccountState](),
 			infer.Resource[account.StakeAccount, account.StakeAccountArgs, account.StakeAccountState](),
