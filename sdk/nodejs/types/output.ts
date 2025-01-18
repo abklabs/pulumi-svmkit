@@ -474,3 +474,50 @@ export namespace ssh {
     }
 
 }
+
+export namespace watchtower {
+    export interface DiscordConfig {
+        webhookUrl: string;
+    }
+
+    export interface NotificationConfig {
+        discord?: outputs.watchtower.DiscordConfig;
+        pagerDuty?: outputs.watchtower.PagerDutyConfig;
+        slack?: outputs.watchtower.SlackConfig;
+        telegram?: outputs.watchtower.TelegramConfig;
+        twilio?: outputs.watchtower.TwilioConfig;
+    }
+
+    export interface PagerDutyConfig {
+        integrationKey: string;
+    }
+
+    export interface SlackConfig {
+        webhookUrl: string;
+    }
+
+    export interface TelegramConfig {
+        botToken: string;
+        chatId: string;
+    }
+
+    export interface TwilioConfig {
+        accountSid: string;
+        authToken: string;
+        fromNumber: string;
+        toNumber: string;
+    }
+
+    export interface WatchtowerFlags {
+        activeStakeAlertThreshold?: number;
+        ignoreHttpBadGateway?: boolean;
+        interval?: number;
+        minimumValidatorIdentityBalance?: number;
+        monitorActiveStake?: boolean;
+        nameSuffix?: string;
+        rpcTimeout?: number;
+        unhealthyThreshold?: number;
+        validatorIdentity: string[];
+    }
+
+}

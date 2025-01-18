@@ -39,6 +39,8 @@
         "utilities.ts",
         "validator/agave.ts",
         "validator/firedancer.ts",
-        "validator/index.ts"
+        "validator/index.ts",
+        "watchtower/index.ts",
+        "watchtower/watchtower.ts"
     ]
 }

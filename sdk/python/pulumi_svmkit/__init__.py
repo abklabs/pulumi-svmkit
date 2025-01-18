@@ -30,6 +30,8 @@ if typing.TYPE_CHECKING:
     ssh = __ssh
     import pulumi_svmkit.validator as __validator
     validator = __validator
+    import pulumi_svmkit.watchtower as __watchtower
+    watchtower = __watchtower
 else:
     account = _utilities.lazy_import('pulumi_svmkit.account')
     agave = _utilities.lazy_import('pulumi_svmkit.agave')
@@ -41,6 +43,7 @@ else:
     solana = _utilities.lazy_import('pulumi_svmkit.solana')
     ssh = _utilities.lazy_import('pulumi_svmkit.ssh')
     validator = _utilities.lazy_import('pulumi_svmkit.validator')
+    watchtower = _utilities.lazy_import('pulumi_svmkit.watchtower')
 
 _utilities.register(
     resource_modules="""
@@ -94,6 +97,14 @@ _utilities.register(
   "classes": {
    "svmkit:validator:Agave": "Agave",
    "svmkit:validator:Firedancer": "Firedancer"
+  }
+ },
+ {
+  "pkg": "svmkit",
+  "mod": "watchtower",
+  "fqn": "pulumi_svmkit.watchtower",
+  "classes": {
+   "svmkit:watchtower:Watchtower": "Watchtower"
   }
  }
 ]

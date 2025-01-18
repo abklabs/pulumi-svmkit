@@ -470,3 +470,49 @@ export namespace ssh {
         };
     }
 }
+
+export namespace watchtower {
+    export interface DiscordConfigArgs {
+        webhookUrl: pulumi.Input<string>;
+    }
+
+    export interface NotificationConfigArgs {
+        discord?: pulumi.Input<inputs.watchtower.DiscordConfigArgs>;
+        pagerDuty?: pulumi.Input<inputs.watchtower.PagerDutyConfigArgs>;
+        slack?: pulumi.Input<inputs.watchtower.SlackConfigArgs>;
+        telegram?: pulumi.Input<inputs.watchtower.TelegramConfigArgs>;
+        twilio?: pulumi.Input<inputs.watchtower.TwilioConfigArgs>;
+    }
+
+    export interface PagerDutyConfigArgs {
+        integrationKey: pulumi.Input<string>;
+    }
+
+    export interface SlackConfigArgs {
+        webhookUrl: pulumi.Input<string>;
+    }
+
+    export interface TelegramConfigArgs {
+        botToken: pulumi.Input<string>;
+        chatId: pulumi.Input<string>;
+    }
+
+    export interface TwilioConfigArgs {
+        accountSid: pulumi.Input<string>;
+        authToken: pulumi.Input<string>;
+        fromNumber: pulumi.Input<string>;
+        toNumber: pulumi.Input<string>;
+    }
+
+    export interface WatchtowerFlagsArgs {
+        activeStakeAlertThreshold?: pulumi.Input<number>;
+        ignoreHttpBadGateway?: pulumi.Input<boolean>;
+        interval?: pulumi.Input<number>;
+        minimumValidatorIdentityBalance?: pulumi.Input<number>;
+        monitorActiveStake?: pulumi.Input<boolean>;
+        nameSuffix?: pulumi.Input<string>;
+        rpcTimeout?: pulumi.Input<number>;
+        unhealthyThreshold?: pulumi.Input<number>;
+        validatorIdentity: pulumi.Input<pulumi.Input<string>[]>;
+    }
+}

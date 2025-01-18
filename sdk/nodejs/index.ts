@@ -26,6 +26,7 @@ import * as networkinfo from "./networkinfo";
 import * as solana from "./solana";
 import * as types from "./types";
 import * as validator from "./validator";
+import * as watchtower from "./watchtower";
 
 export {
     account,
@@ -37,6 +38,7 @@ export {
     solana,
     types,
     validator,
+    watchtower,
 };
 
 const _module = {
