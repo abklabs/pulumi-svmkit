@@ -10,6 +10,7 @@ import (
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/agave"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -24,6 +25,7 @@ type Agave struct {
 	Info           solana.ValidatorInfoPtrOutput `pulumi:"info"`
 	KeyPairs       agave.KeyPairsOutput          `pulumi:"keyPairs"`
 	Metrics        agave.MetricsPtrOutput        `pulumi:"metrics"`
+	RunnerConfig   runner.ConfigPtrOutput        `pulumi:"runnerConfig"`
 	ShutdownPolicy agave.ShutdownPolicyPtrOutput `pulumi:"shutdownPolicy"`
 	StartupPolicy  agave.StartupPolicyPtrOutput  `pulumi:"startupPolicy"`
 	TimeoutConfig  agave.TimeoutConfigPtrOutput  `pulumi:"timeoutConfig"`
@@ -87,6 +89,7 @@ type agaveArgs struct {
 	Info           *solana.ValidatorInfo `pulumi:"info"`
 	KeyPairs       agave.KeyPairs        `pulumi:"keyPairs"`
 	Metrics        *agave.Metrics        `pulumi:"metrics"`
+	RunnerConfig   *runner.Config        `pulumi:"runnerConfig"`
 	ShutdownPolicy *agave.ShutdownPolicy `pulumi:"shutdownPolicy"`
 	StartupPolicy  *agave.StartupPolicy  `pulumi:"startupPolicy"`
 	TimeoutConfig  *agave.TimeoutConfig  `pulumi:"timeoutConfig"`
@@ -102,6 +105,7 @@ type AgaveArgs struct {
 	Info           solana.ValidatorInfoPtrInput
 	KeyPairs       agave.KeyPairsInput
 	Metrics        agave.MetricsPtrInput
+	RunnerConfig   runner.ConfigPtrInput
 	ShutdownPolicy agave.ShutdownPolicyPtrInput
 	StartupPolicy  agave.StartupPolicyPtrInput
 	TimeoutConfig  agave.TimeoutConfigPtrInput
@@ -168,6 +172,10 @@ func (o AgaveOutput) KeyPairs() agave.KeyPairsOutput {
 
 func (o AgaveOutput) Metrics() agave.MetricsPtrOutput {
 	return o.ApplyT(func(v *Agave) agave.MetricsPtrOutput { return v.Metrics }).(agave.MetricsPtrOutput)
+}
+
+func (o AgaveOutput) RunnerConfig() runner.ConfigPtrOutput {
+	return o.ApplyT(func(v *Agave) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
 }
 
 func (o AgaveOutput) ShutdownPolicy() agave.ShutdownPolicyPtrOutput {

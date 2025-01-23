@@ -159,6 +159,20 @@ export namespace agave {
     }
 }
 
+export namespace deb {
+    export interface PackageArgs {
+        name: pulumi.Input<string>;
+        path?: pulumi.Input<string>;
+        targetRelease?: pulumi.Input<string>;
+        version?: pulumi.Input<string>;
+    }
+
+    export interface PackageConfigArgs {
+        additional?: pulumi.Input<pulumi.Input<string>[]>;
+        override?: pulumi.Input<pulumi.Input<inputs.deb.PackageArgs>[]>;
+    }
+}
+
 export namespace firedancer {
     export interface ConfigArgs {
         consensus?: pulumi.Input<inputs.firedancer.ConfigConsensusArgs>;
@@ -265,6 +279,12 @@ export namespace firedancer {
     export interface KeyPairsArgs {
         identity: pulumi.Input<string>;
         voteAccount: pulumi.Input<string>;
+    }
+}
+
+export namespace runner {
+    export interface ConfigArgs {
+        packageConfig?: pulumi.Input<inputs.deb.PackageConfigArgs>;
     }
 }
 

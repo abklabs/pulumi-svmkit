@@ -14,6 +14,8 @@ if typing.TYPE_CHECKING:
     account = __account
     import pulumi_svmkit.agave as __agave
     agave = __agave
+    import pulumi_svmkit.deb as __deb
+    deb = __deb
     import pulumi_svmkit.explorer as __explorer
     explorer = __explorer
     import pulumi_svmkit.faucet as __faucet
@@ -24,6 +26,8 @@ if typing.TYPE_CHECKING:
     genesis = __genesis
     import pulumi_svmkit.networkinfo as __networkinfo
     networkinfo = __networkinfo
+    import pulumi_svmkit.runner as __runner
+    runner = __runner
     import pulumi_svmkit.solana as __solana
     solana = __solana
     import pulumi_svmkit.ssh as __ssh
@@ -35,11 +39,13 @@ if typing.TYPE_CHECKING:
 else:
     account = _utilities.lazy_import('pulumi_svmkit.account')
     agave = _utilities.lazy_import('pulumi_svmkit.agave')
+    deb = _utilities.lazy_import('pulumi_svmkit.deb')
     explorer = _utilities.lazy_import('pulumi_svmkit.explorer')
     faucet = _utilities.lazy_import('pulumi_svmkit.faucet')
     firedancer = _utilities.lazy_import('pulumi_svmkit.firedancer')
     genesis = _utilities.lazy_import('pulumi_svmkit.genesis')
     networkinfo = _utilities.lazy_import('pulumi_svmkit.networkinfo')
+    runner = _utilities.lazy_import('pulumi_svmkit.runner')
     solana = _utilities.lazy_import('pulumi_svmkit.solana')
     ssh = _utilities.lazy_import('pulumi_svmkit.ssh')
     validator = _utilities.lazy_import('pulumi_svmkit.validator')

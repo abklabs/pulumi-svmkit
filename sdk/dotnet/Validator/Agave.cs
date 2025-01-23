@@ -31,6 +31,9 @@ namespace ABKLabs.Svmkit.Validator
         [Output("metrics")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.Metrics?> Metrics { get; private set; } = null!;
 
+        [Output("runnerConfig")]
+        public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
+
         [Output("shutdownPolicy")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.ShutdownPolicy?> ShutdownPolicy { get; private set; } = null!;
 
@@ -109,6 +112,9 @@ namespace ABKLabs.Svmkit.Validator
 
         [Input("metrics")]
         public Input<ABKLabs.Svmkit.Agave.Inputs.MetricsArgs>? Metrics { get; set; }
+
+        [Input("runnerConfig")]
+        public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
 
         [Input("shutdownPolicy")]
         public Input<ABKLabs.Svmkit.Agave.Inputs.ShutdownPolicyArgs>? ShutdownPolicy { get; set; }

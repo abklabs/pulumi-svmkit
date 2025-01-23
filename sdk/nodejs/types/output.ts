@@ -160,6 +160,21 @@ export namespace agave {
 
 }
 
+export namespace deb {
+    export interface Package {
+        name: string;
+        path?: string;
+        targetRelease?: string;
+        version?: string;
+    }
+
+    export interface PackageConfig {
+        additional?: string[];
+        override?: outputs.deb.Package[];
+    }
+
+}
+
 export namespace firedancer {
     export interface Config {
         consensus?: outputs.firedancer.ConfigConsensus;
@@ -266,6 +281,13 @@ export namespace firedancer {
     export interface KeyPairs {
         identity: string;
         voteAccount: string;
+    }
+
+}
+
+export namespace runner {
+    export interface Config {
+        packageConfig?: outputs.deb.PackageConfig;
     }
 
 }

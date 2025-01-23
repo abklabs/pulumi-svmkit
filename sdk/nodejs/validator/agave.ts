@@ -40,6 +40,7 @@ export class Agave extends pulumi.CustomResource {
     public readonly info!: pulumi.Output<outputs.solana.ValidatorInfo | undefined>;
     public readonly keyPairs!: pulumi.Output<outputs.agave.KeyPairs>;
     public readonly metrics!: pulumi.Output<outputs.agave.Metrics | undefined>;
+    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly shutdownPolicy!: pulumi.Output<outputs.agave.ShutdownPolicy | undefined>;
     public readonly startupPolicy!: pulumi.Output<outputs.agave.StartupPolicy | undefined>;
     public readonly timeoutConfig!: pulumi.Output<outputs.agave.TimeoutConfig | undefined>;
@@ -72,6 +73,7 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["info"] = args ? args.info : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
             resourceInputs["metrics"] = args ? args.metrics : undefined;
+            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["shutdownPolicy"] = args ? args.shutdownPolicy : undefined;
             resourceInputs["startupPolicy"] = args ? args.startupPolicy : undefined;
             resourceInputs["timeoutConfig"] = args ? args.timeoutConfig : undefined;
@@ -84,6 +86,7 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["info"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
             resourceInputs["metrics"] = undefined /*out*/;
+            resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["shutdownPolicy"] = undefined /*out*/;
             resourceInputs["startupPolicy"] = undefined /*out*/;
             resourceInputs["timeoutConfig"] = undefined /*out*/;
@@ -105,6 +108,7 @@ export interface AgaveArgs {
     info?: pulumi.Input<inputs.solana.ValidatorInfoArgs>;
     keyPairs: pulumi.Input<inputs.agave.KeyPairsArgs>;
     metrics?: pulumi.Input<inputs.agave.MetricsArgs>;
+    runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     shutdownPolicy?: pulumi.Input<inputs.agave.ShutdownPolicyArgs>;
     startupPolicy?: pulumi.Input<inputs.agave.StartupPolicyArgs>;
     timeoutConfig?: pulumi.Input<inputs.agave.TimeoutConfigArgs>;
