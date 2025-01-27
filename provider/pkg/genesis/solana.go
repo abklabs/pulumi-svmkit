@@ -10,7 +10,7 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/ssh"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
-	"github.com/abklabs/svmkit/pkg/solana"
+	"github.com/abklabs/svmkit/pkg/solana/genesis"
 )
 
 // Solana represents a Pulumi resource for building the genesis ledger for the Solana network.
@@ -19,7 +19,7 @@ type Solana struct{}
 // SolanaArgs represents the input arguments required to create a Solana genesis resource.
 type SolanaArgs struct {
 	svm.GenesisArgs
-	solana.Genesis
+	genesis.Genesis
 }
 
 // SolanaState represents the state of a Solana genesis resource.

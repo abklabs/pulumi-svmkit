@@ -7,7 +7,7 @@ import (
 
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
-	"github.com/abklabs/svmkit/pkg/solana"
+	"github.com/abklabs/svmkit/pkg/solana/explorer"
 )
 
 // Explorer represents a Pulumi resource for managing an Explorer.
@@ -16,7 +16,7 @@ type Explorer struct{}
 // ExplorerArgs represents the input arguments required to create an Explorer resource.
 type ExplorerArgs struct {
 	svm.ExplorerArgs
-	solana.Explorer
+	explorer.Explorer
 }
 
 // ExplorerState represents the state of an Explorer resource.
