@@ -10,6 +10,7 @@ import (
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/firedancer"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -18,11 +19,12 @@ import (
 type Firedancer struct {
 	pulumi.CustomResourceState
 
-	Config      firedancer.ConfigOutput     `pulumi:"config"`
-	Connection  ssh.ConnectionOutput        `pulumi:"connection"`
-	Environment solana.EnvironmentPtrOutput `pulumi:"environment"`
-	KeyPairs    firedancer.KeyPairsOutput   `pulumi:"keyPairs"`
-	Version     pulumi.StringPtrOutput      `pulumi:"version"`
+	Config       firedancer.ConfigOutput     `pulumi:"config"`
+	Connection   ssh.ConnectionOutput        `pulumi:"connection"`
+	Environment  solana.EnvironmentPtrOutput `pulumi:"environment"`
+	KeyPairs     firedancer.KeyPairsOutput   `pulumi:"keyPairs"`
+	RunnerConfig runner.ConfigPtrOutput      `pulumi:"runnerConfig"`
+	Version      pulumi.StringPtrOutput      `pulumi:"version"`
 }
 
 // NewFiredancer registers a new resource with the given unique name, arguments, and options.
@@ -75,20 +77,22 @@ func (FiredancerState) ElementType() reflect.Type {
 }
 
 type firedancerArgs struct {
-	Config      firedancer.Config   `pulumi:"config"`
-	Connection  ssh.Connection      `pulumi:"connection"`
-	Environment *solana.Environment `pulumi:"environment"`
-	KeyPairs    firedancer.KeyPairs `pulumi:"keyPairs"`
-	Version     *string             `pulumi:"version"`
+	Config       firedancer.Config   `pulumi:"config"`
+	Connection   ssh.Connection      `pulumi:"connection"`
+	Environment  *solana.Environment `pulumi:"environment"`
+	KeyPairs     firedancer.KeyPairs `pulumi:"keyPairs"`
+	RunnerConfig *runner.Config      `pulumi:"runnerConfig"`
+	Version      *string             `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Firedancer resource.
 type FiredancerArgs struct {
-	Config      firedancer.ConfigInput
-	Connection  ssh.ConnectionInput
-	Environment solana.EnvironmentPtrInput
-	KeyPairs    firedancer.KeyPairsInput
-	Version     pulumi.StringPtrInput
+	Config       firedancer.ConfigInput
+	Connection   ssh.ConnectionInput
+	Environment  solana.EnvironmentPtrInput
+	KeyPairs     firedancer.KeyPairsInput
+	RunnerConfig runner.ConfigPtrInput
+	Version      pulumi.StringPtrInput
 }
 
 func (FiredancerArgs) ElementType() reflect.Type {
@@ -142,6 +146,10 @@ func (o FiredancerOutput) Environment() solana.EnvironmentPtrOutput {
 
 func (o FiredancerOutput) KeyPairs() firedancer.KeyPairsOutput {
 	return o.ApplyT(func(v *Firedancer) firedancer.KeyPairsOutput { return v.KeyPairs }).(firedancer.KeyPairsOutput)
+}
+
+func (o FiredancerOutput) RunnerConfig() runner.ConfigPtrOutput {
+	return o.ApplyT(func(v *Firedancer) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
 }
 
 func (o FiredancerOutput) Version() pulumi.StringPtrOutput {

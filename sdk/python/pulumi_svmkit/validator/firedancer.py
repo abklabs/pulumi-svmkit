@@ -13,7 +13,9 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
+from .. import deb as _deb
 from .. import firedancer as _firedancer
+from .. import runner as _runner
 from .. import solana as _solana
 from .. import ssh as _ssh
 
@@ -26,6 +28,7 @@ class FiredancerArgs:
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  key_pairs: pulumi.Input['_firedancer.KeyPairsArgs'],
                  environment: Optional[pulumi.Input['_solana.EnvironmentArgs']] = None,
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  version: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Firedancer resource.
@@ -35,6 +38,8 @@ class FiredancerArgs:
         pulumi.set(__self__, "key_pairs", key_pairs)
         if environment is not None:
             pulumi.set(__self__, "environment", environment)
+        if runner_config is not None:
+            pulumi.set(__self__, "runner_config", runner_config)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -75,6 +80,15 @@ class FiredancerArgs:
         pulumi.set(self, "environment", value)
 
     @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
+        return pulumi.get(self, "runner_config")
+
+    @runner_config.setter
+    def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
+        pulumi.set(self, "runner_config", value)
+
+    @property
     @pulumi.getter
     def version(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "version")
@@ -93,6 +107,7 @@ class Firedancer(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_firedancer.KeyPairsArgs', '_firedancer.KeyPairsArgsDict']]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -127,6 +142,7 @@ class Firedancer(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_firedancer.KeyPairsArgs', '_firedancer.KeyPairsArgsDict']]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -147,6 +163,7 @@ class Firedancer(pulumi.CustomResource):
             if key_pairs is None and not opts.urn:
                 raise TypeError("Missing required property 'key_pairs'")
             __props__.__dict__["key_pairs"] = key_pairs
+            __props__.__dict__["runner_config"] = runner_config
             __props__.__dict__["version"] = version
         super(Firedancer, __self__).__init__(
             'svmkit:validator:Firedancer',
@@ -174,6 +191,7 @@ class Firedancer(pulumi.CustomResource):
         __props__.__dict__["connection"] = None
         __props__.__dict__["environment"] = None
         __props__.__dict__["key_pairs"] = None
+        __props__.__dict__["runner_config"] = None
         __props__.__dict__["version"] = None
         return Firedancer(resource_name, opts=opts, __props__=__props__)
 
@@ -196,6 +214,11 @@ class Firedancer(pulumi.CustomResource):
     @pulumi.getter(name="keyPairs")
     def key_pairs(self) -> pulumi.Output['_firedancer.outputs.KeyPairs']:
         return pulumi.get(self, "key_pairs")
+
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
+        return pulumi.get(self, "runner_config")
 
     @property
     @pulumi.getter

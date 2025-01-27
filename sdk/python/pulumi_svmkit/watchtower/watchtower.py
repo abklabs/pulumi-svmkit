@@ -14,6 +14,8 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
 from . import outputs
+from .. import deb as _deb
+from .. import runner as _runner
 from .. import solana as _solana
 from .. import ssh as _ssh
 from ._inputs import *
@@ -26,7 +28,8 @@ class WatchtowerArgs:
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  environment: pulumi.Input['_solana.EnvironmentArgs'],
                  flags: pulumi.Input['WatchtowerFlagsArgs'],
-                 notifications: pulumi.Input['NotificationConfigArgs']):
+                 notifications: pulumi.Input['NotificationConfigArgs'],
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
         """
         The set of arguments for constructing a Watchtower resource.
         """
@@ -34,6 +37,8 @@ class WatchtowerArgs:
         pulumi.set(__self__, "environment", environment)
         pulumi.set(__self__, "flags", flags)
         pulumi.set(__self__, "notifications", notifications)
+        if runner_config is not None:
+            pulumi.set(__self__, "runner_config", runner_config)
 
     @property
     @pulumi.getter
@@ -71,6 +76,15 @@ class WatchtowerArgs:
     def notifications(self, value: pulumi.Input['NotificationConfigArgs']):
         pulumi.set(self, "notifications", value)
 
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
+        return pulumi.get(self, "runner_config")
+
+    @runner_config.setter
+    def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
+        pulumi.set(self, "runner_config", value)
+
 
 class Watchtower(pulumi.CustomResource):
     @overload
@@ -81,6 +95,7 @@ class Watchtower(pulumi.CustomResource):
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['WatchtowerFlagsArgs', 'WatchtowerFlagsArgsDict']]] = None,
                  notifications: Optional[pulumi.Input[Union['NotificationConfigArgs', 'NotificationConfigArgsDict']]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  __props__=None):
         """
         Create a Watchtower resource with the given unique name, props, and options.
@@ -114,6 +129,7 @@ class Watchtower(pulumi.CustomResource):
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['WatchtowerFlagsArgs', 'WatchtowerFlagsArgsDict']]] = None,
                  notifications: Optional[pulumi.Input[Union['NotificationConfigArgs', 'NotificationConfigArgsDict']]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -135,6 +151,7 @@ class Watchtower(pulumi.CustomResource):
             if notifications is None and not opts.urn:
                 raise TypeError("Missing required property 'notifications'")
             __props__.__dict__["notifications"] = notifications
+            __props__.__dict__["runner_config"] = runner_config
         super(Watchtower, __self__).__init__(
             'svmkit:watchtower:Watchtower',
             resource_name,
@@ -161,6 +178,7 @@ class Watchtower(pulumi.CustomResource):
         __props__.__dict__["environment"] = None
         __props__.__dict__["flags"] = None
         __props__.__dict__["notifications"] = None
+        __props__.__dict__["runner_config"] = None
         return Watchtower(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -182,4 +200,9 @@ class Watchtower(pulumi.CustomResource):
     @pulumi.getter
     def notifications(self) -> pulumi.Output['outputs.NotificationConfig']:
         return pulumi.get(self, "notifications")
+
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
+        return pulumi.get(self, "runner_config")
 

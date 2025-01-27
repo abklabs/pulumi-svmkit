@@ -35,8 +35,9 @@ export class Faucet extends pulumi.CustomResource {
     }
 
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly flags!: pulumi.Output<outputs.solana.FaucetFlags>;
+    public readonly flags!: pulumi.Output<outputs.faucet.FaucetFlags>;
     public readonly keypair!: pulumi.Output<string>;
+    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
     /**
@@ -62,11 +63,13 @@ export class Faucet extends pulumi.CustomResource {
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["keypair"] = args?.keypair ? pulumi.secret(args.keypair) : undefined;
+            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["keypair"] = undefined /*out*/;
+            resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -81,7 +84,8 @@ export class Faucet extends pulumi.CustomResource {
  */
 export interface FaucetArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
-    flags: pulumi.Input<inputs.solana.FaucetFlagsArgs>;
+    flags: pulumi.Input<inputs.faucet.FaucetFlagsArgs>;
     keypair: pulumi.Input<string>;
+    runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     version?: pulumi.Input<string>;
 }

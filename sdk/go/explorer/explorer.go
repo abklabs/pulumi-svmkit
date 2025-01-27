@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -17,14 +18,15 @@ import (
 type Explorer struct {
 	pulumi.CustomResourceState
 
-	RPCURL      pulumi.StringPtrOutput     `pulumi:"RPCURL"`
-	ClusterName pulumi.StringPtrOutput     `pulumi:"clusterName"`
-	Connection  ssh.ConnectionOutput       `pulumi:"connection"`
-	Environment solana.EnvironmentOutput   `pulumi:"environment"`
-	Flags       solana.ExplorerFlagsOutput `pulumi:"flags"`
-	Name        pulumi.StringPtrOutput     `pulumi:"name"`
-	Symbol      pulumi.StringPtrOutput     `pulumi:"symbol"`
-	Version     pulumi.StringPtrOutput     `pulumi:"version"`
+	RPCURL       pulumi.StringPtrOutput   `pulumi:"RPCURL"`
+	ClusterName  pulumi.StringPtrOutput   `pulumi:"clusterName"`
+	Connection   ssh.ConnectionOutput     `pulumi:"connection"`
+	Environment  solana.EnvironmentOutput `pulumi:"environment"`
+	Flags        ExplorerFlagsOutput      `pulumi:"flags"`
+	Name         pulumi.StringPtrOutput   `pulumi:"name"`
+	RunnerConfig runner.ConfigPtrOutput   `pulumi:"runnerConfig"`
+	Symbol       pulumi.StringPtrOutput   `pulumi:"symbol"`
+	Version      pulumi.StringPtrOutput   `pulumi:"version"`
 }
 
 // NewExplorer registers a new resource with the given unique name, arguments, and options.
@@ -77,26 +79,28 @@ func (ExplorerState) ElementType() reflect.Type {
 }
 
 type explorerArgs struct {
-	RPCURL      *string              `pulumi:"RPCURL"`
-	ClusterName *string              `pulumi:"clusterName"`
-	Connection  ssh.Connection       `pulumi:"connection"`
-	Environment solana.Environment   `pulumi:"environment"`
-	Flags       solana.ExplorerFlags `pulumi:"flags"`
-	Name        *string              `pulumi:"name"`
-	Symbol      *string              `pulumi:"symbol"`
-	Version     *string              `pulumi:"version"`
+	RPCURL       *string            `pulumi:"RPCURL"`
+	ClusterName  *string            `pulumi:"clusterName"`
+	Connection   ssh.Connection     `pulumi:"connection"`
+	Environment  solana.Environment `pulumi:"environment"`
+	Flags        ExplorerFlags      `pulumi:"flags"`
+	Name         *string            `pulumi:"name"`
+	RunnerConfig *runner.Config     `pulumi:"runnerConfig"`
+	Symbol       *string            `pulumi:"symbol"`
+	Version      *string            `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Explorer resource.
 type ExplorerArgs struct {
-	RPCURL      pulumi.StringPtrInput
-	ClusterName pulumi.StringPtrInput
-	Connection  ssh.ConnectionInput
-	Environment solana.EnvironmentInput
-	Flags       solana.ExplorerFlagsInput
-	Name        pulumi.StringPtrInput
-	Symbol      pulumi.StringPtrInput
-	Version     pulumi.StringPtrInput
+	RPCURL       pulumi.StringPtrInput
+	ClusterName  pulumi.StringPtrInput
+	Connection   ssh.ConnectionInput
+	Environment  solana.EnvironmentInput
+	Flags        ExplorerFlagsInput
+	Name         pulumi.StringPtrInput
+	RunnerConfig runner.ConfigPtrInput
+	Symbol       pulumi.StringPtrInput
+	Version      pulumi.StringPtrInput
 }
 
 func (ExplorerArgs) ElementType() reflect.Type {
@@ -152,12 +156,16 @@ func (o ExplorerOutput) Environment() solana.EnvironmentOutput {
 	return o.ApplyT(func(v *Explorer) solana.EnvironmentOutput { return v.Environment }).(solana.EnvironmentOutput)
 }
 
-func (o ExplorerOutput) Flags() solana.ExplorerFlagsOutput {
-	return o.ApplyT(func(v *Explorer) solana.ExplorerFlagsOutput { return v.Flags }).(solana.ExplorerFlagsOutput)
+func (o ExplorerOutput) Flags() ExplorerFlagsOutput {
+	return o.ApplyT(func(v *Explorer) ExplorerFlagsOutput { return v.Flags }).(ExplorerFlagsOutput)
 }
 
 func (o ExplorerOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Explorer) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+func (o ExplorerOutput) RunnerConfig() runner.ConfigPtrOutput {
+	return o.ApplyT(func(v *Explorer) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
 }
 
 func (o ExplorerOutput) Symbol() pulumi.StringPtrOutput {

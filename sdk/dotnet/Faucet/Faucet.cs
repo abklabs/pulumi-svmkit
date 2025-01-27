@@ -17,10 +17,13 @@ namespace ABKLabs.Svmkit.Faucet
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
         [Output("flags")]
-        public Output<ABKLabs.Svmkit.Solana.Outputs.FaucetFlags> Flags { get; private set; } = null!;
+        public Output<Outputs.FaucetFlags> Flags { get; private set; } = null!;
 
         [Output("keypair")]
         public Output<string> Keypair { get; private set; } = null!;
+
+        [Output("runnerConfig")]
+        public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
 
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
@@ -79,7 +82,7 @@ namespace ABKLabs.Svmkit.Faucet
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 
         [Input("flags", required: true)]
-        public Input<ABKLabs.Svmkit.Solana.Inputs.FaucetFlagsArgs> Flags { get; set; } = null!;
+        public Input<Inputs.FaucetFlagsArgs> Flags { get; set; } = null!;
 
         [Input("keypair", required: true)]
         private Input<string>? _keypair;
@@ -92,6 +95,9 @@ namespace ABKLabs.Svmkit.Faucet
                 _keypair = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
+
+        [Input("runnerConfig")]
+        public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
 
         [Input("version")]
         public Input<string>? Version { get; set; }

@@ -38,6 +38,7 @@ export class Watchtower extends pulumi.CustomResource {
     public readonly environment!: pulumi.Output<outputs.solana.Environment>;
     public readonly flags!: pulumi.Output<outputs.watchtower.WatchtowerFlags>;
     public readonly notifications!: pulumi.Output<outputs.watchtower.NotificationConfig>;
+    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
 
     /**
      * Create a Watchtower resource with the given unique name, arguments, and options.
@@ -66,11 +67,13 @@ export class Watchtower extends pulumi.CustomResource {
             resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["notifications"] = args ? args.notifications : undefined;
+            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["environment"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["notifications"] = undefined /*out*/;
+            resourceInputs["runnerConfig"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Watchtower.__pulumiType, name, resourceInputs, opts);
@@ -85,4 +88,5 @@ export interface WatchtowerArgs {
     environment: pulumi.Input<inputs.solana.EnvironmentArgs>;
     flags: pulumi.Input<inputs.watchtower.WatchtowerFlagsArgs>;
     notifications: pulumi.Input<inputs.watchtower.NotificationConfigArgs>;
+    runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
 }

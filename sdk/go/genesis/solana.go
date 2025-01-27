@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
-	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -17,11 +17,12 @@ import (
 type Solana struct {
 	pulumi.CustomResourceState
 
-	Connection  ssh.ConnectionOutput             `pulumi:"connection"`
-	Flags       solana.GenesisFlagsOutput        `pulumi:"flags"`
-	GenesisHash pulumi.StringOutput              `pulumi:"genesisHash"`
-	Primordial  solana.PrimorialEntryArrayOutput `pulumi:"primordial"`
-	Version     pulumi.StringPtrOutput           `pulumi:"version"`
+	Connection   ssh.ConnectionOutput      `pulumi:"connection"`
+	Flags        GenesisFlagsOutput        `pulumi:"flags"`
+	GenesisHash  pulumi.StringOutput       `pulumi:"genesisHash"`
+	Primordial   PrimorialEntryArrayOutput `pulumi:"primordial"`
+	RunnerConfig runner.ConfigPtrOutput    `pulumi:"runnerConfig"`
+	Version      pulumi.StringPtrOutput    `pulumi:"version"`
 }
 
 // NewSolana registers a new resource with the given unique name, arguments, and options.
@@ -74,18 +75,20 @@ func (SolanaState) ElementType() reflect.Type {
 }
 
 type solanaArgs struct {
-	Connection ssh.Connection          `pulumi:"connection"`
-	Flags      solana.GenesisFlags     `pulumi:"flags"`
-	Primordial []solana.PrimorialEntry `pulumi:"primordial"`
-	Version    *string                 `pulumi:"version"`
+	Connection   ssh.Connection   `pulumi:"connection"`
+	Flags        GenesisFlags     `pulumi:"flags"`
+	Primordial   []PrimorialEntry `pulumi:"primordial"`
+	RunnerConfig *runner.Config   `pulumi:"runnerConfig"`
+	Version      *string          `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Solana resource.
 type SolanaArgs struct {
-	Connection ssh.ConnectionInput
-	Flags      solana.GenesisFlagsInput
-	Primordial solana.PrimorialEntryArrayInput
-	Version    pulumi.StringPtrInput
+	Connection   ssh.ConnectionInput
+	Flags        GenesisFlagsInput
+	Primordial   PrimorialEntryArrayInput
+	RunnerConfig runner.ConfigPtrInput
+	Version      pulumi.StringPtrInput
 }
 
 func (SolanaArgs) ElementType() reflect.Type {
@@ -129,16 +132,20 @@ func (o SolanaOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *Solana) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
 }
 
-func (o SolanaOutput) Flags() solana.GenesisFlagsOutput {
-	return o.ApplyT(func(v *Solana) solana.GenesisFlagsOutput { return v.Flags }).(solana.GenesisFlagsOutput)
+func (o SolanaOutput) Flags() GenesisFlagsOutput {
+	return o.ApplyT(func(v *Solana) GenesisFlagsOutput { return v.Flags }).(GenesisFlagsOutput)
 }
 
 func (o SolanaOutput) GenesisHash() pulumi.StringOutput {
 	return o.ApplyT(func(v *Solana) pulumi.StringOutput { return v.GenesisHash }).(pulumi.StringOutput)
 }
 
-func (o SolanaOutput) Primordial() solana.PrimorialEntryArrayOutput {
-	return o.ApplyT(func(v *Solana) solana.PrimorialEntryArrayOutput { return v.Primordial }).(solana.PrimorialEntryArrayOutput)
+func (o SolanaOutput) Primordial() PrimorialEntryArrayOutput {
+	return o.ApplyT(func(v *Solana) PrimorialEntryArrayOutput { return v.Primordial }).(PrimorialEntryArrayOutput)
+}
+
+func (o SolanaOutput) RunnerConfig() runner.ConfigPtrOutput {
+	return o.ApplyT(func(v *Solana) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
 }
 
 func (o SolanaOutput) Version() pulumi.StringPtrOutput {

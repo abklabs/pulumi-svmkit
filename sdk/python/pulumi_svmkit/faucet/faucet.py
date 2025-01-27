@@ -13,8 +13,11 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
-from .. import solana as _solana
+from . import outputs
+from .. import deb as _deb
+from .. import runner as _runner
 from .. import ssh as _ssh
+from ._inputs import *
 
 __all__ = ['FaucetArgs', 'Faucet']
 
@@ -22,8 +25,9 @@ __all__ = ['FaucetArgs', 'Faucet']
 class FaucetArgs:
     def __init__(__self__, *,
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
-                 flags: pulumi.Input['_solana.FaucetFlagsArgs'],
+                 flags: pulumi.Input['FaucetFlagsArgs'],
                  keypair: pulumi.Input[str],
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  version: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Faucet resource.
@@ -31,6 +35,8 @@ class FaucetArgs:
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "flags", flags)
         pulumi.set(__self__, "keypair", keypair)
+        if runner_config is not None:
+            pulumi.set(__self__, "runner_config", runner_config)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -45,11 +51,11 @@ class FaucetArgs:
 
     @property
     @pulumi.getter
-    def flags(self) -> pulumi.Input['_solana.FaucetFlagsArgs']:
+    def flags(self) -> pulumi.Input['FaucetFlagsArgs']:
         return pulumi.get(self, "flags")
 
     @flags.setter
-    def flags(self, value: pulumi.Input['_solana.FaucetFlagsArgs']):
+    def flags(self, value: pulumi.Input['FaucetFlagsArgs']):
         pulumi.set(self, "flags", value)
 
     @property
@@ -60,6 +66,15 @@ class FaucetArgs:
     @keypair.setter
     def keypair(self, value: pulumi.Input[str]):
         pulumi.set(self, "keypair", value)
+
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
+        return pulumi.get(self, "runner_config")
+
+    @runner_config.setter
+    def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
+        pulumi.set(self, "runner_config", value)
 
     @property
     @pulumi.getter
@@ -77,8 +92,9 @@ class Faucet(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
-                 flags: Optional[pulumi.Input[Union['_solana.FaucetFlagsArgs', '_solana.FaucetFlagsArgsDict']]] = None,
+                 flags: Optional[pulumi.Input[Union['FaucetFlagsArgs', 'FaucetFlagsArgsDict']]] = None,
                  keypair: Optional[pulumi.Input[str]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -110,8 +126,9 @@ class Faucet(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
-                 flags: Optional[pulumi.Input[Union['_solana.FaucetFlagsArgs', '_solana.FaucetFlagsArgsDict']]] = None,
+                 flags: Optional[pulumi.Input[Union['FaucetFlagsArgs', 'FaucetFlagsArgsDict']]] = None,
                  keypair: Optional[pulumi.Input[str]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -131,6 +148,7 @@ class Faucet(pulumi.CustomResource):
             if keypair is None and not opts.urn:
                 raise TypeError("Missing required property 'keypair'")
             __props__.__dict__["keypair"] = None if keypair is None else pulumi.Output.secret(keypair)
+            __props__.__dict__["runner_config"] = runner_config
             __props__.__dict__["version"] = version
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["keypair"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
@@ -159,6 +177,7 @@ class Faucet(pulumi.CustomResource):
         __props__.__dict__["connection"] = None
         __props__.__dict__["flags"] = None
         __props__.__dict__["keypair"] = None
+        __props__.__dict__["runner_config"] = None
         __props__.__dict__["version"] = None
         return Faucet(resource_name, opts=opts, __props__=__props__)
 
@@ -169,13 +188,18 @@ class Faucet(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def flags(self) -> pulumi.Output['_solana.outputs.FaucetFlags']:
+    def flags(self) -> pulumi.Output['outputs.FaucetFlags']:
         return pulumi.get(self, "flags")
 
     @property
     @pulumi.getter
     def keypair(self) -> pulumi.Output[str]:
         return pulumi.get(self, "keypair")
+
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
+        return pulumi.get(self, "runner_config")
 
     @property
     @pulumi.getter

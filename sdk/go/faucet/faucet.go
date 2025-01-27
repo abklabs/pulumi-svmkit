@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
-	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -17,10 +17,11 @@ import (
 type Faucet struct {
 	pulumi.CustomResourceState
 
-	Connection ssh.ConnectionOutput     `pulumi:"connection"`
-	Flags      solana.FaucetFlagsOutput `pulumi:"flags"`
-	Keypair    pulumi.StringOutput      `pulumi:"keypair"`
-	Version    pulumi.StringPtrOutput   `pulumi:"version"`
+	Connection   ssh.ConnectionOutput   `pulumi:"connection"`
+	Flags        FaucetFlagsOutput      `pulumi:"flags"`
+	Keypair      pulumi.StringOutput    `pulumi:"keypair"`
+	RunnerConfig runner.ConfigPtrOutput `pulumi:"runnerConfig"`
+	Version      pulumi.StringPtrOutput `pulumi:"version"`
 }
 
 // NewFaucet registers a new resource with the given unique name, arguments, and options.
@@ -80,18 +81,20 @@ func (FaucetState) ElementType() reflect.Type {
 }
 
 type faucetArgs struct {
-	Connection ssh.Connection     `pulumi:"connection"`
-	Flags      solana.FaucetFlags `pulumi:"flags"`
-	Keypair    string             `pulumi:"keypair"`
-	Version    *string            `pulumi:"version"`
+	Connection   ssh.Connection `pulumi:"connection"`
+	Flags        FaucetFlags    `pulumi:"flags"`
+	Keypair      string         `pulumi:"keypair"`
+	RunnerConfig *runner.Config `pulumi:"runnerConfig"`
+	Version      *string        `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Faucet resource.
 type FaucetArgs struct {
-	Connection ssh.ConnectionInput
-	Flags      solana.FaucetFlagsInput
-	Keypair    pulumi.StringInput
-	Version    pulumi.StringPtrInput
+	Connection   ssh.ConnectionInput
+	Flags        FaucetFlagsInput
+	Keypair      pulumi.StringInput
+	RunnerConfig runner.ConfigPtrInput
+	Version      pulumi.StringPtrInput
 }
 
 func (FaucetArgs) ElementType() reflect.Type {
@@ -135,12 +138,16 @@ func (o FaucetOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *Faucet) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
 }
 
-func (o FaucetOutput) Flags() solana.FaucetFlagsOutput {
-	return o.ApplyT(func(v *Faucet) solana.FaucetFlagsOutput { return v.Flags }).(solana.FaucetFlagsOutput)
+func (o FaucetOutput) Flags() FaucetFlagsOutput {
+	return o.ApplyT(func(v *Faucet) FaucetFlagsOutput { return v.Flags }).(FaucetFlagsOutput)
 }
 
 func (o FaucetOutput) Keypair() pulumi.StringOutput {
 	return o.ApplyT(func(v *Faucet) pulumi.StringOutput { return v.Keypair }).(pulumi.StringOutput)
+}
+
+func (o FaucetOutput) RunnerConfig() runner.ConfigPtrOutput {
+	return o.ApplyT(func(v *Faucet) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
 }
 
 func (o FaucetOutput) Version() pulumi.StringPtrOutput {

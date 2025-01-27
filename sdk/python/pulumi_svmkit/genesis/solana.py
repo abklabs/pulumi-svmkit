@@ -13,8 +13,11 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
-from .. import solana as _solana
+from . import outputs
+from .. import deb as _deb
+from .. import runner as _runner
 from .. import ssh as _ssh
+from ._inputs import *
 
 __all__ = ['SolanaArgs', 'Solana']
 
@@ -22,8 +25,9 @@ __all__ = ['SolanaArgs', 'Solana']
 class SolanaArgs:
     def __init__(__self__, *,
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
-                 flags: pulumi.Input['_solana.GenesisFlagsArgs'],
-                 primordial: pulumi.Input[Sequence[pulumi.Input['_solana.PrimorialEntryArgs']]],
+                 flags: pulumi.Input['GenesisFlagsArgs'],
+                 primordial: pulumi.Input[Sequence[pulumi.Input['PrimorialEntryArgs']]],
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  version: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Solana resource.
@@ -31,6 +35,8 @@ class SolanaArgs:
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "flags", flags)
         pulumi.set(__self__, "primordial", primordial)
+        if runner_config is not None:
+            pulumi.set(__self__, "runner_config", runner_config)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -45,21 +51,30 @@ class SolanaArgs:
 
     @property
     @pulumi.getter
-    def flags(self) -> pulumi.Input['_solana.GenesisFlagsArgs']:
+    def flags(self) -> pulumi.Input['GenesisFlagsArgs']:
         return pulumi.get(self, "flags")
 
     @flags.setter
-    def flags(self, value: pulumi.Input['_solana.GenesisFlagsArgs']):
+    def flags(self, value: pulumi.Input['GenesisFlagsArgs']):
         pulumi.set(self, "flags", value)
 
     @property
     @pulumi.getter
-    def primordial(self) -> pulumi.Input[Sequence[pulumi.Input['_solana.PrimorialEntryArgs']]]:
+    def primordial(self) -> pulumi.Input[Sequence[pulumi.Input['PrimorialEntryArgs']]]:
         return pulumi.get(self, "primordial")
 
     @primordial.setter
-    def primordial(self, value: pulumi.Input[Sequence[pulumi.Input['_solana.PrimorialEntryArgs']]]):
+    def primordial(self, value: pulumi.Input[Sequence[pulumi.Input['PrimorialEntryArgs']]]):
         pulumi.set(self, "primordial", value)
+
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
+        return pulumi.get(self, "runner_config")
+
+    @runner_config.setter
+    def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
+        pulumi.set(self, "runner_config", value)
 
     @property
     @pulumi.getter
@@ -77,8 +92,9 @@ class Solana(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
-                 flags: Optional[pulumi.Input[Union['_solana.GenesisFlagsArgs', '_solana.GenesisFlagsArgsDict']]] = None,
-                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_solana.PrimorialEntryArgs', '_solana.PrimorialEntryArgsDict']]]]] = None,
+                 flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
+                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimorialEntryArgs', 'PrimorialEntryArgsDict']]]]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -110,8 +126,9 @@ class Solana(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
-                 flags: Optional[pulumi.Input[Union['_solana.GenesisFlagsArgs', '_solana.GenesisFlagsArgsDict']]] = None,
-                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_solana.PrimorialEntryArgs', '_solana.PrimorialEntryArgsDict']]]]] = None,
+                 flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
+                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimorialEntryArgs', 'PrimorialEntryArgsDict']]]]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -131,6 +148,7 @@ class Solana(pulumi.CustomResource):
             if primordial is None and not opts.urn:
                 raise TypeError("Missing required property 'primordial'")
             __props__.__dict__["primordial"] = primordial
+            __props__.__dict__["runner_config"] = runner_config
             __props__.__dict__["version"] = version
             __props__.__dict__["genesis_hash"] = None
         super(Solana, __self__).__init__(
@@ -159,6 +177,7 @@ class Solana(pulumi.CustomResource):
         __props__.__dict__["flags"] = None
         __props__.__dict__["genesis_hash"] = None
         __props__.__dict__["primordial"] = None
+        __props__.__dict__["runner_config"] = None
         __props__.__dict__["version"] = None
         return Solana(resource_name, opts=opts, __props__=__props__)
 
@@ -169,7 +188,7 @@ class Solana(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def flags(self) -> pulumi.Output['_solana.outputs.GenesisFlags']:
+    def flags(self) -> pulumi.Output['outputs.GenesisFlags']:
         return pulumi.get(self, "flags")
 
     @property
@@ -179,8 +198,13 @@ class Solana(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def primordial(self) -> pulumi.Output[Sequence['_solana.outputs.PrimorialEntry']]:
+    def primordial(self) -> pulumi.Output[Sequence['outputs.PrimorialEntry']]:
         return pulumi.get(self, "primordial")
+
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
+        return pulumi.get(self, "runner_config")
 
     @property
     @pulumi.getter

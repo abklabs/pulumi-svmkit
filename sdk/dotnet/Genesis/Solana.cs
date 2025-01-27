@@ -17,13 +17,16 @@ namespace ABKLabs.Svmkit.Genesis
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
         [Output("flags")]
-        public Output<ABKLabs.Svmkit.Solana.Outputs.GenesisFlags> Flags { get; private set; } = null!;
+        public Output<Outputs.GenesisFlags> Flags { get; private set; } = null!;
 
         [Output("genesisHash")]
         public Output<string> GenesisHash { get; private set; } = null!;
 
         [Output("primordial")]
-        public Output<ImmutableArray<ABKLabs.Svmkit.Solana.Outputs.PrimorialEntry>> Primordial { get; private set; } = null!;
+        public Output<ImmutableArray<Outputs.PrimorialEntry>> Primordial { get; private set; } = null!;
+
+        [Output("runnerConfig")]
+        public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
 
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
@@ -78,15 +81,18 @@ namespace ABKLabs.Svmkit.Genesis
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 
         [Input("flags", required: true)]
-        public Input<ABKLabs.Svmkit.Solana.Inputs.GenesisFlagsArgs> Flags { get; set; } = null!;
+        public Input<Inputs.GenesisFlagsArgs> Flags { get; set; } = null!;
 
         [Input("primordial", required: true)]
-        private InputList<ABKLabs.Svmkit.Solana.Inputs.PrimorialEntryArgs>? _primordial;
-        public InputList<ABKLabs.Svmkit.Solana.Inputs.PrimorialEntryArgs> Primordial
+        private InputList<Inputs.PrimorialEntryArgs>? _primordial;
+        public InputList<Inputs.PrimorialEntryArgs> Primordial
         {
-            get => _primordial ?? (_primordial = new InputList<ABKLabs.Svmkit.Solana.Inputs.PrimorialEntryArgs>());
+            get => _primordial ?? (_primordial = new InputList<Inputs.PrimorialEntryArgs>());
             set => _primordial = value;
         }
+
+        [Input("runnerConfig")]
+        public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
 
         [Input("version")]
         public Input<string>? Version { get; set; }

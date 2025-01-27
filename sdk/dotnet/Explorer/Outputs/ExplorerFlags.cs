@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace ABKLabs.Svmkit.Solana.Outputs
+namespace ABKLabs.Svmkit.Explorer.Outputs
 {
 
     [OutputType]

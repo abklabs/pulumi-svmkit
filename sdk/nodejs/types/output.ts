@@ -175,6 +175,25 @@ export namespace deb {
 
 }
 
+export namespace explorer {
+    export interface ExplorerFlags {
+        hostname?: string;
+        keepAliveTimeout?: number;
+        port?: number;
+    }
+
+}
+
+export namespace faucet {
+    export interface FaucetFlags {
+        allowIPs?: string[];
+        perRequestCap?: number;
+        perTimeCap?: number;
+        sliceSeconds?: number;
+    }
+
+}
+
 export namespace firedancer {
     export interface Config {
         consensus?: outputs.firedancer.ConfigConsensus;
@@ -285,31 +304,7 @@ export namespace firedancer {
 
 }
 
-export namespace runner {
-    export interface Config {
-        packageConfig?: outputs.deb.PackageConfig;
-    }
-
-}
-
-export namespace solana {
-    export interface Environment {
-        rpcURL: string;
-    }
-
-    export interface ExplorerFlags {
-        hostname?: string;
-        keepAliveTimeout?: number;
-        port?: number;
-    }
-
-    export interface FaucetFlags {
-        allowIPs?: string[];
-        perRequestCap?: number;
-        perTimeCap?: number;
-        sliceSeconds?: number;
-    }
-
+export namespace genesis {
     export interface GenesisFlags {
         bootstrapStakeAuthorizedPubkey?: string;
         bootstrapValidatorLamports?: number;
@@ -344,6 +339,20 @@ export namespace solana {
     export interface PrimorialEntry {
         lamports: string;
         pubkey: string;
+    }
+
+}
+
+export namespace runner {
+    export interface Config {
+        packageConfig?: outputs.deb.PackageConfig;
+    }
+
+}
+
+export namespace solana {
+    export interface Environment {
+        rpcURL: string;
     }
 
     export interface StakeAccountKeyPairs {

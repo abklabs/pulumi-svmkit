@@ -35,9 +35,10 @@ export class Solana extends pulumi.CustomResource {
     }
 
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly flags!: pulumi.Output<outputs.solana.GenesisFlags>;
+    public readonly flags!: pulumi.Output<outputs.genesis.GenesisFlags>;
     public /*out*/ readonly genesisHash!: pulumi.Output<string>;
-    public readonly primordial!: pulumi.Output<outputs.solana.PrimorialEntry[]>;
+    public readonly primordial!: pulumi.Output<outputs.genesis.PrimorialEntry[]>;
+    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
     /**
@@ -63,6 +64,7 @@ export class Solana extends pulumi.CustomResource {
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["primordial"] = args ? args.primordial : undefined;
+            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
             resourceInputs["genesisHash"] = undefined /*out*/;
         } else {
@@ -70,6 +72,7 @@ export class Solana extends pulumi.CustomResource {
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["genesisHash"] = undefined /*out*/;
             resourceInputs["primordial"] = undefined /*out*/;
+            resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -82,7 +85,8 @@ export class Solana extends pulumi.CustomResource {
  */
 export interface SolanaArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
-    flags: pulumi.Input<inputs.solana.GenesisFlagsArgs>;
-    primordial: pulumi.Input<pulumi.Input<inputs.solana.PrimorialEntryArgs>[]>;
+    flags: pulumi.Input<inputs.genesis.GenesisFlagsArgs>;
+    primordial: pulumi.Input<pulumi.Input<inputs.genesis.PrimorialEntryArgs>[]>;
+    runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     version?: pulumi.Input<string>;
 }

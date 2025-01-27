@@ -13,8 +13,12 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
+from . import outputs
+from .. import deb as _deb
+from .. import runner as _runner
 from .. import solana as _solana
 from .. import ssh as _ssh
+from ._inputs import *
 
 __all__ = ['ExplorerArgs', 'Explorer']
 
@@ -23,10 +27,11 @@ class ExplorerArgs:
     def __init__(__self__, *,
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  environment: pulumi.Input['_solana.EnvironmentArgs'],
-                 flags: pulumi.Input['_solana.ExplorerFlagsArgs'],
+                 flags: pulumi.Input['ExplorerFlagsArgs'],
                  rpcurl: Optional[pulumi.Input[str]] = None,
                  cluster_name: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  symbol: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None):
         """
@@ -41,6 +46,8 @@ class ExplorerArgs:
             pulumi.set(__self__, "cluster_name", cluster_name)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if runner_config is not None:
+            pulumi.set(__self__, "runner_config", runner_config)
         if symbol is not None:
             pulumi.set(__self__, "symbol", symbol)
         if version is not None:
@@ -66,11 +73,11 @@ class ExplorerArgs:
 
     @property
     @pulumi.getter
-    def flags(self) -> pulumi.Input['_solana.ExplorerFlagsArgs']:
+    def flags(self) -> pulumi.Input['ExplorerFlagsArgs']:
         return pulumi.get(self, "flags")
 
     @flags.setter
-    def flags(self, value: pulumi.Input['_solana.ExplorerFlagsArgs']):
+    def flags(self, value: pulumi.Input['ExplorerFlagsArgs']):
         pulumi.set(self, "flags", value)
 
     @property
@@ -101,6 +108,15 @@ class ExplorerArgs:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
+        return pulumi.get(self, "runner_config")
+
+    @runner_config.setter
+    def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
+        pulumi.set(self, "runner_config", value)
+
+    @property
     @pulumi.getter
     def symbol(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "symbol")
@@ -128,8 +144,9 @@ class Explorer(pulumi.CustomResource):
                  cluster_name: Optional[pulumi.Input[str]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
-                 flags: Optional[pulumi.Input[Union['_solana.ExplorerFlagsArgs', '_solana.ExplorerFlagsArgsDict']]] = None,
+                 flags: Optional[pulumi.Input[Union['ExplorerFlagsArgs', 'ExplorerFlagsArgsDict']]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  symbol: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -165,8 +182,9 @@ class Explorer(pulumi.CustomResource):
                  cluster_name: Optional[pulumi.Input[str]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
-                 flags: Optional[pulumi.Input[Union['_solana.ExplorerFlagsArgs', '_solana.ExplorerFlagsArgsDict']]] = None,
+                 flags: Optional[pulumi.Input[Union['ExplorerFlagsArgs', 'ExplorerFlagsArgsDict']]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  symbol: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -190,6 +208,7 @@ class Explorer(pulumi.CustomResource):
                 raise TypeError("Missing required property 'flags'")
             __props__.__dict__["flags"] = flags
             __props__.__dict__["name"] = name
+            __props__.__dict__["runner_config"] = runner_config
             __props__.__dict__["symbol"] = symbol
             __props__.__dict__["version"] = version
         super(Explorer, __self__).__init__(
@@ -220,6 +239,7 @@ class Explorer(pulumi.CustomResource):
         __props__.__dict__["environment"] = None
         __props__.__dict__["flags"] = None
         __props__.__dict__["name"] = None
+        __props__.__dict__["runner_config"] = None
         __props__.__dict__["symbol"] = None
         __props__.__dict__["version"] = None
         return Explorer(resource_name, opts=opts, __props__=__props__)
@@ -246,13 +266,18 @@ class Explorer(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def flags(self) -> pulumi.Output['_solana.outputs.ExplorerFlags']:
+    def flags(self) -> pulumi.Output['outputs.ExplorerFlags']:
         return pulumi.get(self, "flags")
 
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[Optional[str]]:
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
+        return pulumi.get(self, "runner_config")
 
     @property
     @pulumi.getter

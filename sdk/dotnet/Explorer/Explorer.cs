@@ -26,10 +26,13 @@ namespace ABKLabs.Svmkit.Explorer
         public Output<ABKLabs.Svmkit.Solana.Outputs.Environment> Environment { get; private set; } = null!;
 
         [Output("flags")]
-        public Output<ABKLabs.Svmkit.Solana.Outputs.ExplorerFlags> Flags { get; private set; } = null!;
+        public Output<Outputs.ExplorerFlags> Flags { get; private set; } = null!;
 
         [Output("name")]
         public Output<string?> Name { get; private set; } = null!;
+
+        [Output("runnerConfig")]
+        public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
 
         [Output("symbol")]
         public Output<string?> Symbol { get; private set; } = null!;
@@ -96,10 +99,13 @@ namespace ABKLabs.Svmkit.Explorer
         public Input<ABKLabs.Svmkit.Solana.Inputs.EnvironmentArgs> Environment { get; set; } = null!;
 
         [Input("flags", required: true)]
-        public Input<ABKLabs.Svmkit.Solana.Inputs.ExplorerFlagsArgs> Flags { get; set; } = null!;
+        public Input<Inputs.ExplorerFlagsArgs> Flags { get; set; } = null!;
 
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        [Input("runnerConfig")]
+        public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
 
         [Input("symbol")]
         public Input<string>? Symbol { get; set; }

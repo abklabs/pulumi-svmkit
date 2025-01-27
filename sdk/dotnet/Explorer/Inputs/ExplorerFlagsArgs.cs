@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace ABKLabs.Svmkit.Solana.Inputs
+namespace ABKLabs.Svmkit.Explorer.Inputs
 {
 
     public sealed class ExplorerFlagsArgs : global::Pulumi.ResourceArgs

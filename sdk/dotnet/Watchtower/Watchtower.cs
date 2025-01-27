@@ -25,6 +25,9 @@ namespace ABKLabs.Svmkit.Watchtower
         [Output("notifications")]
         public Output<Outputs.NotificationConfig> Notifications { get; private set; } = null!;
 
+        [Output("runnerConfig")]
+        public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a Watchtower resource with the given unique name, arguments, and options.
@@ -82,6 +85,9 @@ namespace ABKLabs.Svmkit.Watchtower
 
         [Input("notifications", required: true)]
         public Input<Inputs.NotificationConfigArgs> Notifications { get; set; } = null!;
+
+        [Input("runnerConfig")]
+        public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
 
         public WatchtowerArgs()
         {

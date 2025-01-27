@@ -25,6 +25,9 @@ namespace ABKLabs.Svmkit.Validator
         [Output("keyPairs")]
         public Output<ABKLabs.Svmkit.Firedancer.Outputs.KeyPairs> KeyPairs { get; private set; } = null!;
 
+        [Output("runnerConfig")]
+        public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
+
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
 
@@ -85,6 +88,9 @@ namespace ABKLabs.Svmkit.Validator
 
         [Input("keyPairs", required: true)]
         public Input<ABKLabs.Svmkit.Firedancer.Inputs.KeyPairsArgs> KeyPairs { get; set; } = null!;
+
+        [Input("runnerConfig")]
+        public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
 
         [Input("version")]
         public Input<string>? Version { get; set; }

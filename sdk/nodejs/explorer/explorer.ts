@@ -38,8 +38,9 @@ export class Explorer extends pulumi.CustomResource {
     public readonly clusterName!: pulumi.Output<string | undefined>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly environment!: pulumi.Output<outputs.solana.Environment>;
-    public readonly flags!: pulumi.Output<outputs.solana.ExplorerFlags>;
+    public readonly flags!: pulumi.Output<outputs.explorer.ExplorerFlags>;
     public readonly name!: pulumi.Output<string | undefined>;
+    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly symbol!: pulumi.Output<string | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
@@ -69,6 +70,7 @@ export class Explorer extends pulumi.CustomResource {
             resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["symbol"] = args ? args.symbol : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
         } else {
@@ -78,6 +80,7 @@ export class Explorer extends pulumi.CustomResource {
             resourceInputs["environment"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["symbol"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
@@ -94,8 +97,9 @@ export interface ExplorerArgs {
     clusterName?: pulumi.Input<string>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     environment: pulumi.Input<inputs.solana.EnvironmentArgs>;
-    flags: pulumi.Input<inputs.solana.ExplorerFlagsArgs>;
+    flags: pulumi.Input<inputs.explorer.ExplorerFlagsArgs>;
     name?: pulumi.Input<string>;
+    runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     symbol?: pulumi.Input<string>;
     version?: pulumi.Input<string>;
 }

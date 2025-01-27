@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -21,6 +22,7 @@ type Watchtower struct {
 	Environment   solana.EnvironmentOutput `pulumi:"environment"`
 	Flags         WatchtowerFlagsOutput    `pulumi:"flags"`
 	Notifications NotificationConfigOutput `pulumi:"notifications"`
+	RunnerConfig  runner.ConfigPtrOutput   `pulumi:"runnerConfig"`
 }
 
 // NewWatchtower registers a new resource with the given unique name, arguments, and options.
@@ -80,6 +82,7 @@ type watchtowerArgs struct {
 	Environment   solana.Environment `pulumi:"environment"`
 	Flags         WatchtowerFlags    `pulumi:"flags"`
 	Notifications NotificationConfig `pulumi:"notifications"`
+	RunnerConfig  *runner.Config     `pulumi:"runnerConfig"`
 }
 
 // The set of arguments for constructing a Watchtower resource.
@@ -88,6 +91,7 @@ type WatchtowerArgs struct {
 	Environment   solana.EnvironmentInput
 	Flags         WatchtowerFlagsInput
 	Notifications NotificationConfigInput
+	RunnerConfig  runner.ConfigPtrInput
 }
 
 func (WatchtowerArgs) ElementType() reflect.Type {
@@ -141,6 +145,10 @@ func (o WatchtowerOutput) Flags() WatchtowerFlagsOutput {
 
 func (o WatchtowerOutput) Notifications() NotificationConfigOutput {
 	return o.ApplyT(func(v *Watchtower) NotificationConfigOutput { return v.Notifications }).(NotificationConfigOutput)
+}
+
+func (o WatchtowerOutput) RunnerConfig() runner.ConfigPtrOutput {
+	return o.ApplyT(func(v *Watchtower) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
 }
 
 func init() {

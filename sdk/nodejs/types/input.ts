@@ -173,6 +173,23 @@ export namespace deb {
     }
 }
 
+export namespace explorer {
+    export interface ExplorerFlagsArgs {
+        hostname?: pulumi.Input<string>;
+        keepAliveTimeout?: pulumi.Input<number>;
+        port?: pulumi.Input<number>;
+    }
+}
+
+export namespace faucet {
+    export interface FaucetFlagsArgs {
+        allowIPs?: pulumi.Input<pulumi.Input<string>[]>;
+        perRequestCap?: pulumi.Input<number>;
+        perTimeCap?: pulumi.Input<number>;
+        sliceSeconds?: pulumi.Input<number>;
+    }
+}
+
 export namespace firedancer {
     export interface ConfigArgs {
         consensus?: pulumi.Input<inputs.firedancer.ConfigConsensusArgs>;
@@ -282,30 +299,7 @@ export namespace firedancer {
     }
 }
 
-export namespace runner {
-    export interface ConfigArgs {
-        packageConfig?: pulumi.Input<inputs.deb.PackageConfigArgs>;
-    }
-}
-
-export namespace solana {
-    export interface EnvironmentArgs {
-        rpcURL: pulumi.Input<string>;
-    }
-
-    export interface ExplorerFlagsArgs {
-        hostname?: pulumi.Input<string>;
-        keepAliveTimeout?: pulumi.Input<number>;
-        port?: pulumi.Input<number>;
-    }
-
-    export interface FaucetFlagsArgs {
-        allowIPs?: pulumi.Input<pulumi.Input<string>[]>;
-        perRequestCap?: pulumi.Input<number>;
-        perTimeCap?: pulumi.Input<number>;
-        sliceSeconds?: pulumi.Input<number>;
-    }
-
+export namespace genesis {
     export interface GenesisFlagsArgs {
         bootstrapStakeAuthorizedPubkey?: pulumi.Input<string>;
         bootstrapValidatorLamports?: pulumi.Input<number>;
@@ -340,6 +334,18 @@ export namespace solana {
     export interface PrimorialEntryArgs {
         lamports: pulumi.Input<string>;
         pubkey: pulumi.Input<string>;
+    }
+}
+
+export namespace runner {
+    export interface ConfigArgs {
+        packageConfig?: pulumi.Input<inputs.deb.PackageConfigArgs>;
+    }
+}
+
+export namespace solana {
+    export interface EnvironmentArgs {
+        rpcURL: pulumi.Input<string>;
     }
 
     export interface StakeAccountKeyPairsArgs {
