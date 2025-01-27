@@ -7,7 +7,7 @@ import (
 
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
-	"github.com/abklabs/svmkit/pkg/watchtower"
+	"github.com/abklabs/svmkit/pkg/solana/watchtower"
 )
 
 // Watchtower represents a Pulumi resource for managing an Watchtower.

@@ -16,13 +16,13 @@ package provider
 
 import (
 	"github.com/abklabs/pulumi-svmkit/pkg/account"
-	"github.com/abklabs/pulumi-svmkit/pkg/faucet"
 	"github.com/abklabs/pulumi-svmkit/pkg/explorer"
-	"github.com/abklabs/pulumi-svmkit/pkg/watchtower"
+	"github.com/abklabs/pulumi-svmkit/pkg/faucet"
 	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
 	"github.com/abklabs/pulumi-svmkit/pkg/networkinfo"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/validator"
+	"github.com/abklabs/pulumi-svmkit/pkg/watchtower"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi-go-provider/middleware/schema"
