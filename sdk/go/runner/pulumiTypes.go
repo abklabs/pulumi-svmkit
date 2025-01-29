@@ -15,7 +15,8 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type Config struct {
-	PackageConfig *deb.PackageConfig `pulumi:"packageConfig"`
+	AptLockTimeout *int               `pulumi:"aptLockTimeout"`
+	PackageConfig  *deb.PackageConfig `pulumi:"packageConfig"`
 }
 
 // ConfigInput is an input type that accepts ConfigArgs and ConfigOutput values.
@@ -30,7 +31,8 @@ type ConfigInput interface {
 }
 
 type ConfigArgs struct {
-	PackageConfig deb.PackageConfigPtrInput `pulumi:"packageConfig"`
+	AptLockTimeout pulumi.IntPtrInput        `pulumi:"aptLockTimeout"`
+	PackageConfig  deb.PackageConfigPtrInput `pulumi:"packageConfig"`
 }
 
 func (ConfigArgs) ElementType() reflect.Type {
@@ -110,6 +112,10 @@ func (o ConfigOutput) ToConfigPtrOutputWithContext(ctx context.Context) ConfigPt
 	}).(ConfigPtrOutput)
 }
 
+func (o ConfigOutput) AptLockTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v Config) *int { return v.AptLockTimeout }).(pulumi.IntPtrOutput)
+}
+
 func (o ConfigOutput) PackageConfig() deb.PackageConfigPtrOutput {
 	return o.ApplyT(func(v Config) *deb.PackageConfig { return v.PackageConfig }).(deb.PackageConfigPtrOutput)
 }
@@ -136,6 +142,15 @@ func (o ConfigPtrOutput) Elem() ConfigOutput {
 		var ret Config
 		return ret
 	}).(ConfigOutput)
+}
+
+func (o ConfigPtrOutput) AptLockTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Config) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AptLockTimeout
+	}).(pulumi.IntPtrOutput)
 }
 
 func (o ConfigPtrOutput) PackageConfig() deb.PackageConfigPtrOutput {

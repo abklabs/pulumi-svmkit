@@ -345,6 +345,7 @@ export namespace genesis {
 
 export namespace runner {
     export interface Config {
+        aptLockTimeout?: number;
         packageConfig?: outputs.deb.PackageConfig;
     }
 

@@ -24,7 +24,9 @@ class Config(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "packageConfig":
+        if key == "aptLockTimeout":
+            suggest = "apt_lock_timeout"
+        elif key == "packageConfig":
             suggest = "package_config"
 
         if suggest:
@@ -39,9 +41,17 @@ class Config(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 apt_lock_timeout: Optional[int] = None,
                  package_config: Optional['_deb.outputs.PackageConfig'] = None):
+        if apt_lock_timeout is not None:
+            pulumi.set(__self__, "apt_lock_timeout", apt_lock_timeout)
         if package_config is not None:
             pulumi.set(__self__, "package_config", package_config)
+
+    @property
+    @pulumi.getter(name="aptLockTimeout")
+    def apt_lock_timeout(self) -> Optional[int]:
+        return pulumi.get(self, "apt_lock_timeout")
 
     @property
     @pulumi.getter(name="packageConfig")

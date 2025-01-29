@@ -14,11 +14,16 @@ namespace ABKLabs.Svmkit.Runner.Outputs
     [OutputType]
     public sealed class Config
     {
+        public readonly int? AptLockTimeout;
         public readonly ABKLabs.Svmkit.Deb.Outputs.PackageConfig? PackageConfig;
 
         [OutputConstructor]
-        private Config(ABKLabs.Svmkit.Deb.Outputs.PackageConfig? packageConfig)
+        private Config(
+            int? aptLockTimeout,
+
+            ABKLabs.Svmkit.Deb.Outputs.PackageConfig? packageConfig)
         {
+            AptLockTimeout = aptLockTimeout;
             PackageConfig = packageConfig;
         }
     }

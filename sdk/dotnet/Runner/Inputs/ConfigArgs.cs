@@ -13,6 +13,9 @@ namespace ABKLabs.Svmkit.Runner.Inputs
 
     public sealed class ConfigArgs : global::Pulumi.ResourceArgs
     {
+        [Input("aptLockTimeout")]
+        public Input<int>? AptLockTimeout { get; set; }
+
         [Input("packageConfig")]
         public Input<ABKLabs.Svmkit.Deb.Inputs.PackageConfigArgs>? PackageConfig { get; set; }
 
