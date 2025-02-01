@@ -507,6 +507,47 @@ export namespace ssh {
 
 }
 
+export namespace tuner {
+    export interface TunerKernelParams {
+        kernelHungTaskTimeoutSecs?: number;
+        kernelNmiWatchdog?: number;
+        kernelPidMax?: number;
+        kernelSchedMinGranularityNs?: number;
+        kernelSchedWakeupGranularityNs?: number;
+        kernelTimerMigration?: number;
+    }
+
+    export interface TunerNetParams {
+        netCoreRmemDefault?: number;
+        netCoreRmemMax?: number;
+        netCoreWmemDefault?: number;
+        netCoreWmemMax?: number;
+        netIpv4TcpCongestionControl?: string;
+        netIpv4TcpFastopen?: number;
+        netIpv4TcpLowLatency?: number;
+        netIpv4TcpModerateRcvbuf?: number;
+        netIpv4TcpNoMetricsSave?: number;
+        netIpv4TcpRmem?: string;
+        netIpv4TcpSack?: number;
+        netIpv4TcpTimestamps?: number;
+        netIpv4TcpTwReuse?: number;
+        netIpv4TcpWmem?: string;
+    }
+
+    export interface TunerVmParams {
+        vmDirtyBackgroundRatio?: number;
+        vmDirtyExpireCentisecs?: number;
+        vmDirtyRatio?: number;
+        vmDirtyWritebackCentisecs?: number;
+        vmDirtytimeExpireSeconds?: number;
+        vmMaxMapCount?: number;
+        vmMinFreeKbytes?: number;
+        vmStatInterval?: number;
+        vmSwappiness?: number;
+    }
+
+}
+
 export namespace watchtower {
     export interface DiscordConfig {
         webhookUrl: string;

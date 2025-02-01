@@ -24,6 +24,7 @@ import * as faucet from "./faucet";
 import * as genesis from "./genesis";
 import * as networkinfo from "./networkinfo";
 import * as solana from "./solana";
+import * as tuner from "./tuner";
 import * as types from "./types";
 import * as validator from "./validator";
 import * as watchtower from "./watchtower";
@@ -36,6 +37,7 @@ export {
     genesis,
     networkinfo,
     solana,
+    tuner,
     types,
     validator,
     watchtower,

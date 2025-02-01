@@ -32,6 +32,8 @@ if typing.TYPE_CHECKING:
     solana = __solana
     import pulumi_svmkit.ssh as __ssh
     ssh = __ssh
+    import pulumi_svmkit.tuner as __tuner
+    tuner = __tuner
     import pulumi_svmkit.validator as __validator
     validator = __validator
     import pulumi_svmkit.watchtower as __watchtower
@@ -48,6 +50,7 @@ else:
     runner = _utilities.lazy_import('pulumi_svmkit.runner')
     solana = _utilities.lazy_import('pulumi_svmkit.solana')
     ssh = _utilities.lazy_import('pulumi_svmkit.ssh')
+    tuner = _utilities.lazy_import('pulumi_svmkit.tuner')
     validator = _utilities.lazy_import('pulumi_svmkit.validator')
     watchtower = _utilities.lazy_import('pulumi_svmkit.watchtower')
 
@@ -94,6 +97,14 @@ _utilities.register(
   "fqn": "pulumi_svmkit",
   "classes": {
    "svmkit:index:KeyPair": "KeyPair"
+  }
+ },
+ {
+  "pkg": "svmkit",
+  "mod": "tuner",
+  "fqn": "pulumi_svmkit.tuner",
+  "classes": {
+   "svmkit:tuner:Tuner": "Tuner"
   }
  },
  {

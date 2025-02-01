@@ -498,6 +498,46 @@ export namespace ssh {
     }
 }
 
+export namespace tuner {
+    export interface TunerKernelParamsArgs {
+        kernelHungTaskTimeoutSecs?: pulumi.Input<number>;
+        kernelNmiWatchdog?: pulumi.Input<number>;
+        kernelPidMax?: pulumi.Input<number>;
+        kernelSchedMinGranularityNs?: pulumi.Input<number>;
+        kernelSchedWakeupGranularityNs?: pulumi.Input<number>;
+        kernelTimerMigration?: pulumi.Input<number>;
+    }
+
+    export interface TunerNetParamsArgs {
+        netCoreRmemDefault?: pulumi.Input<number>;
+        netCoreRmemMax?: pulumi.Input<number>;
+        netCoreWmemDefault?: pulumi.Input<number>;
+        netCoreWmemMax?: pulumi.Input<number>;
+        netIpv4TcpCongestionControl?: pulumi.Input<string>;
+        netIpv4TcpFastopen?: pulumi.Input<number>;
+        netIpv4TcpLowLatency?: pulumi.Input<number>;
+        netIpv4TcpModerateRcvbuf?: pulumi.Input<number>;
+        netIpv4TcpNoMetricsSave?: pulumi.Input<number>;
+        netIpv4TcpRmem?: pulumi.Input<string>;
+        netIpv4TcpSack?: pulumi.Input<number>;
+        netIpv4TcpTimestamps?: pulumi.Input<number>;
+        netIpv4TcpTwReuse?: pulumi.Input<number>;
+        netIpv4TcpWmem?: pulumi.Input<string>;
+    }
+
+    export interface TunerVmParamsArgs {
+        vmDirtyBackgroundRatio?: pulumi.Input<number>;
+        vmDirtyExpireCentisecs?: pulumi.Input<number>;
+        vmDirtyRatio?: pulumi.Input<number>;
+        vmDirtyWritebackCentisecs?: pulumi.Input<number>;
+        vmDirtytimeExpireSeconds?: pulumi.Input<number>;
+        vmMaxMapCount?: pulumi.Input<number>;
+        vmMinFreeKbytes?: pulumi.Input<number>;
+        vmStatInterval?: pulumi.Input<number>;
+        vmSwappiness?: pulumi.Input<number>;
+    }
+}
+
 export namespace watchtower {
     export interface DiscordConfigArgs {
         webhookUrl: pulumi.Input<string>;
