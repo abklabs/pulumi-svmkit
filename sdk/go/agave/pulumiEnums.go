@@ -27,6 +27,8 @@ const (
 	VariantMantis = Variant("mantis")
 	// The Xen validator
 	VariantXen = Variant("xen")
+	// The Tachyon validator
+	VariantTachyon = Variant("tachyon")
 )
 
 func (Variant) ElementType() reflect.Type {
@@ -158,6 +160,7 @@ func (o VariantPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulu
 //	VariantPyth
 //	VariantMantis
 //	VariantXen
+//	VariantTachyon
 type VariantInput interface {
 	pulumi.Input
 

@@ -45,6 +45,10 @@ namespace ABKLabs.Svmkit.Agave
         /// The Xen validator
         /// </summary>
         public static Variant Xen { get; } = new Variant("xen");
+        /// <summary>
+        /// The Tachyon validator
+        /// </summary>
+        public static Variant Tachyon { get; } = new Variant("tachyon");
 
         public static bool operator ==(Variant left, Variant right) => left.Equals(right);
         public static bool operator !=(Variant left, Variant right) => !left.Equals(right);

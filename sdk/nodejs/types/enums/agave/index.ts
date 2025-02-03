@@ -31,6 +31,10 @@ export const Variant = {
      * The Xen validator
      */
     Xen: "xen",
+    /**
+     * The Tachyon validator
+     */
+    Tachyon: "tachyon",
 } as const;
 
 export type Variant = (typeof Variant)[keyof typeof Variant];

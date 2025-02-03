@@ -38,3 +38,7 @@ class Variant(str, Enum):
     """
     The Xen validator
     """
+    TACHYON = "tachyon"
+    """
+    The Tachyon validator
+    """
