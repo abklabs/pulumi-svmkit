@@ -86,6 +86,7 @@ func Provider() p.Provider {
 		},
 		Functions: []infer.InferredFunction{
 			infer.Function[networkinfo.GetNetworkInfo, networkinfo.GetNetworkInfoInput, networkinfo.GetNetworkInfoOutput](),
+			infer.Function[tuner.GetDefaultTunerParams, tuner.TunerParamsInput, tuner.TunerParamsOutput](),
 		},
 		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
 			"svm": "index",
