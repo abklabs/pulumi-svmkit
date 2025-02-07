@@ -44,9 +44,9 @@ func (Tuner) Create(ctx context.Context, name string, input TunerArgs, preview b
 		return name, state, nil
 	}
 
-	tuner := input.Tuner
+	inputTuner := input.Tuner
 
-	command := tuner.Create()
+	command := inputTuner.Create()
 
 	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
 		return "", TunerState{}, err
@@ -76,9 +76,9 @@ func (Tuner) Update(ctx context.Context, name string, oldInput, newInput TunerAr
 		return name, state, nil
 	}
 
-	tuner := newInput.Tuner
+	inputTuner := newInput.Tuner
 
-	command := tuner.Create()
+	command := inputTuner.Create()
 
 	if err := utils.RunnerHelper(ctx, newInput.Connection, command); err != nil {
 		return "", TunerState{}, err
