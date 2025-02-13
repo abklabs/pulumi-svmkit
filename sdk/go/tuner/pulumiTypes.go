@@ -549,6 +549,73 @@ func (o TunerNetParamsPtrOutput) NetIpv4TcpWmem() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type TunerParams struct {
+	CpuGovernor *CpuGovernor       `pulumi:"cpuGovernor"`
+	Kernel      *TunerKernelParams `pulumi:"kernel"`
+	Net         *TunerNetParams    `pulumi:"net"`
+	Vm          *TunerVmParams     `pulumi:"vm"`
+}
+
+// TunerParamsInput is an input type that accepts TunerParamsArgs and TunerParamsOutput values.
+// You can construct a concrete instance of `TunerParamsInput` via:
+//
+//	TunerParamsArgs{...}
+type TunerParamsInput interface {
+	pulumi.Input
+
+	ToTunerParamsOutput() TunerParamsOutput
+	ToTunerParamsOutputWithContext(context.Context) TunerParamsOutput
+}
+
+type TunerParamsArgs struct {
+	CpuGovernor CpuGovernorPtrInput       `pulumi:"cpuGovernor"`
+	Kernel      TunerKernelParamsPtrInput `pulumi:"kernel"`
+	Net         TunerNetParamsPtrInput    `pulumi:"net"`
+	Vm          TunerVmParamsPtrInput     `pulumi:"vm"`
+}
+
+func (TunerParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TunerParams)(nil)).Elem()
+}
+
+func (i TunerParamsArgs) ToTunerParamsOutput() TunerParamsOutput {
+	return i.ToTunerParamsOutputWithContext(context.Background())
+}
+
+func (i TunerParamsArgs) ToTunerParamsOutputWithContext(ctx context.Context) TunerParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TunerParamsOutput)
+}
+
+type TunerParamsOutput struct{ *pulumi.OutputState }
+
+func (TunerParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TunerParams)(nil)).Elem()
+}
+
+func (o TunerParamsOutput) ToTunerParamsOutput() TunerParamsOutput {
+	return o
+}
+
+func (o TunerParamsOutput) ToTunerParamsOutputWithContext(ctx context.Context) TunerParamsOutput {
+	return o
+}
+
+func (o TunerParamsOutput) CpuGovernor() CpuGovernorPtrOutput {
+	return o.ApplyT(func(v TunerParams) *CpuGovernor { return v.CpuGovernor }).(CpuGovernorPtrOutput)
+}
+
+func (o TunerParamsOutput) Kernel() TunerKernelParamsPtrOutput {
+	return o.ApplyT(func(v TunerParams) *TunerKernelParams { return v.Kernel }).(TunerKernelParamsPtrOutput)
+}
+
+func (o TunerParamsOutput) Net() TunerNetParamsPtrOutput {
+	return o.ApplyT(func(v TunerParams) *TunerNetParams { return v.Net }).(TunerNetParamsPtrOutput)
+}
+
+func (o TunerParamsOutput) Vm() TunerVmParamsPtrOutput {
+	return o.ApplyT(func(v TunerParams) *TunerVmParams { return v.Vm }).(TunerVmParamsPtrOutput)
+}
+
 type TunerVmParams struct {
 	VmDirtyBackgroundRatio    *int `pulumi:"vmDirtyBackgroundRatio"`
 	VmDirtyExpireCentisecs    *int `pulumi:"vmDirtyExpireCentisecs"`
@@ -807,12 +874,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerKernelParamsPtrInput)(nil)).Elem(), TunerKernelParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerNetParamsInput)(nil)).Elem(), TunerNetParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerNetParamsPtrInput)(nil)).Elem(), TunerNetParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TunerParamsInput)(nil)).Elem(), TunerParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerVmParamsInput)(nil)).Elem(), TunerVmParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerVmParamsPtrInput)(nil)).Elem(), TunerVmParamsArgs{})
 	pulumi.RegisterOutputType(TunerKernelParamsOutput{})
 	pulumi.RegisterOutputType(TunerKernelParamsPtrOutput{})
 	pulumi.RegisterOutputType(TunerNetParamsOutput{})
 	pulumi.RegisterOutputType(TunerNetParamsPtrOutput{})
+	pulumi.RegisterOutputType(TunerParamsOutput{})
 	pulumi.RegisterOutputType(TunerVmParamsOutput{})
 	pulumi.RegisterOutputType(TunerVmParamsPtrOutput{})
 }

@@ -525,6 +525,13 @@ export namespace tuner {
         netIpv4TcpWmem?: pulumi.Input<string>;
     }
 
+    export interface TunerParamsArgs {
+        cpuGovernor?: pulumi.Input<enums.tuner.CpuGovernor>;
+        kernel?: pulumi.Input<inputs.tuner.TunerKernelParamsArgs>;
+        net?: pulumi.Input<inputs.tuner.TunerNetParamsArgs>;
+        vm?: pulumi.Input<inputs.tuner.TunerVmParamsArgs>;
+    }
+
     export interface TunerVmParamsArgs {
         vmDirtyBackgroundRatio?: pulumi.Input<number>;
         vmDirtyExpireCentisecs?: pulumi.Input<number>;

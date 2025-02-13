@@ -13,12 +13,15 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
+from ._enums import *
 
 __all__ = [
     'TunerKernelParamsArgs',
     'TunerKernelParamsArgsDict',
     'TunerNetParamsArgs',
     'TunerNetParamsArgsDict',
+    'TunerParamsArgs',
+    'TunerParamsArgsDict',
     'TunerVmParamsArgs',
     'TunerVmParamsArgsDict',
 ]
@@ -303,6 +306,68 @@ class TunerNetParamsArgs:
     @net_ipv4_tcp_wmem.setter
     def net_ipv4_tcp_wmem(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "net_ipv4_tcp_wmem", value)
+
+
+if not MYPY:
+    class TunerParamsArgsDict(TypedDict):
+        cpu_governor: NotRequired[pulumi.Input['CpuGovernor']]
+        kernel: NotRequired[pulumi.Input['TunerKernelParamsArgsDict']]
+        net: NotRequired[pulumi.Input['TunerNetParamsArgsDict']]
+        vm: NotRequired[pulumi.Input['TunerVmParamsArgsDict']]
+elif False:
+    TunerParamsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TunerParamsArgs:
+    def __init__(__self__, *,
+                 cpu_governor: Optional[pulumi.Input['CpuGovernor']] = None,
+                 kernel: Optional[pulumi.Input['TunerKernelParamsArgs']] = None,
+                 net: Optional[pulumi.Input['TunerNetParamsArgs']] = None,
+                 vm: Optional[pulumi.Input['TunerVmParamsArgs']] = None):
+        if cpu_governor is not None:
+            pulumi.set(__self__, "cpu_governor", cpu_governor)
+        if kernel is not None:
+            pulumi.set(__self__, "kernel", kernel)
+        if net is not None:
+            pulumi.set(__self__, "net", net)
+        if vm is not None:
+            pulumi.set(__self__, "vm", vm)
+
+    @property
+    @pulumi.getter(name="cpuGovernor")
+    def cpu_governor(self) -> Optional[pulumi.Input['CpuGovernor']]:
+        return pulumi.get(self, "cpu_governor")
+
+    @cpu_governor.setter
+    def cpu_governor(self, value: Optional[pulumi.Input['CpuGovernor']]):
+        pulumi.set(self, "cpu_governor", value)
+
+    @property
+    @pulumi.getter
+    def kernel(self) -> Optional[pulumi.Input['TunerKernelParamsArgs']]:
+        return pulumi.get(self, "kernel")
+
+    @kernel.setter
+    def kernel(self, value: Optional[pulumi.Input['TunerKernelParamsArgs']]):
+        pulumi.set(self, "kernel", value)
+
+    @property
+    @pulumi.getter
+    def net(self) -> Optional[pulumi.Input['TunerNetParamsArgs']]:
+        return pulumi.get(self, "net")
+
+    @net.setter
+    def net(self, value: Optional[pulumi.Input['TunerNetParamsArgs']]):
+        pulumi.set(self, "net", value)
+
+    @property
+    @pulumi.getter
+    def vm(self) -> Optional[pulumi.Input['TunerVmParamsArgs']]:
+        return pulumi.get(self, "vm")
+
+    @vm.setter
+    def vm(self, value: Optional[pulumi.Input['TunerVmParamsArgs']]):
+        pulumi.set(self, "vm", value)
 
 
 if not MYPY:

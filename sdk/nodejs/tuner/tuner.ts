@@ -35,11 +35,8 @@ export class Tuner extends pulumi.CustomResource {
     }
 
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly cpuGovernor!: pulumi.Output<string | undefined>;
-    public readonly kernel!: pulumi.Output<outputs.tuner.TunerKernelParams | undefined>;
-    public readonly net!: pulumi.Output<outputs.tuner.TunerNetParams | undefined>;
+    public readonly params!: pulumi.Output<outputs.tuner.TunerParams>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly vm!: pulumi.Output<outputs.tuner.TunerVmParams | undefined>;
 
     /**
      * Create a Tuner resource with the given unique name, arguments, and options.
@@ -55,19 +52,16 @@ export class Tuner extends pulumi.CustomResource {
             if ((!args || args.connection === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
+            if ((!args || args.params === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'params'");
+            }
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["cpuGovernor"] = args ? args.cpuGovernor : undefined;
-            resourceInputs["kernel"] = args ? args.kernel : undefined;
-            resourceInputs["net"] = args ? args.net : undefined;
+            resourceInputs["params"] = args ? args.params : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["vm"] = args ? args.vm : undefined;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
-            resourceInputs["cpuGovernor"] = undefined /*out*/;
-            resourceInputs["kernel"] = undefined /*out*/;
-            resourceInputs["net"] = undefined /*out*/;
+            resourceInputs["params"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
-            resourceInputs["vm"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Tuner.__pulumiType, name, resourceInputs, opts);
@@ -79,9 +73,6 @@ export class Tuner extends pulumi.CustomResource {
  */
 export interface TunerArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
-    cpuGovernor?: pulumi.Input<string>;
-    kernel?: pulumi.Input<inputs.tuner.TunerKernelParamsArgs>;
-    net?: pulumi.Input<inputs.tuner.TunerNetParamsArgs>;
+    params: pulumi.Input<inputs.tuner.TunerParamsArgs>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
-    vm?: pulumi.Input<inputs.tuner.TunerVmParamsArgs>;
 }

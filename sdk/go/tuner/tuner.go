@@ -17,12 +17,9 @@ import (
 type Tuner struct {
 	pulumi.CustomResourceState
 
-	Connection   ssh.ConnectionOutput       `pulumi:"connection"`
-	CpuGovernor  pulumi.StringPtrOutput     `pulumi:"cpuGovernor"`
-	Kernel       TunerKernelParamsPtrOutput `pulumi:"kernel"`
-	Net          TunerNetParamsPtrOutput    `pulumi:"net"`
-	RunnerConfig runner.ConfigPtrOutput     `pulumi:"runnerConfig"`
-	Vm           TunerVmParamsPtrOutput     `pulumi:"vm"`
+	Connection   ssh.ConnectionOutput   `pulumi:"connection"`
+	Params       TunerParamsOutput      `pulumi:"params"`
+	RunnerConfig runner.ConfigPtrOutput `pulumi:"runnerConfig"`
 }
 
 // NewTuner registers a new resource with the given unique name, arguments, and options.
@@ -34,6 +31,9 @@ func NewTuner(ctx *pulumi.Context,
 
 	if args.Connection == nil {
 		return nil, errors.New("invalid value for required argument 'Connection'")
+	}
+	if args.Params == nil {
+		return nil, errors.New("invalid value for required argument 'Params'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
 	opts = internal.PkgResourceDefaultOpts(opts)
@@ -69,22 +69,16 @@ func (TunerState) ElementType() reflect.Type {
 }
 
 type tunerArgs struct {
-	Connection   ssh.Connection     `pulumi:"connection"`
-	CpuGovernor  *string            `pulumi:"cpuGovernor"`
-	Kernel       *TunerKernelParams `pulumi:"kernel"`
-	Net          *TunerNetParams    `pulumi:"net"`
-	RunnerConfig *runner.Config     `pulumi:"runnerConfig"`
-	Vm           *TunerVmParams     `pulumi:"vm"`
+	Connection   ssh.Connection `pulumi:"connection"`
+	Params       TunerParams    `pulumi:"params"`
+	RunnerConfig *runner.Config `pulumi:"runnerConfig"`
 }
 
 // The set of arguments for constructing a Tuner resource.
 type TunerArgs struct {
 	Connection   ssh.ConnectionInput
-	CpuGovernor  pulumi.StringPtrInput
-	Kernel       TunerKernelParamsPtrInput
-	Net          TunerNetParamsPtrInput
+	Params       TunerParamsInput
 	RunnerConfig runner.ConfigPtrInput
-	Vm           TunerVmParamsPtrInput
 }
 
 func (TunerArgs) ElementType() reflect.Type {
@@ -128,24 +122,12 @@ func (o TunerOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *Tuner) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
 }
 
-func (o TunerOutput) CpuGovernor() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Tuner) pulumi.StringPtrOutput { return v.CpuGovernor }).(pulumi.StringPtrOutput)
-}
-
-func (o TunerOutput) Kernel() TunerKernelParamsPtrOutput {
-	return o.ApplyT(func(v *Tuner) TunerKernelParamsPtrOutput { return v.Kernel }).(TunerKernelParamsPtrOutput)
-}
-
-func (o TunerOutput) Net() TunerNetParamsPtrOutput {
-	return o.ApplyT(func(v *Tuner) TunerNetParamsPtrOutput { return v.Net }).(TunerNetParamsPtrOutput)
+func (o TunerOutput) Params() TunerParamsOutput {
+	return o.ApplyT(func(v *Tuner) TunerParamsOutput { return v.Params }).(TunerParamsOutput)
 }
 
 func (o TunerOutput) RunnerConfig() runner.ConfigPtrOutput {
 	return o.ApplyT(func(v *Tuner) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
-}
-
-func (o TunerOutput) Vm() TunerVmParamsPtrOutput {
-	return o.ApplyT(func(v *Tuner) TunerVmParamsPtrOutput { return v.Vm }).(TunerVmParamsPtrOutput)
 }
 
 func init() {

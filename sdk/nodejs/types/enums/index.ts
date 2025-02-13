@@ -4,8 +4,10 @@
 // Export sub-modules:
 import * as agave from "./agave";
 import * as solana from "./solana";
+import * as tuner from "./tuner";
 
 export {
     agave,
     solana,
+    tuner,
 };

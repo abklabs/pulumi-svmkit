@@ -13,10 +13,13 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
+from . import outputs
+from ._enums import *
 
 __all__ = [
     'TunerKernelParams',
     'TunerNetParams',
+    'TunerParams',
     'TunerVmParams',
 ]
 
@@ -258,6 +261,60 @@ class TunerNetParams(dict):
     @pulumi.getter(name="netIpv4TcpWmem")
     def net_ipv4_tcp_wmem(self) -> Optional[str]:
         return pulumi.get(self, "net_ipv4_tcp_wmem")
+
+
+@pulumi.output_type
+class TunerParams(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cpuGovernor":
+            suggest = "cpu_governor"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TunerParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TunerParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TunerParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cpu_governor: Optional['CpuGovernor'] = None,
+                 kernel: Optional['outputs.TunerKernelParams'] = None,
+                 net: Optional['outputs.TunerNetParams'] = None,
+                 vm: Optional['outputs.TunerVmParams'] = None):
+        if cpu_governor is not None:
+            pulumi.set(__self__, "cpu_governor", cpu_governor)
+        if kernel is not None:
+            pulumi.set(__self__, "kernel", kernel)
+        if net is not None:
+            pulumi.set(__self__, "net", net)
+        if vm is not None:
+            pulumi.set(__self__, "vm", vm)
+
+    @property
+    @pulumi.getter(name="cpuGovernor")
+    def cpu_governor(self) -> Optional['CpuGovernor']:
+        return pulumi.get(self, "cpu_governor")
+
+    @property
+    @pulumi.getter
+    def kernel(self) -> Optional['outputs.TunerKernelParams']:
+        return pulumi.get(self, "kernel")
+
+    @property
+    @pulumi.getter
+    def net(self) -> Optional['outputs.TunerNetParams']:
+        return pulumi.get(self, "net")
+
+    @property
+    @pulumi.getter
+    def vm(self) -> Optional['outputs.TunerVmParams']:
+        return pulumi.get(self, "vm")
 
 
 @pulumi.output_type

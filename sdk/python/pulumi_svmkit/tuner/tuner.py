@@ -17,6 +17,7 @@ from . import outputs
 from .. import deb as _deb
 from .. import runner as _runner
 from .. import ssh as _ssh
+from ._enums import *
 from ._inputs import *
 
 __all__ = ['TunerArgs', 'Tuner']
@@ -25,25 +26,15 @@ __all__ = ['TunerArgs', 'Tuner']
 class TunerArgs:
     def __init__(__self__, *,
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
-                 cpu_governor: Optional[pulumi.Input[str]] = None,
-                 kernel: Optional[pulumi.Input['TunerKernelParamsArgs']] = None,
-                 net: Optional[pulumi.Input['TunerNetParamsArgs']] = None,
-                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
-                 vm: Optional[pulumi.Input['TunerVmParamsArgs']] = None):
+                 params: pulumi.Input['TunerParamsArgs'],
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
         """
         The set of arguments for constructing a Tuner resource.
         """
         pulumi.set(__self__, "connection", connection)
-        if cpu_governor is not None:
-            pulumi.set(__self__, "cpu_governor", cpu_governor)
-        if kernel is not None:
-            pulumi.set(__self__, "kernel", kernel)
-        if net is not None:
-            pulumi.set(__self__, "net", net)
+        pulumi.set(__self__, "params", params)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
-        if vm is not None:
-            pulumi.set(__self__, "vm", vm)
 
     @property
     @pulumi.getter
@@ -55,31 +46,13 @@ class TunerArgs:
         pulumi.set(self, "connection", value)
 
     @property
-    @pulumi.getter(name="cpuGovernor")
-    def cpu_governor(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "cpu_governor")
-
-    @cpu_governor.setter
-    def cpu_governor(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "cpu_governor", value)
-
-    @property
     @pulumi.getter
-    def kernel(self) -> Optional[pulumi.Input['TunerKernelParamsArgs']]:
-        return pulumi.get(self, "kernel")
+    def params(self) -> pulumi.Input['TunerParamsArgs']:
+        return pulumi.get(self, "params")
 
-    @kernel.setter
-    def kernel(self, value: Optional[pulumi.Input['TunerKernelParamsArgs']]):
-        pulumi.set(self, "kernel", value)
-
-    @property
-    @pulumi.getter
-    def net(self) -> Optional[pulumi.Input['TunerNetParamsArgs']]:
-        return pulumi.get(self, "net")
-
-    @net.setter
-    def net(self, value: Optional[pulumi.Input['TunerNetParamsArgs']]):
-        pulumi.set(self, "net", value)
+    @params.setter
+    def params(self, value: pulumi.Input['TunerParamsArgs']):
+        pulumi.set(self, "params", value)
 
     @property
     @pulumi.getter(name="runnerConfig")
@@ -90,15 +63,6 @@ class TunerArgs:
     def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
         pulumi.set(self, "runner_config", value)
 
-    @property
-    @pulumi.getter
-    def vm(self) -> Optional[pulumi.Input['TunerVmParamsArgs']]:
-        return pulumi.get(self, "vm")
-
-    @vm.setter
-    def vm(self, value: Optional[pulumi.Input['TunerVmParamsArgs']]):
-        pulumi.set(self, "vm", value)
-
 
 class Tuner(pulumi.CustomResource):
     @overload
@@ -106,11 +70,8 @@ class Tuner(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
-                 cpu_governor: Optional[pulumi.Input[str]] = None,
-                 kernel: Optional[pulumi.Input[Union['TunerKernelParamsArgs', 'TunerKernelParamsArgsDict']]] = None,
-                 net: Optional[pulumi.Input[Union['TunerNetParamsArgs', 'TunerNetParamsArgsDict']]] = None,
+                 params: Optional[pulumi.Input[Union['TunerParamsArgs', 'TunerParamsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
-                 vm: Optional[pulumi.Input[Union['TunerVmParamsArgs', 'TunerVmParamsArgsDict']]] = None,
                  __props__=None):
         """
         Create a Tuner resource with the given unique name, props, and options.
@@ -141,11 +102,8 @@ class Tuner(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
-                 cpu_governor: Optional[pulumi.Input[str]] = None,
-                 kernel: Optional[pulumi.Input[Union['TunerKernelParamsArgs', 'TunerKernelParamsArgsDict']]] = None,
-                 net: Optional[pulumi.Input[Union['TunerNetParamsArgs', 'TunerNetParamsArgsDict']]] = None,
+                 params: Optional[pulumi.Input[Union['TunerParamsArgs', 'TunerParamsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
-                 vm: Optional[pulumi.Input[Union['TunerVmParamsArgs', 'TunerVmParamsArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -158,11 +116,10 @@ class Tuner(pulumi.CustomResource):
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
-            __props__.__dict__["cpu_governor"] = cpu_governor
-            __props__.__dict__["kernel"] = kernel
-            __props__.__dict__["net"] = net
+            if params is None and not opts.urn:
+                raise TypeError("Missing required property 'params'")
+            __props__.__dict__["params"] = params
             __props__.__dict__["runner_config"] = runner_config
-            __props__.__dict__["vm"] = vm
         super(Tuner, __self__).__init__(
             'svmkit:tuner:Tuner',
             resource_name,
@@ -186,11 +143,8 @@ class Tuner(pulumi.CustomResource):
         __props__ = TunerArgs.__new__(TunerArgs)
 
         __props__.__dict__["connection"] = None
-        __props__.__dict__["cpu_governor"] = None
-        __props__.__dict__["kernel"] = None
-        __props__.__dict__["net"] = None
+        __props__.__dict__["params"] = None
         __props__.__dict__["runner_config"] = None
-        __props__.__dict__["vm"] = None
         return Tuner(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -199,27 +153,12 @@ class Tuner(pulumi.CustomResource):
         return pulumi.get(self, "connection")
 
     @property
-    @pulumi.getter(name="cpuGovernor")
-    def cpu_governor(self) -> pulumi.Output[Optional[str]]:
-        return pulumi.get(self, "cpu_governor")
-
-    @property
     @pulumi.getter
-    def kernel(self) -> pulumi.Output[Optional['outputs.TunerKernelParams']]:
-        return pulumi.get(self, "kernel")
-
-    @property
-    @pulumi.getter
-    def net(self) -> pulumi.Output[Optional['outputs.TunerNetParams']]:
-        return pulumi.get(self, "net")
+    def params(self) -> pulumi.Output['outputs.TunerParams']:
+        return pulumi.get(self, "params")
 
     @property
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
         return pulumi.get(self, "runner_config")
-
-    @property
-    @pulumi.getter
-    def vm(self) -> pulumi.Output[Optional['outputs.TunerVmParams']]:
-        return pulumi.get(self, "vm")
 

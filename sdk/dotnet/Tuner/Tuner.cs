@@ -16,20 +16,11 @@ namespace ABKLabs.Svmkit.Tuner
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
-        [Output("cpuGovernor")]
-        public Output<string?> CpuGovernor { get; private set; } = null!;
-
-        [Output("kernel")]
-        public Output<Outputs.TunerKernelParams?> Kernel { get; private set; } = null!;
-
-        [Output("net")]
-        public Output<Outputs.TunerNetParams?> Net { get; private set; } = null!;
+        [Output("params")]
+        public Output<Outputs.TunerParams> Params { get; private set; } = null!;
 
         [Output("runnerConfig")]
         public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
-
-        [Output("vm")]
-        public Output<Outputs.TunerVmParams?> Vm { get; private set; } = null!;
 
 
         /// <summary>
@@ -80,20 +71,11 @@ namespace ABKLabs.Svmkit.Tuner
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 
-        [Input("cpuGovernor")]
-        public Input<string>? CpuGovernor { get; set; }
-
-        [Input("kernel")]
-        public Input<Inputs.TunerKernelParamsArgs>? Kernel { get; set; }
-
-        [Input("net")]
-        public Input<Inputs.TunerNetParamsArgs>? Net { get; set; }
+        [Input("params", required: true)]
+        public Input<Inputs.TunerParamsArgs> Params { get; set; } = null!;
 
         [Input("runnerConfig")]
         public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
-
-        [Input("vm")]
-        public Input<Inputs.TunerVmParamsArgs>? Vm { get; set; }
 
         public TunerArgs()
         {

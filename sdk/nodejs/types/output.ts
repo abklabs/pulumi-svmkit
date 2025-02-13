@@ -534,6 +534,13 @@ export namespace tuner {
         netIpv4TcpWmem?: string;
     }
 
+    export interface TunerParams {
+        cpuGovernor?: enums.tuner.CpuGovernor;
+        kernel?: outputs.tuner.TunerKernelParams;
+        net?: outputs.tuner.TunerNetParams;
+        vm?: outputs.tuner.TunerVmParams;
+    }
+
     export interface TunerVmParams {
         vmDirtyBackgroundRatio?: number;
         vmDirtyExpireCentisecs?: number;
