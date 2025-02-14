@@ -37,7 +37,7 @@ export class Solana extends pulumi.CustomResource {
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly flags!: pulumi.Output<outputs.genesis.GenesisFlags>;
     public /*out*/ readonly genesisHash!: pulumi.Output<string>;
-    public readonly primordial!: pulumi.Output<outputs.genesis.PrimorialEntry[]>;
+    public readonly primordial!: pulumi.Output<outputs.genesis.PrimordialAccount[]>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
@@ -86,7 +86,7 @@ export class Solana extends pulumi.CustomResource {
 export interface SolanaArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     flags: pulumi.Input<inputs.genesis.GenesisFlagsArgs>;
-    primordial: pulumi.Input<pulumi.Input<inputs.genesis.PrimorialEntryArgs>[]>;
+    primordial: pulumi.Input<pulumi.Input<inputs.genesis.PrimordialAccountArgs>[]>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     version?: pulumi.Input<string>;
 }

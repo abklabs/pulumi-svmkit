@@ -224,111 +224,129 @@ func (o GenesisFlagsOutput) VotePubkey() pulumi.StringOutput {
 	return o.ApplyT(func(v GenesisFlags) string { return v.VotePubkey }).(pulumi.StringOutput)
 }
 
-type PrimorialEntry struct {
-	Lamports string `pulumi:"lamports"`
-	Pubkey   string `pulumi:"pubkey"`
+type PrimordialAccount struct {
+	Data       *string `pulumi:"data"`
+	Executable *bool   `pulumi:"executable"`
+	Lamports   int     `pulumi:"lamports"`
+	Owner      *string `pulumi:"owner"`
+	Pubkey     string  `pulumi:"pubkey"`
 }
 
-// PrimorialEntryInput is an input type that accepts PrimorialEntryArgs and PrimorialEntryOutput values.
-// You can construct a concrete instance of `PrimorialEntryInput` via:
+// PrimordialAccountInput is an input type that accepts PrimordialAccountArgs and PrimordialAccountOutput values.
+// You can construct a concrete instance of `PrimordialAccountInput` via:
 //
-//	PrimorialEntryArgs{...}
-type PrimorialEntryInput interface {
+//	PrimordialAccountArgs{...}
+type PrimordialAccountInput interface {
 	pulumi.Input
 
-	ToPrimorialEntryOutput() PrimorialEntryOutput
-	ToPrimorialEntryOutputWithContext(context.Context) PrimorialEntryOutput
+	ToPrimordialAccountOutput() PrimordialAccountOutput
+	ToPrimordialAccountOutputWithContext(context.Context) PrimordialAccountOutput
 }
 
-type PrimorialEntryArgs struct {
-	Lamports pulumi.StringInput `pulumi:"lamports"`
-	Pubkey   pulumi.StringInput `pulumi:"pubkey"`
+type PrimordialAccountArgs struct {
+	Data       pulumi.StringPtrInput `pulumi:"data"`
+	Executable pulumi.BoolPtrInput   `pulumi:"executable"`
+	Lamports   pulumi.IntInput       `pulumi:"lamports"`
+	Owner      pulumi.StringPtrInput `pulumi:"owner"`
+	Pubkey     pulumi.StringInput    `pulumi:"pubkey"`
 }
 
-func (PrimorialEntryArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*PrimorialEntry)(nil)).Elem()
+func (PrimordialAccountArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PrimordialAccount)(nil)).Elem()
 }
 
-func (i PrimorialEntryArgs) ToPrimorialEntryOutput() PrimorialEntryOutput {
-	return i.ToPrimorialEntryOutputWithContext(context.Background())
+func (i PrimordialAccountArgs) ToPrimordialAccountOutput() PrimordialAccountOutput {
+	return i.ToPrimordialAccountOutputWithContext(context.Background())
 }
 
-func (i PrimorialEntryArgs) ToPrimorialEntryOutputWithContext(ctx context.Context) PrimorialEntryOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PrimorialEntryOutput)
+func (i PrimordialAccountArgs) ToPrimordialAccountOutputWithContext(ctx context.Context) PrimordialAccountOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PrimordialAccountOutput)
 }
 
-// PrimorialEntryArrayInput is an input type that accepts PrimorialEntryArray and PrimorialEntryArrayOutput values.
-// You can construct a concrete instance of `PrimorialEntryArrayInput` via:
+// PrimordialAccountArrayInput is an input type that accepts PrimordialAccountArray and PrimordialAccountArrayOutput values.
+// You can construct a concrete instance of `PrimordialAccountArrayInput` via:
 //
-//	PrimorialEntryArray{ PrimorialEntryArgs{...} }
-type PrimorialEntryArrayInput interface {
+//	PrimordialAccountArray{ PrimordialAccountArgs{...} }
+type PrimordialAccountArrayInput interface {
 	pulumi.Input
 
-	ToPrimorialEntryArrayOutput() PrimorialEntryArrayOutput
-	ToPrimorialEntryArrayOutputWithContext(context.Context) PrimorialEntryArrayOutput
+	ToPrimordialAccountArrayOutput() PrimordialAccountArrayOutput
+	ToPrimordialAccountArrayOutputWithContext(context.Context) PrimordialAccountArrayOutput
 }
 
-type PrimorialEntryArray []PrimorialEntryInput
+type PrimordialAccountArray []PrimordialAccountInput
 
-func (PrimorialEntryArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PrimorialEntry)(nil)).Elem()
+func (PrimordialAccountArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PrimordialAccount)(nil)).Elem()
 }
 
-func (i PrimorialEntryArray) ToPrimorialEntryArrayOutput() PrimorialEntryArrayOutput {
-	return i.ToPrimorialEntryArrayOutputWithContext(context.Background())
+func (i PrimordialAccountArray) ToPrimordialAccountArrayOutput() PrimordialAccountArrayOutput {
+	return i.ToPrimordialAccountArrayOutputWithContext(context.Background())
 }
 
-func (i PrimorialEntryArray) ToPrimorialEntryArrayOutputWithContext(ctx context.Context) PrimorialEntryArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PrimorialEntryArrayOutput)
+func (i PrimordialAccountArray) ToPrimordialAccountArrayOutputWithContext(ctx context.Context) PrimordialAccountArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PrimordialAccountArrayOutput)
 }
 
-type PrimorialEntryOutput struct{ *pulumi.OutputState }
+type PrimordialAccountOutput struct{ *pulumi.OutputState }
 
-func (PrimorialEntryOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PrimorialEntry)(nil)).Elem()
+func (PrimordialAccountOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PrimordialAccount)(nil)).Elem()
 }
 
-func (o PrimorialEntryOutput) ToPrimorialEntryOutput() PrimorialEntryOutput {
+func (o PrimordialAccountOutput) ToPrimordialAccountOutput() PrimordialAccountOutput {
 	return o
 }
 
-func (o PrimorialEntryOutput) ToPrimorialEntryOutputWithContext(ctx context.Context) PrimorialEntryOutput {
+func (o PrimordialAccountOutput) ToPrimordialAccountOutputWithContext(ctx context.Context) PrimordialAccountOutput {
 	return o
 }
 
-func (o PrimorialEntryOutput) Lamports() pulumi.StringOutput {
-	return o.ApplyT(func(v PrimorialEntry) string { return v.Lamports }).(pulumi.StringOutput)
+func (o PrimordialAccountOutput) Data() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PrimordialAccount) *string { return v.Data }).(pulumi.StringPtrOutput)
 }
 
-func (o PrimorialEntryOutput) Pubkey() pulumi.StringOutput {
-	return o.ApplyT(func(v PrimorialEntry) string { return v.Pubkey }).(pulumi.StringOutput)
+func (o PrimordialAccountOutput) Executable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PrimordialAccount) *bool { return v.Executable }).(pulumi.BoolPtrOutput)
 }
 
-type PrimorialEntryArrayOutput struct{ *pulumi.OutputState }
-
-func (PrimorialEntryArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PrimorialEntry)(nil)).Elem()
+func (o PrimordialAccountOutput) Lamports() pulumi.IntOutput {
+	return o.ApplyT(func(v PrimordialAccount) int { return v.Lamports }).(pulumi.IntOutput)
 }
 
-func (o PrimorialEntryArrayOutput) ToPrimorialEntryArrayOutput() PrimorialEntryArrayOutput {
+func (o PrimordialAccountOutput) Owner() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PrimordialAccount) *string { return v.Owner }).(pulumi.StringPtrOutput)
+}
+
+func (o PrimordialAccountOutput) Pubkey() pulumi.StringOutput {
+	return o.ApplyT(func(v PrimordialAccount) string { return v.Pubkey }).(pulumi.StringOutput)
+}
+
+type PrimordialAccountArrayOutput struct{ *pulumi.OutputState }
+
+func (PrimordialAccountArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PrimordialAccount)(nil)).Elem()
+}
+
+func (o PrimordialAccountArrayOutput) ToPrimordialAccountArrayOutput() PrimordialAccountArrayOutput {
 	return o
 }
 
-func (o PrimorialEntryArrayOutput) ToPrimorialEntryArrayOutputWithContext(ctx context.Context) PrimorialEntryArrayOutput {
+func (o PrimordialAccountArrayOutput) ToPrimordialAccountArrayOutputWithContext(ctx context.Context) PrimordialAccountArrayOutput {
 	return o
 }
 
-func (o PrimorialEntryArrayOutput) Index(i pulumi.IntInput) PrimorialEntryOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PrimorialEntry {
-		return vs[0].([]PrimorialEntry)[vs[1].(int)]
-	}).(PrimorialEntryOutput)
+func (o PrimordialAccountArrayOutput) Index(i pulumi.IntInput) PrimordialAccountOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PrimordialAccount {
+		return vs[0].([]PrimordialAccount)[vs[1].(int)]
+	}).(PrimordialAccountOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GenesisFlagsInput)(nil)).Elem(), GenesisFlagsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PrimorialEntryInput)(nil)).Elem(), PrimorialEntryArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PrimorialEntryArrayInput)(nil)).Elem(), PrimorialEntryArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PrimordialAccountInput)(nil)).Elem(), PrimordialAccountArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PrimordialAccountArrayInput)(nil)).Elem(), PrimordialAccountArray{})
 	pulumi.RegisterOutputType(GenesisFlagsOutput{})
-	pulumi.RegisterOutputType(PrimorialEntryOutput{})
-	pulumi.RegisterOutputType(PrimorialEntryArrayOutput{})
+	pulumi.RegisterOutputType(PrimordialAccountOutput{})
+	pulumi.RegisterOutputType(PrimordialAccountArrayOutput{})
 }

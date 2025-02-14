@@ -23,7 +23,7 @@ namespace ABKLabs.Svmkit.Genesis
         public Output<string> GenesisHash { get; private set; } = null!;
 
         [Output("primordial")]
-        public Output<ImmutableArray<Outputs.PrimorialEntry>> Primordial { get; private set; } = null!;
+        public Output<ImmutableArray<Outputs.PrimordialAccount>> Primordial { get; private set; } = null!;
 
         [Output("runnerConfig")]
         public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
@@ -84,10 +84,10 @@ namespace ABKLabs.Svmkit.Genesis
         public Input<Inputs.GenesisFlagsArgs> Flags { get; set; } = null!;
 
         [Input("primordial", required: true)]
-        private InputList<Inputs.PrimorialEntryArgs>? _primordial;
-        public InputList<Inputs.PrimorialEntryArgs> Primordial
+        private InputList<Inputs.PrimordialAccountArgs>? _primordial;
+        public InputList<Inputs.PrimordialAccountArgs> Primordial
         {
-            get => _primordial ?? (_primordial = new InputList<Inputs.PrimorialEntryArgs>());
+            get => _primordial ?? (_primordial = new InputList<Inputs.PrimordialAccountArgs>());
             set => _primordial = value;
         }
 

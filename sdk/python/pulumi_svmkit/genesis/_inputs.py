@@ -17,8 +17,8 @@ from .. import _utilities
 __all__ = [
     'GenesisFlagsArgs',
     'GenesisFlagsArgsDict',
-    'PrimorialEntryArgs',
-    'PrimorialEntryArgsDict',
+    'PrimordialAccountArgs',
+    'PrimordialAccountArgsDict',
 ]
 
 MYPY = False
@@ -394,27 +394,39 @@ class GenesisFlagsArgs:
 
 
 if not MYPY:
-    class PrimorialEntryArgsDict(TypedDict):
-        lamports: pulumi.Input[str]
+    class PrimordialAccountArgsDict(TypedDict):
+        lamports: pulumi.Input[int]
         pubkey: pulumi.Input[str]
+        data: NotRequired[pulumi.Input[str]]
+        executable: NotRequired[pulumi.Input[bool]]
+        owner: NotRequired[pulumi.Input[str]]
 elif False:
-    PrimorialEntryArgsDict: TypeAlias = Mapping[str, Any]
+    PrimordialAccountArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
-class PrimorialEntryArgs:
+class PrimordialAccountArgs:
     def __init__(__self__, *,
-                 lamports: pulumi.Input[str],
-                 pubkey: pulumi.Input[str]):
+                 lamports: pulumi.Input[int],
+                 pubkey: pulumi.Input[str],
+                 data: Optional[pulumi.Input[str]] = None,
+                 executable: Optional[pulumi.Input[bool]] = None,
+                 owner: Optional[pulumi.Input[str]] = None):
         pulumi.set(__self__, "lamports", lamports)
         pulumi.set(__self__, "pubkey", pubkey)
+        if data is not None:
+            pulumi.set(__self__, "data", data)
+        if executable is not None:
+            pulumi.set(__self__, "executable", executable)
+        if owner is not None:
+            pulumi.set(__self__, "owner", owner)
 
     @property
     @pulumi.getter
-    def lamports(self) -> pulumi.Input[str]:
+    def lamports(self) -> pulumi.Input[int]:
         return pulumi.get(self, "lamports")
 
     @lamports.setter
-    def lamports(self, value: pulumi.Input[str]):
+    def lamports(self, value: pulumi.Input[int]):
         pulumi.set(self, "lamports", value)
 
     @property
@@ -425,5 +437,32 @@ class PrimorialEntryArgs:
     @pubkey.setter
     def pubkey(self, value: pulumi.Input[str]):
         pulumi.set(self, "pubkey", value)
+
+    @property
+    @pulumi.getter
+    def data(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "data")
+
+    @data.setter
+    def data(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "data", value)
+
+    @property
+    @pulumi.getter
+    def executable(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "executable")
+
+    @executable.setter
+    def executable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "executable", value)
+
+    @property
+    @pulumi.getter
+    def owner(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "owner")
+
+    @owner.setter
+    def owner(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "owner", value)
 
 

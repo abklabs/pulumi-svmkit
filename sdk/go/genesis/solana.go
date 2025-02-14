@@ -17,12 +17,12 @@ import (
 type Solana struct {
 	pulumi.CustomResourceState
 
-	Connection   ssh.ConnectionOutput      `pulumi:"connection"`
-	Flags        GenesisFlagsOutput        `pulumi:"flags"`
-	GenesisHash  pulumi.StringOutput       `pulumi:"genesisHash"`
-	Primordial   PrimorialEntryArrayOutput `pulumi:"primordial"`
-	RunnerConfig runner.ConfigPtrOutput    `pulumi:"runnerConfig"`
-	Version      pulumi.StringPtrOutput    `pulumi:"version"`
+	Connection   ssh.ConnectionOutput         `pulumi:"connection"`
+	Flags        GenesisFlagsOutput           `pulumi:"flags"`
+	GenesisHash  pulumi.StringOutput          `pulumi:"genesisHash"`
+	Primordial   PrimordialAccountArrayOutput `pulumi:"primordial"`
+	RunnerConfig runner.ConfigPtrOutput       `pulumi:"runnerConfig"`
+	Version      pulumi.StringPtrOutput       `pulumi:"version"`
 }
 
 // NewSolana registers a new resource with the given unique name, arguments, and options.
@@ -75,18 +75,18 @@ func (SolanaState) ElementType() reflect.Type {
 }
 
 type solanaArgs struct {
-	Connection   ssh.Connection   `pulumi:"connection"`
-	Flags        GenesisFlags     `pulumi:"flags"`
-	Primordial   []PrimorialEntry `pulumi:"primordial"`
-	RunnerConfig *runner.Config   `pulumi:"runnerConfig"`
-	Version      *string          `pulumi:"version"`
+	Connection   ssh.Connection      `pulumi:"connection"`
+	Flags        GenesisFlags        `pulumi:"flags"`
+	Primordial   []PrimordialAccount `pulumi:"primordial"`
+	RunnerConfig *runner.Config      `pulumi:"runnerConfig"`
+	Version      *string             `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Solana resource.
 type SolanaArgs struct {
 	Connection   ssh.ConnectionInput
 	Flags        GenesisFlagsInput
-	Primordial   PrimorialEntryArrayInput
+	Primordial   PrimordialAccountArrayInput
 	RunnerConfig runner.ConfigPtrInput
 	Version      pulumi.StringPtrInput
 }
@@ -140,8 +140,8 @@ func (o SolanaOutput) GenesisHash() pulumi.StringOutput {
 	return o.ApplyT(func(v *Solana) pulumi.StringOutput { return v.GenesisHash }).(pulumi.StringOutput)
 }
 
-func (o SolanaOutput) Primordial() PrimorialEntryArrayOutput {
-	return o.ApplyT(func(v *Solana) PrimorialEntryArrayOutput { return v.Primordial }).(PrimorialEntryArrayOutput)
+func (o SolanaOutput) Primordial() PrimordialAccountArrayOutput {
+	return o.ApplyT(func(v *Solana) PrimordialAccountArrayOutput { return v.Primordial }).(PrimordialAccountArrayOutput)
 }
 
 func (o SolanaOutput) RunnerConfig() runner.ConfigPtrOutput {

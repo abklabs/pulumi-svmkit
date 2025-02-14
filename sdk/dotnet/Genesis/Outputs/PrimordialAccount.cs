@@ -12,18 +12,30 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
 {
 
     [OutputType]
-    public sealed class PrimorialEntry
+    public sealed class PrimordialAccount
     {
-        public readonly string Lamports;
+        public readonly string? Data;
+        public readonly bool? Executable;
+        public readonly int Lamports;
+        public readonly string? Owner;
         public readonly string Pubkey;
 
         [OutputConstructor]
-        private PrimorialEntry(
-            string lamports,
+        private PrimordialAccount(
+            string? data,
+
+            bool? executable,
+
+            int lamports,
+
+            string? owner,
 
             string pubkey)
         {
+            Data = data;
+            Executable = executable;
             Lamports = lamports;
+            Owner = owner;
             Pubkey = pubkey;
         }
     }

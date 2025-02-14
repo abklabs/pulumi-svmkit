@@ -336,8 +336,11 @@ export namespace genesis {
         votePubkey: string;
     }
 
-    export interface PrimorialEntry {
-        lamports: string;
+    export interface PrimordialAccount {
+        data?: string;
+        executable?: boolean;
+        lamports: number;
+        owner?: string;
         pubkey: string;
     }
 

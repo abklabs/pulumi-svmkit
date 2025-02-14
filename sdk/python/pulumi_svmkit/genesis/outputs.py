@@ -16,7 +16,7 @@ from .. import _utilities
 
 __all__ = [
     'GenesisFlags',
-    'PrimorialEntry',
+    'PrimordialAccount',
 ]
 
 @pulumi.output_type
@@ -312,21 +312,45 @@ class GenesisFlags(dict):
 
 
 @pulumi.output_type
-class PrimorialEntry(dict):
+class PrimordialAccount(dict):
     def __init__(__self__, *,
-                 lamports: str,
-                 pubkey: str):
+                 lamports: int,
+                 pubkey: str,
+                 data: Optional[str] = None,
+                 executable: Optional[bool] = None,
+                 owner: Optional[str] = None):
         pulumi.set(__self__, "lamports", lamports)
         pulumi.set(__self__, "pubkey", pubkey)
+        if data is not None:
+            pulumi.set(__self__, "data", data)
+        if executable is not None:
+            pulumi.set(__self__, "executable", executable)
+        if owner is not None:
+            pulumi.set(__self__, "owner", owner)
 
     @property
     @pulumi.getter
-    def lamports(self) -> str:
+    def lamports(self) -> int:
         return pulumi.get(self, "lamports")
 
     @property
     @pulumi.getter
     def pubkey(self) -> str:
         return pulumi.get(self, "pubkey")
+
+    @property
+    @pulumi.getter
+    def data(self) -> Optional[str]:
+        return pulumi.get(self, "data")
+
+    @property
+    @pulumi.getter
+    def executable(self) -> Optional[bool]:
+        return pulumi.get(self, "executable")
+
+    @property
+    @pulumi.getter
+    def owner(self) -> Optional[str]:
+        return pulumi.get(self, "owner")
 
 

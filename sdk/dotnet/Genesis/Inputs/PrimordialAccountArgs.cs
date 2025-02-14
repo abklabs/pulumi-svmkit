@@ -11,17 +11,26 @@ using Pulumi;
 namespace ABKLabs.Svmkit.Genesis.Inputs
 {
 
-    public sealed class PrimorialEntryArgs : global::Pulumi.ResourceArgs
+    public sealed class PrimordialAccountArgs : global::Pulumi.ResourceArgs
     {
+        [Input("data")]
+        public Input<string>? Data { get; set; }
+
+        [Input("executable")]
+        public Input<bool>? Executable { get; set; }
+
         [Input("lamports", required: true)]
-        public Input<string> Lamports { get; set; } = null!;
+        public Input<int> Lamports { get; set; } = null!;
+
+        [Input("owner")]
+        public Input<string>? Owner { get; set; }
 
         [Input("pubkey", required: true)]
         public Input<string> Pubkey { get; set; } = null!;
 
-        public PrimorialEntryArgs()
+        public PrimordialAccountArgs()
         {
         }
-        public static new PrimorialEntryArgs Empty => new PrimorialEntryArgs();
+        public static new PrimordialAccountArgs Empty => new PrimordialAccountArgs();
     }
 }

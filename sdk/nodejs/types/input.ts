@@ -331,8 +331,11 @@ export namespace genesis {
         votePubkey: pulumi.Input<string>;
     }
 
-    export interface PrimorialEntryArgs {
-        lamports: pulumi.Input<string>;
+    export interface PrimordialAccountArgs {
+        data?: pulumi.Input<string>;
+        executable?: pulumi.Input<boolean>;
+        lamports: pulumi.Input<number>;
+        owner?: pulumi.Input<string>;
         pubkey: pulumi.Input<string>;
     }
 }

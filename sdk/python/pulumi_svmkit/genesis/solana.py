@@ -26,7 +26,7 @@ class SolanaArgs:
     def __init__(__self__, *,
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  flags: pulumi.Input['GenesisFlagsArgs'],
-                 primordial: pulumi.Input[Sequence[pulumi.Input['PrimorialEntryArgs']]],
+                 primordial: pulumi.Input[Sequence[pulumi.Input['PrimordialAccountArgs']]],
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  version: Optional[pulumi.Input[str]] = None):
         """
@@ -60,11 +60,11 @@ class SolanaArgs:
 
     @property
     @pulumi.getter
-    def primordial(self) -> pulumi.Input[Sequence[pulumi.Input['PrimorialEntryArgs']]]:
+    def primordial(self) -> pulumi.Input[Sequence[pulumi.Input['PrimordialAccountArgs']]]:
         return pulumi.get(self, "primordial")
 
     @primordial.setter
-    def primordial(self, value: pulumi.Input[Sequence[pulumi.Input['PrimorialEntryArgs']]]):
+    def primordial(self, value: pulumi.Input[Sequence[pulumi.Input['PrimordialAccountArgs']]]):
         pulumi.set(self, "primordial", value)
 
     @property
@@ -93,7 +93,7 @@ class Solana(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
-                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimorialEntryArgs', 'PrimorialEntryArgsDict']]]]] = None,
+                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -127,7 +127,7 @@ class Solana(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
-                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimorialEntryArgs', 'PrimorialEntryArgsDict']]]]] = None,
+                 primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -198,7 +198,7 @@ class Solana(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def primordial(self) -> pulumi.Output[Sequence['outputs.PrimorialEntry']]:
+    def primordial(self) -> pulumi.Output[Sequence['outputs.PrimordialAccount']]:
         return pulumi.get(self, "primordial")
 
     @property
