@@ -13,6 +13,124 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type BootstrapAccount struct {
+	BalanceLamports *int   `pulumi:"balanceLamports"`
+	IdentityPubkey  string `pulumi:"identityPubkey"`
+	StakeLamports   *int   `pulumi:"stakeLamports"`
+	StakePubkey     string `pulumi:"stakePubkey"`
+	VotePubkey      string `pulumi:"votePubkey"`
+}
+
+// BootstrapAccountInput is an input type that accepts BootstrapAccountArgs and BootstrapAccountOutput values.
+// You can construct a concrete instance of `BootstrapAccountInput` via:
+//
+//	BootstrapAccountArgs{...}
+type BootstrapAccountInput interface {
+	pulumi.Input
+
+	ToBootstrapAccountOutput() BootstrapAccountOutput
+	ToBootstrapAccountOutputWithContext(context.Context) BootstrapAccountOutput
+}
+
+type BootstrapAccountArgs struct {
+	BalanceLamports pulumi.IntPtrInput `pulumi:"balanceLamports"`
+	IdentityPubkey  pulumi.StringInput `pulumi:"identityPubkey"`
+	StakeLamports   pulumi.IntPtrInput `pulumi:"stakeLamports"`
+	StakePubkey     pulumi.StringInput `pulumi:"stakePubkey"`
+	VotePubkey      pulumi.StringInput `pulumi:"votePubkey"`
+}
+
+func (BootstrapAccountArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*BootstrapAccount)(nil)).Elem()
+}
+
+func (i BootstrapAccountArgs) ToBootstrapAccountOutput() BootstrapAccountOutput {
+	return i.ToBootstrapAccountOutputWithContext(context.Background())
+}
+
+func (i BootstrapAccountArgs) ToBootstrapAccountOutputWithContext(ctx context.Context) BootstrapAccountOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BootstrapAccountOutput)
+}
+
+// BootstrapAccountArrayInput is an input type that accepts BootstrapAccountArray and BootstrapAccountArrayOutput values.
+// You can construct a concrete instance of `BootstrapAccountArrayInput` via:
+//
+//	BootstrapAccountArray{ BootstrapAccountArgs{...} }
+type BootstrapAccountArrayInput interface {
+	pulumi.Input
+
+	ToBootstrapAccountArrayOutput() BootstrapAccountArrayOutput
+	ToBootstrapAccountArrayOutputWithContext(context.Context) BootstrapAccountArrayOutput
+}
+
+type BootstrapAccountArray []BootstrapAccountInput
+
+func (BootstrapAccountArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]BootstrapAccount)(nil)).Elem()
+}
+
+func (i BootstrapAccountArray) ToBootstrapAccountArrayOutput() BootstrapAccountArrayOutput {
+	return i.ToBootstrapAccountArrayOutputWithContext(context.Background())
+}
+
+func (i BootstrapAccountArray) ToBootstrapAccountArrayOutputWithContext(ctx context.Context) BootstrapAccountArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BootstrapAccountArrayOutput)
+}
+
+type BootstrapAccountOutput struct{ *pulumi.OutputState }
+
+func (BootstrapAccountOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BootstrapAccount)(nil)).Elem()
+}
+
+func (o BootstrapAccountOutput) ToBootstrapAccountOutput() BootstrapAccountOutput {
+	return o
+}
+
+func (o BootstrapAccountOutput) ToBootstrapAccountOutputWithContext(ctx context.Context) BootstrapAccountOutput {
+	return o
+}
+
+func (o BootstrapAccountOutput) BalanceLamports() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v BootstrapAccount) *int { return v.BalanceLamports }).(pulumi.IntPtrOutput)
+}
+
+func (o BootstrapAccountOutput) IdentityPubkey() pulumi.StringOutput {
+	return o.ApplyT(func(v BootstrapAccount) string { return v.IdentityPubkey }).(pulumi.StringOutput)
+}
+
+func (o BootstrapAccountOutput) StakeLamports() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v BootstrapAccount) *int { return v.StakeLamports }).(pulumi.IntPtrOutput)
+}
+
+func (o BootstrapAccountOutput) StakePubkey() pulumi.StringOutput {
+	return o.ApplyT(func(v BootstrapAccount) string { return v.StakePubkey }).(pulumi.StringOutput)
+}
+
+func (o BootstrapAccountOutput) VotePubkey() pulumi.StringOutput {
+	return o.ApplyT(func(v BootstrapAccount) string { return v.VotePubkey }).(pulumi.StringOutput)
+}
+
+type BootstrapAccountArrayOutput struct{ *pulumi.OutputState }
+
+func (BootstrapAccountArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]BootstrapAccount)(nil)).Elem()
+}
+
+func (o BootstrapAccountArrayOutput) ToBootstrapAccountArrayOutput() BootstrapAccountArrayOutput {
+	return o
+}
+
+func (o BootstrapAccountArrayOutput) ToBootstrapAccountArrayOutputWithContext(ctx context.Context) BootstrapAccountArrayOutput {
+	return o
+}
+
+func (o BootstrapAccountArrayOutput) Index(i pulumi.IntInput) BootstrapAccountOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) BootstrapAccount {
+		return vs[0].([]BootstrapAccount)[vs[1].(int)]
+	}).(BootstrapAccountOutput)
+}
+
 type GenesisFlags struct {
 	BootstrapStakeAuthorizedPubkey  *string  `pulumi:"bootstrapStakeAuthorizedPubkey"`
 	BootstrapValidatorLamports      *int     `pulumi:"bootstrapValidatorLamports"`
@@ -33,7 +151,7 @@ type GenesisFlags struct {
 	MaxGenesisArchiveUnpackedSize   *int     `pulumi:"maxGenesisArchiveUnpackedSize"`
 	RentBurnPercentage              *int     `pulumi:"rentBurnPercentage"`
 	RentExemptionThreshold          *int     `pulumi:"rentExemptionThreshold"`
-	SlotPerEpoch                    *int     `pulumi:"slotPerEpoch"`
+	SlotsPerEpoch                   *int     `pulumi:"slotsPerEpoch"`
 	StakePubkey                     string   `pulumi:"stakePubkey"`
 	TargetLamportsPerSignature      *int     `pulumi:"targetLamportsPerSignature"`
 	TargetSignaturesPerSlot         *int     `pulumi:"targetSignaturesPerSlot"`
@@ -75,7 +193,7 @@ type GenesisFlagsArgs struct {
 	MaxGenesisArchiveUnpackedSize   pulumi.IntPtrInput      `pulumi:"maxGenesisArchiveUnpackedSize"`
 	RentBurnPercentage              pulumi.IntPtrInput      `pulumi:"rentBurnPercentage"`
 	RentExemptionThreshold          pulumi.IntPtrInput      `pulumi:"rentExemptionThreshold"`
-	SlotPerEpoch                    pulumi.IntPtrInput      `pulumi:"slotPerEpoch"`
+	SlotsPerEpoch                   pulumi.IntPtrInput      `pulumi:"slotsPerEpoch"`
 	StakePubkey                     pulumi.StringInput      `pulumi:"stakePubkey"`
 	TargetLamportsPerSignature      pulumi.IntPtrInput      `pulumi:"targetLamportsPerSignature"`
 	TargetSignaturesPerSlot         pulumi.IntPtrInput      `pulumi:"targetSignaturesPerSlot"`
@@ -188,8 +306,8 @@ func (o GenesisFlagsOutput) RentExemptionThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *int { return v.RentExemptionThreshold }).(pulumi.IntPtrOutput)
 }
 
-func (o GenesisFlagsOutput) SlotPerEpoch() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v GenesisFlags) *int { return v.SlotPerEpoch }).(pulumi.IntPtrOutput)
+func (o GenesisFlagsOutput) SlotsPerEpoch() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GenesisFlags) *int { return v.SlotsPerEpoch }).(pulumi.IntPtrOutput)
 }
 
 func (o GenesisFlagsOutput) StakePubkey() pulumi.StringOutput {
@@ -343,9 +461,13 @@ func (o PrimordialAccountArrayOutput) Index(i pulumi.IntInput) PrimordialAccount
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*BootstrapAccountInput)(nil)).Elem(), BootstrapAccountArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BootstrapAccountArrayInput)(nil)).Elem(), BootstrapAccountArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GenesisFlagsInput)(nil)).Elem(), GenesisFlagsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PrimordialAccountInput)(nil)).Elem(), PrimordialAccountArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PrimordialAccountArrayInput)(nil)).Elem(), PrimordialAccountArray{})
+	pulumi.RegisterOutputType(BootstrapAccountOutput{})
+	pulumi.RegisterOutputType(BootstrapAccountArrayOutput{})
 	pulumi.RegisterOutputType(GenesisFlagsOutput{})
 	pulumi.RegisterOutputType(PrimordialAccountOutput{})
 	pulumi.RegisterOutputType(PrimordialAccountArrayOutput{})

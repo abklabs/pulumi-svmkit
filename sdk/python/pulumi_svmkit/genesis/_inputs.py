@@ -15,6 +15,8 @@ else:
 from .. import _utilities
 
 __all__ = [
+    'BootstrapAccountArgs',
+    'BootstrapAccountArgsDict',
     'GenesisFlagsArgs',
     'GenesisFlagsArgsDict',
     'PrimordialAccountArgs',
@@ -22,6 +24,78 @@ __all__ = [
 ]
 
 MYPY = False
+
+if not MYPY:
+    class BootstrapAccountArgsDict(TypedDict):
+        identity_pubkey: pulumi.Input[str]
+        stake_pubkey: pulumi.Input[str]
+        vote_pubkey: pulumi.Input[str]
+        balance_lamports: NotRequired[pulumi.Input[int]]
+        stake_lamports: NotRequired[pulumi.Input[int]]
+elif False:
+    BootstrapAccountArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class BootstrapAccountArgs:
+    def __init__(__self__, *,
+                 identity_pubkey: pulumi.Input[str],
+                 stake_pubkey: pulumi.Input[str],
+                 vote_pubkey: pulumi.Input[str],
+                 balance_lamports: Optional[pulumi.Input[int]] = None,
+                 stake_lamports: Optional[pulumi.Input[int]] = None):
+        pulumi.set(__self__, "identity_pubkey", identity_pubkey)
+        pulumi.set(__self__, "stake_pubkey", stake_pubkey)
+        pulumi.set(__self__, "vote_pubkey", vote_pubkey)
+        if balance_lamports is not None:
+            pulumi.set(__self__, "balance_lamports", balance_lamports)
+        if stake_lamports is not None:
+            pulumi.set(__self__, "stake_lamports", stake_lamports)
+
+    @property
+    @pulumi.getter(name="identityPubkey")
+    def identity_pubkey(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "identity_pubkey")
+
+    @identity_pubkey.setter
+    def identity_pubkey(self, value: pulumi.Input[str]):
+        pulumi.set(self, "identity_pubkey", value)
+
+    @property
+    @pulumi.getter(name="stakePubkey")
+    def stake_pubkey(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "stake_pubkey")
+
+    @stake_pubkey.setter
+    def stake_pubkey(self, value: pulumi.Input[str]):
+        pulumi.set(self, "stake_pubkey", value)
+
+    @property
+    @pulumi.getter(name="votePubkey")
+    def vote_pubkey(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "vote_pubkey")
+
+    @vote_pubkey.setter
+    def vote_pubkey(self, value: pulumi.Input[str]):
+        pulumi.set(self, "vote_pubkey", value)
+
+    @property
+    @pulumi.getter(name="balanceLamports")
+    def balance_lamports(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "balance_lamports")
+
+    @balance_lamports.setter
+    def balance_lamports(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "balance_lamports", value)
+
+    @property
+    @pulumi.getter(name="stakeLamports")
+    def stake_lamports(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "stake_lamports")
+
+    @stake_lamports.setter
+    def stake_lamports(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "stake_lamports", value)
+
 
 if not MYPY:
     class GenesisFlagsArgsDict(TypedDict):
@@ -46,7 +120,7 @@ if not MYPY:
         max_genesis_archive_unpacked_size: NotRequired[pulumi.Input[int]]
         rent_burn_percentage: NotRequired[pulumi.Input[int]]
         rent_exemption_threshold: NotRequired[pulumi.Input[int]]
-        slot_per_epoch: NotRequired[pulumi.Input[int]]
+        slots_per_epoch: NotRequired[pulumi.Input[int]]
         target_lamports_per_signature: NotRequired[pulumi.Input[int]]
         target_signatures_per_slot: NotRequired[pulumi.Input[int]]
         target_tick_duration: NotRequired[pulumi.Input[int]]
@@ -80,7 +154,7 @@ class GenesisFlagsArgs:
                  max_genesis_archive_unpacked_size: Optional[pulumi.Input[int]] = None,
                  rent_burn_percentage: Optional[pulumi.Input[int]] = None,
                  rent_exemption_threshold: Optional[pulumi.Input[int]] = None,
-                 slot_per_epoch: Optional[pulumi.Input[int]] = None,
+                 slots_per_epoch: Optional[pulumi.Input[int]] = None,
                  target_lamports_per_signature: Optional[pulumi.Input[int]] = None,
                  target_signatures_per_slot: Optional[pulumi.Input[int]] = None,
                  target_tick_duration: Optional[pulumi.Input[int]] = None,
@@ -125,8 +199,8 @@ class GenesisFlagsArgs:
             pulumi.set(__self__, "rent_burn_percentage", rent_burn_percentage)
         if rent_exemption_threshold is not None:
             pulumi.set(__self__, "rent_exemption_threshold", rent_exemption_threshold)
-        if slot_per_epoch is not None:
-            pulumi.set(__self__, "slot_per_epoch", slot_per_epoch)
+        if slots_per_epoch is not None:
+            pulumi.set(__self__, "slots_per_epoch", slots_per_epoch)
         if target_lamports_per_signature is not None:
             pulumi.set(__self__, "target_lamports_per_signature", target_lamports_per_signature)
         if target_signatures_per_slot is not None:
@@ -330,13 +404,13 @@ class GenesisFlagsArgs:
         pulumi.set(self, "rent_exemption_threshold", value)
 
     @property
-    @pulumi.getter(name="slotPerEpoch")
-    def slot_per_epoch(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "slot_per_epoch")
+    @pulumi.getter(name="slotsPerEpoch")
+    def slots_per_epoch(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "slots_per_epoch")
 
-    @slot_per_epoch.setter
-    def slot_per_epoch(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "slot_per_epoch", value)
+    @slots_per_epoch.setter
+    def slots_per_epoch(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "slots_per_epoch", value)
 
     @property
     @pulumi.getter(name="targetLamportsPerSignature")

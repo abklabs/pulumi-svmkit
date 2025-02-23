@@ -27,6 +27,7 @@ class SolanaArgs:
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  flags: pulumi.Input['GenesisFlagsArgs'],
                  primordial: pulumi.Input[Sequence[pulumi.Input['PrimordialAccountArgs']]],
+                 accounts: Optional[pulumi.Input[Sequence[pulumi.Input['BootstrapAccountArgs']]]] = None,
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  version: Optional[pulumi.Input[str]] = None):
         """
@@ -35,6 +36,8 @@ class SolanaArgs:
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "flags", flags)
         pulumi.set(__self__, "primordial", primordial)
+        if accounts is not None:
+            pulumi.set(__self__, "accounts", accounts)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
         if version is not None:
@@ -68,6 +71,15 @@ class SolanaArgs:
         pulumi.set(self, "primordial", value)
 
     @property
+    @pulumi.getter
+    def accounts(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['BootstrapAccountArgs']]]]:
+        return pulumi.get(self, "accounts")
+
+    @accounts.setter
+    def accounts(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['BootstrapAccountArgs']]]]):
+        pulumi.set(self, "accounts", value)
+
+    @property
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
         return pulumi.get(self, "runner_config")
@@ -91,6 +103,7 @@ class Solana(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 accounts: Optional[pulumi.Input[Sequence[pulumi.Input[Union['BootstrapAccountArgs', 'BootstrapAccountArgsDict']]]]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
                  primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
@@ -125,6 +138,7 @@ class Solana(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 accounts: Optional[pulumi.Input[Sequence[pulumi.Input[Union['BootstrapAccountArgs', 'BootstrapAccountArgsDict']]]]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
                  primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
@@ -139,6 +153,7 @@ class Solana(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = SolanaArgs.__new__(SolanaArgs)
 
+            __props__.__dict__["accounts"] = accounts
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
@@ -173,6 +188,7 @@ class Solana(pulumi.CustomResource):
 
         __props__ = SolanaArgs.__new__(SolanaArgs)
 
+        __props__.__dict__["accounts"] = None
         __props__.__dict__["connection"] = None
         __props__.__dict__["flags"] = None
         __props__.__dict__["genesis_hash"] = None
@@ -180,6 +196,11 @@ class Solana(pulumi.CustomResource):
         __props__.__dict__["runner_config"] = None
         __props__.__dict__["version"] = None
         return Solana(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter
+    def accounts(self) -> pulumi.Output[Optional[Sequence['outputs.BootstrapAccount']]]:
+        return pulumi.get(self, "accounts")
 
     @property
     @pulumi.getter

@@ -34,6 +34,7 @@ export class Solana extends pulumi.CustomResource {
         return obj['__pulumiType'] === Solana.__pulumiType;
     }
 
+    public readonly accounts!: pulumi.Output<outputs.genesis.BootstrapAccount[] | undefined>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly flags!: pulumi.Output<outputs.genesis.GenesisFlags>;
     public /*out*/ readonly genesisHash!: pulumi.Output<string>;
@@ -61,6 +62,7 @@ export class Solana extends pulumi.CustomResource {
             if ((!args || args.primordial === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'primordial'");
             }
+            resourceInputs["accounts"] = args ? args.accounts : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["primordial"] = args ? args.primordial : undefined;
@@ -68,6 +70,7 @@ export class Solana extends pulumi.CustomResource {
             resourceInputs["version"] = args ? args.version : undefined;
             resourceInputs["genesisHash"] = undefined /*out*/;
         } else {
+            resourceInputs["accounts"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["genesisHash"] = undefined /*out*/;
@@ -84,6 +87,7 @@ export class Solana extends pulumi.CustomResource {
  * The set of arguments for constructing a Solana resource.
  */
 export interface SolanaArgs {
+    accounts?: pulumi.Input<pulumi.Input<inputs.genesis.BootstrapAccountArgs>[]>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     flags: pulumi.Input<inputs.genesis.GenesisFlagsArgs>;
     primordial: pulumi.Input<pulumi.Input<inputs.genesis.PrimordialAccountArgs>[]>;

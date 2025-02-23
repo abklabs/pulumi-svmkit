@@ -300,6 +300,14 @@ export namespace firedancer {
 }
 
 export namespace genesis {
+    export interface BootstrapAccountArgs {
+        balanceLamports?: pulumi.Input<number>;
+        identityPubkey: pulumi.Input<string>;
+        stakeLamports?: pulumi.Input<number>;
+        stakePubkey: pulumi.Input<string>;
+        votePubkey: pulumi.Input<string>;
+    }
+
     export interface GenesisFlagsArgs {
         bootstrapStakeAuthorizedPubkey?: pulumi.Input<string>;
         bootstrapValidatorLamports?: pulumi.Input<number>;
@@ -320,7 +328,7 @@ export namespace genesis {
         maxGenesisArchiveUnpackedSize?: pulumi.Input<number>;
         rentBurnPercentage?: pulumi.Input<number>;
         rentExemptionThreshold?: pulumi.Input<number>;
-        slotPerEpoch?: pulumi.Input<number>;
+        slotsPerEpoch?: pulumi.Input<number>;
         stakePubkey: pulumi.Input<string>;
         targetLamportsPerSignature?: pulumi.Input<number>;
         targetSignaturesPerSlot?: pulumi.Input<number>;

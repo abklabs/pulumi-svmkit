@@ -305,6 +305,14 @@ export namespace firedancer {
 }
 
 export namespace genesis {
+    export interface BootstrapAccount {
+        balanceLamports?: number;
+        identityPubkey: string;
+        stakeLamports?: number;
+        stakePubkey: string;
+        votePubkey: string;
+    }
+
     export interface GenesisFlags {
         bootstrapStakeAuthorizedPubkey?: string;
         bootstrapValidatorLamports?: number;
@@ -325,7 +333,7 @@ export namespace genesis {
         maxGenesisArchiveUnpackedSize?: number;
         rentBurnPercentage?: number;
         rentExemptionThreshold?: number;
-        slotPerEpoch?: number;
+        slotsPerEpoch?: number;
         stakePubkey: string;
         targetLamportsPerSignature?: number;
         targetSignaturesPerSlot?: number;

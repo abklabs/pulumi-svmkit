@@ -13,6 +13,9 @@ namespace ABKLabs.Svmkit.Genesis
     [SvmkitResourceType("svmkit:genesis:Solana")]
     public partial class Solana : global::Pulumi.CustomResource
     {
+        [Output("accounts")]
+        public Output<ImmutableArray<Outputs.BootstrapAccount>> Accounts { get; private set; } = null!;
+
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
@@ -77,6 +80,14 @@ namespace ABKLabs.Svmkit.Genesis
 
     public sealed class SolanaArgs : global::Pulumi.ResourceArgs
     {
+        [Input("accounts")]
+        private InputList<Inputs.BootstrapAccountArgs>? _accounts;
+        public InputList<Inputs.BootstrapAccountArgs> Accounts
+        {
+            get => _accounts ?? (_accounts = new InputList<Inputs.BootstrapAccountArgs>());
+            set => _accounts = value;
+        }
+
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 

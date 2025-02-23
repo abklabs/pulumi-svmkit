@@ -33,7 +33,7 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
         public readonly int? MaxGenesisArchiveUnpackedSize;
         public readonly int? RentBurnPercentage;
         public readonly int? RentExemptionThreshold;
-        public readonly int? SlotPerEpoch;
+        public readonly int? SlotsPerEpoch;
         public readonly string StakePubkey;
         public readonly int? TargetLamportsPerSignature;
         public readonly int? TargetSignaturesPerSlot;
@@ -83,7 +83,7 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
 
             int? rentExemptionThreshold,
 
-            int? slotPerEpoch,
+            int? slotsPerEpoch,
 
             string stakePubkey,
 
@@ -120,7 +120,7 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
             MaxGenesisArchiveUnpackedSize = maxGenesisArchiveUnpackedSize;
             RentBurnPercentage = rentBurnPercentage;
             RentExemptionThreshold = rentExemptionThreshold;
-            SlotPerEpoch = slotPerEpoch;
+            SlotsPerEpoch = slotsPerEpoch;
             StakePubkey = stakePubkey;
             TargetLamportsPerSignature = targetLamportsPerSignature;
             TargetSignaturesPerSlot = targetSignaturesPerSlot;

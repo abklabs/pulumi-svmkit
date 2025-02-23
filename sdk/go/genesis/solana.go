@@ -17,6 +17,7 @@ import (
 type Solana struct {
 	pulumi.CustomResourceState
 
+	Accounts     BootstrapAccountArrayOutput  `pulumi:"accounts"`
 	Connection   ssh.ConnectionOutput         `pulumi:"connection"`
 	Flags        GenesisFlagsOutput           `pulumi:"flags"`
 	GenesisHash  pulumi.StringOutput          `pulumi:"genesisHash"`
@@ -75,6 +76,7 @@ func (SolanaState) ElementType() reflect.Type {
 }
 
 type solanaArgs struct {
+	Accounts     []BootstrapAccount  `pulumi:"accounts"`
 	Connection   ssh.Connection      `pulumi:"connection"`
 	Flags        GenesisFlags        `pulumi:"flags"`
 	Primordial   []PrimordialAccount `pulumi:"primordial"`
@@ -84,6 +86,7 @@ type solanaArgs struct {
 
 // The set of arguments for constructing a Solana resource.
 type SolanaArgs struct {
+	Accounts     BootstrapAccountArrayInput
 	Connection   ssh.ConnectionInput
 	Flags        GenesisFlagsInput
 	Primordial   PrimordialAccountArrayInput
@@ -126,6 +129,10 @@ func (o SolanaOutput) ToSolanaOutput() SolanaOutput {
 
 func (o SolanaOutput) ToSolanaOutputWithContext(ctx context.Context) SolanaOutput {
 	return o
+}
+
+func (o SolanaOutput) Accounts() BootstrapAccountArrayOutput {
+	return o.ApplyT(func(v *Solana) BootstrapAccountArrayOutput { return v.Accounts }).(BootstrapAccountArrayOutput)
 }
 
 func (o SolanaOutput) Connection() ssh.ConnectionOutput {

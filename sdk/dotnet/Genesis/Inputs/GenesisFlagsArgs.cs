@@ -80,8 +80,8 @@ namespace ABKLabs.Svmkit.Genesis.Inputs
         [Input("rentExemptionThreshold")]
         public Input<int>? RentExemptionThreshold { get; set; }
 
-        [Input("slotPerEpoch")]
-        public Input<int>? SlotPerEpoch { get; set; }
+        [Input("slotsPerEpoch")]
+        public Input<int>? SlotsPerEpoch { get; set; }
 
         [Input("stakePubkey", required: true)]
         public Input<string> StakePubkey { get; set; } = null!;
