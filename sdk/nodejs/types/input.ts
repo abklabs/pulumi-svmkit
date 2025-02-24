@@ -510,6 +510,10 @@ export namespace ssh {
 }
 
 export namespace tuner {
+    export interface TunerFsParamsArgs {
+        fsNrOpen?: pulumi.Input<number>;
+    }
+
     export interface TunerKernelParamsArgs {
         kernelHungTaskTimeoutSecs?: pulumi.Input<number>;
         kernelNmiWatchdog?: pulumi.Input<number>;
@@ -538,6 +542,7 @@ export namespace tuner {
 
     export interface TunerParamsArgs {
         cpuGovernor?: pulumi.Input<enums.tuner.CpuGovernor>;
+        fs?: pulumi.Input<inputs.tuner.TunerFsParamsArgs>;
         kernel?: pulumi.Input<inputs.tuner.TunerKernelParamsArgs>;
         net?: pulumi.Input<inputs.tuner.TunerNetParamsArgs>;
         vm?: pulumi.Input<inputs.tuner.TunerVmParamsArgs>;

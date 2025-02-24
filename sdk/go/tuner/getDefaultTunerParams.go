@@ -27,6 +27,7 @@ type GetDefaultTunerParamsArgs struct {
 
 type GetDefaultTunerParamsResult struct {
 	CpuGovernor *CpuGovernor       `pulumi:"cpuGovernor"`
+	Fs          *TunerFsParams     `pulumi:"fs"`
 	Kernel      *TunerKernelParams `pulumi:"kernel"`
 	Net         *TunerNetParams    `pulumi:"net"`
 	Variant     TunerVariant       `pulumi:"variant"`
@@ -66,6 +67,10 @@ func (o GetDefaultTunerParamsResultOutput) ToGetDefaultTunerParamsResultOutputWi
 
 func (o GetDefaultTunerParamsResultOutput) CpuGovernor() CpuGovernorPtrOutput {
 	return o.ApplyT(func(v GetDefaultTunerParamsResult) *CpuGovernor { return v.CpuGovernor }).(CpuGovernorPtrOutput)
+}
+
+func (o GetDefaultTunerParamsResultOutput) Fs() TunerFsParamsPtrOutput {
+	return o.ApplyT(func(v GetDefaultTunerParamsResult) *TunerFsParams { return v.Fs }).(TunerFsParamsPtrOutput)
 }
 
 func (o GetDefaultTunerParamsResultOutput) Kernel() TunerKernelParamsPtrOutput {

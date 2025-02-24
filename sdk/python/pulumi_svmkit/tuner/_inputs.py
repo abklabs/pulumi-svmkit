@@ -16,6 +16,8 @@ from .. import _utilities
 from ._enums import *
 
 __all__ = [
+    'TunerFsParamsArgs',
+    'TunerFsParamsArgsDict',
     'TunerKernelParamsArgs',
     'TunerKernelParamsArgsDict',
     'TunerNetParamsArgs',
@@ -27,6 +29,29 @@ __all__ = [
 ]
 
 MYPY = False
+
+if not MYPY:
+    class TunerFsParamsArgsDict(TypedDict):
+        fs_nr_open: NotRequired[pulumi.Input[int]]
+elif False:
+    TunerFsParamsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TunerFsParamsArgs:
+    def __init__(__self__, *,
+                 fs_nr_open: Optional[pulumi.Input[int]] = None):
+        if fs_nr_open is not None:
+            pulumi.set(__self__, "fs_nr_open", fs_nr_open)
+
+    @property
+    @pulumi.getter(name="fsNrOpen")
+    def fs_nr_open(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "fs_nr_open")
+
+    @fs_nr_open.setter
+    def fs_nr_open(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "fs_nr_open", value)
+
 
 if not MYPY:
     class TunerKernelParamsArgsDict(TypedDict):
@@ -311,6 +336,7 @@ class TunerNetParamsArgs:
 if not MYPY:
     class TunerParamsArgsDict(TypedDict):
         cpu_governor: NotRequired[pulumi.Input['CpuGovernor']]
+        fs: NotRequired[pulumi.Input['TunerFsParamsArgsDict']]
         kernel: NotRequired[pulumi.Input['TunerKernelParamsArgsDict']]
         net: NotRequired[pulumi.Input['TunerNetParamsArgsDict']]
         vm: NotRequired[pulumi.Input['TunerVmParamsArgsDict']]
@@ -321,11 +347,14 @@ elif False:
 class TunerParamsArgs:
     def __init__(__self__, *,
                  cpu_governor: Optional[pulumi.Input['CpuGovernor']] = None,
+                 fs: Optional[pulumi.Input['TunerFsParamsArgs']] = None,
                  kernel: Optional[pulumi.Input['TunerKernelParamsArgs']] = None,
                  net: Optional[pulumi.Input['TunerNetParamsArgs']] = None,
                  vm: Optional[pulumi.Input['TunerVmParamsArgs']] = None):
         if cpu_governor is not None:
             pulumi.set(__self__, "cpu_governor", cpu_governor)
+        if fs is not None:
+            pulumi.set(__self__, "fs", fs)
         if kernel is not None:
             pulumi.set(__self__, "kernel", kernel)
         if net is not None:
@@ -341,6 +370,15 @@ class TunerParamsArgs:
     @cpu_governor.setter
     def cpu_governor(self, value: Optional[pulumi.Input['CpuGovernor']]):
         pulumi.set(self, "cpu_governor", value)
+
+    @property
+    @pulumi.getter
+    def fs(self) -> Optional[pulumi.Input['TunerFsParamsArgs']]:
+        return pulumi.get(self, "fs")
+
+    @fs.setter
+    def fs(self, value: Optional[pulumi.Input['TunerFsParamsArgs']]):
+        pulumi.set(self, "fs", value)
 
     @property
     @pulumi.getter

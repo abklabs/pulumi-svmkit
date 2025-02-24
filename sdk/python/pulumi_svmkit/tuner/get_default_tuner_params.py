@@ -25,10 +25,13 @@ __all__ = [
 
 @pulumi.output_type
 class GetDefaultTunerParamsResult:
-    def __init__(__self__, cpu_governor=None, kernel=None, net=None, variant=None, vm=None):
+    def __init__(__self__, cpu_governor=None, fs=None, kernel=None, net=None, variant=None, vm=None):
         if cpu_governor and not isinstance(cpu_governor, str):
             raise TypeError("Expected argument 'cpu_governor' to be a str")
         pulumi.set(__self__, "cpu_governor", cpu_governor)
+        if fs and not isinstance(fs, dict):
+            raise TypeError("Expected argument 'fs' to be a dict")
+        pulumi.set(__self__, "fs", fs)
         if kernel and not isinstance(kernel, dict):
             raise TypeError("Expected argument 'kernel' to be a dict")
         pulumi.set(__self__, "kernel", kernel)
@@ -46,6 +49,11 @@ class GetDefaultTunerParamsResult:
     @pulumi.getter(name="cpuGovernor")
     def cpu_governor(self) -> Optional['CpuGovernor']:
         return pulumi.get(self, "cpu_governor")
+
+    @property
+    @pulumi.getter
+    def fs(self) -> Optional['outputs.TunerFsParams']:
+        return pulumi.get(self, "fs")
 
     @property
     @pulumi.getter
@@ -75,6 +83,7 @@ class AwaitableGetDefaultTunerParamsResult(GetDefaultTunerParamsResult):
             yield self
         return GetDefaultTunerParamsResult(
             cpu_governor=self.cpu_governor,
+            fs=self.fs,
             kernel=self.kernel,
             net=self.net,
             variant=self.variant,
@@ -93,6 +102,7 @@ def get_default_tuner_params(variant: Optional['TunerVariant'] = None,
 
     return AwaitableGetDefaultTunerParamsResult(
         cpu_governor=pulumi.get(__ret__, 'cpu_governor'),
+        fs=pulumi.get(__ret__, 'fs'),
         kernel=pulumi.get(__ret__, 'kernel'),
         net=pulumi.get(__ret__, 'net'),
         variant=pulumi.get(__ret__, 'variant'),
@@ -108,6 +118,7 @@ def get_default_tuner_params_output(variant: Optional[pulumi.Input['TunerVariant
     __ret__ = pulumi.runtime.invoke_output('svmkit:tuner:getDefaultTunerParams', __args__, opts=opts, typ=GetDefaultTunerParamsResult)
     return __ret__.apply(lambda __response__: GetDefaultTunerParamsResult(
         cpu_governor=pulumi.get(__response__, 'cpu_governor'),
+        fs=pulumi.get(__response__, 'fs'),
         kernel=pulumi.get(__response__, 'kernel'),
         net=pulumi.get(__response__, 'net'),
         variant=pulumi.get(__response__, 'variant'),

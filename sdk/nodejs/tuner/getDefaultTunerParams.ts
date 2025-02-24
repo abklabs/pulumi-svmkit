@@ -20,6 +20,7 @@ export interface GetDefaultTunerParamsArgs {
 
 export interface GetDefaultTunerParamsResult {
     readonly cpuGovernor?: enums.tuner.CpuGovernor;
+    readonly fs?: outputs.tuner.TunerFsParams;
     readonly kernel?: outputs.tuner.TunerKernelParams;
     readonly net?: outputs.tuner.TunerNetParams;
     readonly variant: enums.tuner.TunerVariant;

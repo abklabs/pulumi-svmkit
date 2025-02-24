@@ -50,6 +50,7 @@ namespace ABKLabs.Svmkit.Tuner
     public sealed class GetDefaultTunerParamsResult
     {
         public readonly ABKLabs.Svmkit.Tuner.CpuGovernor? CpuGovernor;
+        public readonly Outputs.TunerFsParams? Fs;
         public readonly Outputs.TunerKernelParams? Kernel;
         public readonly Outputs.TunerNetParams? Net;
         public readonly ABKLabs.Svmkit.Tuner.TunerVariant Variant;
@@ -58,6 +59,8 @@ namespace ABKLabs.Svmkit.Tuner
         [OutputConstructor]
         private GetDefaultTunerParamsResult(
             ABKLabs.Svmkit.Tuner.CpuGovernor? cpuGovernor,
+
+            Outputs.TunerFsParams? fs,
 
             Outputs.TunerKernelParams? kernel,
 
@@ -68,6 +71,7 @@ namespace ABKLabs.Svmkit.Tuner
             Outputs.TunerVmParams? vm)
         {
             CpuGovernor = cpuGovernor;
+            Fs = fs;
             Kernel = kernel;
             Net = net;
             Variant = variant;

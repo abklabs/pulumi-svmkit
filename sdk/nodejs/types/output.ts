@@ -519,6 +519,10 @@ export namespace ssh {
 }
 
 export namespace tuner {
+    export interface TunerFsParams {
+        fsNrOpen?: number;
+    }
+
     export interface TunerKernelParams {
         kernelHungTaskTimeoutSecs?: number;
         kernelNmiWatchdog?: number;
@@ -547,6 +551,7 @@ export namespace tuner {
 
     export interface TunerParams {
         cpuGovernor?: enums.tuner.CpuGovernor;
+        fs?: outputs.tuner.TunerFsParams;
         kernel?: outputs.tuner.TunerKernelParams;
         net?: outputs.tuner.TunerNetParams;
         vm?: outputs.tuner.TunerVmParams;

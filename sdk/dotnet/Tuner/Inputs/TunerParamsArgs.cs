@@ -16,6 +16,9 @@ namespace ABKLabs.Svmkit.Tuner.Inputs
         [Input("cpuGovernor")]
         public Input<ABKLabs.Svmkit.Tuner.CpuGovernor>? CpuGovernor { get; set; }
 
+        [Input("fs")]
+        public Input<Inputs.TunerFsParamsArgs>? Fs { get; set; }
+
         [Input("kernel")]
         public Input<Inputs.TunerKernelParamsArgs>? Kernel { get; set; }
 

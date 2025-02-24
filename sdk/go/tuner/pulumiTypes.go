@@ -13,6 +13,139 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type TunerFsParams struct {
+	FsNrOpen *int `pulumi:"fsNrOpen"`
+}
+
+// TunerFsParamsInput is an input type that accepts TunerFsParamsArgs and TunerFsParamsOutput values.
+// You can construct a concrete instance of `TunerFsParamsInput` via:
+//
+//	TunerFsParamsArgs{...}
+type TunerFsParamsInput interface {
+	pulumi.Input
+
+	ToTunerFsParamsOutput() TunerFsParamsOutput
+	ToTunerFsParamsOutputWithContext(context.Context) TunerFsParamsOutput
+}
+
+type TunerFsParamsArgs struct {
+	FsNrOpen pulumi.IntPtrInput `pulumi:"fsNrOpen"`
+}
+
+func (TunerFsParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TunerFsParams)(nil)).Elem()
+}
+
+func (i TunerFsParamsArgs) ToTunerFsParamsOutput() TunerFsParamsOutput {
+	return i.ToTunerFsParamsOutputWithContext(context.Background())
+}
+
+func (i TunerFsParamsArgs) ToTunerFsParamsOutputWithContext(ctx context.Context) TunerFsParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TunerFsParamsOutput)
+}
+
+func (i TunerFsParamsArgs) ToTunerFsParamsPtrOutput() TunerFsParamsPtrOutput {
+	return i.ToTunerFsParamsPtrOutputWithContext(context.Background())
+}
+
+func (i TunerFsParamsArgs) ToTunerFsParamsPtrOutputWithContext(ctx context.Context) TunerFsParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TunerFsParamsOutput).ToTunerFsParamsPtrOutputWithContext(ctx)
+}
+
+// TunerFsParamsPtrInput is an input type that accepts TunerFsParamsArgs, TunerFsParamsPtr and TunerFsParamsPtrOutput values.
+// You can construct a concrete instance of `TunerFsParamsPtrInput` via:
+//
+//	        TunerFsParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TunerFsParamsPtrInput interface {
+	pulumi.Input
+
+	ToTunerFsParamsPtrOutput() TunerFsParamsPtrOutput
+	ToTunerFsParamsPtrOutputWithContext(context.Context) TunerFsParamsPtrOutput
+}
+
+type tunerFsParamsPtrType TunerFsParamsArgs
+
+func TunerFsParamsPtr(v *TunerFsParamsArgs) TunerFsParamsPtrInput {
+	return (*tunerFsParamsPtrType)(v)
+}
+
+func (*tunerFsParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TunerFsParams)(nil)).Elem()
+}
+
+func (i *tunerFsParamsPtrType) ToTunerFsParamsPtrOutput() TunerFsParamsPtrOutput {
+	return i.ToTunerFsParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *tunerFsParamsPtrType) ToTunerFsParamsPtrOutputWithContext(ctx context.Context) TunerFsParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TunerFsParamsPtrOutput)
+}
+
+type TunerFsParamsOutput struct{ *pulumi.OutputState }
+
+func (TunerFsParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TunerFsParams)(nil)).Elem()
+}
+
+func (o TunerFsParamsOutput) ToTunerFsParamsOutput() TunerFsParamsOutput {
+	return o
+}
+
+func (o TunerFsParamsOutput) ToTunerFsParamsOutputWithContext(ctx context.Context) TunerFsParamsOutput {
+	return o
+}
+
+func (o TunerFsParamsOutput) ToTunerFsParamsPtrOutput() TunerFsParamsPtrOutput {
+	return o.ToTunerFsParamsPtrOutputWithContext(context.Background())
+}
+
+func (o TunerFsParamsOutput) ToTunerFsParamsPtrOutputWithContext(ctx context.Context) TunerFsParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TunerFsParams) *TunerFsParams {
+		return &v
+	}).(TunerFsParamsPtrOutput)
+}
+
+func (o TunerFsParamsOutput) FsNrOpen() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TunerFsParams) *int { return v.FsNrOpen }).(pulumi.IntPtrOutput)
+}
+
+type TunerFsParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (TunerFsParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TunerFsParams)(nil)).Elem()
+}
+
+func (o TunerFsParamsPtrOutput) ToTunerFsParamsPtrOutput() TunerFsParamsPtrOutput {
+	return o
+}
+
+func (o TunerFsParamsPtrOutput) ToTunerFsParamsPtrOutputWithContext(ctx context.Context) TunerFsParamsPtrOutput {
+	return o
+}
+
+func (o TunerFsParamsPtrOutput) Elem() TunerFsParamsOutput {
+	return o.ApplyT(func(v *TunerFsParams) TunerFsParams {
+		if v != nil {
+			return *v
+		}
+		var ret TunerFsParams
+		return ret
+	}).(TunerFsParamsOutput)
+}
+
+func (o TunerFsParamsPtrOutput) FsNrOpen() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TunerFsParams) *int {
+		if v == nil {
+			return nil
+		}
+		return v.FsNrOpen
+	}).(pulumi.IntPtrOutput)
+}
+
 type TunerKernelParams struct {
 	KernelHungTaskTimeoutSecs      *int `pulumi:"kernelHungTaskTimeoutSecs"`
 	KernelNmiWatchdog              *int `pulumi:"kernelNmiWatchdog"`
@@ -551,6 +684,7 @@ func (o TunerNetParamsPtrOutput) NetIpv4TcpWmem() pulumi.StringPtrOutput {
 
 type TunerParams struct {
 	CpuGovernor *CpuGovernor       `pulumi:"cpuGovernor"`
+	Fs          *TunerFsParams     `pulumi:"fs"`
 	Kernel      *TunerKernelParams `pulumi:"kernel"`
 	Net         *TunerNetParams    `pulumi:"net"`
 	Vm          *TunerVmParams     `pulumi:"vm"`
@@ -569,6 +703,7 @@ type TunerParamsInput interface {
 
 type TunerParamsArgs struct {
 	CpuGovernor CpuGovernorPtrInput       `pulumi:"cpuGovernor"`
+	Fs          TunerFsParamsPtrInput     `pulumi:"fs"`
 	Kernel      TunerKernelParamsPtrInput `pulumi:"kernel"`
 	Net         TunerNetParamsPtrInput    `pulumi:"net"`
 	Vm          TunerVmParamsPtrInput     `pulumi:"vm"`
@@ -602,6 +737,10 @@ func (o TunerParamsOutput) ToTunerParamsOutputWithContext(ctx context.Context) T
 
 func (o TunerParamsOutput) CpuGovernor() CpuGovernorPtrOutput {
 	return o.ApplyT(func(v TunerParams) *CpuGovernor { return v.CpuGovernor }).(CpuGovernorPtrOutput)
+}
+
+func (o TunerParamsOutput) Fs() TunerFsParamsPtrOutput {
+	return o.ApplyT(func(v TunerParams) *TunerFsParams { return v.Fs }).(TunerFsParamsPtrOutput)
 }
 
 func (o TunerParamsOutput) Kernel() TunerKernelParamsPtrOutput {
@@ -870,6 +1009,8 @@ func (o TunerVmParamsPtrOutput) VmSwappiness() pulumi.IntPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*TunerFsParamsInput)(nil)).Elem(), TunerFsParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TunerFsParamsPtrInput)(nil)).Elem(), TunerFsParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerKernelParamsInput)(nil)).Elem(), TunerKernelParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerKernelParamsPtrInput)(nil)).Elem(), TunerKernelParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerNetParamsInput)(nil)).Elem(), TunerNetParamsArgs{})
@@ -877,6 +1018,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerParamsInput)(nil)).Elem(), TunerParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerVmParamsInput)(nil)).Elem(), TunerVmParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TunerVmParamsPtrInput)(nil)).Elem(), TunerVmParamsArgs{})
+	pulumi.RegisterOutputType(TunerFsParamsOutput{})
+	pulumi.RegisterOutputType(TunerFsParamsPtrOutput{})
 	pulumi.RegisterOutputType(TunerKernelParamsOutput{})
 	pulumi.RegisterOutputType(TunerKernelParamsPtrOutput{})
 	pulumi.RegisterOutputType(TunerNetParamsOutput{})

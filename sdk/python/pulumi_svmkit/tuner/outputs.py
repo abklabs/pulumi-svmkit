@@ -17,11 +17,42 @@ from . import outputs
 from ._enums import *
 
 __all__ = [
+    'TunerFsParams',
     'TunerKernelParams',
     'TunerNetParams',
     'TunerParams',
     'TunerVmParams',
 ]
+
+@pulumi.output_type
+class TunerFsParams(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsNrOpen":
+            suggest = "fs_nr_open"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TunerFsParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TunerFsParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TunerFsParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_nr_open: Optional[int] = None):
+        if fs_nr_open is not None:
+            pulumi.set(__self__, "fs_nr_open", fs_nr_open)
+
+    @property
+    @pulumi.getter(name="fsNrOpen")
+    def fs_nr_open(self) -> Optional[int]:
+        return pulumi.get(self, "fs_nr_open")
+
 
 @pulumi.output_type
 class TunerKernelParams(dict):
@@ -284,11 +315,14 @@ class TunerParams(dict):
 
     def __init__(__self__, *,
                  cpu_governor: Optional['CpuGovernor'] = None,
+                 fs: Optional['outputs.TunerFsParams'] = None,
                  kernel: Optional['outputs.TunerKernelParams'] = None,
                  net: Optional['outputs.TunerNetParams'] = None,
                  vm: Optional['outputs.TunerVmParams'] = None):
         if cpu_governor is not None:
             pulumi.set(__self__, "cpu_governor", cpu_governor)
+        if fs is not None:
+            pulumi.set(__self__, "fs", fs)
         if kernel is not None:
             pulumi.set(__self__, "kernel", kernel)
         if net is not None:
@@ -300,6 +334,11 @@ class TunerParams(dict):
     @pulumi.getter(name="cpuGovernor")
     def cpu_governor(self) -> Optional['CpuGovernor']:
         return pulumi.get(self, "cpu_governor")
+
+    @property
+    @pulumi.getter
+    def fs(self) -> Optional['outputs.TunerFsParams']:
+        return pulumi.get(self, "fs")
 
     @property
     @pulumi.getter
