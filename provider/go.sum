@@ -78,8 +78,8 @@ github.com/Microsoft/go-winio v0.6.1 h1:9/kr64B9VUZrLm5YYwbGtUJnMgqWVOdUAXu6Migc
 github.com/Microsoft/go-winio v0.6.1/go.mod h1:LRdKpFKfdobln8UmuiYcKPot9D2v6svN5+sAH+4kjUM=
 github.com/ProtonMail/go-crypto v1.1.3 h1:nRBOetoydLeUb4nHajyO2bKqMLfWQ/ZPwkXqXxPxCFk=
 github.com/ProtonMail/go-crypto v1.1.3/go.mod h1:rA3QumHc/FZ8pAHreoekgiAbzpNsfQAosU5td4SnOrE=
-github.com/abklabs/svmkit/pkg v0.34.0 h1:5gsDDvhTbM/NsEWFQiZEJ7SsmslihumOJKScar4LAtY=
-github.com/abklabs/svmkit/pkg v0.34.0/go.mod h1:LyF1AMDPlLYAT0n8+CqY7ztU78c1E27N4hAji7q3VQY=
+github.com/abklabs/svmkit/pkg v0.35.0 h1:WJlA8Vlzf3jO3aoQW/kn54JrGzajTZrX6nBRVv8O9lE=
+github.com/abklabs/svmkit/pkg v0.35.0/go.mod h1:LyF1AMDPlLYAT0n8+CqY7ztU78c1E27N4hAji7q3VQY=
 github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da h1:KjTM2ks9d14ZYCvmHS9iAKVt9AyzRSqNU1qabPih5BY=
 github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da/go.mod h1:eHEWzANqSiWQsof+nXEI9bUVUyV6F53Fp89EuCh2EAA=
 github.com/agext/levenshtein v1.2.3 h1:YB2fHEn0UJagG8T1rrWknE3ZQzWM06O8AMAatNn7lmo=
