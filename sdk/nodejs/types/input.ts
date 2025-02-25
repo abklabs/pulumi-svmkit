@@ -63,6 +63,7 @@ export namespace agave {
         initCompleteFile?: pulumi.Input<string>;
         knownValidator?: pulumi.Input<pulumi.Input<string>[]>;
         limitLedgerSize?: pulumi.Input<number>;
+        log?: pulumi.Input<string>;
         logMessagesBytesLimit?: pulumi.Input<number>;
         maxGenesisArchiveUnpackedSize?: pulumi.Input<number>;
         maximumFullSnapshotsToRetain?: pulumi.Input<number>;

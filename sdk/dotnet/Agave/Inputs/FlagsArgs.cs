@@ -242,6 +242,9 @@ namespace ABKLabs.Svmkit.Agave.Inputs
         [Input("limitLedgerSize")]
         public Input<int>? LimitLedgerSize { get; set; }
 
+        [Input("log")]
+        public Input<string>? Log { get; set; }
+
         [Input("logMessagesBytesLimit")]
         public Input<int>? LogMessagesBytesLimit { get; set; }
 

@@ -91,6 +91,7 @@ if not MYPY:
         init_complete_file: NotRequired[pulumi.Input[str]]
         known_validator: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         limit_ledger_size: NotRequired[pulumi.Input[int]]
+        log: NotRequired[pulumi.Input[str]]
         log_messages_bytes_limit: NotRequired[pulumi.Input[int]]
         max_genesis_archive_unpacked_size: NotRequired[pulumi.Input[int]]
         maximum_full_snapshots_to_retain: NotRequired[pulumi.Input[int]]
@@ -215,6 +216,7 @@ class FlagsArgs:
                  init_complete_file: Optional[pulumi.Input[str]] = None,
                  known_validator: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  limit_ledger_size: Optional[pulumi.Input[int]] = None,
+                 log: Optional[pulumi.Input[str]] = None,
                  log_messages_bytes_limit: Optional[pulumi.Input[int]] = None,
                  max_genesis_archive_unpacked_size: Optional[pulumi.Input[int]] = None,
                  maximum_full_snapshots_to_retain: Optional[pulumi.Input[int]] = None,
@@ -386,6 +388,8 @@ class FlagsArgs:
             pulumi.set(__self__, "known_validator", known_validator)
         if limit_ledger_size is not None:
             pulumi.set(__self__, "limit_ledger_size", limit_ledger_size)
+        if log is not None:
+            pulumi.set(__self__, "log", log)
         if log_messages_bytes_limit is not None:
             pulumi.set(__self__, "log_messages_bytes_limit", log_messages_bytes_limit)
         if max_genesis_archive_unpacked_size is not None:
@@ -1021,6 +1025,15 @@ class FlagsArgs:
     @limit_ledger_size.setter
     def limit_ledger_size(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "limit_ledger_size", value)
+
+    @property
+    @pulumi.getter
+    def log(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "log")
+
+    @log.setter
+    def log(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "log", value)
 
     @property
     @pulumi.getter(name="logMessagesBytesLimit")

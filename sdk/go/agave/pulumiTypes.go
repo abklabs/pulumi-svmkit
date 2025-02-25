@@ -67,6 +67,7 @@ type Flags struct {
 	InitCompleteFile                    *string  `pulumi:"initCompleteFile"`
 	KnownValidator                      []string `pulumi:"knownValidator"`
 	LimitLedgerSize                     *int     `pulumi:"limitLedgerSize"`
+	Log                                 *string  `pulumi:"log"`
 	LogMessagesBytesLimit               *int     `pulumi:"logMessagesBytesLimit"`
 	MaxGenesisArchiveUnpackedSize       *int     `pulumi:"maxGenesisArchiveUnpackedSize"`
 	MaximumFullSnapshotsToRetain        *int     `pulumi:"maximumFullSnapshotsToRetain"`
@@ -199,6 +200,7 @@ type FlagsArgs struct {
 	InitCompleteFile                    pulumi.StringPtrInput   `pulumi:"initCompleteFile"`
 	KnownValidator                      pulumi.StringArrayInput `pulumi:"knownValidator"`
 	LimitLedgerSize                     pulumi.IntPtrInput      `pulumi:"limitLedgerSize"`
+	Log                                 pulumi.StringPtrInput   `pulumi:"log"`
 	LogMessagesBytesLimit               pulumi.IntPtrInput      `pulumi:"logMessagesBytesLimit"`
 	MaxGenesisArchiveUnpackedSize       pulumi.IntPtrInput      `pulumi:"maxGenesisArchiveUnpackedSize"`
 	MaximumFullSnapshotsToRetain        pulumi.IntPtrInput      `pulumi:"maximumFullSnapshotsToRetain"`
@@ -502,6 +504,10 @@ func (o FlagsOutput) KnownValidator() pulumi.StringArrayOutput {
 
 func (o FlagsOutput) LimitLedgerSize() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Flags) *int { return v.LimitLedgerSize }).(pulumi.IntPtrOutput)
+}
+
+func (o FlagsOutput) Log() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Flags) *string { return v.Log }).(pulumi.StringPtrOutput)
 }
 
 func (o FlagsOutput) LogMessagesBytesLimit() pulumi.IntPtrOutput {

@@ -67,6 +67,7 @@ namespace ABKLabs.Svmkit.Agave.Outputs
         public readonly string? InitCompleteFile;
         public readonly ImmutableArray<string> KnownValidator;
         public readonly int? LimitLedgerSize;
+        public readonly string? Log;
         public readonly int? LogMessagesBytesLimit;
         public readonly int? MaxGenesisArchiveUnpackedSize;
         public readonly int? MaximumFullSnapshotsToRetain;
@@ -240,6 +241,8 @@ namespace ABKLabs.Svmkit.Agave.Outputs
             ImmutableArray<string> knownValidator,
 
             int? limitLedgerSize,
+
+            string? log,
 
             int? logMessagesBytesLimit,
 
@@ -424,6 +427,7 @@ namespace ABKLabs.Svmkit.Agave.Outputs
             InitCompleteFile = initCompleteFile;
             KnownValidator = knownValidator;
             LimitLedgerSize = limitLedgerSize;
+            Log = log;
             LogMessagesBytesLimit = logMessagesBytesLimit;
             MaxGenesisArchiveUnpackedSize = maxGenesisArchiveUnpackedSize;
             MaximumFullSnapshotsToRetain = maximumFullSnapshotsToRetain;

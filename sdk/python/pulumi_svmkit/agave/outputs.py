@@ -333,6 +333,7 @@ class Flags(dict):
                  init_complete_file: Optional[str] = None,
                  known_validator: Optional[Sequence[str]] = None,
                  limit_ledger_size: Optional[int] = None,
+                 log: Optional[str] = None,
                  log_messages_bytes_limit: Optional[int] = None,
                  max_genesis_archive_unpacked_size: Optional[int] = None,
                  maximum_full_snapshots_to_retain: Optional[int] = None,
@@ -504,6 +505,8 @@ class Flags(dict):
             pulumi.set(__self__, "known_validator", known_validator)
         if limit_ledger_size is not None:
             pulumi.set(__self__, "limit_ledger_size", limit_ledger_size)
+        if log is not None:
+            pulumi.set(__self__, "log", log)
         if log_messages_bytes_limit is not None:
             pulumi.set(__self__, "log_messages_bytes_limit", log_messages_bytes_limit)
         if max_genesis_archive_unpacked_size is not None:
@@ -911,6 +914,11 @@ class Flags(dict):
     @pulumi.getter(name="limitLedgerSize")
     def limit_ledger_size(self) -> Optional[int]:
         return pulumi.get(self, "limit_ledger_size")
+
+    @property
+    @pulumi.getter
+    def log(self) -> Optional[str]:
+        return pulumi.get(self, "log")
 
     @property
     @pulumi.getter(name="logMessagesBytesLimit")

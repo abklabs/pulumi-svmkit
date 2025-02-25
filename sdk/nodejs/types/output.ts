@@ -63,6 +63,7 @@ export namespace agave {
         initCompleteFile?: string;
         knownValidator?: string[];
         limitLedgerSize?: number;
+        log?: string;
         logMessagesBytesLimit?: number;
         maxGenesisArchiveUnpackedSize?: number;
         maximumFullSnapshotsToRetain?: number;
