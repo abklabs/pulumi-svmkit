@@ -20,6 +20,7 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/tuner"
 	"github.com/abklabs/pulumi-svmkit/pkg/faucet"
 	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
+	"github.com/abklabs/pulumi-svmkit/pkg/paths"
 	"github.com/abklabs/pulumi-svmkit/pkg/networkinfo"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/validator"
@@ -87,6 +88,14 @@ func Provider() p.Provider {
 		Functions: []infer.InferredFunction{
 			infer.Function[networkinfo.GetNetworkInfo, networkinfo.GetNetworkInfoInput, networkinfo.GetNetworkInfoOutput](),
 			infer.Function[tuner.GetDefaultTunerParams, tuner.TunerParamsInput, tuner.TunerParamsOutput](),
+			infer.Function[paths.GetDefaultPaths, paths.PathsInput, paths.PathsOutput](),
+			infer.Function[paths.GetDefaultAgavePaths, paths.AgavePathsInput, paths.AgavePathsOutput](),
+            infer.Function[paths.GetDefaultFiredancerPaths, paths.FiredancerPathsInput, paths.FiredancerPathsOutput](),
+            infer.Function[paths.GetDefaultExplorerPaths, paths.ExplorerPathsInput, paths.ExplorerPathsOutput](),
+            infer.Function[paths.GetDefaultFaucetPaths, paths.FaucetPathsInput, paths.FaucetPathsOutput](),
+            infer.Function[paths.GetDefaultGenesisPaths, paths.GenesisPathsInput, paths.GenesisPathsOutput](),
+            infer.Function[paths.GetDefaultTunerPaths, paths.TunerPathsInput, paths.TunerPathsOutput](),
+            infer.Function[paths.GetDefaultWatchtowerPaths, paths.WatchtowerPathsInput, paths.WatchtowerPathsOutput](),
 		},
 		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
 			"svm": "index",
