@@ -1,7 +1,0 @@
-name: aws-solana-genesis
-description: An example of performing Solana genesis on an AWS node
-runtime: nodejs
-plugins:
-  providers:
-    - name: svmkit
-      path: ../../bin
