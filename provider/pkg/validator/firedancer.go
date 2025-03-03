@@ -40,13 +40,13 @@ func (Firedancer) Create(ctx context.Context, name string, input FiredancerArgs,
 }
 
 func (Firedancer) Delete(ctx context.Context, id string, props FiredancerState) error {
-  fd := props.Firedancer
+	fd := props.Firedancer
 
-  command := fd.Uninstall()
+	command := fd.Uninstall()
 
-  if err := utils.RunnerHelper(ctx, props.Connection, command); err != nil {
-    return err
-  }
+	if err := utils.RunnerHelper(ctx, props.Connection, command); err != nil {
+		return err
+	}
 
-  return nil
+	return nil
 }

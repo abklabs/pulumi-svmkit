@@ -7,26 +7,26 @@ import (
 )
 
 type TunerParamsInput struct {
-    Variant tuner.TunerVariant `pulumi:"variant"`
+	Variant tuner.TunerVariant `pulumi:"variant"`
 }
 
 type TunerParamsOutput struct {
-    TunerParamsInput
+	TunerParamsInput
 	tuner.TunerParams
 }
 
 type GetDefaultTunerParams struct{}
 
 func (GetDefaultTunerParams) Call(ctx context.Context, input TunerParamsInput) (TunerParamsOutput, error) {
-    params, err := tuner.GetDefaultTunerParams([]tuner.TunerVariant{input.Variant}...)
-    if err != nil {
-        return TunerParamsOutput{}, err
-    }
+	params, err := tuner.GetDefaultTunerParams([]tuner.TunerVariant{input.Variant}...)
+	if err != nil {
+		return TunerParamsOutput{}, err
+	}
 
-    output := TunerParamsOutput{
-        TunerParamsInput: input,
-		TunerParams: *params,
-    }
+	output := TunerParamsOutput{
+		TunerParamsInput: input,
+		TunerParams:      *params,
+	}
 
-    return output, nil
+	return output, nil
 }
