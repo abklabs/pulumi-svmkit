@@ -65,7 +65,7 @@ const securityGroup = new aws.ec2.SecurityGroup("security-group", {
 
 const instance = new aws.ec2.Instance("instance", {
     ami,
-    instanceType: "m5.2xlarge",
+    instanceType: "r6id.4xlarge",
     keyName: keyPair.keyName,
     vpcSecurityGroupIds: [securityGroup.id],
     ebsBlockDevices: [
