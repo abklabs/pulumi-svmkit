@@ -22,6 +22,14 @@ namespace ABKLabs.Svmkit.Genesis.Inputs
         [Input("bootstrapValidatorStakeLamports")]
         public Input<int>? BootstrapValidatorStakeLamports { get; set; }
 
+        [Input("bootstrapValidators", required: true)]
+        private InputList<Inputs.BootstrapValidatorArgs>? _bootstrapValidators;
+        public InputList<Inputs.BootstrapValidatorArgs> BootstrapValidators
+        {
+            get => _bootstrapValidators ?? (_bootstrapValidators = new InputList<Inputs.BootstrapValidatorArgs>());
+            set => _bootstrapValidators = value;
+        }
+
         [Input("clusterType")]
         public Input<string>? ClusterType { get; set; }
 
@@ -59,9 +67,6 @@ namespace ABKLabs.Svmkit.Genesis.Inputs
         [Input("hashesPerTick")]
         public Input<string>? HashesPerTick { get; set; }
 
-        [Input("identityPubkey", required: true)]
-        public Input<string> IdentityPubkey { get; set; } = null!;
-
         [Input("inflation")]
         public Input<string>? Inflation { get; set; }
 
@@ -83,9 +88,6 @@ namespace ABKLabs.Svmkit.Genesis.Inputs
         [Input("slotsPerEpoch")]
         public Input<int>? SlotsPerEpoch { get; set; }
 
-        [Input("stakePubkey", required: true)]
-        public Input<string> StakePubkey { get; set; } = null!;
-
         [Input("targetLamportsPerSignature")]
         public Input<int>? TargetLamportsPerSignature { get; set; }
 
@@ -103,9 +105,6 @@ namespace ABKLabs.Svmkit.Genesis.Inputs
 
         [Input("voteCommissionPercentage")]
         public Input<int>? VoteCommissionPercentage { get; set; }
-
-        [Input("votePubkey", required: true)]
-        public Input<string> VotePubkey { get; set; } = null!;
 
         public GenesisFlagsArgs()
         {

@@ -309,10 +309,17 @@ export namespace genesis {
         votePubkey: pulumi.Input<string>;
     }
 
+    export interface BootstrapValidatorArgs {
+        identityPubkey: pulumi.Input<string>;
+        stakePubkey: pulumi.Input<string>;
+        votePubkey: pulumi.Input<string>;
+    }
+
     export interface GenesisFlagsArgs {
         bootstrapStakeAuthorizedPubkey?: pulumi.Input<string>;
         bootstrapValidatorLamports?: pulumi.Input<number>;
         bootstrapValidatorStakeLamports?: pulumi.Input<number>;
+        bootstrapValidators: pulumi.Input<pulumi.Input<inputs.genesis.BootstrapValidatorArgs>[]>;
         clusterType?: pulumi.Input<string>;
         creationTime?: pulumi.Input<string>;
         deactivateFeatures?: pulumi.Input<pulumi.Input<string>[]>;
@@ -322,7 +329,6 @@ export namespace genesis {
         faucetPubkey?: pulumi.Input<string>;
         feeBurnPercentage?: pulumi.Input<number>;
         hashesPerTick?: pulumi.Input<string>;
-        identityPubkey: pulumi.Input<string>;
         inflation?: pulumi.Input<string>;
         lamportsPerByteYear?: pulumi.Input<number>;
         ledgerPath: pulumi.Input<string>;
@@ -330,14 +336,12 @@ export namespace genesis {
         rentBurnPercentage?: pulumi.Input<number>;
         rentExemptionThreshold?: pulumi.Input<number>;
         slotsPerEpoch?: pulumi.Input<number>;
-        stakePubkey: pulumi.Input<string>;
         targetLamportsPerSignature?: pulumi.Input<number>;
         targetSignaturesPerSlot?: pulumi.Input<number>;
         targetTickDuration?: pulumi.Input<number>;
         ticksPerSlot?: pulumi.Input<number>;
         url?: pulumi.Input<string>;
         voteCommissionPercentage?: pulumi.Input<number>;
-        votePubkey: pulumi.Input<string>;
     }
 
     export interface PrimordialAccountArgs {

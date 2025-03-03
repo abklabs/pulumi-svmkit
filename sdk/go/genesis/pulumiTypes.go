@@ -131,35 +131,139 @@ func (o BootstrapAccountArrayOutput) Index(i pulumi.IntInput) BootstrapAccountOu
 	}).(BootstrapAccountOutput)
 }
 
+type BootstrapValidator struct {
+	IdentityPubkey string `pulumi:"identityPubkey"`
+	StakePubkey    string `pulumi:"stakePubkey"`
+	VotePubkey     string `pulumi:"votePubkey"`
+}
+
+// BootstrapValidatorInput is an input type that accepts BootstrapValidatorArgs and BootstrapValidatorOutput values.
+// You can construct a concrete instance of `BootstrapValidatorInput` via:
+//
+//	BootstrapValidatorArgs{...}
+type BootstrapValidatorInput interface {
+	pulumi.Input
+
+	ToBootstrapValidatorOutput() BootstrapValidatorOutput
+	ToBootstrapValidatorOutputWithContext(context.Context) BootstrapValidatorOutput
+}
+
+type BootstrapValidatorArgs struct {
+	IdentityPubkey pulumi.StringInput `pulumi:"identityPubkey"`
+	StakePubkey    pulumi.StringInput `pulumi:"stakePubkey"`
+	VotePubkey     pulumi.StringInput `pulumi:"votePubkey"`
+}
+
+func (BootstrapValidatorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*BootstrapValidator)(nil)).Elem()
+}
+
+func (i BootstrapValidatorArgs) ToBootstrapValidatorOutput() BootstrapValidatorOutput {
+	return i.ToBootstrapValidatorOutputWithContext(context.Background())
+}
+
+func (i BootstrapValidatorArgs) ToBootstrapValidatorOutputWithContext(ctx context.Context) BootstrapValidatorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BootstrapValidatorOutput)
+}
+
+// BootstrapValidatorArrayInput is an input type that accepts BootstrapValidatorArray and BootstrapValidatorArrayOutput values.
+// You can construct a concrete instance of `BootstrapValidatorArrayInput` via:
+//
+//	BootstrapValidatorArray{ BootstrapValidatorArgs{...} }
+type BootstrapValidatorArrayInput interface {
+	pulumi.Input
+
+	ToBootstrapValidatorArrayOutput() BootstrapValidatorArrayOutput
+	ToBootstrapValidatorArrayOutputWithContext(context.Context) BootstrapValidatorArrayOutput
+}
+
+type BootstrapValidatorArray []BootstrapValidatorInput
+
+func (BootstrapValidatorArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]BootstrapValidator)(nil)).Elem()
+}
+
+func (i BootstrapValidatorArray) ToBootstrapValidatorArrayOutput() BootstrapValidatorArrayOutput {
+	return i.ToBootstrapValidatorArrayOutputWithContext(context.Background())
+}
+
+func (i BootstrapValidatorArray) ToBootstrapValidatorArrayOutputWithContext(ctx context.Context) BootstrapValidatorArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BootstrapValidatorArrayOutput)
+}
+
+type BootstrapValidatorOutput struct{ *pulumi.OutputState }
+
+func (BootstrapValidatorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BootstrapValidator)(nil)).Elem()
+}
+
+func (o BootstrapValidatorOutput) ToBootstrapValidatorOutput() BootstrapValidatorOutput {
+	return o
+}
+
+func (o BootstrapValidatorOutput) ToBootstrapValidatorOutputWithContext(ctx context.Context) BootstrapValidatorOutput {
+	return o
+}
+
+func (o BootstrapValidatorOutput) IdentityPubkey() pulumi.StringOutput {
+	return o.ApplyT(func(v BootstrapValidator) string { return v.IdentityPubkey }).(pulumi.StringOutput)
+}
+
+func (o BootstrapValidatorOutput) StakePubkey() pulumi.StringOutput {
+	return o.ApplyT(func(v BootstrapValidator) string { return v.StakePubkey }).(pulumi.StringOutput)
+}
+
+func (o BootstrapValidatorOutput) VotePubkey() pulumi.StringOutput {
+	return o.ApplyT(func(v BootstrapValidator) string { return v.VotePubkey }).(pulumi.StringOutput)
+}
+
+type BootstrapValidatorArrayOutput struct{ *pulumi.OutputState }
+
+func (BootstrapValidatorArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]BootstrapValidator)(nil)).Elem()
+}
+
+func (o BootstrapValidatorArrayOutput) ToBootstrapValidatorArrayOutput() BootstrapValidatorArrayOutput {
+	return o
+}
+
+func (o BootstrapValidatorArrayOutput) ToBootstrapValidatorArrayOutputWithContext(ctx context.Context) BootstrapValidatorArrayOutput {
+	return o
+}
+
+func (o BootstrapValidatorArrayOutput) Index(i pulumi.IntInput) BootstrapValidatorOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) BootstrapValidator {
+		return vs[0].([]BootstrapValidator)[vs[1].(int)]
+	}).(BootstrapValidatorOutput)
+}
+
 type GenesisFlags struct {
-	BootstrapStakeAuthorizedPubkey  *string  `pulumi:"bootstrapStakeAuthorizedPubkey"`
-	BootstrapValidatorLamports      *int     `pulumi:"bootstrapValidatorLamports"`
-	BootstrapValidatorStakeLamports *int     `pulumi:"bootstrapValidatorStakeLamports"`
-	ClusterType                     *string  `pulumi:"clusterType"`
-	CreationTime                    *string  `pulumi:"creationTime"`
-	DeactivateFeatures              []string `pulumi:"deactivateFeatures"`
-	EnableWarmupEpochs              *bool    `pulumi:"enableWarmupEpochs"`
-	ExtraFlags                      []string `pulumi:"extraFlags"`
-	FaucetLamports                  *int     `pulumi:"faucetLamports"`
-	FaucetPubkey                    *string  `pulumi:"faucetPubkey"`
-	FeeBurnPercentage               *int     `pulumi:"feeBurnPercentage"`
-	HashesPerTick                   *string  `pulumi:"hashesPerTick"`
-	IdentityPubkey                  string   `pulumi:"identityPubkey"`
-	Inflation                       *string  `pulumi:"inflation"`
-	LamportsPerByteYear             *int     `pulumi:"lamportsPerByteYear"`
-	LedgerPath                      string   `pulumi:"ledgerPath"`
-	MaxGenesisArchiveUnpackedSize   *int     `pulumi:"maxGenesisArchiveUnpackedSize"`
-	RentBurnPercentage              *int     `pulumi:"rentBurnPercentage"`
-	RentExemptionThreshold          *int     `pulumi:"rentExemptionThreshold"`
-	SlotsPerEpoch                   *int     `pulumi:"slotsPerEpoch"`
-	StakePubkey                     string   `pulumi:"stakePubkey"`
-	TargetLamportsPerSignature      *int     `pulumi:"targetLamportsPerSignature"`
-	TargetSignaturesPerSlot         *int     `pulumi:"targetSignaturesPerSlot"`
-	TargetTickDuration              *int     `pulumi:"targetTickDuration"`
-	TicksPerSlot                    *int     `pulumi:"ticksPerSlot"`
-	Url                             *string  `pulumi:"url"`
-	VoteCommissionPercentage        *int     `pulumi:"voteCommissionPercentage"`
-	VotePubkey                      string   `pulumi:"votePubkey"`
+	BootstrapStakeAuthorizedPubkey  *string              `pulumi:"bootstrapStakeAuthorizedPubkey"`
+	BootstrapValidatorLamports      *int                 `pulumi:"bootstrapValidatorLamports"`
+	BootstrapValidatorStakeLamports *int                 `pulumi:"bootstrapValidatorStakeLamports"`
+	BootstrapValidators             []BootstrapValidator `pulumi:"bootstrapValidators"`
+	ClusterType                     *string              `pulumi:"clusterType"`
+	CreationTime                    *string              `pulumi:"creationTime"`
+	DeactivateFeatures              []string             `pulumi:"deactivateFeatures"`
+	EnableWarmupEpochs              *bool                `pulumi:"enableWarmupEpochs"`
+	ExtraFlags                      []string             `pulumi:"extraFlags"`
+	FaucetLamports                  *int                 `pulumi:"faucetLamports"`
+	FaucetPubkey                    *string              `pulumi:"faucetPubkey"`
+	FeeBurnPercentage               *int                 `pulumi:"feeBurnPercentage"`
+	HashesPerTick                   *string              `pulumi:"hashesPerTick"`
+	Inflation                       *string              `pulumi:"inflation"`
+	LamportsPerByteYear             *int                 `pulumi:"lamportsPerByteYear"`
+	LedgerPath                      string               `pulumi:"ledgerPath"`
+	MaxGenesisArchiveUnpackedSize   *int                 `pulumi:"maxGenesisArchiveUnpackedSize"`
+	RentBurnPercentage              *int                 `pulumi:"rentBurnPercentage"`
+	RentExemptionThreshold          *int                 `pulumi:"rentExemptionThreshold"`
+	SlotsPerEpoch                   *int                 `pulumi:"slotsPerEpoch"`
+	TargetLamportsPerSignature      *int                 `pulumi:"targetLamportsPerSignature"`
+	TargetSignaturesPerSlot         *int                 `pulumi:"targetSignaturesPerSlot"`
+	TargetTickDuration              *int                 `pulumi:"targetTickDuration"`
+	TicksPerSlot                    *int                 `pulumi:"ticksPerSlot"`
+	Url                             *string              `pulumi:"url"`
+	VoteCommissionPercentage        *int                 `pulumi:"voteCommissionPercentage"`
 }
 
 // GenesisFlagsInput is an input type that accepts GenesisFlagsArgs and GenesisFlagsOutput values.
@@ -174,34 +278,32 @@ type GenesisFlagsInput interface {
 }
 
 type GenesisFlagsArgs struct {
-	BootstrapStakeAuthorizedPubkey  pulumi.StringPtrInput   `pulumi:"bootstrapStakeAuthorizedPubkey"`
-	BootstrapValidatorLamports      pulumi.IntPtrInput      `pulumi:"bootstrapValidatorLamports"`
-	BootstrapValidatorStakeLamports pulumi.IntPtrInput      `pulumi:"bootstrapValidatorStakeLamports"`
-	ClusterType                     pulumi.StringPtrInput   `pulumi:"clusterType"`
-	CreationTime                    pulumi.StringPtrInput   `pulumi:"creationTime"`
-	DeactivateFeatures              pulumi.StringArrayInput `pulumi:"deactivateFeatures"`
-	EnableWarmupEpochs              pulumi.BoolPtrInput     `pulumi:"enableWarmupEpochs"`
-	ExtraFlags                      pulumi.StringArrayInput `pulumi:"extraFlags"`
-	FaucetLamports                  pulumi.IntPtrInput      `pulumi:"faucetLamports"`
-	FaucetPubkey                    pulumi.StringPtrInput   `pulumi:"faucetPubkey"`
-	FeeBurnPercentage               pulumi.IntPtrInput      `pulumi:"feeBurnPercentage"`
-	HashesPerTick                   pulumi.StringPtrInput   `pulumi:"hashesPerTick"`
-	IdentityPubkey                  pulumi.StringInput      `pulumi:"identityPubkey"`
-	Inflation                       pulumi.StringPtrInput   `pulumi:"inflation"`
-	LamportsPerByteYear             pulumi.IntPtrInput      `pulumi:"lamportsPerByteYear"`
-	LedgerPath                      pulumi.StringInput      `pulumi:"ledgerPath"`
-	MaxGenesisArchiveUnpackedSize   pulumi.IntPtrInput      `pulumi:"maxGenesisArchiveUnpackedSize"`
-	RentBurnPercentage              pulumi.IntPtrInput      `pulumi:"rentBurnPercentage"`
-	RentExemptionThreshold          pulumi.IntPtrInput      `pulumi:"rentExemptionThreshold"`
-	SlotsPerEpoch                   pulumi.IntPtrInput      `pulumi:"slotsPerEpoch"`
-	StakePubkey                     pulumi.StringInput      `pulumi:"stakePubkey"`
-	TargetLamportsPerSignature      pulumi.IntPtrInput      `pulumi:"targetLamportsPerSignature"`
-	TargetSignaturesPerSlot         pulumi.IntPtrInput      `pulumi:"targetSignaturesPerSlot"`
-	TargetTickDuration              pulumi.IntPtrInput      `pulumi:"targetTickDuration"`
-	TicksPerSlot                    pulumi.IntPtrInput      `pulumi:"ticksPerSlot"`
-	Url                             pulumi.StringPtrInput   `pulumi:"url"`
-	VoteCommissionPercentage        pulumi.IntPtrInput      `pulumi:"voteCommissionPercentage"`
-	VotePubkey                      pulumi.StringInput      `pulumi:"votePubkey"`
+	BootstrapStakeAuthorizedPubkey  pulumi.StringPtrInput        `pulumi:"bootstrapStakeAuthorizedPubkey"`
+	BootstrapValidatorLamports      pulumi.IntPtrInput           `pulumi:"bootstrapValidatorLamports"`
+	BootstrapValidatorStakeLamports pulumi.IntPtrInput           `pulumi:"bootstrapValidatorStakeLamports"`
+	BootstrapValidators             BootstrapValidatorArrayInput `pulumi:"bootstrapValidators"`
+	ClusterType                     pulumi.StringPtrInput        `pulumi:"clusterType"`
+	CreationTime                    pulumi.StringPtrInput        `pulumi:"creationTime"`
+	DeactivateFeatures              pulumi.StringArrayInput      `pulumi:"deactivateFeatures"`
+	EnableWarmupEpochs              pulumi.BoolPtrInput          `pulumi:"enableWarmupEpochs"`
+	ExtraFlags                      pulumi.StringArrayInput      `pulumi:"extraFlags"`
+	FaucetLamports                  pulumi.IntPtrInput           `pulumi:"faucetLamports"`
+	FaucetPubkey                    pulumi.StringPtrInput        `pulumi:"faucetPubkey"`
+	FeeBurnPercentage               pulumi.IntPtrInput           `pulumi:"feeBurnPercentage"`
+	HashesPerTick                   pulumi.StringPtrInput        `pulumi:"hashesPerTick"`
+	Inflation                       pulumi.StringPtrInput        `pulumi:"inflation"`
+	LamportsPerByteYear             pulumi.IntPtrInput           `pulumi:"lamportsPerByteYear"`
+	LedgerPath                      pulumi.StringInput           `pulumi:"ledgerPath"`
+	MaxGenesisArchiveUnpackedSize   pulumi.IntPtrInput           `pulumi:"maxGenesisArchiveUnpackedSize"`
+	RentBurnPercentage              pulumi.IntPtrInput           `pulumi:"rentBurnPercentage"`
+	RentExemptionThreshold          pulumi.IntPtrInput           `pulumi:"rentExemptionThreshold"`
+	SlotsPerEpoch                   pulumi.IntPtrInput           `pulumi:"slotsPerEpoch"`
+	TargetLamportsPerSignature      pulumi.IntPtrInput           `pulumi:"targetLamportsPerSignature"`
+	TargetSignaturesPerSlot         pulumi.IntPtrInput           `pulumi:"targetSignaturesPerSlot"`
+	TargetTickDuration              pulumi.IntPtrInput           `pulumi:"targetTickDuration"`
+	TicksPerSlot                    pulumi.IntPtrInput           `pulumi:"ticksPerSlot"`
+	Url                             pulumi.StringPtrInput        `pulumi:"url"`
+	VoteCommissionPercentage        pulumi.IntPtrInput           `pulumi:"voteCommissionPercentage"`
 }
 
 func (GenesisFlagsArgs) ElementType() reflect.Type {
@@ -242,6 +344,10 @@ func (o GenesisFlagsOutput) BootstrapValidatorStakeLamports() pulumi.IntPtrOutpu
 	return o.ApplyT(func(v GenesisFlags) *int { return v.BootstrapValidatorStakeLamports }).(pulumi.IntPtrOutput)
 }
 
+func (o GenesisFlagsOutput) BootstrapValidators() BootstrapValidatorArrayOutput {
+	return o.ApplyT(func(v GenesisFlags) []BootstrapValidator { return v.BootstrapValidators }).(BootstrapValidatorArrayOutput)
+}
+
 func (o GenesisFlagsOutput) ClusterType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *string { return v.ClusterType }).(pulumi.StringPtrOutput)
 }
@@ -278,10 +384,6 @@ func (o GenesisFlagsOutput) HashesPerTick() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *string { return v.HashesPerTick }).(pulumi.StringPtrOutput)
 }
 
-func (o GenesisFlagsOutput) IdentityPubkey() pulumi.StringOutput {
-	return o.ApplyT(func(v GenesisFlags) string { return v.IdentityPubkey }).(pulumi.StringOutput)
-}
-
 func (o GenesisFlagsOutput) Inflation() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *string { return v.Inflation }).(pulumi.StringPtrOutput)
 }
@@ -310,10 +412,6 @@ func (o GenesisFlagsOutput) SlotsPerEpoch() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *int { return v.SlotsPerEpoch }).(pulumi.IntPtrOutput)
 }
 
-func (o GenesisFlagsOutput) StakePubkey() pulumi.StringOutput {
-	return o.ApplyT(func(v GenesisFlags) string { return v.StakePubkey }).(pulumi.StringOutput)
-}
-
 func (o GenesisFlagsOutput) TargetLamportsPerSignature() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *int { return v.TargetLamportsPerSignature }).(pulumi.IntPtrOutput)
 }
@@ -336,10 +434,6 @@ func (o GenesisFlagsOutput) Url() pulumi.StringPtrOutput {
 
 func (o GenesisFlagsOutput) VoteCommissionPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GenesisFlags) *int { return v.VoteCommissionPercentage }).(pulumi.IntPtrOutput)
-}
-
-func (o GenesisFlagsOutput) VotePubkey() pulumi.StringOutput {
-	return o.ApplyT(func(v GenesisFlags) string { return v.VotePubkey }).(pulumi.StringOutput)
 }
 
 type PrimordialAccount struct {
@@ -463,11 +557,15 @@ func (o PrimordialAccountArrayOutput) Index(i pulumi.IntInput) PrimordialAccount
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*BootstrapAccountInput)(nil)).Elem(), BootstrapAccountArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BootstrapAccountArrayInput)(nil)).Elem(), BootstrapAccountArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BootstrapValidatorInput)(nil)).Elem(), BootstrapValidatorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BootstrapValidatorArrayInput)(nil)).Elem(), BootstrapValidatorArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GenesisFlagsInput)(nil)).Elem(), GenesisFlagsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PrimordialAccountInput)(nil)).Elem(), PrimordialAccountArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PrimordialAccountArrayInput)(nil)).Elem(), PrimordialAccountArray{})
 	pulumi.RegisterOutputType(BootstrapAccountOutput{})
 	pulumi.RegisterOutputType(BootstrapAccountArrayOutput{})
+	pulumi.RegisterOutputType(BootstrapValidatorOutput{})
+	pulumi.RegisterOutputType(BootstrapValidatorArrayOutput{})
 	pulumi.RegisterOutputType(GenesisFlagsOutput{})
 	pulumi.RegisterOutputType(PrimordialAccountOutput{})
 	pulumi.RegisterOutputType(PrimordialAccountArrayOutput{})

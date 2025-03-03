@@ -314,10 +314,17 @@ export namespace genesis {
         votePubkey: string;
     }
 
+    export interface BootstrapValidator {
+        identityPubkey: string;
+        stakePubkey: string;
+        votePubkey: string;
+    }
+
     export interface GenesisFlags {
         bootstrapStakeAuthorizedPubkey?: string;
         bootstrapValidatorLamports?: number;
         bootstrapValidatorStakeLamports?: number;
+        bootstrapValidators: outputs.genesis.BootstrapValidator[];
         clusterType?: string;
         creationTime?: string;
         deactivateFeatures?: string[];
@@ -327,7 +334,6 @@ export namespace genesis {
         faucetPubkey?: string;
         feeBurnPercentage?: number;
         hashesPerTick?: string;
-        identityPubkey: string;
         inflation?: string;
         lamportsPerByteYear?: number;
         ledgerPath: string;
@@ -335,14 +341,12 @@ export namespace genesis {
         rentBurnPercentage?: number;
         rentExemptionThreshold?: number;
         slotsPerEpoch?: number;
-        stakePubkey: string;
         targetLamportsPerSignature?: number;
         targetSignaturesPerSlot?: number;
         targetTickDuration?: number;
         ticksPerSlot?: number;
         url?: string;
         voteCommissionPercentage?: number;
-        votePubkey: string;
     }
 
     export interface PrimordialAccount {

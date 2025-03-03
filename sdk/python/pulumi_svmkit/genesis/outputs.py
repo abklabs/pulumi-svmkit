@@ -13,9 +13,11 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
+from . import outputs
 
 __all__ = [
     'BootstrapAccount',
+    'BootstrapValidator',
     'GenesisFlags',
     'PrimordialAccount',
 ]
@@ -88,18 +90,61 @@ class BootstrapAccount(dict):
 
 
 @pulumi.output_type
-class GenesisFlags(dict):
+class BootstrapValidator(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
         if key == "identityPubkey":
             suggest = "identity_pubkey"
-        elif key == "ledgerPath":
-            suggest = "ledger_path"
         elif key == "stakePubkey":
             suggest = "stake_pubkey"
         elif key == "votePubkey":
             suggest = "vote_pubkey"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in BootstrapValidator. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        BootstrapValidator.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        BootstrapValidator.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 identity_pubkey: str,
+                 stake_pubkey: str,
+                 vote_pubkey: str):
+        pulumi.set(__self__, "identity_pubkey", identity_pubkey)
+        pulumi.set(__self__, "stake_pubkey", stake_pubkey)
+        pulumi.set(__self__, "vote_pubkey", vote_pubkey)
+
+    @property
+    @pulumi.getter(name="identityPubkey")
+    def identity_pubkey(self) -> str:
+        return pulumi.get(self, "identity_pubkey")
+
+    @property
+    @pulumi.getter(name="stakePubkey")
+    def stake_pubkey(self) -> str:
+        return pulumi.get(self, "stake_pubkey")
+
+    @property
+    @pulumi.getter(name="votePubkey")
+    def vote_pubkey(self) -> str:
+        return pulumi.get(self, "vote_pubkey")
+
+
+@pulumi.output_type
+class GenesisFlags(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "bootstrapValidators":
+            suggest = "bootstrap_validators"
+        elif key == "ledgerPath":
+            suggest = "ledger_path"
         elif key == "bootstrapStakeAuthorizedPubkey":
             suggest = "bootstrap_stake_authorized_pubkey"
         elif key == "bootstrapValidatorLamports":
@@ -157,10 +202,8 @@ class GenesisFlags(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 identity_pubkey: str,
+                 bootstrap_validators: Sequence['outputs.BootstrapValidator'],
                  ledger_path: str,
-                 stake_pubkey: str,
-                 vote_pubkey: str,
                  bootstrap_stake_authorized_pubkey: Optional[str] = None,
                  bootstrap_validator_lamports: Optional[int] = None,
                  bootstrap_validator_stake_lamports: Optional[int] = None,
@@ -185,10 +228,8 @@ class GenesisFlags(dict):
                  ticks_per_slot: Optional[int] = None,
                  url: Optional[str] = None,
                  vote_commission_percentage: Optional[int] = None):
-        pulumi.set(__self__, "identity_pubkey", identity_pubkey)
+        pulumi.set(__self__, "bootstrap_validators", bootstrap_validators)
         pulumi.set(__self__, "ledger_path", ledger_path)
-        pulumi.set(__self__, "stake_pubkey", stake_pubkey)
-        pulumi.set(__self__, "vote_pubkey", vote_pubkey)
         if bootstrap_stake_authorized_pubkey is not None:
             pulumi.set(__self__, "bootstrap_stake_authorized_pubkey", bootstrap_stake_authorized_pubkey)
         if bootstrap_validator_lamports is not None:
@@ -239,24 +280,14 @@ class GenesisFlags(dict):
             pulumi.set(__self__, "vote_commission_percentage", vote_commission_percentage)
 
     @property
-    @pulumi.getter(name="identityPubkey")
-    def identity_pubkey(self) -> str:
-        return pulumi.get(self, "identity_pubkey")
+    @pulumi.getter(name="bootstrapValidators")
+    def bootstrap_validators(self) -> Sequence['outputs.BootstrapValidator']:
+        return pulumi.get(self, "bootstrap_validators")
 
     @property
     @pulumi.getter(name="ledgerPath")
     def ledger_path(self) -> str:
         return pulumi.get(self, "ledger_path")
-
-    @property
-    @pulumi.getter(name="stakePubkey")
-    def stake_pubkey(self) -> str:
-        return pulumi.get(self, "stake_pubkey")
-
-    @property
-    @pulumi.getter(name="votePubkey")
-    def vote_pubkey(self) -> str:
-        return pulumi.get(self, "vote_pubkey")
 
     @property
     @pulumi.getter(name="bootstrapStakeAuthorizedPubkey")

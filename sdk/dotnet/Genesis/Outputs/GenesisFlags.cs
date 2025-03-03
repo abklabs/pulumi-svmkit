@@ -17,6 +17,7 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
         public readonly string? BootstrapStakeAuthorizedPubkey;
         public readonly int? BootstrapValidatorLamports;
         public readonly int? BootstrapValidatorStakeLamports;
+        public readonly ImmutableArray<Outputs.BootstrapValidator> BootstrapValidators;
         public readonly string? ClusterType;
         public readonly string? CreationTime;
         public readonly ImmutableArray<string> DeactivateFeatures;
@@ -26,7 +27,6 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
         public readonly string? FaucetPubkey;
         public readonly int? FeeBurnPercentage;
         public readonly string? HashesPerTick;
-        public readonly string IdentityPubkey;
         public readonly string? Inflation;
         public readonly int? LamportsPerByteYear;
         public readonly string LedgerPath;
@@ -34,14 +34,12 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
         public readonly int? RentBurnPercentage;
         public readonly int? RentExemptionThreshold;
         public readonly int? SlotsPerEpoch;
-        public readonly string StakePubkey;
         public readonly int? TargetLamportsPerSignature;
         public readonly int? TargetSignaturesPerSlot;
         public readonly int? TargetTickDuration;
         public readonly int? TicksPerSlot;
         public readonly string? Url;
         public readonly int? VoteCommissionPercentage;
-        public readonly string VotePubkey;
 
         [OutputConstructor]
         private GenesisFlags(
@@ -50,6 +48,8 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
             int? bootstrapValidatorLamports,
 
             int? bootstrapValidatorStakeLamports,
+
+            ImmutableArray<Outputs.BootstrapValidator> bootstrapValidators,
 
             string? clusterType,
 
@@ -69,8 +69,6 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
 
             string? hashesPerTick,
 
-            string identityPubkey,
-
             string? inflation,
 
             int? lamportsPerByteYear,
@@ -85,8 +83,6 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
 
             int? slotsPerEpoch,
 
-            string stakePubkey,
-
             int? targetLamportsPerSignature,
 
             int? targetSignaturesPerSlot,
@@ -97,13 +93,12 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
 
             string? url,
 
-            int? voteCommissionPercentage,
-
-            string votePubkey)
+            int? voteCommissionPercentage)
         {
             BootstrapStakeAuthorizedPubkey = bootstrapStakeAuthorizedPubkey;
             BootstrapValidatorLamports = bootstrapValidatorLamports;
             BootstrapValidatorStakeLamports = bootstrapValidatorStakeLamports;
+            BootstrapValidators = bootstrapValidators;
             ClusterType = clusterType;
             CreationTime = creationTime;
             DeactivateFeatures = deactivateFeatures;
@@ -113,7 +108,6 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
             FaucetPubkey = faucetPubkey;
             FeeBurnPercentage = feeBurnPercentage;
             HashesPerTick = hashesPerTick;
-            IdentityPubkey = identityPubkey;
             Inflation = inflation;
             LamportsPerByteYear = lamportsPerByteYear;
             LedgerPath = ledgerPath;
@@ -121,14 +115,12 @@ namespace ABKLabs.Svmkit.Genesis.Outputs
             RentBurnPercentage = rentBurnPercentage;
             RentExemptionThreshold = rentExemptionThreshold;
             SlotsPerEpoch = slotsPerEpoch;
-            StakePubkey = stakePubkey;
             TargetLamportsPerSignature = targetLamportsPerSignature;
             TargetSignaturesPerSlot = targetSignaturesPerSlot;
             TargetTickDuration = targetTickDuration;
             TicksPerSlot = ticksPerSlot;
             Url = url;
             VoteCommissionPercentage = voteCommissionPercentage;
-            VotePubkey = votePubkey;
         }
     }
 }
