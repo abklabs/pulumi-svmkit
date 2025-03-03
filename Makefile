@@ -94,7 +94,7 @@ install_nodejs_sdk::
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
 
 clean::
-	$(RM) -r bin nuget sdk/dotnet/{bin,obj} sdk/nodejs/bin sdk/python/bin
+	$(RM) -r bin/pulumi-resource-svmkit nuget sdk/dotnet/{bin,obj} sdk/nodejs/bin sdk/python/bin
 
 distclean:: clean
 	$(RM) -r sdk/nodejs/node_modules
