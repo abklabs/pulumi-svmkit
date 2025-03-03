@@ -1,7 +1,0 @@
-name: aws-agave-validator
-description: An example of an Agave validator on AWS using TypeScript
-runtime: nodejs
-plugins:
-  providers:
-    - name: svmkit
-      path: ../../bin

@@ -11,7 +11,6 @@ TESTPARALLELISM		:= 4
 GO_TEST			:= go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 
 WORKING_DIR		:= $(shell pwd)
-EXAMPLES_DIR		:= ${WORKING_DIR}/examples/yaml
 
 OS			:= $(shell uname)
 
@@ -65,21 +64,6 @@ python_sdk:: $(WORKING_DIR)/bin/$(PROVIDER)
 		sed -i.bak -e 's/^VERSION = .*/VERSION = "$(PYPI_VERSION)"/g' -e 's/^PLUGIN_VERSION = .*/PLUGIN_VERSION = "$(VERSION)"/g' ./bin/setup.py && \
 		rm ./bin/setup.py.bak && \
 		cd ./bin && python3 setup.py build sdist
-
-gen_examples: gen_go_example \
-		gen_nodejs_example \
-		gen_python_example \
-		gen_dotnet_example
-
-gen_%_example:
-	rm -rf ${WORKING_DIR}/examples/$*
-	pulumi convert \
-		--cwd ${WORKING_DIR}/examples/yaml \
-		--logtostderr \
-		--generate-only \
-		--non-interactive \
-		--language $* \
-		--out ${WORKING_DIR}/examples/$*
 
 .PHONY: build
 

@@ -1,7 +1,0 @@
-name: aws-agave-validator-go
-description: An Agave validator deployed on AWS using golang
-runtime: go
-plugins:
-  providers:
-    - name: svmkit
-      path: ../../bin

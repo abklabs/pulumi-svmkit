@@ -22,7 +22,6 @@ The repository is organized as follows:
 |-------------------------|-----------------------------------------------------------------------------|
 | `provider/`             | Contains the build and implementation logic for the SVMkit Pulumi provider. |
 | `sdk/`                  | Houses the generated code libraries.                                        |
-| `examples/`             | Includes Pulumi programs for local testing and CI usage.                    |
 | `Makefile` and `README` | Standard project files for building and documentation.                      |
 
 ## Build
@@ -51,29 +50,4 @@ In order to be able to use/test unreleased local changes to `svmkit` it is impor
         cloud.google.com/go v0.112.1 // indirect
         cloud.google.com/go/compute v1.25.0 // indirect
 ```
-
-## Implementation Examples
-
-You can find a catalog of example Pulumi projects to help you get started with SVMkit [here](./examples).
-
-```bash
-$ cd examples/aws-agave-validator
-$ yarn link @svmkit/pulumi-svmkit
-$ yarn install
-$ pulumi stack init demo
-$ pulumi up
-```
-
-In this example, an Agave validator is installed on a machine via SSH, joining the Solana testnet.
-
-Keep in mind, these examples work using your local build of `pulumi-svmkit` if the `Pulumi.yaml` includes:
-
-```
-plugins:
-  providers:
-    - name: svmkit
-      path: ../../bin
-```
-
-If you are using an example which doesn't, then you must make sure that `pulumi-svmkit/bin` is in your `PATH` before you run the example.  Otherwise it will attempt to download an unreleased `pulumi-svmkit` which will most likely fail.
 
