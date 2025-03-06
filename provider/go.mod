@@ -6,12 +6,14 @@ toolchain go1.22.7
 
 require (
 	github.com/abklabs/svmkit/pkg v0.36.0
-	github.com/gagliardetto/solana-go v1.11.0
+	github.com/gagliardetto/solana-go v1.12.0
 	github.com/pulumi/pulumi-go-provider v0.24.0
 	github.com/pulumi/pulumi/pkg/v3 v3.143.0
 	github.com/pulumi/pulumi/sdk/v3 v3.153.1
 	golang.org/x/crypto v0.31.0
 )
+
+replace github.com/abklabs/svmkit/pkg => ../../svmkit/pkg
 
 require (
 	dario.cat/mergo v1.0.1 // indirect

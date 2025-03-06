@@ -36,8 +36,12 @@ export class StakeAccount extends pulumi.CustomResource {
 
     public readonly amount!: pulumi.Output<number>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
+    public readonly forceDelete!: pulumi.Output<boolean>;
     public readonly keyPairs!: pulumi.Output<outputs.solana.StakeAccountKeyPairs>;
+    public readonly lockupArgs!: pulumi.Output<outputs.solana.StakeAccountLockup | undefined>;
     public readonly transactionOptions!: pulumi.Output<outputs.solana.TxnOptions>;
+    public readonly voteAddress!: pulumi.Output<string | undefined>;
+    public readonly withdrawAddress!: pulumi.Output<string | undefined>;
 
     /**
      * Create a StakeAccount resource with the given unique name, arguments, and options.
@@ -56,6 +60,9 @@ export class StakeAccount extends pulumi.CustomResource {
             if ((!args || args.connection === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
+            if ((!args || args.forceDelete === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'forceDelete'");
+            }
             if ((!args || args.keyPairs === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'keyPairs'");
             }
@@ -64,13 +71,21 @@ export class StakeAccount extends pulumi.CustomResource {
             }
             resourceInputs["amount"] = args ? args.amount : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
+            resourceInputs["forceDelete"] = args ? args.forceDelete : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
+            resourceInputs["lockupArgs"] = args ? args.lockupArgs : undefined;
             resourceInputs["transactionOptions"] = args ? args.transactionOptions : undefined;
+            resourceInputs["voteAddress"] = args ? args.voteAddress : undefined;
+            resourceInputs["withdrawAddress"] = args ? args.withdrawAddress : undefined;
         } else {
             resourceInputs["amount"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
+            resourceInputs["forceDelete"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
+            resourceInputs["lockupArgs"] = undefined /*out*/;
             resourceInputs["transactionOptions"] = undefined /*out*/;
+            resourceInputs["voteAddress"] = undefined /*out*/;
+            resourceInputs["withdrawAddress"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(StakeAccount.__pulumiType, name, resourceInputs, opts);
@@ -83,6 +98,10 @@ export class StakeAccount extends pulumi.CustomResource {
 export interface StakeAccountArgs {
     amount: pulumi.Input<number>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
+    forceDelete: pulumi.Input<boolean>;
     keyPairs: pulumi.Input<inputs.solana.StakeAccountKeyPairsArgs>;
+    lockupArgs?: pulumi.Input<inputs.solana.StakeAccountLockupArgs>;
     transactionOptions: pulumi.Input<inputs.solana.TxnOptionsArgs>;
+    voteAddress?: pulumi.Input<string>;
+    withdrawAddress?: pulumi.Input<string>;
 }

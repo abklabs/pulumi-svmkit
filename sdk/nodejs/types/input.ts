@@ -367,7 +367,13 @@ export namespace solana {
 
     export interface StakeAccountKeyPairsArgs {
         stakeAccount: pulumi.Input<string>;
-        voteAccount: pulumi.Input<string>;
+        stakeAuthority?: pulumi.Input<string>;
+        withdrawAuthority?: pulumi.Input<string>;
+    }
+
+    export interface StakeAccountLockupArgs {
+        custodianPubkey: pulumi.Input<string>;
+        epochAvailable: pulumi.Input<number>;
     }
 
     export interface TxnOptionsArgs {

@@ -147,8 +147,9 @@ func (o EnvironmentPtrOutput) RpcURL() pulumi.StringPtrOutput {
 }
 
 type StakeAccountKeyPairs struct {
-	StakeAccount string `pulumi:"stakeAccount"`
-	VoteAccount  string `pulumi:"voteAccount"`
+	StakeAccount      string  `pulumi:"stakeAccount"`
+	StakeAuthority    *string `pulumi:"stakeAuthority"`
+	WithdrawAuthority *string `pulumi:"withdrawAuthority"`
 }
 
 // StakeAccountKeyPairsInput is an input type that accepts StakeAccountKeyPairsArgs and StakeAccountKeyPairsOutput values.
@@ -163,8 +164,9 @@ type StakeAccountKeyPairsInput interface {
 }
 
 type StakeAccountKeyPairsArgs struct {
-	StakeAccount pulumi.StringInput `pulumi:"stakeAccount"`
-	VoteAccount  pulumi.StringInput `pulumi:"voteAccount"`
+	StakeAccount      pulumi.StringInput    `pulumi:"stakeAccount"`
+	StakeAuthority    pulumi.StringPtrInput `pulumi:"stakeAuthority"`
+	WithdrawAuthority pulumi.StringPtrInput `pulumi:"withdrawAuthority"`
 }
 
 func (StakeAccountKeyPairsArgs) ElementType() reflect.Type {
@@ -197,8 +199,160 @@ func (o StakeAccountKeyPairsOutput) StakeAccount() pulumi.StringOutput {
 	return o.ApplyT(func(v StakeAccountKeyPairs) string { return v.StakeAccount }).(pulumi.StringOutput)
 }
 
-func (o StakeAccountKeyPairsOutput) VoteAccount() pulumi.StringOutput {
-	return o.ApplyT(func(v StakeAccountKeyPairs) string { return v.VoteAccount }).(pulumi.StringOutput)
+func (o StakeAccountKeyPairsOutput) StakeAuthority() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StakeAccountKeyPairs) *string { return v.StakeAuthority }).(pulumi.StringPtrOutput)
+}
+
+func (o StakeAccountKeyPairsOutput) WithdrawAuthority() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StakeAccountKeyPairs) *string { return v.WithdrawAuthority }).(pulumi.StringPtrOutput)
+}
+
+type StakeAccountLockup struct {
+	CustodianPubkey string `pulumi:"custodianPubkey"`
+	EpochAvailable  int    `pulumi:"epochAvailable"`
+}
+
+// StakeAccountLockupInput is an input type that accepts StakeAccountLockupArgs and StakeAccountLockupOutput values.
+// You can construct a concrete instance of `StakeAccountLockupInput` via:
+//
+//	StakeAccountLockupArgs{...}
+type StakeAccountLockupInput interface {
+	pulumi.Input
+
+	ToStakeAccountLockupOutput() StakeAccountLockupOutput
+	ToStakeAccountLockupOutputWithContext(context.Context) StakeAccountLockupOutput
+}
+
+type StakeAccountLockupArgs struct {
+	CustodianPubkey pulumi.StringInput `pulumi:"custodianPubkey"`
+	EpochAvailable  pulumi.IntInput    `pulumi:"epochAvailable"`
+}
+
+func (StakeAccountLockupArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StakeAccountLockup)(nil)).Elem()
+}
+
+func (i StakeAccountLockupArgs) ToStakeAccountLockupOutput() StakeAccountLockupOutput {
+	return i.ToStakeAccountLockupOutputWithContext(context.Background())
+}
+
+func (i StakeAccountLockupArgs) ToStakeAccountLockupOutputWithContext(ctx context.Context) StakeAccountLockupOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StakeAccountLockupOutput)
+}
+
+func (i StakeAccountLockupArgs) ToStakeAccountLockupPtrOutput() StakeAccountLockupPtrOutput {
+	return i.ToStakeAccountLockupPtrOutputWithContext(context.Background())
+}
+
+func (i StakeAccountLockupArgs) ToStakeAccountLockupPtrOutputWithContext(ctx context.Context) StakeAccountLockupPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StakeAccountLockupOutput).ToStakeAccountLockupPtrOutputWithContext(ctx)
+}
+
+// StakeAccountLockupPtrInput is an input type that accepts StakeAccountLockupArgs, StakeAccountLockupPtr and StakeAccountLockupPtrOutput values.
+// You can construct a concrete instance of `StakeAccountLockupPtrInput` via:
+//
+//	        StakeAccountLockupArgs{...}
+//
+//	or:
+//
+//	        nil
+type StakeAccountLockupPtrInput interface {
+	pulumi.Input
+
+	ToStakeAccountLockupPtrOutput() StakeAccountLockupPtrOutput
+	ToStakeAccountLockupPtrOutputWithContext(context.Context) StakeAccountLockupPtrOutput
+}
+
+type stakeAccountLockupPtrType StakeAccountLockupArgs
+
+func StakeAccountLockupPtr(v *StakeAccountLockupArgs) StakeAccountLockupPtrInput {
+	return (*stakeAccountLockupPtrType)(v)
+}
+
+func (*stakeAccountLockupPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StakeAccountLockup)(nil)).Elem()
+}
+
+func (i *stakeAccountLockupPtrType) ToStakeAccountLockupPtrOutput() StakeAccountLockupPtrOutput {
+	return i.ToStakeAccountLockupPtrOutputWithContext(context.Background())
+}
+
+func (i *stakeAccountLockupPtrType) ToStakeAccountLockupPtrOutputWithContext(ctx context.Context) StakeAccountLockupPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StakeAccountLockupPtrOutput)
+}
+
+type StakeAccountLockupOutput struct{ *pulumi.OutputState }
+
+func (StakeAccountLockupOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StakeAccountLockup)(nil)).Elem()
+}
+
+func (o StakeAccountLockupOutput) ToStakeAccountLockupOutput() StakeAccountLockupOutput {
+	return o
+}
+
+func (o StakeAccountLockupOutput) ToStakeAccountLockupOutputWithContext(ctx context.Context) StakeAccountLockupOutput {
+	return o
+}
+
+func (o StakeAccountLockupOutput) ToStakeAccountLockupPtrOutput() StakeAccountLockupPtrOutput {
+	return o.ToStakeAccountLockupPtrOutputWithContext(context.Background())
+}
+
+func (o StakeAccountLockupOutput) ToStakeAccountLockupPtrOutputWithContext(ctx context.Context) StakeAccountLockupPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StakeAccountLockup) *StakeAccountLockup {
+		return &v
+	}).(StakeAccountLockupPtrOutput)
+}
+
+func (o StakeAccountLockupOutput) CustodianPubkey() pulumi.StringOutput {
+	return o.ApplyT(func(v StakeAccountLockup) string { return v.CustodianPubkey }).(pulumi.StringOutput)
+}
+
+func (o StakeAccountLockupOutput) EpochAvailable() pulumi.IntOutput {
+	return o.ApplyT(func(v StakeAccountLockup) int { return v.EpochAvailable }).(pulumi.IntOutput)
+}
+
+type StakeAccountLockupPtrOutput struct{ *pulumi.OutputState }
+
+func (StakeAccountLockupPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StakeAccountLockup)(nil)).Elem()
+}
+
+func (o StakeAccountLockupPtrOutput) ToStakeAccountLockupPtrOutput() StakeAccountLockupPtrOutput {
+	return o
+}
+
+func (o StakeAccountLockupPtrOutput) ToStakeAccountLockupPtrOutputWithContext(ctx context.Context) StakeAccountLockupPtrOutput {
+	return o
+}
+
+func (o StakeAccountLockupPtrOutput) Elem() StakeAccountLockupOutput {
+	return o.ApplyT(func(v *StakeAccountLockup) StakeAccountLockup {
+		if v != nil {
+			return *v
+		}
+		var ret StakeAccountLockup
+		return ret
+	}).(StakeAccountLockupOutput)
+}
+
+func (o StakeAccountLockupPtrOutput) CustodianPubkey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StakeAccountLockup) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.CustodianPubkey
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o StakeAccountLockupPtrOutput) EpochAvailable() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *StakeAccountLockup) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.EpochAvailable
+	}).(pulumi.IntPtrOutput)
 }
 
 type TxnOptions struct {
@@ -559,6 +713,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EnvironmentPtrInput)(nil)).Elem(), EnvironmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StakeAccountKeyPairsInput)(nil)).Elem(), StakeAccountKeyPairsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StakeAccountLockupInput)(nil)).Elem(), StakeAccountLockupArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StakeAccountLockupPtrInput)(nil)).Elem(), StakeAccountLockupArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TxnOptionsInput)(nil)).Elem(), TxnOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatorInfoInput)(nil)).Elem(), ValidatorInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatorInfoPtrInput)(nil)).Elem(), ValidatorInfoArgs{})
@@ -566,6 +722,8 @@ func init() {
 	pulumi.RegisterOutputType(EnvironmentOutput{})
 	pulumi.RegisterOutputType(EnvironmentPtrOutput{})
 	pulumi.RegisterOutputType(StakeAccountKeyPairsOutput{})
+	pulumi.RegisterOutputType(StakeAccountLockupOutput{})
+	pulumi.RegisterOutputType(StakeAccountLockupPtrOutput{})
 	pulumi.RegisterOutputType(TxnOptionsOutput{})
 	pulumi.RegisterOutputType(ValidatorInfoOutput{})
 	pulumi.RegisterOutputType(ValidatorInfoPtrOutput{})

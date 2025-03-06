@@ -20,6 +20,8 @@ __all__ = [
     'EnvironmentArgsDict',
     'StakeAccountKeyPairsArgs',
     'StakeAccountKeyPairsArgsDict',
+    'StakeAccountLockupArgs',
+    'StakeAccountLockupArgsDict',
     'TxnOptionsArgs',
     'TxnOptionsArgsDict',
     'ValidatorInfoArgs',
@@ -55,7 +57,8 @@ class EnvironmentArgs:
 if not MYPY:
     class StakeAccountKeyPairsArgsDict(TypedDict):
         stake_account: pulumi.Input[str]
-        vote_account: pulumi.Input[str]
+        stake_authority: NotRequired[pulumi.Input[str]]
+        withdraw_authority: NotRequired[pulumi.Input[str]]
 elif False:
     StakeAccountKeyPairsArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -63,9 +66,13 @@ elif False:
 class StakeAccountKeyPairsArgs:
     def __init__(__self__, *,
                  stake_account: pulumi.Input[str],
-                 vote_account: pulumi.Input[str]):
+                 stake_authority: Optional[pulumi.Input[str]] = None,
+                 withdraw_authority: Optional[pulumi.Input[str]] = None):
         pulumi.set(__self__, "stake_account", stake_account)
-        pulumi.set(__self__, "vote_account", vote_account)
+        if stake_authority is not None:
+            pulumi.set(__self__, "stake_authority", stake_authority)
+        if withdraw_authority is not None:
+            pulumi.set(__self__, "withdraw_authority", withdraw_authority)
 
     @property
     @pulumi.getter(name="stakeAccount")
@@ -77,13 +84,56 @@ class StakeAccountKeyPairsArgs:
         pulumi.set(self, "stake_account", value)
 
     @property
-    @pulumi.getter(name="voteAccount")
-    def vote_account(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "vote_account")
+    @pulumi.getter(name="stakeAuthority")
+    def stake_authority(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "stake_authority")
 
-    @vote_account.setter
-    def vote_account(self, value: pulumi.Input[str]):
-        pulumi.set(self, "vote_account", value)
+    @stake_authority.setter
+    def stake_authority(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "stake_authority", value)
+
+    @property
+    @pulumi.getter(name="withdrawAuthority")
+    def withdraw_authority(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "withdraw_authority")
+
+    @withdraw_authority.setter
+    def withdraw_authority(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "withdraw_authority", value)
+
+
+if not MYPY:
+    class StakeAccountLockupArgsDict(TypedDict):
+        custodian_pubkey: pulumi.Input[str]
+        epoch_available: pulumi.Input[int]
+elif False:
+    StakeAccountLockupArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class StakeAccountLockupArgs:
+    def __init__(__self__, *,
+                 custodian_pubkey: pulumi.Input[str],
+                 epoch_available: pulumi.Input[int]):
+        pulumi.set(__self__, "custodian_pubkey", custodian_pubkey)
+        pulumi.set(__self__, "epoch_available", epoch_available)
+
+    @property
+    @pulumi.getter(name="custodianPubkey")
+    def custodian_pubkey(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "custodian_pubkey")
+
+    @custodian_pubkey.setter
+    def custodian_pubkey(self, value: pulumi.Input[str]):
+        pulumi.set(self, "custodian_pubkey", value)
+
+    @property
+    @pulumi.getter(name="epochAvailable")
+    def epoch_available(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "epoch_available")
+
+    @epoch_available.setter
+    def epoch_available(self, value: pulumi.Input[int]):
+        pulumi.set(self, "epoch_available", value)
 
 
 if not MYPY:

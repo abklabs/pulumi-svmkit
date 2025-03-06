@@ -17,10 +17,14 @@ import (
 type StakeAccount struct {
 	pulumi.CustomResourceState
 
-	Amount             pulumi.Float64Output              `pulumi:"amount"`
-	Connection         ssh.ConnectionOutput              `pulumi:"connection"`
-	KeyPairs           solana.StakeAccountKeyPairsOutput `pulumi:"keyPairs"`
-	TransactionOptions solana.TxnOptionsOutput           `pulumi:"transactionOptions"`
+	Amount             pulumi.Float64Output               `pulumi:"amount"`
+	Connection         ssh.ConnectionOutput               `pulumi:"connection"`
+	ForceDelete        pulumi.BoolOutput                  `pulumi:"forceDelete"`
+	KeyPairs           solana.StakeAccountKeyPairsOutput  `pulumi:"keyPairs"`
+	LockupArgs         solana.StakeAccountLockupPtrOutput `pulumi:"lockupArgs"`
+	TransactionOptions solana.TxnOptionsOutput            `pulumi:"transactionOptions"`
+	VoteAddress        pulumi.StringPtrOutput             `pulumi:"voteAddress"`
+	WithdrawAddress    pulumi.StringPtrOutput             `pulumi:"withdrawAddress"`
 }
 
 // NewStakeAccount registers a new resource with the given unique name, arguments, and options.
@@ -35,6 +39,9 @@ func NewStakeAccount(ctx *pulumi.Context,
 	}
 	if args.Connection == nil {
 		return nil, errors.New("invalid value for required argument 'Connection'")
+	}
+	if args.ForceDelete == nil {
+		return nil, errors.New("invalid value for required argument 'ForceDelete'")
 	}
 	if args.KeyPairs == nil {
 		return nil, errors.New("invalid value for required argument 'KeyPairs'")
@@ -78,16 +85,24 @@ func (StakeAccountState) ElementType() reflect.Type {
 type stakeAccountArgs struct {
 	Amount             float64                     `pulumi:"amount"`
 	Connection         ssh.Connection              `pulumi:"connection"`
+	ForceDelete        bool                        `pulumi:"forceDelete"`
 	KeyPairs           solana.StakeAccountKeyPairs `pulumi:"keyPairs"`
+	LockupArgs         *solana.StakeAccountLockup  `pulumi:"lockupArgs"`
 	TransactionOptions solana.TxnOptions           `pulumi:"transactionOptions"`
+	VoteAddress        *string                     `pulumi:"voteAddress"`
+	WithdrawAddress    *string                     `pulumi:"withdrawAddress"`
 }
 
 // The set of arguments for constructing a StakeAccount resource.
 type StakeAccountArgs struct {
 	Amount             pulumi.Float64Input
 	Connection         ssh.ConnectionInput
+	ForceDelete        pulumi.BoolInput
 	KeyPairs           solana.StakeAccountKeyPairsInput
+	LockupArgs         solana.StakeAccountLockupPtrInput
 	TransactionOptions solana.TxnOptionsInput
+	VoteAddress        pulumi.StringPtrInput
+	WithdrawAddress    pulumi.StringPtrInput
 }
 
 func (StakeAccountArgs) ElementType() reflect.Type {
@@ -135,12 +150,28 @@ func (o StakeAccountOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *StakeAccount) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
 }
 
+func (o StakeAccountOutput) ForceDelete() pulumi.BoolOutput {
+	return o.ApplyT(func(v *StakeAccount) pulumi.BoolOutput { return v.ForceDelete }).(pulumi.BoolOutput)
+}
+
 func (o StakeAccountOutput) KeyPairs() solana.StakeAccountKeyPairsOutput {
 	return o.ApplyT(func(v *StakeAccount) solana.StakeAccountKeyPairsOutput { return v.KeyPairs }).(solana.StakeAccountKeyPairsOutput)
 }
 
+func (o StakeAccountOutput) LockupArgs() solana.StakeAccountLockupPtrOutput {
+	return o.ApplyT(func(v *StakeAccount) solana.StakeAccountLockupPtrOutput { return v.LockupArgs }).(solana.StakeAccountLockupPtrOutput)
+}
+
 func (o StakeAccountOutput) TransactionOptions() solana.TxnOptionsOutput {
 	return o.ApplyT(func(v *StakeAccount) solana.TxnOptionsOutput { return v.TransactionOptions }).(solana.TxnOptionsOutput)
+}
+
+func (o StakeAccountOutput) VoteAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StakeAccount) pulumi.StringPtrOutput { return v.VoteAddress }).(pulumi.StringPtrOutput)
+}
+
+func (o StakeAccountOutput) WithdrawAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StakeAccount) pulumi.StringPtrOutput { return v.WithdrawAddress }).(pulumi.StringPtrOutput)
 }
 
 func init() {

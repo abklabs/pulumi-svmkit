@@ -18,6 +18,7 @@ from ._enums import *
 __all__ = [
     'Environment',
     'StakeAccountKeyPairs',
+    'StakeAccountLockup',
     'TxnOptions',
     'ValidatorInfo',
     'VoteAccountKeyPairs',
@@ -59,8 +60,10 @@ class StakeAccountKeyPairs(dict):
         suggest = None
         if key == "stakeAccount":
             suggest = "stake_account"
-        elif key == "voteAccount":
-            suggest = "vote_account"
+        elif key == "stakeAuthority":
+            suggest = "stake_authority"
+        elif key == "withdrawAuthority":
+            suggest = "withdraw_authority"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in StakeAccountKeyPairs. Access the value via the '{suggest}' property getter instead.")
@@ -75,9 +78,13 @@ class StakeAccountKeyPairs(dict):
 
     def __init__(__self__, *,
                  stake_account: str,
-                 vote_account: str):
+                 stake_authority: Optional[str] = None,
+                 withdraw_authority: Optional[str] = None):
         pulumi.set(__self__, "stake_account", stake_account)
-        pulumi.set(__self__, "vote_account", vote_account)
+        if stake_authority is not None:
+            pulumi.set(__self__, "stake_authority", stake_authority)
+        if withdraw_authority is not None:
+            pulumi.set(__self__, "withdraw_authority", withdraw_authority)
 
     @property
     @pulumi.getter(name="stakeAccount")
@@ -85,9 +92,52 @@ class StakeAccountKeyPairs(dict):
         return pulumi.get(self, "stake_account")
 
     @property
-    @pulumi.getter(name="voteAccount")
-    def vote_account(self) -> str:
-        return pulumi.get(self, "vote_account")
+    @pulumi.getter(name="stakeAuthority")
+    def stake_authority(self) -> Optional[str]:
+        return pulumi.get(self, "stake_authority")
+
+    @property
+    @pulumi.getter(name="withdrawAuthority")
+    def withdraw_authority(self) -> Optional[str]:
+        return pulumi.get(self, "withdraw_authority")
+
+
+@pulumi.output_type
+class StakeAccountLockup(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "custodianPubkey":
+            suggest = "custodian_pubkey"
+        elif key == "epochAvailable":
+            suggest = "epoch_available"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StakeAccountLockup. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StakeAccountLockup.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StakeAccountLockup.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 custodian_pubkey: str,
+                 epoch_available: int):
+        pulumi.set(__self__, "custodian_pubkey", custodian_pubkey)
+        pulumi.set(__self__, "epoch_available", epoch_available)
+
+    @property
+    @pulumi.getter(name="custodianPubkey")
+    def custodian_pubkey(self) -> str:
+        return pulumi.get(self, "custodian_pubkey")
+
+    @property
+    @pulumi.getter(name="epochAvailable")
+    def epoch_available(self) -> int:
+        return pulumi.get(self, "epoch_available")
 
 
 @pulumi.output_type
