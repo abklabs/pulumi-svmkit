@@ -21,7 +21,7 @@ type StakeAccountState struct {
 }
 
 // getStakeClient is a helper method to establish an SSH connection and create a StakeAccountClient
-func (StakeAccount) getStakeClient(ctx context.Context, args svm.ValidatorArgs) (*solana.StakeAccountClient, error) {
+func (StakeAccount) getStakeClient(ctx context.Context, args svm.ValidatorArgs, txnOpts *solana.TxnOptions) (*solana.StakeAccountClient, error) {
 	sshClient, err := args.Connection.Dial(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("failed to dial SSH connection to host: %w", err)
@@ -34,6 +34,8 @@ func (StakeAccount) getStakeClient(ctx context.Context, args svm.ValidatorArgs) 
 		ctx,
 	)
 
+  stakeOperator.SetTxnOptions(txnOpts)
+
 	return solana.NewStakeAccountClient(stakeOperator), nil
 }
 
@@ -43,7 +45,7 @@ func (s StakeAccount) Create(ctx context.Context, name string, input StakeAccoun
 		return name, state, nil
 	}
 
-	client, err := s.getStakeClient(ctx, input.ValidatorArgs)
+	client, err := s.getStakeClient(ctx, input.ValidatorArgs, input.TransactionOptions)
 	if err != nil {
 		return "", StakeAccountState{}, err
 	}
@@ -65,7 +67,7 @@ func (s StakeAccount) Update(ctx context.Context, name string, old StakeAccountS
 		return state, nil
 	}
 
-	client, err := s.getStakeClient(ctx, newArgs.ValidatorArgs)
+	client, err := s.getStakeClient(ctx, newArgs.ValidatorArgs, newArgs.TransactionOptions)
 	if err != nil {
 		return StakeAccountState{}, err
 	}
@@ -82,7 +84,7 @@ func (s StakeAccount) Update(ctx context.Context, name string, old StakeAccountS
 }
 
 func (s StakeAccount) Delete(ctx context.Context, name string, state StakeAccountState) error {
-	client, err := s.getStakeClient(ctx, state.ValidatorArgs)
+	client, err := s.getStakeClient(ctx, state.ValidatorArgs, state.TransactionOptions)
 	if err != nil {
 		return err
 	}
