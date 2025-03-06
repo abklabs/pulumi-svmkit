@@ -374,7 +374,13 @@ export namespace solana {
 
     export interface StakeAccountKeyPairs {
         stakeAccount: string;
-        voteAccount: string;
+        stakeAuthority?: string;
+        withdrawAuthority?: string;
+    }
+
+    export interface StakeAccountLockup {
+        custodianPubkey: string;
+        epochAvailable: number;
     }
 
     export interface TxnOptions {

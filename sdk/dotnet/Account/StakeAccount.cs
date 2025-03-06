@@ -19,11 +19,23 @@ namespace ABKLabs.Svmkit.Account
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
+        [Output("forceDelete")]
+        public Output<bool> ForceDelete { get; private set; } = null!;
+
         [Output("keyPairs")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.StakeAccountKeyPairs> KeyPairs { get; private set; } = null!;
 
+        [Output("lockupArgs")]
+        public Output<ABKLabs.Svmkit.Solana.Outputs.StakeAccountLockup?> LockupArgs { get; private set; } = null!;
+
         [Output("transactionOptions")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.TxnOptions> TransactionOptions { get; private set; } = null!;
+
+        [Output("voteAddress")]
+        public Output<string?> VoteAddress { get; private set; } = null!;
+
+        [Output("withdrawAddress")]
+        public Output<string?> WithdrawAddress { get; private set; } = null!;
 
 
         /// <summary>
@@ -77,11 +89,23 @@ namespace ABKLabs.Svmkit.Account
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 
+        [Input("forceDelete", required: true)]
+        public Input<bool> ForceDelete { get; set; } = null!;
+
         [Input("keyPairs", required: true)]
         public Input<ABKLabs.Svmkit.Solana.Inputs.StakeAccountKeyPairsArgs> KeyPairs { get; set; } = null!;
 
+        [Input("lockupArgs")]
+        public Input<ABKLabs.Svmkit.Solana.Inputs.StakeAccountLockupArgs>? LockupArgs { get; set; }
+
         [Input("transactionOptions", required: true)]
         public Input<ABKLabs.Svmkit.Solana.Inputs.TxnOptionsArgs> TransactionOptions { get; set; } = null!;
+
+        [Input("voteAddress")]
+        public Input<string>? VoteAddress { get; set; }
+
+        [Input("withdrawAddress")]
+        public Input<string>? WithdrawAddress { get; set; }
 
         public StakeAccountArgs()
         {

@@ -15,16 +15,20 @@ namespace ABKLabs.Svmkit.Solana.Outputs
     public sealed class StakeAccountKeyPairs
     {
         public readonly string StakeAccount;
-        public readonly string VoteAccount;
+        public readonly string? StakeAuthority;
+        public readonly string? WithdrawAuthority;
 
         [OutputConstructor]
         private StakeAccountKeyPairs(
             string stakeAccount,
 
-            string voteAccount)
+            string? stakeAuthority,
+
+            string? withdrawAuthority)
         {
             StakeAccount = stakeAccount;
-            VoteAccount = voteAccount;
+            StakeAuthority = stakeAuthority;
+            WithdrawAuthority = withdrawAuthority;
         }
     }
 }

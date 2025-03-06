@@ -25,15 +25,27 @@ namespace ABKLabs.Svmkit.Solana.Inputs
             }
         }
 
-        [Input("voteAccount", required: true)]
-        private Input<string>? _voteAccount;
-        public Input<string>? VoteAccount
+        [Input("stakeAuthority")]
+        private Input<string>? _stakeAuthority;
+        public Input<string>? StakeAuthority
         {
-            get => _voteAccount;
+            get => _stakeAuthority;
             set
             {
                 var emptySecret = Output.CreateSecret(0);
-                _voteAccount = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+                _stakeAuthority = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("withdrawAuthority")]
+        private Input<string>? _withdrawAuthority;
+        public Input<string>? WithdrawAuthority
+        {
+            get => _withdrawAuthority;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _withdrawAuthority = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
 

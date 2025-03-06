@@ -23,15 +23,26 @@ class StakeAccountArgs:
     def __init__(__self__, *,
                  amount: pulumi.Input[float],
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
+                 force_delete: pulumi.Input[bool],
                  key_pairs: pulumi.Input['_solana.StakeAccountKeyPairsArgs'],
-                 transaction_options: pulumi.Input['_solana.TxnOptionsArgs']):
+                 transaction_options: pulumi.Input['_solana.TxnOptionsArgs'],
+                 lockup_args: Optional[pulumi.Input['_solana.StakeAccountLockupArgs']] = None,
+                 vote_address: Optional[pulumi.Input[str]] = None,
+                 withdraw_address: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a StakeAccount resource.
         """
         pulumi.set(__self__, "amount", amount)
         pulumi.set(__self__, "connection", connection)
+        pulumi.set(__self__, "force_delete", force_delete)
         pulumi.set(__self__, "key_pairs", key_pairs)
         pulumi.set(__self__, "transaction_options", transaction_options)
+        if lockup_args is not None:
+            pulumi.set(__self__, "lockup_args", lockup_args)
+        if vote_address is not None:
+            pulumi.set(__self__, "vote_address", vote_address)
+        if withdraw_address is not None:
+            pulumi.set(__self__, "withdraw_address", withdraw_address)
 
     @property
     @pulumi.getter
@@ -52,6 +63,15 @@ class StakeAccountArgs:
         pulumi.set(self, "connection", value)
 
     @property
+    @pulumi.getter(name="forceDelete")
+    def force_delete(self) -> pulumi.Input[bool]:
+        return pulumi.get(self, "force_delete")
+
+    @force_delete.setter
+    def force_delete(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "force_delete", value)
+
+    @property
     @pulumi.getter(name="keyPairs")
     def key_pairs(self) -> pulumi.Input['_solana.StakeAccountKeyPairsArgs']:
         return pulumi.get(self, "key_pairs")
@@ -69,6 +89,33 @@ class StakeAccountArgs:
     def transaction_options(self, value: pulumi.Input['_solana.TxnOptionsArgs']):
         pulumi.set(self, "transaction_options", value)
 
+    @property
+    @pulumi.getter(name="lockupArgs")
+    def lockup_args(self) -> Optional[pulumi.Input['_solana.StakeAccountLockupArgs']]:
+        return pulumi.get(self, "lockup_args")
+
+    @lockup_args.setter
+    def lockup_args(self, value: Optional[pulumi.Input['_solana.StakeAccountLockupArgs']]):
+        pulumi.set(self, "lockup_args", value)
+
+    @property
+    @pulumi.getter(name="voteAddress")
+    def vote_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "vote_address")
+
+    @vote_address.setter
+    def vote_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "vote_address", value)
+
+    @property
+    @pulumi.getter(name="withdrawAddress")
+    def withdraw_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "withdraw_address")
+
+    @withdraw_address.setter
+    def withdraw_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "withdraw_address", value)
+
 
 class StakeAccount(pulumi.CustomResource):
     @overload
@@ -77,8 +124,12 @@ class StakeAccount(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  amount: Optional[pulumi.Input[float]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 force_delete: Optional[pulumi.Input[bool]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_solana.StakeAccountKeyPairsArgs', '_solana.StakeAccountKeyPairsArgsDict']]] = None,
+                 lockup_args: Optional[pulumi.Input[Union['_solana.StakeAccountLockupArgs', '_solana.StakeAccountLockupArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
+                 vote_address: Optional[pulumi.Input[str]] = None,
+                 withdraw_address: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         Create a StakeAccount resource with the given unique name, props, and options.
@@ -110,8 +161,12 @@ class StakeAccount(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  amount: Optional[pulumi.Input[float]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 force_delete: Optional[pulumi.Input[bool]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_solana.StakeAccountKeyPairsArgs', '_solana.StakeAccountKeyPairsArgsDict']]] = None,
+                 lockup_args: Optional[pulumi.Input[Union['_solana.StakeAccountLockupArgs', '_solana.StakeAccountLockupArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
+                 vote_address: Optional[pulumi.Input[str]] = None,
+                 withdraw_address: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -127,12 +182,18 @@ class StakeAccount(pulumi.CustomResource):
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
+            if force_delete is None and not opts.urn:
+                raise TypeError("Missing required property 'force_delete'")
+            __props__.__dict__["force_delete"] = force_delete
             if key_pairs is None and not opts.urn:
                 raise TypeError("Missing required property 'key_pairs'")
             __props__.__dict__["key_pairs"] = key_pairs
+            __props__.__dict__["lockup_args"] = lockup_args
             if transaction_options is None and not opts.urn:
                 raise TypeError("Missing required property 'transaction_options'")
             __props__.__dict__["transaction_options"] = transaction_options
+            __props__.__dict__["vote_address"] = vote_address
+            __props__.__dict__["withdraw_address"] = withdraw_address
         super(StakeAccount, __self__).__init__(
             'svmkit:account:StakeAccount',
             resource_name,
@@ -157,8 +218,12 @@ class StakeAccount(pulumi.CustomResource):
 
         __props__.__dict__["amount"] = None
         __props__.__dict__["connection"] = None
+        __props__.__dict__["force_delete"] = None
         __props__.__dict__["key_pairs"] = None
+        __props__.__dict__["lockup_args"] = None
         __props__.__dict__["transaction_options"] = None
+        __props__.__dict__["vote_address"] = None
+        __props__.__dict__["withdraw_address"] = None
         return StakeAccount(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -172,12 +237,32 @@ class StakeAccount(pulumi.CustomResource):
         return pulumi.get(self, "connection")
 
     @property
+    @pulumi.getter(name="forceDelete")
+    def force_delete(self) -> pulumi.Output[bool]:
+        return pulumi.get(self, "force_delete")
+
+    @property
     @pulumi.getter(name="keyPairs")
     def key_pairs(self) -> pulumi.Output['_solana.outputs.StakeAccountKeyPairs']:
         return pulumi.get(self, "key_pairs")
 
     @property
+    @pulumi.getter(name="lockupArgs")
+    def lockup_args(self) -> pulumi.Output[Optional['_solana.outputs.StakeAccountLockup']]:
+        return pulumi.get(self, "lockup_args")
+
+    @property
     @pulumi.getter(name="transactionOptions")
     def transaction_options(self) -> pulumi.Output['_solana.outputs.TxnOptions']:
         return pulumi.get(self, "transaction_options")
+
+    @property
+    @pulumi.getter(name="voteAddress")
+    def vote_address(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "vote_address")
+
+    @property
+    @pulumi.getter(name="withdrawAddress")
+    def withdraw_address(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "withdraw_address")
 
