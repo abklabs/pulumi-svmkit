@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -20,6 +21,7 @@ type StakeAccount struct {
 	Amount             pulumi.Float64Output              `pulumi:"amount"`
 	Connection         ssh.ConnectionOutput              `pulumi:"connection"`
 	KeyPairs           solana.StakeAccountKeyPairsOutput `pulumi:"keyPairs"`
+	RunnerConfig       runner.ConfigPtrOutput            `pulumi:"runnerConfig"`
 	TransactionOptions solana.TxnOptionsOutput           `pulumi:"transactionOptions"`
 }
 
@@ -79,6 +81,7 @@ type stakeAccountArgs struct {
 	Amount             float64                     `pulumi:"amount"`
 	Connection         ssh.Connection              `pulumi:"connection"`
 	KeyPairs           solana.StakeAccountKeyPairs `pulumi:"keyPairs"`
+	RunnerConfig       *runner.Config              `pulumi:"runnerConfig"`
 	TransactionOptions solana.TxnOptions           `pulumi:"transactionOptions"`
 }
 
@@ -87,6 +90,7 @@ type StakeAccountArgs struct {
 	Amount             pulumi.Float64Input
 	Connection         ssh.ConnectionInput
 	KeyPairs           solana.StakeAccountKeyPairsInput
+	RunnerConfig       runner.ConfigPtrInput
 	TransactionOptions solana.TxnOptionsInput
 }
 
@@ -137,6 +141,10 @@ func (o StakeAccountOutput) Connection() ssh.ConnectionOutput {
 
 func (o StakeAccountOutput) KeyPairs() solana.StakeAccountKeyPairsOutput {
 	return o.ApplyT(func(v *StakeAccount) solana.StakeAccountKeyPairsOutput { return v.KeyPairs }).(solana.StakeAccountKeyPairsOutput)
+}
+
+func (o StakeAccountOutput) RunnerConfig() runner.ConfigPtrOutput {
+	return o.ApplyT(func(v *StakeAccount) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
 }
 
 func (o StakeAccountOutput) TransactionOptions() solana.TxnOptionsOutput {

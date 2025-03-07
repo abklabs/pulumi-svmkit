@@ -25,6 +25,7 @@ MYPY = False
 if not MYPY:
     class ConfigArgsDict(TypedDict):
         apt_lock_timeout: NotRequired[pulumi.Input[int]]
+        keep_payload: NotRequired[pulumi.Input[bool]]
         package_config: NotRequired[pulumi.Input['_deb.PackageConfigArgsDict']]
 elif False:
     ConfigArgsDict: TypeAlias = Mapping[str, Any]
@@ -33,9 +34,12 @@ elif False:
 class ConfigArgs:
     def __init__(__self__, *,
                  apt_lock_timeout: Optional[pulumi.Input[int]] = None,
+                 keep_payload: Optional[pulumi.Input[bool]] = None,
                  package_config: Optional[pulumi.Input['_deb.PackageConfigArgs']] = None):
         if apt_lock_timeout is not None:
             pulumi.set(__self__, "apt_lock_timeout", apt_lock_timeout)
+        if keep_payload is not None:
+            pulumi.set(__self__, "keep_payload", keep_payload)
         if package_config is not None:
             pulumi.set(__self__, "package_config", package_config)
 
@@ -47,6 +51,15 @@ class ConfigArgs:
     @apt_lock_timeout.setter
     def apt_lock_timeout(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "apt_lock_timeout", value)
+
+    @property
+    @pulumi.getter(name="keepPayload")
+    def keep_payload(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "keep_payload")
+
+    @keep_payload.setter
+    def keep_payload(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "keep_payload", value)
 
     @property
     @pulumi.getter(name="packageConfig")

@@ -16,6 +16,7 @@ var _ = internal.GetEnvOrDefault
 
 type Config struct {
 	AptLockTimeout *int               `pulumi:"aptLockTimeout"`
+	KeepPayload    *bool              `pulumi:"keepPayload"`
 	PackageConfig  *deb.PackageConfig `pulumi:"packageConfig"`
 }
 
@@ -32,6 +33,7 @@ type ConfigInput interface {
 
 type ConfigArgs struct {
 	AptLockTimeout pulumi.IntPtrInput        `pulumi:"aptLockTimeout"`
+	KeepPayload    pulumi.BoolPtrInput       `pulumi:"keepPayload"`
 	PackageConfig  deb.PackageConfigPtrInput `pulumi:"packageConfig"`
 }
 
@@ -116,6 +118,10 @@ func (o ConfigOutput) AptLockTimeout() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Config) *int { return v.AptLockTimeout }).(pulumi.IntPtrOutput)
 }
 
+func (o ConfigOutput) KeepPayload() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v Config) *bool { return v.KeepPayload }).(pulumi.BoolPtrOutput)
+}
+
 func (o ConfigOutput) PackageConfig() deb.PackageConfigPtrOutput {
 	return o.ApplyT(func(v Config) *deb.PackageConfig { return v.PackageConfig }).(deb.PackageConfigPtrOutput)
 }
@@ -151,6 +157,15 @@ func (o ConfigPtrOutput) AptLockTimeout() pulumi.IntPtrOutput {
 		}
 		return v.AptLockTimeout
 	}).(pulumi.IntPtrOutput)
+}
+
+func (o ConfigPtrOutput) KeepPayload() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Config) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.KeepPayload
+	}).(pulumi.BoolPtrOutput)
 }
 
 func (o ConfigPtrOutput) PackageConfig() deb.PackageConfigPtrOutput {

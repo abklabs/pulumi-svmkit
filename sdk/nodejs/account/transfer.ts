@@ -38,6 +38,7 @@ export class Transfer extends pulumi.CustomResource {
     public readonly amount!: pulumi.Output<number>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly recipientPubkey!: pulumi.Output<string>;
+    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly transactionOptions!: pulumi.Output<outputs.solana.TxnOptions>;
 
     /**
@@ -67,12 +68,14 @@ export class Transfer extends pulumi.CustomResource {
             resourceInputs["amount"] = args ? args.amount : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["recipientPubkey"] = args ? args.recipientPubkey : undefined;
+            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["transactionOptions"] = args ? args.transactionOptions : undefined;
         } else {
             resourceInputs["allowUnfundedRecipient"] = undefined /*out*/;
             resourceInputs["amount"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["recipientPubkey"] = undefined /*out*/;
+            resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["transactionOptions"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -88,5 +91,6 @@ export interface TransferArgs {
     amount: pulumi.Input<number>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     recipientPubkey: pulumi.Input<string>;
+    runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     transactionOptions: pulumi.Input<inputs.solana.TxnOptionsArgs>;
 }

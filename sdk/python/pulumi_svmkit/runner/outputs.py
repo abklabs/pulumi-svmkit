@@ -26,6 +26,8 @@ class Config(dict):
         suggest = None
         if key == "aptLockTimeout":
             suggest = "apt_lock_timeout"
+        elif key == "keepPayload":
+            suggest = "keep_payload"
         elif key == "packageConfig":
             suggest = "package_config"
 
@@ -42,9 +44,12 @@ class Config(dict):
 
     def __init__(__self__, *,
                  apt_lock_timeout: Optional[int] = None,
+                 keep_payload: Optional[bool] = None,
                  package_config: Optional['_deb.outputs.PackageConfig'] = None):
         if apt_lock_timeout is not None:
             pulumi.set(__self__, "apt_lock_timeout", apt_lock_timeout)
+        if keep_payload is not None:
+            pulumi.set(__self__, "keep_payload", keep_payload)
         if package_config is not None:
             pulumi.set(__self__, "package_config", package_config)
 
@@ -52,6 +57,11 @@ class Config(dict):
     @pulumi.getter(name="aptLockTimeout")
     def apt_lock_timeout(self) -> Optional[int]:
         return pulumi.get(self, "apt_lock_timeout")
+
+    @property
+    @pulumi.getter(name="keepPayload")
+    def keep_payload(self) -> Optional[bool]:
+        return pulumi.get(self, "keep_payload")
 
     @property
     @pulumi.getter(name="packageConfig")

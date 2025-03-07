@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -21,6 +22,7 @@ type VoteAccount struct {
 	CloseRecipientPubkey pulumi.StringPtrOutput           `pulumi:"closeRecipientPubkey"`
 	Connection           ssh.ConnectionOutput             `pulumi:"connection"`
 	KeyPairs             solana.VoteAccountKeyPairsOutput `pulumi:"keyPairs"`
+	RunnerConfig         runner.ConfigPtrOutput           `pulumi:"runnerConfig"`
 }
 
 // NewVoteAccount registers a new resource with the given unique name, arguments, and options.
@@ -74,6 +76,7 @@ type voteAccountArgs struct {
 	CloseRecipientPubkey *string                    `pulumi:"closeRecipientPubkey"`
 	Connection           ssh.Connection             `pulumi:"connection"`
 	KeyPairs             solana.VoteAccountKeyPairs `pulumi:"keyPairs"`
+	RunnerConfig         *runner.Config             `pulumi:"runnerConfig"`
 }
 
 // The set of arguments for constructing a VoteAccount resource.
@@ -82,6 +85,7 @@ type VoteAccountArgs struct {
 	CloseRecipientPubkey pulumi.StringPtrInput
 	Connection           ssh.ConnectionInput
 	KeyPairs             solana.VoteAccountKeyPairsInput
+	RunnerConfig         runner.ConfigPtrInput
 }
 
 func (VoteAccountArgs) ElementType() reflect.Type {
@@ -135,6 +139,10 @@ func (o VoteAccountOutput) Connection() ssh.ConnectionOutput {
 
 func (o VoteAccountOutput) KeyPairs() solana.VoteAccountKeyPairsOutput {
 	return o.ApplyT(func(v *VoteAccount) solana.VoteAccountKeyPairsOutput { return v.KeyPairs }).(solana.VoteAccountKeyPairsOutput)
+}
+
+func (o VoteAccountOutput) RunnerConfig() runner.ConfigPtrOutput {
+	return o.ApplyT(func(v *VoteAccount) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
 }
 
 func init() {

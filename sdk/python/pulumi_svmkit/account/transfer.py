@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
+from .. import deb as _deb
+from .. import runner as _runner
 from .. import solana as _solana
 from .. import ssh as _ssh
 
@@ -25,7 +27,8 @@ class TransferArgs:
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  recipient_pubkey: pulumi.Input[str],
                  transaction_options: pulumi.Input['_solana.TxnOptionsArgs'],
-                 allow_unfunded_recipient: Optional[pulumi.Input[bool]] = None):
+                 allow_unfunded_recipient: Optional[pulumi.Input[bool]] = None,
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
         """
         The set of arguments for constructing a Transfer resource.
         """
@@ -35,6 +38,8 @@ class TransferArgs:
         pulumi.set(__self__, "transaction_options", transaction_options)
         if allow_unfunded_recipient is not None:
             pulumi.set(__self__, "allow_unfunded_recipient", allow_unfunded_recipient)
+        if runner_config is not None:
+            pulumi.set(__self__, "runner_config", runner_config)
 
     @property
     @pulumi.getter
@@ -81,6 +86,15 @@ class TransferArgs:
     def allow_unfunded_recipient(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "allow_unfunded_recipient", value)
 
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
+        return pulumi.get(self, "runner_config")
+
+    @runner_config.setter
+    def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
+        pulumi.set(self, "runner_config", value)
+
 
 class Transfer(pulumi.CustomResource):
     @overload
@@ -91,6 +105,7 @@ class Transfer(pulumi.CustomResource):
                  amount: Optional[pulumi.Input[float]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  recipient_pubkey: Optional[pulumi.Input[str]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
                  __props__=None):
         """
@@ -125,6 +140,7 @@ class Transfer(pulumi.CustomResource):
                  amount: Optional[pulumi.Input[float]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  recipient_pubkey: Optional[pulumi.Input[str]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -145,6 +161,7 @@ class Transfer(pulumi.CustomResource):
             if recipient_pubkey is None and not opts.urn:
                 raise TypeError("Missing required property 'recipient_pubkey'")
             __props__.__dict__["recipient_pubkey"] = recipient_pubkey
+            __props__.__dict__["runner_config"] = runner_config
             if transaction_options is None and not opts.urn:
                 raise TypeError("Missing required property 'transaction_options'")
             __props__.__dict__["transaction_options"] = transaction_options
@@ -174,6 +191,7 @@ class Transfer(pulumi.CustomResource):
         __props__.__dict__["amount"] = None
         __props__.__dict__["connection"] = None
         __props__.__dict__["recipient_pubkey"] = None
+        __props__.__dict__["runner_config"] = None
         __props__.__dict__["transaction_options"] = None
         return Transfer(resource_name, opts=opts, __props__=__props__)
 
@@ -196,6 +214,11 @@ class Transfer(pulumi.CustomResource):
     @pulumi.getter(name="recipientPubkey")
     def recipient_pubkey(self) -> pulumi.Output[str]:
         return pulumi.get(self, "recipient_pubkey")
+
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
+        return pulumi.get(self, "runner_config")
 
     @property
     @pulumi.getter(name="transactionOptions")

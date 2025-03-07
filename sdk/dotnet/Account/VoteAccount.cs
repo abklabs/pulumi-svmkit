@@ -25,6 +25,9 @@ namespace ABKLabs.Svmkit.Account
         [Output("keyPairs")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.VoteAccountKeyPairs> KeyPairs { get; private set; } = null!;
 
+        [Output("runnerConfig")]
+        public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a VoteAccount resource with the given unique name, arguments, and options.
@@ -82,6 +85,9 @@ namespace ABKLabs.Svmkit.Account
 
         [Input("keyPairs", required: true)]
         public Input<ABKLabs.Svmkit.Solana.Inputs.VoteAccountKeyPairsArgs> KeyPairs { get; set; } = null!;
+
+        [Input("runnerConfig")]
+        public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
 
         public VoteAccountArgs()
         {

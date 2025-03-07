@@ -37,6 +37,7 @@ export class StakeAccount extends pulumi.CustomResource {
     public readonly amount!: pulumi.Output<number>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly keyPairs!: pulumi.Output<outputs.solana.StakeAccountKeyPairs>;
+    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly transactionOptions!: pulumi.Output<outputs.solana.TxnOptions>;
 
     /**
@@ -65,11 +66,13 @@ export class StakeAccount extends pulumi.CustomResource {
             resourceInputs["amount"] = args ? args.amount : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
+            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["transactionOptions"] = args ? args.transactionOptions : undefined;
         } else {
             resourceInputs["amount"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
+            resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["transactionOptions"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -84,5 +87,6 @@ export interface StakeAccountArgs {
     amount: pulumi.Input<number>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     keyPairs: pulumi.Input<inputs.solana.StakeAccountKeyPairsArgs>;
+    runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     transactionOptions: pulumi.Input<inputs.solana.TxnOptionsArgs>;
 }

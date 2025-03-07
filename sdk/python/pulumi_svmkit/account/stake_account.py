@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
+from .. import deb as _deb
+from .. import runner as _runner
 from .. import solana as _solana
 from .. import ssh as _ssh
 
@@ -24,7 +26,8 @@ class StakeAccountArgs:
                  amount: pulumi.Input[float],
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  key_pairs: pulumi.Input['_solana.StakeAccountKeyPairsArgs'],
-                 transaction_options: pulumi.Input['_solana.TxnOptionsArgs']):
+                 transaction_options: pulumi.Input['_solana.TxnOptionsArgs'],
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
         """
         The set of arguments for constructing a StakeAccount resource.
         """
@@ -32,6 +35,8 @@ class StakeAccountArgs:
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "key_pairs", key_pairs)
         pulumi.set(__self__, "transaction_options", transaction_options)
+        if runner_config is not None:
+            pulumi.set(__self__, "runner_config", runner_config)
 
     @property
     @pulumi.getter
@@ -69,6 +74,15 @@ class StakeAccountArgs:
     def transaction_options(self, value: pulumi.Input['_solana.TxnOptionsArgs']):
         pulumi.set(self, "transaction_options", value)
 
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
+        return pulumi.get(self, "runner_config")
+
+    @runner_config.setter
+    def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
+        pulumi.set(self, "runner_config", value)
+
 
 class StakeAccount(pulumi.CustomResource):
     @overload
@@ -78,6 +92,7 @@ class StakeAccount(pulumi.CustomResource):
                  amount: Optional[pulumi.Input[float]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_solana.StakeAccountKeyPairsArgs', '_solana.StakeAccountKeyPairsArgsDict']]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
                  __props__=None):
         """
@@ -111,6 +126,7 @@ class StakeAccount(pulumi.CustomResource):
                  amount: Optional[pulumi.Input[float]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_solana.StakeAccountKeyPairsArgs', '_solana.StakeAccountKeyPairsArgsDict']]] = None,
+                 runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -130,6 +146,7 @@ class StakeAccount(pulumi.CustomResource):
             if key_pairs is None and not opts.urn:
                 raise TypeError("Missing required property 'key_pairs'")
             __props__.__dict__["key_pairs"] = key_pairs
+            __props__.__dict__["runner_config"] = runner_config
             if transaction_options is None and not opts.urn:
                 raise TypeError("Missing required property 'transaction_options'")
             __props__.__dict__["transaction_options"] = transaction_options
@@ -158,6 +175,7 @@ class StakeAccount(pulumi.CustomResource):
         __props__.__dict__["amount"] = None
         __props__.__dict__["connection"] = None
         __props__.__dict__["key_pairs"] = None
+        __props__.__dict__["runner_config"] = None
         __props__.__dict__["transaction_options"] = None
         return StakeAccount(resource_name, opts=opts, __props__=__props__)
 
@@ -175,6 +193,11 @@ class StakeAccount(pulumi.CustomResource):
     @pulumi.getter(name="keyPairs")
     def key_pairs(self) -> pulumi.Output['_solana.outputs.StakeAccountKeyPairs']:
         return pulumi.get(self, "key_pairs")
+
+    @property
+    @pulumi.getter(name="runnerConfig")
+    def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
+        return pulumi.get(self, "runner_config")
 
     @property
     @pulumi.getter(name="transactionOptions")

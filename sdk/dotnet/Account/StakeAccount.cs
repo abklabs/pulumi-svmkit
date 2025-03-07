@@ -22,6 +22,9 @@ namespace ABKLabs.Svmkit.Account
         [Output("keyPairs")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.StakeAccountKeyPairs> KeyPairs { get; private set; } = null!;
 
+        [Output("runnerConfig")]
+        public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
+
         [Output("transactionOptions")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.TxnOptions> TransactionOptions { get; private set; } = null!;
 
@@ -79,6 +82,9 @@ namespace ABKLabs.Svmkit.Account
 
         [Input("keyPairs", required: true)]
         public Input<ABKLabs.Svmkit.Solana.Inputs.StakeAccountKeyPairsArgs> KeyPairs { get; set; } = null!;
+
+        [Input("runnerConfig")]
+        public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
 
         [Input("transactionOptions", required: true)]
         public Input<ABKLabs.Svmkit.Solana.Inputs.TxnOptionsArgs> TransactionOptions { get; set; } = null!;

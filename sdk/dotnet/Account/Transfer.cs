@@ -25,6 +25,9 @@ namespace ABKLabs.Svmkit.Account
         [Output("recipientPubkey")]
         public Output<string> RecipientPubkey { get; private set; } = null!;
 
+        [Output("runnerConfig")]
+        public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
+
         [Output("transactionOptions")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.TxnOptions> TransactionOptions { get; private set; } = null!;
 
@@ -85,6 +88,9 @@ namespace ABKLabs.Svmkit.Account
 
         [Input("recipientPubkey", required: true)]
         public Input<string> RecipientPubkey { get; set; } = null!;
+
+        [Input("runnerConfig")]
+        public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
 
         [Input("transactionOptions", required: true)]
         public Input<ABKLabs.Svmkit.Solana.Inputs.TxnOptionsArgs> TransactionOptions { get; set; } = null!;

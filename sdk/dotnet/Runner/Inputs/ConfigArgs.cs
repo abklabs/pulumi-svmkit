@@ -16,6 +16,9 @@ namespace ABKLabs.Svmkit.Runner.Inputs
         [Input("aptLockTimeout")]
         public Input<int>? AptLockTimeout { get; set; }
 
+        [Input("keepPayload")]
+        public Input<bool>? KeepPayload { get; set; }
+
         [Input("packageConfig")]
         public Input<ABKLabs.Svmkit.Deb.Inputs.PackageConfigArgs>? PackageConfig { get; set; }
 

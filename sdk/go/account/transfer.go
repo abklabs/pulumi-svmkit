@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -21,6 +22,7 @@ type Transfer struct {
 	Amount                 pulumi.Float64Output    `pulumi:"amount"`
 	Connection             ssh.ConnectionOutput    `pulumi:"connection"`
 	RecipientPubkey        pulumi.StringOutput     `pulumi:"recipientPubkey"`
+	RunnerConfig           runner.ConfigPtrOutput  `pulumi:"runnerConfig"`
 	TransactionOptions     solana.TxnOptionsOutput `pulumi:"transactionOptions"`
 }
 
@@ -81,6 +83,7 @@ type transferArgs struct {
 	Amount                 float64           `pulumi:"amount"`
 	Connection             ssh.Connection    `pulumi:"connection"`
 	RecipientPubkey        string            `pulumi:"recipientPubkey"`
+	RunnerConfig           *runner.Config    `pulumi:"runnerConfig"`
 	TransactionOptions     solana.TxnOptions `pulumi:"transactionOptions"`
 }
 
@@ -90,6 +93,7 @@ type TransferArgs struct {
 	Amount                 pulumi.Float64Input
 	Connection             ssh.ConnectionInput
 	RecipientPubkey        pulumi.StringInput
+	RunnerConfig           runner.ConfigPtrInput
 	TransactionOptions     solana.TxnOptionsInput
 }
 
@@ -144,6 +148,10 @@ func (o TransferOutput) Connection() ssh.ConnectionOutput {
 
 func (o TransferOutput) RecipientPubkey() pulumi.StringOutput {
 	return o.ApplyT(func(v *Transfer) pulumi.StringOutput { return v.RecipientPubkey }).(pulumi.StringOutput)
+}
+
+func (o TransferOutput) RunnerConfig() runner.ConfigPtrOutput {
+	return o.ApplyT(func(v *Transfer) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
 }
 
 func (o TransferOutput) TransactionOptions() solana.TxnOptionsOutput {

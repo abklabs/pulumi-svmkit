@@ -38,6 +38,7 @@ export class VoteAccount extends pulumi.CustomResource {
     public readonly closeRecipientPubkey!: pulumi.Output<string | undefined>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly keyPairs!: pulumi.Output<outputs.solana.VoteAccountKeyPairs>;
+    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
 
     /**
      * Create a VoteAccount resource with the given unique name, arguments, and options.
@@ -60,11 +61,13 @@ export class VoteAccount extends pulumi.CustomResource {
             resourceInputs["closeRecipientPubkey"] = args ? args.closeRecipientPubkey : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
+            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
         } else {
             resourceInputs["authVoterPubkey"] = undefined /*out*/;
             resourceInputs["closeRecipientPubkey"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
+            resourceInputs["runnerConfig"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(VoteAccount.__pulumiType, name, resourceInputs, opts);
@@ -79,4 +82,5 @@ export interface VoteAccountArgs {
     closeRecipientPubkey?: pulumi.Input<string>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     keyPairs: pulumi.Input<inputs.solana.VoteAccountKeyPairsArgs>;
+    runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
 }

@@ -356,6 +356,7 @@ export namespace genesis {
 export namespace runner {
     export interface ConfigArgs {
         aptLockTimeout?: pulumi.Input<number>;
+        keepPayload?: pulumi.Input<boolean>;
         packageConfig?: pulumi.Input<inputs.deb.PackageConfigArgs>;
     }
 }
