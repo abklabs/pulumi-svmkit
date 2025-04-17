@@ -17,7 +17,6 @@ OS			:= $(shell uname)
 all: build install
 
 ensure::
-	go work sync
 	cd provider && go mod tidy
 	cd sdk/go && go mod tidy
 
