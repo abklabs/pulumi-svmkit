@@ -22,6 +22,9 @@ namespace ABKLabs.Svmkit.Validator
         [Output("flags")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.Flags> Flags { get; private set; } = null!;
 
+        [Output("geyserPlugin")]
+        public Output<ABKLabs.Svmkit.Geyser.Outputs.GeyserPlugin?> GeyserPlugin { get; private set; } = null!;
+
         [Output("info")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.ValidatorInfo?> Info { get; private set; } = null!;
 
@@ -103,6 +106,9 @@ namespace ABKLabs.Svmkit.Validator
 
         [Input("flags", required: true)]
         public Input<ABKLabs.Svmkit.Agave.Inputs.FlagsArgs> Flags { get; set; } = null!;
+
+        [Input("geyserPlugin")]
+        public Input<ABKLabs.Svmkit.Geyser.Inputs.GeyserPluginArgs>? GeyserPlugin { get; set; }
 
         [Input("info")]
         public Input<ABKLabs.Svmkit.Solana.Inputs.ValidatorInfoArgs>? Info { get; set; }

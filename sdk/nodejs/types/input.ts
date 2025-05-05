@@ -353,6 +353,124 @@ export namespace genesis {
     }
 }
 
+export namespace geyser {
+    export interface ConfigArgs {
+        debugClientsHttp?: pulumi.Input<boolean>;
+        grpc: pulumi.Input<inputs.geyser.GrpcConfigGrpcArgs>;
+        log?: pulumi.Input<inputs.geyser.GrpcConfigLogArgs>;
+        prometheus?: pulumi.Input<inputs.geyser.GrpcConfigPrometheusArgs>;
+        tokio?: pulumi.Input<inputs.geyser.GrpcConfigTokioArgs>;
+    }
+
+    export interface GeyserPluginArgs {
+        genericPluginConfig?: pulumi.Input<string>;
+        yellowstoneGRPC?: pulumi.Input<inputs.geyser.YellowstoneGRPCArgs>;
+    }
+
+    export interface GrpcConfigFilterLimitsArgs {
+        accounts?: pulumi.Input<inputs.geyser.GrpcConfigFilterLimitsAccountsArgs>;
+        blocks?: pulumi.Input<inputs.geyser.GrpcConfigFilterLimitsBlocksArgs>;
+        blocksMeta?: pulumi.Input<inputs.geyser.GrpcConfigFilterLimitsBlocksMetaArgs>;
+        entries?: pulumi.Input<inputs.geyser.GrpcConfigFilterLimitsEntriesArgs>;
+        slots?: pulumi.Input<inputs.geyser.GrpcConfigFilterLimitsSlotsArgs>;
+        transactions?: pulumi.Input<inputs.geyser.GrpcConfigFilterLimitsTransactionsArgs>;
+        transactionsStatus?: pulumi.Input<inputs.geyser.GrpcConfigFilterLimitsTransactionsArgs>;
+    }
+
+    export interface GrpcConfigFilterLimitsAccountsArgs {
+        accountMax?: pulumi.Input<number>;
+        accountReject?: pulumi.Input<pulumi.Input<string>[]>;
+        any?: pulumi.Input<boolean>;
+        dataSliceMax?: pulumi.Input<number>;
+        max?: pulumi.Input<number>;
+        ownerMax?: pulumi.Input<number>;
+        ownerReject?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface GrpcConfigFilterLimitsBlocksArgs {
+        accountIncludeAny?: pulumi.Input<boolean>;
+        accountIncludeMax?: pulumi.Input<number>;
+        accountIncludeReject?: pulumi.Input<pulumi.Input<string>[]>;
+        includeAccounts?: pulumi.Input<boolean>;
+        includeEntries?: pulumi.Input<boolean>;
+        includeTransactions?: pulumi.Input<boolean>;
+        max?: pulumi.Input<number>;
+    }
+
+    export interface GrpcConfigFilterLimitsBlocksMetaArgs {
+        max?: pulumi.Input<number>;
+    }
+
+    export interface GrpcConfigFilterLimitsEntriesArgs {
+        max?: pulumi.Input<number>;
+    }
+
+    export interface GrpcConfigFilterLimitsSlotsArgs {
+        max?: pulumi.Input<number>;
+    }
+
+    export interface GrpcConfigFilterLimitsTransactionsArgs {
+        accountExcludeMax?: pulumi.Input<number>;
+        accountIncludeMax?: pulumi.Input<number>;
+        accountIncludeReject?: pulumi.Input<pulumi.Input<string>[]>;
+        accountRequiredMax?: pulumi.Input<number>;
+        any?: pulumi.Input<boolean>;
+        max?: pulumi.Input<number>;
+    }
+
+    export interface GrpcConfigGrpcArgs {
+        address: pulumi.Input<string>;
+        channelCapacity?: pulumi.Input<number>;
+        compression?: pulumi.Input<inputs.geyser.GrpcConfigGrpcCompressionArgs>;
+        filterLimits?: pulumi.Input<inputs.geyser.GrpcConfigFilterLimitsArgs>;
+        filterNameSizeLimit?: pulumi.Input<number>;
+        filterNamesCleanupInterval?: pulumi.Input<string>;
+        filterNamesSizeLimit?: pulumi.Input<number>;
+        maxDecodingMessageSize?: pulumi.Input<number>;
+        replayStoredSlots?: pulumi.Input<number>;
+        serverHttp2AdaptiveWindow?: pulumi.Input<boolean>;
+        serverHttp2KeepaliveInterval?: pulumi.Input<string>;
+        serverHttp2KeepaliveTimeout?: pulumi.Input<string>;
+        serverInitialConnectionWindowSize?: pulumi.Input<number>;
+        serverInitialStreamWindowSize?: pulumi.Input<number>;
+        snapshotClientChannelCapacity?: pulumi.Input<number>;
+        snapshotPluginChannelCapacity?: pulumi.Input<number>;
+        tlsConfig?: pulumi.Input<inputs.geyser.GrpcConfigGrpcServerTLSArgs>;
+        unaryConcurrencyLimit?: pulumi.Input<number>;
+        unaryDisabled?: pulumi.Input<boolean>;
+        xToken?: pulumi.Input<string>;
+    }
+
+    export interface GrpcConfigGrpcCompressionArgs {
+        accept?: pulumi.Input<pulumi.Input<string>[]>;
+        send?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface GrpcConfigGrpcServerTLSArgs {
+        certPath: pulumi.Input<string>;
+        keyPath: pulumi.Input<string>;
+    }
+
+    export interface GrpcConfigLogArgs {
+        level?: pulumi.Input<string>;
+    }
+
+    export interface GrpcConfigPrometheusArgs {
+        address: pulumi.Input<string>;
+    }
+
+    export interface GrpcConfigTokioArgs {
+        affinity?: pulumi.Input<pulumi.Input<number>[]>;
+        workerThreads?: pulumi.Input<number>;
+    }
+
+    export interface YellowstoneGRPCArgs {
+        config?: pulumi.Input<inputs.geyser.ConfigArgs>;
+        json?: pulumi.Input<string>;
+        version: pulumi.Input<string>;
+    }
+}
+
 export namespace runner {
     export interface ConfigArgs {
         aptLockTimeout?: pulumi.Input<number>;

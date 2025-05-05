@@ -85,10 +85,8 @@ class StakeAccountArgs:
         pulumi.set(self, "runner_config", value)
 
 
+@pulumi.type_token("svmkit:account:StakeAccount")
 class StakeAccount(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:account:StakeAccount"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

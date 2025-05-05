@@ -359,6 +359,125 @@ export namespace genesis {
 
 }
 
+export namespace geyser {
+    export interface Config {
+        debugClientsHttp?: boolean;
+        grpc: outputs.geyser.GrpcConfigGrpc;
+        log?: outputs.geyser.GrpcConfigLog;
+        prometheus?: outputs.geyser.GrpcConfigPrometheus;
+        tokio?: outputs.geyser.GrpcConfigTokio;
+    }
+
+    export interface GeyserPlugin {
+        genericPluginConfig?: string;
+        yellowstoneGRPC?: outputs.geyser.YellowstoneGRPC;
+    }
+
+    export interface GrpcConfigFilterLimits {
+        accounts?: outputs.geyser.GrpcConfigFilterLimitsAccounts;
+        blocks?: outputs.geyser.GrpcConfigFilterLimitsBlocks;
+        blocksMeta?: outputs.geyser.GrpcConfigFilterLimitsBlocksMeta;
+        entries?: outputs.geyser.GrpcConfigFilterLimitsEntries;
+        slots?: outputs.geyser.GrpcConfigFilterLimitsSlots;
+        transactions?: outputs.geyser.GrpcConfigFilterLimitsTransactions;
+        transactionsStatus?: outputs.geyser.GrpcConfigFilterLimitsTransactions;
+    }
+
+    export interface GrpcConfigFilterLimitsAccounts {
+        accountMax?: number;
+        accountReject?: string[];
+        any?: boolean;
+        dataSliceMax?: number;
+        max?: number;
+        ownerMax?: number;
+        ownerReject?: string[];
+    }
+
+    export interface GrpcConfigFilterLimitsBlocks {
+        accountIncludeAny?: boolean;
+        accountIncludeMax?: number;
+        accountIncludeReject?: string[];
+        includeAccounts?: boolean;
+        includeEntries?: boolean;
+        includeTransactions?: boolean;
+        max?: number;
+    }
+
+    export interface GrpcConfigFilterLimitsBlocksMeta {
+        max?: number;
+    }
+
+    export interface GrpcConfigFilterLimitsEntries {
+        max?: number;
+    }
+
+    export interface GrpcConfigFilterLimitsSlots {
+        max?: number;
+    }
+
+    export interface GrpcConfigFilterLimitsTransactions {
+        accountExcludeMax?: number;
+        accountIncludeMax?: number;
+        accountIncludeReject?: string[];
+        accountRequiredMax?: number;
+        any?: boolean;
+        max?: number;
+    }
+
+    export interface GrpcConfigGrpc {
+        address: string;
+        channelCapacity?: number;
+        compression?: outputs.geyser.GrpcConfigGrpcCompression;
+        filterLimits?: outputs.geyser.GrpcConfigFilterLimits;
+        filterNameSizeLimit?: number;
+        filterNamesCleanupInterval?: string;
+        filterNamesSizeLimit?: number;
+        maxDecodingMessageSize?: number;
+        replayStoredSlots?: number;
+        serverHttp2AdaptiveWindow?: boolean;
+        serverHttp2KeepaliveInterval?: string;
+        serverHttp2KeepaliveTimeout?: string;
+        serverInitialConnectionWindowSize?: number;
+        serverInitialStreamWindowSize?: number;
+        snapshotClientChannelCapacity?: number;
+        snapshotPluginChannelCapacity?: number;
+        tlsConfig?: outputs.geyser.GrpcConfigGrpcServerTLS;
+        unaryConcurrencyLimit?: number;
+        unaryDisabled?: boolean;
+        xToken?: string;
+    }
+
+    export interface GrpcConfigGrpcCompression {
+        accept?: string[];
+        send?: string[];
+    }
+
+    export interface GrpcConfigGrpcServerTLS {
+        certPath: string;
+        keyPath: string;
+    }
+
+    export interface GrpcConfigLog {
+        level?: string;
+    }
+
+    export interface GrpcConfigPrometheus {
+        address: string;
+    }
+
+    export interface GrpcConfigTokio {
+        affinity?: number[];
+        workerThreads?: number;
+    }
+
+    export interface YellowstoneGRPC {
+        config?: outputs.geyser.Config;
+        json?: string;
+        version: string;
+    }
+
+}
+
 export namespace runner {
     export interface Config {
         aptLockTimeout?: number;

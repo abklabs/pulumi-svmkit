@@ -87,10 +87,8 @@ class VoteAccountArgs:
         pulumi.set(self, "runner_config", value)
 
 
+@pulumi.type_token("svmkit:account:VoteAccount")
 class VoteAccount(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:account:VoteAccount"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

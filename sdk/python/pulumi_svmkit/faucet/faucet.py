@@ -87,10 +87,8 @@ class FaucetArgs:
         pulumi.set(self, "version", value)
 
 
+@pulumi.type_token("svmkit:faucet:Faucet")
 class Faucet(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:faucet:Faucet"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

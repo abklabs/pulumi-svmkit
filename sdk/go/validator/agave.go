@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/agave"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/geyser"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/solana"
@@ -22,6 +23,7 @@ type Agave struct {
 	Connection     ssh.ConnectionOutput          `pulumi:"connection"`
 	Environment    solana.EnvironmentPtrOutput   `pulumi:"environment"`
 	Flags          agave.FlagsOutput             `pulumi:"flags"`
+	GeyserPlugin   geyser.GeyserPluginPtrOutput  `pulumi:"geyserPlugin"`
 	Info           solana.ValidatorInfoPtrOutput `pulumi:"info"`
 	KeyPairs       agave.KeyPairsOutput          `pulumi:"keyPairs"`
 	Metrics        agave.MetricsPtrOutput        `pulumi:"metrics"`
@@ -86,6 +88,7 @@ type agaveArgs struct {
 	Connection     ssh.Connection        `pulumi:"connection"`
 	Environment    *solana.Environment   `pulumi:"environment"`
 	Flags          agave.Flags           `pulumi:"flags"`
+	GeyserPlugin   *geyser.GeyserPlugin  `pulumi:"geyserPlugin"`
 	Info           *solana.ValidatorInfo `pulumi:"info"`
 	KeyPairs       agave.KeyPairs        `pulumi:"keyPairs"`
 	Metrics        *agave.Metrics        `pulumi:"metrics"`
@@ -102,6 +105,7 @@ type AgaveArgs struct {
 	Connection     ssh.ConnectionInput
 	Environment    solana.EnvironmentPtrInput
 	Flags          agave.FlagsInput
+	GeyserPlugin   geyser.GeyserPluginPtrInput
 	Info           solana.ValidatorInfoPtrInput
 	KeyPairs       agave.KeyPairsInput
 	Metrics        agave.MetricsPtrInput
@@ -160,6 +164,10 @@ func (o AgaveOutput) Environment() solana.EnvironmentPtrOutput {
 
 func (o AgaveOutput) Flags() agave.FlagsOutput {
 	return o.ApplyT(func(v *Agave) agave.FlagsOutput { return v.Flags }).(agave.FlagsOutput)
+}
+
+func (o AgaveOutput) GeyserPlugin() geyser.GeyserPluginPtrOutput {
+	return o.ApplyT(func(v *Agave) geyser.GeyserPluginPtrOutput { return v.GeyserPlugin }).(geyser.GeyserPluginPtrOutput)
 }
 
 func (o AgaveOutput) Info() solana.ValidatorInfoPtrOutput {

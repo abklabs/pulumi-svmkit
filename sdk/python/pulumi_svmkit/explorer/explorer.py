@@ -136,10 +136,8 @@ class ExplorerArgs:
         pulumi.set(self, "version", value)
 
 
+@pulumi.type_token("svmkit:explorer:Explorer")
 class Explorer(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:explorer:Explorer"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

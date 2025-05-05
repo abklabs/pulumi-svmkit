@@ -25,6 +25,8 @@ if typing.TYPE_CHECKING:
     firedancer = __firedancer
     import pulumi_svmkit.genesis as __genesis
     genesis = __genesis
+    import pulumi_svmkit.geyser as __geyser
+    geyser = __geyser
     import pulumi_svmkit.networkinfo as __networkinfo
     networkinfo = __networkinfo
     import pulumi_svmkit.runner as __runner
@@ -47,6 +49,7 @@ else:
     faucet = _utilities.lazy_import('pulumi_svmkit.faucet')
     firedancer = _utilities.lazy_import('pulumi_svmkit.firedancer')
     genesis = _utilities.lazy_import('pulumi_svmkit.genesis')
+    geyser = _utilities.lazy_import('pulumi_svmkit.geyser')
     networkinfo = _utilities.lazy_import('pulumi_svmkit.networkinfo')
     runner = _utilities.lazy_import('pulumi_svmkit.runner')
     solana = _utilities.lazy_import('pulumi_svmkit.solana')

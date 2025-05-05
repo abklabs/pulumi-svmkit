@@ -26,10 +26,8 @@ class KeyPairArgs:
         pass
 
 
+@pulumi.type_token("svmkit:index:KeyPair")
 class KeyPair(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:index:KeyPair"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

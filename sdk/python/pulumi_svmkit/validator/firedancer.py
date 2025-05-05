@@ -99,10 +99,8 @@ class FiredancerArgs:
         pulumi.set(self, "version", value)
 
 
+@pulumi.type_token("svmkit:validator:Firedancer")
 class Firedancer(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:validator:Firedancer"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -99,10 +99,8 @@ class SolanaArgs:
         pulumi.set(self, "version", value)
 
 
+@pulumi.type_token("svmkit:genesis:Solana")
 class Solana(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:genesis:Solana"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

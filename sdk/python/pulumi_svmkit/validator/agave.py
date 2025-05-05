@@ -17,6 +17,7 @@ from .. import _utilities
 from .. import agave
 from .. import agave as _agave
 from .. import deb as _deb
+from .. import geyser as _geyser
 from .. import runner as _runner
 from .. import solana as _solana
 from .. import ssh as _ssh
@@ -30,6 +31,7 @@ class AgaveArgs:
                  flags: pulumi.Input['_agave.FlagsArgs'],
                  key_pairs: pulumi.Input['_agave.KeyPairsArgs'],
                  environment: Optional[pulumi.Input['_solana.EnvironmentArgs']] = None,
+                 geyser_plugin: Optional[pulumi.Input['_geyser.GeyserPluginArgs']] = None,
                  info: Optional[pulumi.Input['_solana.ValidatorInfoArgs']] = None,
                  metrics: Optional[pulumi.Input['_agave.MetricsArgs']] = None,
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
@@ -46,6 +48,8 @@ class AgaveArgs:
         pulumi.set(__self__, "key_pairs", key_pairs)
         if environment is not None:
             pulumi.set(__self__, "environment", environment)
+        if geyser_plugin is not None:
+            pulumi.set(__self__, "geyser_plugin", geyser_plugin)
         if info is not None:
             pulumi.set(__self__, "info", info)
         if metrics is not None:
@@ -98,6 +102,15 @@ class AgaveArgs:
     @environment.setter
     def environment(self, value: Optional[pulumi.Input['_solana.EnvironmentArgs']]):
         pulumi.set(self, "environment", value)
+
+    @property
+    @pulumi.getter(name="geyserPlugin")
+    def geyser_plugin(self) -> Optional[pulumi.Input['_geyser.GeyserPluginArgs']]:
+        return pulumi.get(self, "geyser_plugin")
+
+    @geyser_plugin.setter
+    def geyser_plugin(self, value: Optional[pulumi.Input['_geyser.GeyserPluginArgs']]):
+        pulumi.set(self, "geyser_plugin", value)
 
     @property
     @pulumi.getter
@@ -172,10 +185,8 @@ class AgaveArgs:
         pulumi.set(self, "version", value)
 
 
+@pulumi.type_token("svmkit:validator:Agave")
 class Agave(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:validator:Agave"
-
     @overload
     def __init__(__self__,
                  resource_name: str,
@@ -183,6 +194,7 @@ class Agave(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['_agave.FlagsArgs', '_agave.FlagsArgsDict']]] = None,
+                 geyser_plugin: Optional[pulumi.Input[Union['_geyser.GeyserPluginArgs', '_geyser.GeyserPluginArgsDict']]] = None,
                  info: Optional[pulumi.Input[Union['_solana.ValidatorInfoArgs', '_solana.ValidatorInfoArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
                  metrics: Optional[pulumi.Input[Union['_agave.MetricsArgs', '_agave.MetricsArgsDict']]] = None,
@@ -224,6 +236,7 @@ class Agave(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  flags: Optional[pulumi.Input[Union['_agave.FlagsArgs', '_agave.FlagsArgsDict']]] = None,
+                 geyser_plugin: Optional[pulumi.Input[Union['_geyser.GeyserPluginArgs', '_geyser.GeyserPluginArgsDict']]] = None,
                  info: Optional[pulumi.Input[Union['_solana.ValidatorInfoArgs', '_solana.ValidatorInfoArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_agave.KeyPairsArgs', '_agave.KeyPairsArgsDict']]] = None,
                  metrics: Optional[pulumi.Input[Union['_agave.MetricsArgs', '_agave.MetricsArgsDict']]] = None,
@@ -249,6 +262,7 @@ class Agave(pulumi.CustomResource):
             if flags is None and not opts.urn:
                 raise TypeError("Missing required property 'flags'")
             __props__.__dict__["flags"] = flags
+            __props__.__dict__["geyser_plugin"] = geyser_plugin
             __props__.__dict__["info"] = info
             if key_pairs is None and not opts.urn:
                 raise TypeError("Missing required property 'key_pairs'")
@@ -285,6 +299,7 @@ class Agave(pulumi.CustomResource):
         __props__.__dict__["connection"] = None
         __props__.__dict__["environment"] = None
         __props__.__dict__["flags"] = None
+        __props__.__dict__["geyser_plugin"] = None
         __props__.__dict__["info"] = None
         __props__.__dict__["key_pairs"] = None
         __props__.__dict__["metrics"] = None
@@ -310,6 +325,11 @@ class Agave(pulumi.CustomResource):
     @pulumi.getter
     def flags(self) -> pulumi.Output['_agave.outputs.Flags']:
         return pulumi.get(self, "flags")
+
+    @property
+    @pulumi.getter(name="geyserPlugin")
+    def geyser_plugin(self) -> pulumi.Output[Optional['_geyser.outputs.GeyserPlugin']]:
+        return pulumi.get(self, "geyser_plugin")
 
     @property
     @pulumi.getter

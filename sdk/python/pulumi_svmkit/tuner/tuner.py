@@ -65,10 +65,8 @@ class TunerArgs:
         pulumi.set(self, "runner_config", value)
 
 
+@pulumi.type_token("svmkit:tuner:Tuner")
 class Tuner(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:tuner:Tuner"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

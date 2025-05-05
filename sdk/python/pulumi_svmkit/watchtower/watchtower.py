@@ -87,10 +87,8 @@ class WatchtowerArgs:
         pulumi.set(self, "runner_config", value)
 
 
+@pulumi.type_token("svmkit:watchtower:Watchtower")
 class Watchtower(pulumi.CustomResource):
-
-    pulumi_type = "svmkit:watchtower:Watchtower"
-
     @overload
     def __init__(__self__,
                  resource_name: str,
