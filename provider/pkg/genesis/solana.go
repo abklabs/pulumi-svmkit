@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/abklabs/pulumi-svmkit/pkg/ssh"
-	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/solana/genesis"
 )
@@ -18,7 +17,7 @@ type Solana struct{}
 
 // SolanaArgs represents the input arguments required to create a Solana genesis resource.
 type SolanaArgs struct {
-	svm.GenesisArgs
+	utils.RunnerArgs
 	genesis.Genesis
 }
 

@@ -5,7 +5,6 @@ import (
 
 	_ "embed"
 
-	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/solana/faucet"
 )
@@ -15,7 +14,7 @@ type Faucet struct{}
 
 // FaucetArgs represents the input arguments required to create an Faucet resource.
 type FaucetArgs struct {
-	svm.FaucetArgs
+	utils.RunnerArgs
 	faucet.Faucet
 }
 

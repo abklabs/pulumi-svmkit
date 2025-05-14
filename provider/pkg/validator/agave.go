@@ -5,7 +5,6 @@ import (
 
 	_ "embed"
 
-	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/agave"
 )
@@ -15,7 +14,7 @@ type Agave struct{}
 
 // AgaveArgs represents the input arguments required to create an Agave resource.
 type AgaveArgs struct {
-	svm.ValidatorArgs
+	utils.RunnerArgs
 	agave.Agave
 }
 
