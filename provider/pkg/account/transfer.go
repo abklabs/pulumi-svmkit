@@ -30,7 +30,7 @@ func (Transfer) Create(ctx context.Context, name string, input TransferArgs, pre
 
 	command := client.Create()
 
-	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", TransferState{}, err
 	}
 

@@ -45,7 +45,7 @@ func (Watchtower) Create(ctx context.Context, name string, input WatchtowerArgs,
 
 	command := watchtower.Install()
 
-	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", WatchtowerState{}, err
 	}
 

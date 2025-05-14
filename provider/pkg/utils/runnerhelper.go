@@ -12,12 +12,12 @@ type RunnerArgs struct {
 	Connection ssh.Connection `pulumi:"connection"`
 }
 
-func RunnerHelper(ctx context.Context, connection ssh.Connection, command runner.Command) error {
+func RunnerHelper(ctx context.Context, runnerArgs RunnerArgs, command runner.Command) error {
 	if err := command.Check(); err != nil {
 		return fmt.Errorf("failed to check component config: %w", err)
 	}
 
-	client, err := connection.Dial(ctx)
+	client, err := runnerArgs.Connection.Dial(ctx)
 
 	if err != nil {
 		return fmt.Errorf("failed to dial SSH connection to hosst: %w", err)
