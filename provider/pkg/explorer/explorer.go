@@ -5,7 +5,6 @@ import (
 
 	_ "embed"
 
-	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/solana/explorer"
 )
@@ -15,7 +14,7 @@ type Explorer struct{}
 
 // ExplorerArgs represents the input arguments required to create an Explorer resource.
 type ExplorerArgs struct {
-	svm.ExplorerArgs
+	utils.RunnerArgs
 	explorer.Explorer
 }
 

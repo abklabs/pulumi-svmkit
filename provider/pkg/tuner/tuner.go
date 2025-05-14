@@ -5,7 +5,6 @@ import (
 
 	_ "embed"
 
-	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/tuner"
 )
@@ -15,7 +14,7 @@ type Tuner struct{}
 
 // TunerArgs represents the input arguments required to create an Tuner resource.
 type TunerArgs struct {
-	svm.TunerArgs
+	utils.RunnerArgs
 	tuner.Tuner
 }
 
