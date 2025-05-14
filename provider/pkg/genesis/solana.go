@@ -3,7 +3,6 @@ package genesis
 import (
 	"context"
 
-	_ "embed"
 	"fmt"
 	"strings"
 

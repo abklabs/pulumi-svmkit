@@ -3,8 +3,6 @@ package explorer
 import (
 	"context"
 
-	_ "embed"
-
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/solana/explorer"
 )
