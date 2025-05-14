@@ -49,7 +49,7 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 	genesis := input.Genesis
 	command := genesis.Create()
 
-	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", SolanaState{}, err
 	}
 

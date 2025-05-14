@@ -45,7 +45,7 @@ func (Faucet) Create(ctx context.Context, name string, input FaucetArgs, preview
 
 	command := faucet.Install()
 
-	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", FaucetState{}, err
 	}
 

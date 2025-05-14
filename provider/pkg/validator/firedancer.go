@@ -29,7 +29,7 @@ func (Firedancer) Create(ctx context.Context, name string, input FiredancerArgs,
 
 	command := fd.Install()
 
-	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", FiredancerState{}, err
 	}
 
@@ -41,7 +41,7 @@ func (Firedancer) Delete(ctx context.Context, id string, props FiredancerState) 
 
 	command := fd.Uninstall()
 
-	if err := utils.RunnerHelper(ctx, props.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, props.RunnerArgs, command); err != nil {
 		return err
 	}
 
