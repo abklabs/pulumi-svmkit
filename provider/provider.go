@@ -19,6 +19,7 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/explorer"
 	"github.com/abklabs/pulumi-svmkit/pkg/faucet"
 	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
+	"github.com/abklabs/pulumi-svmkit/pkg/machine"
 	"github.com/abklabs/pulumi-svmkit/pkg/networkinfo"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/tuner"
@@ -83,6 +84,7 @@ func Provider() p.Provider {
 			infer.Resource[account.VoteAccount, account.VoteAccountArgs, account.VoteAccountState](),
 			infer.Resource[account.StakeAccount, account.StakeAccountArgs, account.StakeAccountState](),
 			infer.Resource[account.Transfer, account.TransferArgs, account.TransferState](),
+			infer.Resource[machine.Machine, machine.MachineArgs, machine.MachineState](),
 		},
 		Functions: []infer.InferredFunction{
 			infer.Function[networkinfo.GetNetworkInfo, networkinfo.GetNetworkInfoInput, networkinfo.GetNetworkInfoOutput](),
