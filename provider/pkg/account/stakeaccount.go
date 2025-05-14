@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/solana"
 )
@@ -12,7 +11,7 @@ import (
 type StakeAccount struct{}
 
 type StakeAccountArgs struct {
-	svm.ValidatorArgs
+	utils.RunnerArgs
 	solana.StakeAccount
 }
 

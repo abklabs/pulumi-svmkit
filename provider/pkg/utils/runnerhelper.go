@@ -8,6 +8,10 @@ import (
 	"github.com/abklabs/svmkit/pkg/runner"
 )
 
+type RunnerArgs struct {
+	Connection ssh.Connection `pulumi:"connection"`
+}
+
 func RunnerHelper(ctx context.Context, connection ssh.Connection, command runner.Command) error {
 	if err := command.Check(); err != nil {
 		return fmt.Errorf("failed to check component config: %w", err)

@@ -5,7 +5,6 @@ import (
 
 	_ "embed"
 
-	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/firedancer"
 )
@@ -13,7 +12,7 @@ import (
 type Firedancer struct{}
 
 type FiredancerArgs struct {
-	svm.ValidatorArgs
+	utils.RunnerArgs
 	firedancer.Firedancer
 }
 

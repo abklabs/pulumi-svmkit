@@ -5,7 +5,6 @@ import (
 
 	_ "embed"
 
-	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/solana/watchtower"
 )
@@ -15,7 +14,7 @@ type Watchtower struct{}
 
 // WatchtowerArgs represents the input arguments required to create an Watchtower resource.
 type WatchtowerArgs struct {
-	svm.WatchtowerArgs
+	utils.RunnerArgs
 	watchtower.Watchtower
 }
 
