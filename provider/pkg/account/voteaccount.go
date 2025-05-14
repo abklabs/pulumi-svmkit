@@ -30,7 +30,7 @@ func (VoteAccount) Create(ctx context.Context, name string, input VoteAccountArg
 
 	command := client.Create()
 
-	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", VoteAccountState{}, err
 	}
 
@@ -46,7 +46,7 @@ func (VoteAccount) Delete(ctx context.Context, name string, output VoteAccountSt
 
 	command := client.Delete()
 
-	if err := utils.RunnerHelper(ctx, output.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, output.RunnerArgs, command); err != nil {
 		return err
 	}
 

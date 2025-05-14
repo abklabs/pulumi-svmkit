@@ -45,7 +45,7 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 
 	command := agave.Install()
 
-	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", AgaveState{}, err
 	}
 
@@ -76,7 +76,7 @@ func (Agave) Update(ctx context.Context, name string, oldInput, newInput AgaveAr
 	agave := newInput.Agave
 	command := agave.Install()
 
-	if err := utils.RunnerHelper(ctx, newInput.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, newInput.RunnerArgs, command); err != nil {
 		return "", AgaveState{}, err
 	}
 

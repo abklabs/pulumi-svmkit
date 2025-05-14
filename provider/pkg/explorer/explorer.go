@@ -45,7 +45,7 @@ func (Explorer) Create(ctx context.Context, name string, input ExplorerArgs, pre
 
 	command := explorer.Install()
 
-	if err := utils.RunnerHelper(ctx, input.Connection, command); err != nil {
+	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", ExplorerState{}, err
 	}
 
