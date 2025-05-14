@@ -51,3 +51,8 @@ In order to be able to use/test unreleased local changes to `svmkit` it is impor
         cloud.google.com/go/compute v1.25.0 // indirect
 ```
 
+You can perform this by running:
+
+```
+( cd provider && go mod edit -replace github.com/abklabs/svmkit/pkg=../../svmkit/pkg )
+```
