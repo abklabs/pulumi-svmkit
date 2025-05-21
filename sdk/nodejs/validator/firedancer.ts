@@ -39,6 +39,8 @@ export class Firedancer extends pulumi.CustomResource {
     public readonly environment!: pulumi.Output<outputs.solana.Environment | undefined>;
     public readonly keyPairs!: pulumi.Output<outputs.firedancer.KeyPairs>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
+    public /*out*/ readonly systemdServiceName!: pulumi.Output<string>;
+    public readonly variant!: pulumi.Output<enums.firedancer.Variant | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
     /**
@@ -66,13 +68,17 @@ export class Firedancer extends pulumi.CustomResource {
             resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
+            resourceInputs["variant"] = args ? args.variant : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
+            resourceInputs["systemdServiceName"] = undefined /*out*/;
         } else {
             resourceInputs["config"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["environment"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
+            resourceInputs["systemdServiceName"] = undefined /*out*/;
+            resourceInputs["variant"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -89,5 +95,6 @@ export interface FiredancerArgs {
     environment?: pulumi.Input<inputs.solana.EnvironmentArgs>;
     keyPairs: pulumi.Input<inputs.firedancer.KeyPairsArgs>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
+    variant?: pulumi.Input<enums.firedancer.Variant>;
     version?: pulumi.Input<string>;
 }

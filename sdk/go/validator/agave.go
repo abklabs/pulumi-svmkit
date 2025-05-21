@@ -20,19 +20,20 @@ import (
 type Agave struct {
 	pulumi.CustomResourceState
 
-	Connection     ssh.ConnectionOutput          `pulumi:"connection"`
-	Environment    solana.EnvironmentPtrOutput   `pulumi:"environment"`
-	Flags          agave.FlagsOutput             `pulumi:"flags"`
-	GeyserPlugin   geyser.GeyserPluginPtrOutput  `pulumi:"geyserPlugin"`
-	Info           solana.ValidatorInfoPtrOutput `pulumi:"info"`
-	KeyPairs       agave.KeyPairsOutput          `pulumi:"keyPairs"`
-	Metrics        agave.MetricsPtrOutput        `pulumi:"metrics"`
-	RunnerConfig   runner.ConfigPtrOutput        `pulumi:"runnerConfig"`
-	ShutdownPolicy agave.ShutdownPolicyPtrOutput `pulumi:"shutdownPolicy"`
-	StartupPolicy  agave.StartupPolicyPtrOutput  `pulumi:"startupPolicy"`
-	TimeoutConfig  agave.TimeoutConfigPtrOutput  `pulumi:"timeoutConfig"`
-	Variant        agave.VariantPtrOutput        `pulumi:"variant"`
-	Version        pulumi.StringPtrOutput        `pulumi:"version"`
+	Connection         ssh.ConnectionOutput          `pulumi:"connection"`
+	Environment        solana.EnvironmentPtrOutput   `pulumi:"environment"`
+	Flags              agave.FlagsOutput             `pulumi:"flags"`
+	GeyserPlugin       geyser.GeyserPluginPtrOutput  `pulumi:"geyserPlugin"`
+	Info               solana.ValidatorInfoPtrOutput `pulumi:"info"`
+	KeyPairs           agave.KeyPairsOutput          `pulumi:"keyPairs"`
+	Metrics            agave.MetricsPtrOutput        `pulumi:"metrics"`
+	RunnerConfig       runner.ConfigPtrOutput        `pulumi:"runnerConfig"`
+	ShutdownPolicy     agave.ShutdownPolicyPtrOutput `pulumi:"shutdownPolicy"`
+	StartupPolicy      agave.StartupPolicyPtrOutput  `pulumi:"startupPolicy"`
+	SystemdServiceName pulumi.StringOutput           `pulumi:"systemdServiceName"`
+	TimeoutConfig      agave.TimeoutConfigPtrOutput  `pulumi:"timeoutConfig"`
+	Variant            agave.VariantPtrOutput        `pulumi:"variant"`
+	Version            pulumi.StringPtrOutput        `pulumi:"version"`
 }
 
 // NewAgave registers a new resource with the given unique name, arguments, and options.
@@ -192,6 +193,10 @@ func (o AgaveOutput) ShutdownPolicy() agave.ShutdownPolicyPtrOutput {
 
 func (o AgaveOutput) StartupPolicy() agave.StartupPolicyPtrOutput {
 	return o.ApplyT(func(v *Agave) agave.StartupPolicyPtrOutput { return v.StartupPolicy }).(agave.StartupPolicyPtrOutput)
+}
+
+func (o AgaveOutput) SystemdServiceName() pulumi.StringOutput {
+	return o.ApplyT(func(v *Agave) pulumi.StringOutput { return v.SystemdServiceName }).(pulumi.StringOutput)
 }
 
 func (o AgaveOutput) TimeoutConfig() agave.TimeoutConfigPtrOutput {

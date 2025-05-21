@@ -44,6 +44,7 @@ export class Agave extends pulumi.CustomResource {
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly shutdownPolicy!: pulumi.Output<outputs.agave.ShutdownPolicy | undefined>;
     public readonly startupPolicy!: pulumi.Output<outputs.agave.StartupPolicy | undefined>;
+    public /*out*/ readonly systemdServiceName!: pulumi.Output<string>;
     public readonly timeoutConfig!: pulumi.Output<outputs.agave.TimeoutConfig | undefined>;
     public readonly variant!: pulumi.Output<enums.agave.Variant | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
@@ -81,6 +82,7 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["timeoutConfig"] = args ? args.timeoutConfig : undefined;
             resourceInputs["variant"] = args ? args.variant : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
+            resourceInputs["systemdServiceName"] = undefined /*out*/;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["environment"] = undefined /*out*/;
@@ -92,6 +94,7 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["shutdownPolicy"] = undefined /*out*/;
             resourceInputs["startupPolicy"] = undefined /*out*/;
+            resourceInputs["systemdServiceName"] = undefined /*out*/;
             resourceInputs["timeoutConfig"] = undefined /*out*/;
             resourceInputs["variant"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;

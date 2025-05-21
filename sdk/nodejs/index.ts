@@ -21,6 +21,7 @@ import * as account from "./account";
 import * as agave from "./agave";
 import * as explorer from "./explorer";
 import * as faucet from "./faucet";
+import * as firedancer from "./firedancer";
 import * as genesis from "./genesis";
 import * as machine from "./machine";
 import * as networkinfo from "./networkinfo";
@@ -35,6 +36,7 @@ export {
     agave,
     explorer,
     faucet,
+    firedancer,
     genesis,
     machine,
     networkinfo,

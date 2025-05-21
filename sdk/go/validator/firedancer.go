@@ -19,12 +19,14 @@ import (
 type Firedancer struct {
 	pulumi.CustomResourceState
 
-	Config       firedancer.ConfigOutput     `pulumi:"config"`
-	Connection   ssh.ConnectionOutput        `pulumi:"connection"`
-	Environment  solana.EnvironmentPtrOutput `pulumi:"environment"`
-	KeyPairs     firedancer.KeyPairsOutput   `pulumi:"keyPairs"`
-	RunnerConfig runner.ConfigPtrOutput      `pulumi:"runnerConfig"`
-	Version      pulumi.StringPtrOutput      `pulumi:"version"`
+	Config             firedancer.ConfigOutput     `pulumi:"config"`
+	Connection         ssh.ConnectionOutput        `pulumi:"connection"`
+	Environment        solana.EnvironmentPtrOutput `pulumi:"environment"`
+	KeyPairs           firedancer.KeyPairsOutput   `pulumi:"keyPairs"`
+	RunnerConfig       runner.ConfigPtrOutput      `pulumi:"runnerConfig"`
+	SystemdServiceName pulumi.StringOutput         `pulumi:"systemdServiceName"`
+	Variant            firedancer.VariantPtrOutput `pulumi:"variant"`
+	Version            pulumi.StringPtrOutput      `pulumi:"version"`
 }
 
 // NewFiredancer registers a new resource with the given unique name, arguments, and options.
@@ -82,6 +84,7 @@ type firedancerArgs struct {
 	Environment  *solana.Environment `pulumi:"environment"`
 	KeyPairs     firedancer.KeyPairs `pulumi:"keyPairs"`
 	RunnerConfig *runner.Config      `pulumi:"runnerConfig"`
+	Variant      *firedancer.Variant `pulumi:"variant"`
 	Version      *string             `pulumi:"version"`
 }
 
@@ -92,6 +95,7 @@ type FiredancerArgs struct {
 	Environment  solana.EnvironmentPtrInput
 	KeyPairs     firedancer.KeyPairsInput
 	RunnerConfig runner.ConfigPtrInput
+	Variant      firedancer.VariantPtrInput
 	Version      pulumi.StringPtrInput
 }
 
@@ -150,6 +154,14 @@ func (o FiredancerOutput) KeyPairs() firedancer.KeyPairsOutput {
 
 func (o FiredancerOutput) RunnerConfig() runner.ConfigPtrOutput {
 	return o.ApplyT(func(v *Firedancer) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
+}
+
+func (o FiredancerOutput) SystemdServiceName() pulumi.StringOutput {
+	return o.ApplyT(func(v *Firedancer) pulumi.StringOutput { return v.SystemdServiceName }).(pulumi.StringOutput)
+}
+
+func (o FiredancerOutput) Variant() firedancer.VariantPtrOutput {
+	return o.ApplyT(func(v *Firedancer) firedancer.VariantPtrOutput { return v.Variant }).(firedancer.VariantPtrOutput)
 }
 
 func (o FiredancerOutput) Version() pulumi.StringPtrOutput {

@@ -274,6 +274,7 @@ class Agave(pulumi.CustomResource):
             __props__.__dict__["timeout_config"] = timeout_config
             __props__.__dict__["variant"] = variant
             __props__.__dict__["version"] = version
+            __props__.__dict__["systemd_service_name"] = None
         super(Agave, __self__).__init__(
             'svmkit:validator:Agave',
             resource_name,
@@ -306,6 +307,7 @@ class Agave(pulumi.CustomResource):
         __props__.__dict__["runner_config"] = None
         __props__.__dict__["shutdown_policy"] = None
         __props__.__dict__["startup_policy"] = None
+        __props__.__dict__["systemd_service_name"] = None
         __props__.__dict__["timeout_config"] = None
         __props__.__dict__["variant"] = None
         __props__.__dict__["version"] = None
@@ -360,6 +362,11 @@ class Agave(pulumi.CustomResource):
     @pulumi.getter(name="startupPolicy")
     def startup_policy(self) -> pulumi.Output[Optional['_agave.outputs.StartupPolicy']]:
         return pulumi.get(self, "startup_policy")
+
+    @property
+    @pulumi.getter(name="systemdServiceName")
+    def systemd_service_name(self) -> pulumi.Output[builtins.str]:
+        return pulumi.get(self, "systemd_service_name")
 
     @property
     @pulumi.getter(name="timeoutConfig")

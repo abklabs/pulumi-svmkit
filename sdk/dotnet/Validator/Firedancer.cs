@@ -28,6 +28,12 @@ namespace ABKLabs.Svmkit.Validator
         [Output("runnerConfig")]
         public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
 
+        [Output("systemdServiceName")]
+        public Output<string> SystemdServiceName { get; private set; } = null!;
+
+        [Output("variant")]
+        public Output<ABKLabs.Svmkit.Firedancer.Variant?> Variant { get; private set; } = null!;
+
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
 
@@ -91,6 +97,9 @@ namespace ABKLabs.Svmkit.Validator
 
         [Input("runnerConfig")]
         public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
+
+        [Input("variant")]
+        public Input<ABKLabs.Svmkit.Firedancer.Variant>? Variant { get; set; }
 
         [Input("version")]
         public Input<string>? Version { get; set; }

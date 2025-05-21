@@ -43,6 +43,9 @@ namespace ABKLabs.Svmkit.Validator
         [Output("startupPolicy")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.StartupPolicy?> StartupPolicy { get; private set; } = null!;
 
+        [Output("systemdServiceName")]
+        public Output<string> SystemdServiceName { get; private set; } = null!;
+
         [Output("timeoutConfig")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.TimeoutConfig?> TimeoutConfig { get; private set; } = null!;
 
