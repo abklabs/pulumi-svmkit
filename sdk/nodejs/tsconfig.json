@@ -26,6 +26,8 @@
         "genesis/solana.ts",
         "index.ts",
         "keyPair.ts",
+        "machine/index.ts",
+        "machine/machine.ts",
         "networkinfo/getNetworkInfo.ts",
         "networkinfo/index.ts",
         "provider.ts",

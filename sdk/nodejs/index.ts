@@ -22,6 +22,7 @@ import * as agave from "./agave";
 import * as explorer from "./explorer";
 import * as faucet from "./faucet";
 import * as genesis from "./genesis";
+import * as machine from "./machine";
 import * as networkinfo from "./networkinfo";
 import * as solana from "./solana";
 import * as tuner from "./tuner";
@@ -35,6 +36,7 @@ export {
     explorer,
     faucet,
     genesis,
+    machine,
     networkinfo,
     solana,
     tuner,

@@ -27,6 +27,8 @@ if typing.TYPE_CHECKING:
     genesis = __genesis
     import pulumi_svmkit.geyser as __geyser
     geyser = __geyser
+    import pulumi_svmkit.machine as __machine
+    machine = __machine
     import pulumi_svmkit.networkinfo as __networkinfo
     networkinfo = __networkinfo
     import pulumi_svmkit.runner as __runner
@@ -50,6 +52,7 @@ else:
     firedancer = _utilities.lazy_import('pulumi_svmkit.firedancer')
     genesis = _utilities.lazy_import('pulumi_svmkit.genesis')
     geyser = _utilities.lazy_import('pulumi_svmkit.geyser')
+    machine = _utilities.lazy_import('pulumi_svmkit.machine')
     networkinfo = _utilities.lazy_import('pulumi_svmkit.networkinfo')
     runner = _utilities.lazy_import('pulumi_svmkit.runner')
     solana = _utilities.lazy_import('pulumi_svmkit.solana')
@@ -101,6 +104,14 @@ _utilities.register(
   "fqn": "pulumi_svmkit",
   "classes": {
    "svmkit:index:KeyPair": "KeyPair"
+  }
+ },
+ {
+  "pkg": "svmkit",
+  "mod": "machine",
+  "fqn": "pulumi_svmkit.machine",
+  "classes": {
+   "svmkit:machine:Machine": "Machine"
   }
  },
  {
