@@ -5,6 +5,7 @@ import (
 
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/firedancer"
+	"github.com/abklabs/svmkit/pkg/validator"
 )
 
 type Firedancer struct{}
@@ -16,6 +17,7 @@ type FiredancerArgs struct {
 
 type FiredancerState struct {
 	FiredancerArgs
+	validator.Properties
 }
 
 func (Firedancer) Create(ctx context.Context, name string, input FiredancerArgs, preview bool) (string, FiredancerState, error) {
@@ -32,6 +34,8 @@ func (Firedancer) Create(ctx context.Context, name string, input FiredancerArgs,
 	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", FiredancerState{}, err
 	}
+
+	state.Properties = fd.Properties()
 
 	return name, state, nil
 }
