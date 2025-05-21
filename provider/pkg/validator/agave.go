@@ -5,6 +5,7 @@ import (
 
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/agave"
+	"github.com/abklabs/svmkit/pkg/validator"
 )
 
 // Agave represents a Pulumi resource for managing an Agave validator.
@@ -19,6 +20,7 @@ type AgaveArgs struct {
 // AgaveState represents the state of an Agave resource.
 type AgaveState struct {
 	AgaveArgs
+	validator.Properties
 }
 
 // Create is the method that Pulumi calls to create an Agave resource.
@@ -48,6 +50,8 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 	if err := utils.RunnerHelper(ctx, input.RunnerArgs, command); err != nil {
 		return "", AgaveState{}, err
 	}
+
+	state.Properties = agave.Properties()
 
 	return name, state, nil
 }
