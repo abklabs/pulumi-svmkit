@@ -15,6 +15,8 @@ if typing.TYPE_CHECKING:
     account = __account
     import pulumi_svmkit.agave as __agave
     agave = __agave
+    import pulumi_svmkit.apt as __apt
+    apt = __apt
     import pulumi_svmkit.deb as __deb
     deb = __deb
     import pulumi_svmkit.explorer as __explorer
@@ -46,6 +48,7 @@ if typing.TYPE_CHECKING:
 else:
     account = _utilities.lazy_import('pulumi_svmkit.account')
     agave = _utilities.lazy_import('pulumi_svmkit.agave')
+    apt = _utilities.lazy_import('pulumi_svmkit.apt')
     deb = _utilities.lazy_import('pulumi_svmkit.deb')
     explorer = _utilities.lazy_import('pulumi_svmkit.explorer')
     faucet = _utilities.lazy_import('pulumi_svmkit.faucet')

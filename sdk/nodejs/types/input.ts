@@ -160,6 +160,39 @@ export namespace agave {
     }
 }
 
+export namespace apt {
+    export interface ConfigArgs {
+        excludeDefaultSources?: pulumi.Input<boolean>;
+        sources?: pulumi.Input<pulumi.Input<inputs.apt.SourceArgs>[]>;
+    }
+
+    export interface SignedByArgs {
+        paths?: pulumi.Input<pulumi.Input<string>[]>;
+        publicKey?: pulumi.Input<string>;
+    }
+
+    export interface SourceArgs {
+        URIs: pulumi.Input<pulumi.Input<string>[]>;
+        allowDowngradeToInsecure?: pulumi.Input<boolean>;
+        allowInsecure?: pulumi.Input<boolean>;
+        allowWeak?: pulumi.Input<boolean>;
+        architectures?: pulumi.Input<pulumi.Input<string>[]>;
+        checkDate?: pulumi.Input<boolean>;
+        checkValidUntil?: pulumi.Input<boolean>;
+        components: pulumi.Input<pulumi.Input<string>[]>;
+        dateMaxFuture?: pulumi.Input<number>;
+        extraLines?: pulumi.Input<pulumi.Input<string>[]>;
+        inReleasePath?: pulumi.Input<string>;
+        signedBy?: pulumi.Input<inputs.apt.SignedByArgs>;
+        snapshot?: pulumi.Input<string>;
+        suites: pulumi.Input<pulumi.Input<string>[]>;
+        trusted?: pulumi.Input<boolean>;
+        types: pulumi.Input<pulumi.Input<string>[]>;
+        validUntilMax?: pulumi.Input<number>;
+        validUntilMin?: pulumi.Input<number>;
+    }
+}
+
 export namespace deb {
     export interface PackageArgs {
         name: pulumi.Input<string>;

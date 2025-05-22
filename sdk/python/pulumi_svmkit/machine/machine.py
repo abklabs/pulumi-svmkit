@@ -14,6 +14,7 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
+from .. import apt as _apt
 from .. import deb as _deb
 from .. import runner as _runner
 from .. import ssh as _ssh
@@ -24,11 +25,14 @@ __all__ = ['MachineArgs', 'Machine']
 class MachineArgs:
     def __init__(__self__, *,
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
+                 apt_config: Optional[pulumi.Input['_apt.ConfigArgs']] = None,
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
         """
         The set of arguments for constructing a Machine resource.
         """
         pulumi.set(__self__, "connection", connection)
+        if apt_config is not None:
+            pulumi.set(__self__, "apt_config", apt_config)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
 
@@ -40,6 +44,15 @@ class MachineArgs:
     @connection.setter
     def connection(self, value: pulumi.Input['_ssh.ConnectionArgs']):
         pulumi.set(self, "connection", value)
+
+    @property
+    @pulumi.getter(name="aptConfig")
+    def apt_config(self) -> Optional[pulumi.Input['_apt.ConfigArgs']]:
+        return pulumi.get(self, "apt_config")
+
+    @apt_config.setter
+    def apt_config(self, value: Optional[pulumi.Input['_apt.ConfigArgs']]):
+        pulumi.set(self, "apt_config", value)
 
     @property
     @pulumi.getter(name="runnerConfig")
@@ -57,6 +70,7 @@ class Machine(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 apt_config: Optional[pulumi.Input[Union['_apt.ConfigArgs', '_apt.ConfigArgsDict']]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  __props__=None):
@@ -88,6 +102,7 @@ class Machine(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 apt_config: Optional[pulumi.Input[Union['_apt.ConfigArgs', '_apt.ConfigArgsDict']]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  __props__=None):
@@ -99,6 +114,7 @@ class Machine(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = MachineArgs.__new__(MachineArgs)
 
+            __props__.__dict__["apt_config"] = apt_config
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
@@ -125,9 +141,15 @@ class Machine(pulumi.CustomResource):
 
         __props__ = MachineArgs.__new__(MachineArgs)
 
+        __props__.__dict__["apt_config"] = None
         __props__.__dict__["connection"] = None
         __props__.__dict__["runner_config"] = None
         return Machine(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="aptConfig")
+    def apt_config(self) -> pulumi.Output[Optional['_apt.outputs.Config']]:
+        return pulumi.get(self, "apt_config")
 
     @property
     @pulumi.getter

@@ -34,6 +34,7 @@ export class Machine extends pulumi.CustomResource {
         return obj['__pulumiType'] === Machine.__pulumiType;
     }
 
+    public readonly aptConfig!: pulumi.Output<outputs.apt.Config | undefined>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
 
@@ -51,9 +52,11 @@ export class Machine extends pulumi.CustomResource {
             if ((!args || args.connection === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
+            resourceInputs["aptConfig"] = args ? args.aptConfig : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
         } else {
+            resourceInputs["aptConfig"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
         }
@@ -66,6 +69,7 @@ export class Machine extends pulumi.CustomResource {
  * The set of arguments for constructing a Machine resource.
  */
 export interface MachineArgs {
+    aptConfig?: pulumi.Input<inputs.apt.ConfigArgs>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
 }

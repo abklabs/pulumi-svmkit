@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/apt"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
@@ -17,6 +18,7 @@ import (
 type Machine struct {
 	pulumi.CustomResourceState
 
+	AptConfig    apt.ConfigPtrOutput    `pulumi:"aptConfig"`
 	Connection   ssh.ConnectionOutput   `pulumi:"connection"`
 	RunnerConfig runner.ConfigPtrOutput `pulumi:"runnerConfig"`
 }
@@ -65,12 +67,14 @@ func (MachineState) ElementType() reflect.Type {
 }
 
 type machineArgs struct {
+	AptConfig    *apt.Config    `pulumi:"aptConfig"`
 	Connection   ssh.Connection `pulumi:"connection"`
 	RunnerConfig *runner.Config `pulumi:"runnerConfig"`
 }
 
 // The set of arguments for constructing a Machine resource.
 type MachineArgs struct {
+	AptConfig    apt.ConfigPtrInput
 	Connection   ssh.ConnectionInput
 	RunnerConfig runner.ConfigPtrInput
 }
@@ -110,6 +114,10 @@ func (o MachineOutput) ToMachineOutput() MachineOutput {
 
 func (o MachineOutput) ToMachineOutputWithContext(ctx context.Context) MachineOutput {
 	return o
+}
+
+func (o MachineOutput) AptConfig() apt.ConfigPtrOutput {
+	return o.ApplyT(func(v *Machine) apt.ConfigPtrOutput { return v.AptConfig }).(apt.ConfigPtrOutput)
 }
 
 func (o MachineOutput) Connection() ssh.ConnectionOutput {

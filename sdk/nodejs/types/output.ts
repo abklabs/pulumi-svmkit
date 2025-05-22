@@ -161,6 +161,40 @@ export namespace agave {
 
 }
 
+export namespace apt {
+    export interface Config {
+        excludeDefaultSources?: boolean;
+        sources?: outputs.apt.Source[];
+    }
+
+    export interface SignedBy {
+        paths?: string[];
+        publicKey?: string;
+    }
+
+    export interface Source {
+        URIs: string[];
+        allowDowngradeToInsecure?: boolean;
+        allowInsecure?: boolean;
+        allowWeak?: boolean;
+        architectures?: string[];
+        checkDate?: boolean;
+        checkValidUntil?: boolean;
+        components: string[];
+        dateMaxFuture?: number;
+        extraLines?: string[];
+        inReleasePath?: string;
+        signedBy?: outputs.apt.SignedBy;
+        snapshot?: string;
+        suites: string[];
+        trusted?: boolean;
+        types: string[];
+        validUntilMax?: number;
+        validUntilMin?: number;
+    }
+
+}
+
 export namespace deb {
     export interface Package {
         name: string;

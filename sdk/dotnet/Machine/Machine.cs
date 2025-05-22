@@ -13,6 +13,9 @@ namespace ABKLabs.Svmkit.Machine
     [SvmkitResourceType("svmkit:machine:Machine")]
     public partial class Machine : global::Pulumi.CustomResource
     {
+        [Output("aptConfig")]
+        public Output<ABKLabs.Svmkit.Apt.Outputs.Config?> AptConfig { get; private set; } = null!;
+
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
@@ -65,6 +68,9 @@ namespace ABKLabs.Svmkit.Machine
 
     public sealed class MachineArgs : global::Pulumi.ResourceArgs
     {
+        [Input("aptConfig")]
+        public Input<ABKLabs.Svmkit.Apt.Inputs.ConfigArgs>? AptConfig { get; set; }
+
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
 
