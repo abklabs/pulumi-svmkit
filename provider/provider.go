@@ -23,6 +23,7 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/networkinfo"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/tuner"
+	"github.com/abklabs/pulumi-svmkit/pkg/firewall"
 	"github.com/abklabs/pulumi-svmkit/pkg/validator"
 	"github.com/abklabs/pulumi-svmkit/pkg/watchtower"
 	p "github.com/pulumi/pulumi-go-provider"
@@ -79,6 +80,7 @@ func Provider() p.Provider {
 			infer.Resource[faucet.Faucet, faucet.FaucetArgs, faucet.FaucetState](),
 			infer.Resource[explorer.Explorer, explorer.ExplorerArgs, explorer.ExplorerState](),
 			infer.Resource[tuner.Tuner, tuner.TunerArgs, tuner.TunerState](),
+			infer.Resource[firewall.Firewall, firewall.FirewallArgs, firewall.FirewallState](),			 
 			infer.Resource[watchtower.Watchtower, watchtower.WatchtowerArgs, watchtower.WatchtowerState](),
 			infer.Resource[genesis.Solana, genesis.SolanaArgs, genesis.SolanaState](),
 			infer.Resource[account.VoteAccount, account.VoteAccountArgs, account.VoteAccountState](),
@@ -89,6 +91,7 @@ func Provider() p.Provider {
 		Functions: []infer.InferredFunction{
 			infer.Function[networkinfo.GetNetworkInfo, networkinfo.GetNetworkInfoInput, networkinfo.GetNetworkInfoOutput](),
 			infer.Function[tuner.GetDefaultTunerParams, tuner.TunerParamsInput, tuner.TunerParamsOutput](),
+			infer.Function[firewall.GetDefaultFirewallParams, firewall.FirewallParamsInput, firewall.FirewallParamsOutput](),
 		},
 		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
 			"svm": "index",
