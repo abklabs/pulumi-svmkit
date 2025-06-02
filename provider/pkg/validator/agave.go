@@ -86,3 +86,14 @@ func (Agave) Update(ctx context.Context, name string, oldInput, newInput AgaveAr
 
 	return name, state, nil
 }
+
+func (Agave) Delete(ctx context.Context, id string, props AgaveState) error {
+	agave := props.Agave
+	command := agave.Uninstall()
+
+	if err := utils.RunnerHelper(ctx, props.RunnerArgs, command); err != nil {
+		return err
+	}
+
+	return nil
+}
