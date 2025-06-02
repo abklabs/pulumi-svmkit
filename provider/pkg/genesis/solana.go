@@ -74,3 +74,14 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 func (Solana) Update(ctx context.Context, name string, oldState SolanaState, newInput SolanaArgs, preview bool) (SolanaState, error) {
 	return oldState, fmt.Errorf("Genesis configuration may not be modified after initial creation!")
 }
+
+func (Solana) Delete(ctx context.Context, name string, props SolanaState) error {
+	genesis := props.Genesis
+	command := genesis.Delete()
+
+	if err := utils.RunnerHelper(ctx, props.RunnerArgs, command); err != nil {
+		return err
+	}
+
+	return nil
+}
