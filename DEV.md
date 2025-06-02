@@ -31,6 +31,8 @@ $ make
 ```
 
 This will build the pulumi provider, generate language sdks, and prepare host to execute the plugin locally.
+The local `pulumi-resource-svmkit` provider will installed to `$GOPATH/bin`.
+You can then use this provider in your Pulumi projects by ensuring it is in your `$PATH`
 
 ## Developing against a local `svmkit`
 
@@ -43,7 +45,7 @@ In order to be able to use/test unreleased local changes to `svmkit` it is impor
 @@ -12,6 +12,8 @@ require (
         github.com/pulumi/pulumi/sdk/v3 v3.138.0
  )
- 
+
 +replace github.com/abklabs/svmkit/pkg => ../../svmkit/pkg
 +
  require (
@@ -55,4 +57,15 @@ You can perform this by running:
 
 ```
 ( cd provider && go mod edit -replace github.com/abklabs/svmkit/pkg=../../svmkit/pkg )
+```
+
+### pulumi-resource-svmkit
+
+The pulumi-resource-svmkit is a custom Pulumi provider binary that enables Pulumi to manage svmkit resources, such as machines and firewalls, by exposing Go-based logic to Pulumi SDKs in languages like Python and TypeScript. Built as a gRPC server using Pulumi’s Go provider SDK, it handles instructions from pulumi up, maps inputs to resource creation logic, executes CRUD operations defined in the pkg/ directory, and returns outputs for use in your Pulumi stack.
+
+### Using a local python sdk
+To use a locally-built python svmkit sdk for testing, you can run the following in the root of your project:
+```
+pulumi install
+./venv/bin/pip install ../pulumi-svmkit/sdk/python/
 ```
