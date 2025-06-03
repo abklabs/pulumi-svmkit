@@ -19,6 +19,9 @@ namespace ABKLabs.Svmkit.Validator
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
+        [Output("deletionPolicy")]
+        public Output<ABKLabs.Svmkit.Deletion.Policy?> DeletionPolicy { get; private set; } = null!;
+
         [Output("environment")]
         public Output<ABKLabs.Svmkit.Solana.Outputs.Environment?> Environment { get; private set; } = null!;
 
@@ -88,6 +91,9 @@ namespace ABKLabs.Svmkit.Validator
 
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
+
+        [Input("deletionPolicy")]
+        public Input<ABKLabs.Svmkit.Deletion.Policy>? DeletionPolicy { get; set; }
 
         [Input("environment")]
         public Input<ABKLabs.Svmkit.Solana.Inputs.EnvironmentArgs>? Environment { get; set; }

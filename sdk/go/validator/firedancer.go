@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/deletion"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/firedancer"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
@@ -21,6 +22,7 @@ type Firedancer struct {
 
 	Config             firedancer.ConfigOutput     `pulumi:"config"`
 	Connection         ssh.ConnectionOutput        `pulumi:"connection"`
+	DeletionPolicy     deletion.PolicyPtrOutput    `pulumi:"deletionPolicy"`
 	Environment        solana.EnvironmentPtrOutput `pulumi:"environment"`
 	KeyPairs           firedancer.KeyPairsOutput   `pulumi:"keyPairs"`
 	RunnerConfig       runner.ConfigPtrOutput      `pulumi:"runnerConfig"`
@@ -79,24 +81,26 @@ func (FiredancerState) ElementType() reflect.Type {
 }
 
 type firedancerArgs struct {
-	Config       firedancer.Config   `pulumi:"config"`
-	Connection   ssh.Connection      `pulumi:"connection"`
-	Environment  *solana.Environment `pulumi:"environment"`
-	KeyPairs     firedancer.KeyPairs `pulumi:"keyPairs"`
-	RunnerConfig *runner.Config      `pulumi:"runnerConfig"`
-	Variant      *firedancer.Variant `pulumi:"variant"`
-	Version      *string             `pulumi:"version"`
+	Config         firedancer.Config   `pulumi:"config"`
+	Connection     ssh.Connection      `pulumi:"connection"`
+	DeletionPolicy *deletion.Policy    `pulumi:"deletionPolicy"`
+	Environment    *solana.Environment `pulumi:"environment"`
+	KeyPairs       firedancer.KeyPairs `pulumi:"keyPairs"`
+	RunnerConfig   *runner.Config      `pulumi:"runnerConfig"`
+	Variant        *firedancer.Variant `pulumi:"variant"`
+	Version        *string             `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Firedancer resource.
 type FiredancerArgs struct {
-	Config       firedancer.ConfigInput
-	Connection   ssh.ConnectionInput
-	Environment  solana.EnvironmentPtrInput
-	KeyPairs     firedancer.KeyPairsInput
-	RunnerConfig runner.ConfigPtrInput
-	Variant      firedancer.VariantPtrInput
-	Version      pulumi.StringPtrInput
+	Config         firedancer.ConfigInput
+	Connection     ssh.ConnectionInput
+	DeletionPolicy deletion.PolicyPtrInput
+	Environment    solana.EnvironmentPtrInput
+	KeyPairs       firedancer.KeyPairsInput
+	RunnerConfig   runner.ConfigPtrInput
+	Variant        firedancer.VariantPtrInput
+	Version        pulumi.StringPtrInput
 }
 
 func (FiredancerArgs) ElementType() reflect.Type {
@@ -142,6 +146,10 @@ func (o FiredancerOutput) Config() firedancer.ConfigOutput {
 
 func (o FiredancerOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *Firedancer) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
+}
+
+func (o FiredancerOutput) DeletionPolicy() deletion.PolicyPtrOutput {
+	return o.ApplyT(func(v *Firedancer) deletion.PolicyPtrOutput { return v.DeletionPolicy }).(deletion.PolicyPtrOutput)
 }
 
 func (o FiredancerOutput) Environment() solana.EnvironmentPtrOutput {

@@ -333,6 +333,12 @@ export namespace firedancer {
     }
 }
 
+export namespace firewall {
+    export interface FirewallParamsArgs {
+        allowPorts: pulumi.Input<pulumi.Input<string>[]>;
+    }
+}
+
 export namespace genesis {
     export interface BootstrapAccountArgs {
         balanceLamports?: pulumi.Input<number>;

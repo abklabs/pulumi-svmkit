@@ -36,6 +36,7 @@ export class Firedancer extends pulumi.CustomResource {
 
     public readonly config!: pulumi.Output<outputs.firedancer.Config>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
+    public readonly deletionPolicy!: pulumi.Output<enums.deletion.Policy | undefined>;
     public readonly environment!: pulumi.Output<outputs.solana.Environment | undefined>;
     public readonly keyPairs!: pulumi.Output<outputs.firedancer.KeyPairs>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
@@ -65,6 +66,7 @@ export class Firedancer extends pulumi.CustomResource {
             }
             resourceInputs["config"] = args ? args.config : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
+            resourceInputs["deletionPolicy"] = args ? args.deletionPolicy : undefined;
             resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
@@ -74,6 +76,7 @@ export class Firedancer extends pulumi.CustomResource {
         } else {
             resourceInputs["config"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
+            resourceInputs["deletionPolicy"] = undefined /*out*/;
             resourceInputs["environment"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
@@ -92,6 +95,7 @@ export class Firedancer extends pulumi.CustomResource {
 export interface FiredancerArgs {
     config: pulumi.Input<inputs.firedancer.ConfigArgs>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
+    deletionPolicy?: pulumi.Input<enums.deletion.Policy>;
     environment?: pulumi.Input<inputs.solana.EnvironmentArgs>;
     keyPairs: pulumi.Input<inputs.firedancer.KeyPairsArgs>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;

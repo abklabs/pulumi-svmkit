@@ -36,6 +36,7 @@ export class Solana extends pulumi.CustomResource {
 
     public readonly accounts!: pulumi.Output<outputs.genesis.BootstrapAccount[] | undefined>;
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
+    public readonly deletionPolicy!: pulumi.Output<enums.deletion.Policy | undefined>;
     public readonly flags!: pulumi.Output<outputs.genesis.GenesisFlags>;
     public /*out*/ readonly genesisHash!: pulumi.Output<string>;
     public readonly primordial!: pulumi.Output<outputs.genesis.PrimordialAccount[]>;
@@ -64,6 +65,7 @@ export class Solana extends pulumi.CustomResource {
             }
             resourceInputs["accounts"] = args ? args.accounts : undefined;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
+            resourceInputs["deletionPolicy"] = args ? args.deletionPolicy : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["primordial"] = args ? args.primordial : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
@@ -72,6 +74,7 @@ export class Solana extends pulumi.CustomResource {
         } else {
             resourceInputs["accounts"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
+            resourceInputs["deletionPolicy"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["genesisHash"] = undefined /*out*/;
             resourceInputs["primordial"] = undefined /*out*/;
@@ -89,6 +92,7 @@ export class Solana extends pulumi.CustomResource {
 export interface SolanaArgs {
     accounts?: pulumi.Input<pulumi.Input<inputs.genesis.BootstrapAccountArgs>[]>;
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
+    deletionPolicy?: pulumi.Input<enums.deletion.Policy>;
     flags: pulumi.Input<inputs.genesis.GenesisFlagsArgs>;
     primordial: pulumi.Input<pulumi.Input<inputs.genesis.PrimordialAccountArgs>[]>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;

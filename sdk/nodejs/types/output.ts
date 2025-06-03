@@ -339,6 +339,13 @@ export namespace firedancer {
 
 }
 
+export namespace firewall {
+    export interface FirewallParams {
+        allowPorts: string[];
+    }
+
+}
+
 export namespace genesis {
     export interface BootstrapAccount {
         balanceLamports?: number;

@@ -35,6 +35,7 @@ export class Agave extends pulumi.CustomResource {
     }
 
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
+    public readonly deletionPolicy!: pulumi.Output<enums.deletion.Policy | undefined>;
     public readonly environment!: pulumi.Output<outputs.solana.Environment | undefined>;
     public readonly flags!: pulumi.Output<outputs.agave.Flags>;
     public readonly geyserPlugin!: pulumi.Output<outputs.geyser.GeyserPlugin | undefined>;
@@ -70,6 +71,7 @@ export class Agave extends pulumi.CustomResource {
                 throw new Error("Missing required property 'keyPairs'");
             }
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
+            resourceInputs["deletionPolicy"] = args ? args.deletionPolicy : undefined;
             resourceInputs["environment"] = args ? args.environment : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["geyserPlugin"] = args ? args.geyserPlugin : undefined;
@@ -85,6 +87,7 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["systemdServiceName"] = undefined /*out*/;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
+            resourceInputs["deletionPolicy"] = undefined /*out*/;
             resourceInputs["environment"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["geyserPlugin"] = undefined /*out*/;
@@ -109,6 +112,7 @@ export class Agave extends pulumi.CustomResource {
  */
 export interface AgaveArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
+    deletionPolicy?: pulumi.Input<enums.deletion.Policy>;
     environment?: pulumi.Input<inputs.solana.EnvironmentArgs>;
     flags: pulumi.Input<inputs.agave.FlagsArgs>;
     geyserPlugin?: pulumi.Input<inputs.geyser.GeyserPluginArgs>;

@@ -16,6 +16,7 @@ else:
 from .. import _utilities
 from . import outputs
 from .. import deb as _deb
+from .. import deletion
 from .. import runner as _runner
 from .. import ssh as _ssh
 from ._inputs import *
@@ -29,6 +30,7 @@ class SolanaArgs:
                  flags: pulumi.Input['GenesisFlagsArgs'],
                  primordial: pulumi.Input[Sequence[pulumi.Input['PrimordialAccountArgs']]],
                  accounts: Optional[pulumi.Input[Sequence[pulumi.Input['BootstrapAccountArgs']]]] = None,
+                 deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None):
         """
@@ -39,6 +41,8 @@ class SolanaArgs:
         pulumi.set(__self__, "primordial", primordial)
         if accounts is not None:
             pulumi.set(__self__, "accounts", accounts)
+        if deletion_policy is not None:
+            pulumi.set(__self__, "deletion_policy", deletion_policy)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
         if version is not None:
@@ -81,6 +85,15 @@ class SolanaArgs:
         pulumi.set(self, "accounts", value)
 
     @property
+    @pulumi.getter(name="deletionPolicy")
+    def deletion_policy(self) -> Optional[pulumi.Input['deletion.Policy']]:
+        return pulumi.get(self, "deletion_policy")
+
+    @deletion_policy.setter
+    def deletion_policy(self, value: Optional[pulumi.Input['deletion.Policy']]):
+        pulumi.set(self, "deletion_policy", value)
+
+    @property
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
         return pulumi.get(self, "runner_config")
@@ -107,6 +120,7 @@ class Solana(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  accounts: Optional[pulumi.Input[Sequence[pulumi.Input[Union['BootstrapAccountArgs', 'BootstrapAccountArgsDict']]]]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
                  primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
@@ -142,6 +156,7 @@ class Solana(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  accounts: Optional[pulumi.Input[Sequence[pulumi.Input[Union['BootstrapAccountArgs', 'BootstrapAccountArgsDict']]]]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
                  primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
@@ -159,6 +174,7 @@ class Solana(pulumi.CustomResource):
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
+            __props__.__dict__["deletion_policy"] = deletion_policy
             if flags is None and not opts.urn:
                 raise TypeError("Missing required property 'flags'")
             __props__.__dict__["flags"] = flags
@@ -192,6 +208,7 @@ class Solana(pulumi.CustomResource):
 
         __props__.__dict__["accounts"] = None
         __props__.__dict__["connection"] = None
+        __props__.__dict__["deletion_policy"] = None
         __props__.__dict__["flags"] = None
         __props__.__dict__["genesis_hash"] = None
         __props__.__dict__["primordial"] = None
@@ -208,6 +225,11 @@ class Solana(pulumi.CustomResource):
     @pulumi.getter
     def connection(self) -> pulumi.Output['_ssh.outputs.Connection']:
         return pulumi.get(self, "connection")
+
+    @property
+    @pulumi.getter(name="deletionPolicy")
+    def deletion_policy(self) -> pulumi.Output[Optional['deletion.Policy']]:
+        return pulumi.get(self, "deletion_policy")
 
     @property
     @pulumi.getter

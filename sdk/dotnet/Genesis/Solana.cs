@@ -19,6 +19,9 @@ namespace ABKLabs.Svmkit.Genesis
         [Output("connection")]
         public Output<ABKLabs.Svmkit.Ssh.Outputs.Connection> Connection { get; private set; } = null!;
 
+        [Output("deletionPolicy")]
+        public Output<ABKLabs.Svmkit.Deletion.Policy?> DeletionPolicy { get; private set; } = null!;
+
         [Output("flags")]
         public Output<Outputs.GenesisFlags> Flags { get; private set; } = null!;
 
@@ -90,6 +93,9 @@ namespace ABKLabs.Svmkit.Genesis
 
         [Input("connection", required: true)]
         public Input<ABKLabs.Svmkit.Ssh.Inputs.ConnectionArgs> Connection { get; set; } = null!;
+
+        [Input("deletionPolicy")]
+        public Input<ABKLabs.Svmkit.Deletion.Policy>? DeletionPolicy { get; set; }
 
         [Input("flags", required: true)]
         public Input<Inputs.GenesisFlagsArgs> Flags { get; set; } = null!;

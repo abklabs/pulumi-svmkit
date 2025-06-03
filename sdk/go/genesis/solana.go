@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/deletion"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/ssh"
@@ -17,13 +18,14 @@ import (
 type Solana struct {
 	pulumi.CustomResourceState
 
-	Accounts     BootstrapAccountArrayOutput  `pulumi:"accounts"`
-	Connection   ssh.ConnectionOutput         `pulumi:"connection"`
-	Flags        GenesisFlagsOutput           `pulumi:"flags"`
-	GenesisHash  pulumi.StringOutput          `pulumi:"genesisHash"`
-	Primordial   PrimordialAccountArrayOutput `pulumi:"primordial"`
-	RunnerConfig runner.ConfigPtrOutput       `pulumi:"runnerConfig"`
-	Version      pulumi.StringPtrOutput       `pulumi:"version"`
+	Accounts       BootstrapAccountArrayOutput  `pulumi:"accounts"`
+	Connection     ssh.ConnectionOutput         `pulumi:"connection"`
+	DeletionPolicy deletion.PolicyPtrOutput     `pulumi:"deletionPolicy"`
+	Flags          GenesisFlagsOutput           `pulumi:"flags"`
+	GenesisHash    pulumi.StringOutput          `pulumi:"genesisHash"`
+	Primordial     PrimordialAccountArrayOutput `pulumi:"primordial"`
+	RunnerConfig   runner.ConfigPtrOutput       `pulumi:"runnerConfig"`
+	Version        pulumi.StringPtrOutput       `pulumi:"version"`
 }
 
 // NewSolana registers a new resource with the given unique name, arguments, and options.
@@ -76,22 +78,24 @@ func (SolanaState) ElementType() reflect.Type {
 }
 
 type solanaArgs struct {
-	Accounts     []BootstrapAccount  `pulumi:"accounts"`
-	Connection   ssh.Connection      `pulumi:"connection"`
-	Flags        GenesisFlags        `pulumi:"flags"`
-	Primordial   []PrimordialAccount `pulumi:"primordial"`
-	RunnerConfig *runner.Config      `pulumi:"runnerConfig"`
-	Version      *string             `pulumi:"version"`
+	Accounts       []BootstrapAccount  `pulumi:"accounts"`
+	Connection     ssh.Connection      `pulumi:"connection"`
+	DeletionPolicy *deletion.Policy    `pulumi:"deletionPolicy"`
+	Flags          GenesisFlags        `pulumi:"flags"`
+	Primordial     []PrimordialAccount `pulumi:"primordial"`
+	RunnerConfig   *runner.Config      `pulumi:"runnerConfig"`
+	Version        *string             `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Solana resource.
 type SolanaArgs struct {
-	Accounts     BootstrapAccountArrayInput
-	Connection   ssh.ConnectionInput
-	Flags        GenesisFlagsInput
-	Primordial   PrimordialAccountArrayInput
-	RunnerConfig runner.ConfigPtrInput
-	Version      pulumi.StringPtrInput
+	Accounts       BootstrapAccountArrayInput
+	Connection     ssh.ConnectionInput
+	DeletionPolicy deletion.PolicyPtrInput
+	Flags          GenesisFlagsInput
+	Primordial     PrimordialAccountArrayInput
+	RunnerConfig   runner.ConfigPtrInput
+	Version        pulumi.StringPtrInput
 }
 
 func (SolanaArgs) ElementType() reflect.Type {
@@ -137,6 +141,10 @@ func (o SolanaOutput) Accounts() BootstrapAccountArrayOutput {
 
 func (o SolanaOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *Solana) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
+}
+
+func (o SolanaOutput) DeletionPolicy() deletion.PolicyPtrOutput {
+	return o.ApplyT(func(v *Solana) deletion.PolicyPtrOutput { return v.DeletionPolicy }).(deletion.PolicyPtrOutput)
 }
 
 func (o SolanaOutput) Flags() GenesisFlagsOutput {

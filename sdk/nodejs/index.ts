@@ -19,9 +19,11 @@ utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 // Export sub-modules:
 import * as account from "./account";
 import * as agave from "./agave";
+import * as deletion from "./deletion";
 import * as explorer from "./explorer";
 import * as faucet from "./faucet";
 import * as firedancer from "./firedancer";
+import * as firewall from "./firewall";
 import * as genesis from "./genesis";
 import * as machine from "./machine";
 import * as networkinfo from "./networkinfo";
@@ -34,9 +36,11 @@ import * as watchtower from "./watchtower";
 export {
     account,
     agave,
+    deletion,
     explorer,
     faucet,
     firedancer,
+    firewall,
     genesis,
     machine,
     networkinfo,

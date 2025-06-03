@@ -15,6 +15,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from .. import _utilities
 from .. import deb as _deb
+from .. import deletion
 from .. import firedancer
 from .. import firedancer as _firedancer
 from .. import runner as _runner
@@ -29,6 +30,7 @@ class FiredancerArgs:
                  config: pulumi.Input['_firedancer.ConfigArgs'],
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  key_pairs: pulumi.Input['_firedancer.KeyPairsArgs'],
+                 deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  environment: Optional[pulumi.Input['_solana.EnvironmentArgs']] = None,
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  variant: Optional[pulumi.Input['firedancer.Variant']] = None,
@@ -39,6 +41,8 @@ class FiredancerArgs:
         pulumi.set(__self__, "config", config)
         pulumi.set(__self__, "connection", connection)
         pulumi.set(__self__, "key_pairs", key_pairs)
+        if deletion_policy is not None:
+            pulumi.set(__self__, "deletion_policy", deletion_policy)
         if environment is not None:
             pulumi.set(__self__, "environment", environment)
         if runner_config is not None:
@@ -74,6 +78,15 @@ class FiredancerArgs:
     @key_pairs.setter
     def key_pairs(self, value: pulumi.Input['_firedancer.KeyPairsArgs']):
         pulumi.set(self, "key_pairs", value)
+
+    @property
+    @pulumi.getter(name="deletionPolicy")
+    def deletion_policy(self) -> Optional[pulumi.Input['deletion.Policy']]:
+        return pulumi.get(self, "deletion_policy")
+
+    @deletion_policy.setter
+    def deletion_policy(self, value: Optional[pulumi.Input['deletion.Policy']]):
+        pulumi.set(self, "deletion_policy", value)
 
     @property
     @pulumi.getter
@@ -120,6 +133,7 @@ class Firedancer(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  config: Optional[pulumi.Input[Union['_firedancer.ConfigArgs', '_firedancer.ConfigArgsDict']]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_firedancer.KeyPairsArgs', '_firedancer.KeyPairsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
@@ -156,6 +170,7 @@ class Firedancer(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  config: Optional[pulumi.Input[Union['_firedancer.ConfigArgs', '_firedancer.ConfigArgsDict']]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
+                 deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_firedancer.KeyPairsArgs', '_firedancer.KeyPairsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
@@ -176,6 +191,7 @@ class Firedancer(pulumi.CustomResource):
             if connection is None and not opts.urn:
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
+            __props__.__dict__["deletion_policy"] = deletion_policy
             __props__.__dict__["environment"] = environment
             if key_pairs is None and not opts.urn:
                 raise TypeError("Missing required property 'key_pairs'")
@@ -208,6 +224,7 @@ class Firedancer(pulumi.CustomResource):
 
         __props__.__dict__["config"] = None
         __props__.__dict__["connection"] = None
+        __props__.__dict__["deletion_policy"] = None
         __props__.__dict__["environment"] = None
         __props__.__dict__["key_pairs"] = None
         __props__.__dict__["runner_config"] = None
@@ -225,6 +242,11 @@ class Firedancer(pulumi.CustomResource):
     @pulumi.getter
     def connection(self) -> pulumi.Output['_ssh.outputs.Connection']:
         return pulumi.get(self, "connection")
+
+    @property
+    @pulumi.getter(name="deletionPolicy")
+    def deletion_policy(self) -> pulumi.Output[Optional['deletion.Policy']]:
+        return pulumi.get(self, "deletion_policy")
 
     @property
     @pulumi.getter

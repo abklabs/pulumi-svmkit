@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/agave"
+	"github.com/abklabs/pulumi-svmkit/sdk/go/deletion"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/geyser"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/internal"
 	"github.com/abklabs/pulumi-svmkit/sdk/go/runner"
@@ -21,6 +22,7 @@ type Agave struct {
 	pulumi.CustomResourceState
 
 	Connection         ssh.ConnectionOutput          `pulumi:"connection"`
+	DeletionPolicy     deletion.PolicyPtrOutput      `pulumi:"deletionPolicy"`
 	Environment        solana.EnvironmentPtrOutput   `pulumi:"environment"`
 	Flags              agave.FlagsOutput             `pulumi:"flags"`
 	GeyserPlugin       geyser.GeyserPluginPtrOutput  `pulumi:"geyserPlugin"`
@@ -87,6 +89,7 @@ func (AgaveState) ElementType() reflect.Type {
 
 type agaveArgs struct {
 	Connection     ssh.Connection        `pulumi:"connection"`
+	DeletionPolicy *deletion.Policy      `pulumi:"deletionPolicy"`
 	Environment    *solana.Environment   `pulumi:"environment"`
 	Flags          agave.Flags           `pulumi:"flags"`
 	GeyserPlugin   *geyser.GeyserPlugin  `pulumi:"geyserPlugin"`
@@ -104,6 +107,7 @@ type agaveArgs struct {
 // The set of arguments for constructing a Agave resource.
 type AgaveArgs struct {
 	Connection     ssh.ConnectionInput
+	DeletionPolicy deletion.PolicyPtrInput
 	Environment    solana.EnvironmentPtrInput
 	Flags          agave.FlagsInput
 	GeyserPlugin   geyser.GeyserPluginPtrInput
@@ -157,6 +161,10 @@ func (o AgaveOutput) ToAgaveOutputWithContext(ctx context.Context) AgaveOutput {
 
 func (o AgaveOutput) Connection() ssh.ConnectionOutput {
 	return o.ApplyT(func(v *Agave) ssh.ConnectionOutput { return v.Connection }).(ssh.ConnectionOutput)
+}
+
+func (o AgaveOutput) DeletionPolicy() deletion.PolicyPtrOutput {
+	return o.ApplyT(func(v *Agave) deletion.PolicyPtrOutput { return v.DeletionPolicy }).(deletion.PolicyPtrOutput)
 }
 
 func (o AgaveOutput) Environment() solana.EnvironmentPtrOutput {

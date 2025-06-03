@@ -19,12 +19,16 @@ if typing.TYPE_CHECKING:
     apt = __apt
     import pulumi_svmkit.deb as __deb
     deb = __deb
+    import pulumi_svmkit.deletion as __deletion
+    deletion = __deletion
     import pulumi_svmkit.explorer as __explorer
     explorer = __explorer
     import pulumi_svmkit.faucet as __faucet
     faucet = __faucet
     import pulumi_svmkit.firedancer as __firedancer
     firedancer = __firedancer
+    import pulumi_svmkit.firewall as __firewall
+    firewall = __firewall
     import pulumi_svmkit.genesis as __genesis
     genesis = __genesis
     import pulumi_svmkit.geyser as __geyser
@@ -50,9 +54,11 @@ else:
     agave = _utilities.lazy_import('pulumi_svmkit.agave')
     apt = _utilities.lazy_import('pulumi_svmkit.apt')
     deb = _utilities.lazy_import('pulumi_svmkit.deb')
+    deletion = _utilities.lazy_import('pulumi_svmkit.deletion')
     explorer = _utilities.lazy_import('pulumi_svmkit.explorer')
     faucet = _utilities.lazy_import('pulumi_svmkit.faucet')
     firedancer = _utilities.lazy_import('pulumi_svmkit.firedancer')
+    firewall = _utilities.lazy_import('pulumi_svmkit.firewall')
     genesis = _utilities.lazy_import('pulumi_svmkit.genesis')
     geyser = _utilities.lazy_import('pulumi_svmkit.geyser')
     machine = _utilities.lazy_import('pulumi_svmkit.machine')
@@ -91,6 +97,14 @@ _utilities.register(
   "fqn": "pulumi_svmkit.faucet",
   "classes": {
    "svmkit:faucet:Faucet": "Faucet"
+  }
+ },
+ {
+  "pkg": "svmkit",
+  "mod": "firewall",
+  "fqn": "pulumi_svmkit.firewall",
+  "classes": {
+   "svmkit:firewall:Firewall": "Firewall"
   }
  },
  {
