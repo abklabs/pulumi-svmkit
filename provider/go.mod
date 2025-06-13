@@ -1,8 +1,7 @@
 module github.com/abklabs/pulumi-svmkit
 
-go 1.22
-
-toolchain go1.22.7
+go 1.23.0
+toolchain go1.24.4
 
 require (
 	github.com/abklabs/svmkit/pkg v0.47.0
