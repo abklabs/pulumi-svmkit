@@ -21,6 +21,7 @@ type Faucet struct {
 	Flags        FaucetFlagsOutput      `pulumi:"flags"`
 	Keypair      pulumi.StringOutput    `pulumi:"keypair"`
 	RunnerConfig runner.ConfigPtrOutput `pulumi:"runnerConfig"`
+	Triggers     pulumi.ArrayOutput     `pulumi:"triggers"`
 	Version      pulumi.StringPtrOutput `pulumi:"version"`
 }
 
@@ -48,6 +49,10 @@ func NewFaucet(ctx *pulumi.Context,
 		"keypair",
 	})
 	opts = append(opts, secrets)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Faucet
 	err := ctx.RegisterResource("svmkit:faucet:Faucet", name, args, &resource, opts...)
@@ -85,6 +90,7 @@ type faucetArgs struct {
 	Flags        FaucetFlags    `pulumi:"flags"`
 	Keypair      string         `pulumi:"keypair"`
 	RunnerConfig *runner.Config `pulumi:"runnerConfig"`
+	Triggers     []interface{}  `pulumi:"triggers"`
 	Version      *string        `pulumi:"version"`
 }
 
@@ -94,6 +100,7 @@ type FaucetArgs struct {
 	Flags        FaucetFlagsInput
 	Keypair      pulumi.StringInput
 	RunnerConfig runner.ConfigPtrInput
+	Triggers     pulumi.ArrayInput
 	Version      pulumi.StringPtrInput
 }
 
@@ -148,6 +155,10 @@ func (o FaucetOutput) Keypair() pulumi.StringOutput {
 
 func (o FaucetOutput) RunnerConfig() runner.ConfigPtrOutput {
 	return o.ApplyT(func(v *Faucet) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
+}
+
+func (o FaucetOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Faucet) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func (o FaucetOutput) Version() pulumi.StringPtrOutput {

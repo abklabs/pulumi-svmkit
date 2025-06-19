@@ -40,6 +40,7 @@ export class Transfer extends pulumi.CustomResource {
     public readonly recipientPubkey!: pulumi.Output<string>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly transactionOptions!: pulumi.Output<outputs.solana.TxnOptions>;
+    public readonly triggers!: pulumi.Output<any[] | undefined>;
 
     /**
      * Create a Transfer resource with the given unique name, arguments, and options.
@@ -70,6 +71,7 @@ export class Transfer extends pulumi.CustomResource {
             resourceInputs["recipientPubkey"] = args ? args.recipientPubkey : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["transactionOptions"] = args ? args.transactionOptions : undefined;
+            resourceInputs["triggers"] = args ? args.triggers : undefined;
         } else {
             resourceInputs["allowUnfundedRecipient"] = undefined /*out*/;
             resourceInputs["amount"] = undefined /*out*/;
@@ -77,8 +79,11 @@ export class Transfer extends pulumi.CustomResource {
             resourceInputs["recipientPubkey"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["transactionOptions"] = undefined /*out*/;
+            resourceInputs["triggers"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Transfer.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -93,4 +98,5 @@ export interface TransferArgs {
     recipientPubkey: pulumi.Input<string>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     transactionOptions: pulumi.Input<inputs.solana.TxnOptionsArgs>;
+    triggers?: pulumi.Input<any[]>;
 }

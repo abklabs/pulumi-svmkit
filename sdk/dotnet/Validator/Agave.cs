@@ -52,6 +52,9 @@ namespace ABKLabs.Svmkit.Validator
         [Output("timeoutConfig")]
         public Output<ABKLabs.Svmkit.Agave.Outputs.TimeoutConfig?> TimeoutConfig { get; private set; } = null!;
 
+        [Output("triggers")]
+        public Output<ImmutableArray<object>> Triggers { get; private set; } = null!;
+
         [Output("variant")]
         public Output<ABKLabs.Svmkit.Agave.Variant?> Variant { get; private set; } = null!;
 
@@ -82,6 +85,10 @@ namespace ABKLabs.Svmkit.Validator
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/abklabs",
+                ReplaceOnChanges =
+                {
+                    "triggers[*]",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -139,6 +146,14 @@ namespace ABKLabs.Svmkit.Validator
 
         [Input("timeoutConfig")]
         public Input<ABKLabs.Svmkit.Agave.Inputs.TimeoutConfigArgs>? TimeoutConfig { get; set; }
+
+        [Input("triggers")]
+        private InputList<object>? _triggers;
+        public InputList<object> Triggers
+        {
+            get => _triggers ?? (_triggers = new InputList<object>());
+            set => _triggers = value;
+        }
 
         [Input("variant")]
         public Input<ABKLabs.Svmkit.Agave.Variant>? Variant { get; set; }

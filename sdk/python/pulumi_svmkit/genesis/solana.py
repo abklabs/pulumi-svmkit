@@ -32,6 +32,7 @@ class SolanaArgs:
                  accounts: Optional[pulumi.Input[Sequence[pulumi.Input['BootstrapAccountArgs']]]] = None,
                  deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None):
         """
         The set of arguments for constructing a Solana resource.
@@ -45,6 +46,8 @@ class SolanaArgs:
             pulumi.set(__self__, "deletion_policy", deletion_policy)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -104,6 +107,15 @@ class SolanaArgs:
 
     @property
     @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
+    @property
+    @pulumi.getter
     def version(self) -> Optional[pulumi.Input[builtins.str]]:
         return pulumi.get(self, "version")
 
@@ -124,6 +136,7 @@ class Solana(pulumi.CustomResource):
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
                  primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
         """
@@ -160,6 +173,7 @@ class Solana(pulumi.CustomResource):
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
                  primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -182,8 +196,11 @@ class Solana(pulumi.CustomResource):
                 raise TypeError("Missing required property 'primordial'")
             __props__.__dict__["primordial"] = primordial
             __props__.__dict__["runner_config"] = runner_config
+            __props__.__dict__["triggers"] = triggers
             __props__.__dict__["version"] = version
             __props__.__dict__["genesis_hash"] = None
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Solana, __self__).__init__(
             'svmkit:genesis:Solana',
             resource_name,
@@ -213,6 +230,7 @@ class Solana(pulumi.CustomResource):
         __props__.__dict__["genesis_hash"] = None
         __props__.__dict__["primordial"] = None
         __props__.__dict__["runner_config"] = None
+        __props__.__dict__["triggers"] = None
         __props__.__dict__["version"] = None
         return Solana(resource_name, opts=opts, __props__=__props__)
 
@@ -250,6 +268,11 @@ class Solana(pulumi.CustomResource):
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
         return pulumi.get(self, "runner_config")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 
     @property
     @pulumi.getter

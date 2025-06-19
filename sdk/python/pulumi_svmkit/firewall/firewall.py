@@ -27,7 +27,8 @@ class FirewallArgs:
     def __init__(__self__, *,
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  params: pulumi.Input['FirewallParamsArgs'],
-                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None):
         """
         The set of arguments for constructing a Firewall resource.
         """
@@ -35,6 +36,8 @@ class FirewallArgs:
         pulumi.set(__self__, "params", params)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
 
     @property
     @pulumi.getter
@@ -63,6 +66,15 @@ class FirewallArgs:
     def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
         pulumi.set(self, "runner_config", value)
 
+    @property
+    @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
 
 @pulumi.type_token("svmkit:firewall:Firewall")
 class Firewall(pulumi.CustomResource):
@@ -73,6 +85,7 @@ class Firewall(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  params: Optional[pulumi.Input[Union['FirewallParamsArgs', 'FirewallParamsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         """
         Create a Firewall resource with the given unique name, props, and options.
@@ -105,6 +118,7 @@ class Firewall(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  params: Optional[pulumi.Input[Union['FirewallParamsArgs', 'FirewallParamsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -121,6 +135,9 @@ class Firewall(pulumi.CustomResource):
                 raise TypeError("Missing required property 'params'")
             __props__.__dict__["params"] = params
             __props__.__dict__["runner_config"] = runner_config
+            __props__.__dict__["triggers"] = triggers
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Firewall, __self__).__init__(
             'svmkit:firewall:Firewall',
             resource_name,
@@ -146,6 +163,7 @@ class Firewall(pulumi.CustomResource):
         __props__.__dict__["connection"] = None
         __props__.__dict__["params"] = None
         __props__.__dict__["runner_config"] = None
+        __props__.__dict__["triggers"] = None
         return Firewall(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -162,4 +180,9 @@ class Firewall(pulumi.CustomResource):
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
         return pulumi.get(self, "runner_config")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 

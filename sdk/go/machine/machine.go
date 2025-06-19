@@ -21,6 +21,7 @@ type Machine struct {
 	AptConfig    apt.ConfigPtrOutput    `pulumi:"aptConfig"`
 	Connection   ssh.ConnectionOutput   `pulumi:"connection"`
 	RunnerConfig runner.ConfigPtrOutput `pulumi:"runnerConfig"`
+	Triggers     pulumi.ArrayOutput     `pulumi:"triggers"`
 }
 
 // NewMachine registers a new resource with the given unique name, arguments, and options.
@@ -34,6 +35,10 @@ func NewMachine(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'Connection'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Machine
 	err := ctx.RegisterResource("svmkit:machine:Machine", name, args, &resource, opts...)
@@ -70,6 +75,7 @@ type machineArgs struct {
 	AptConfig    *apt.Config    `pulumi:"aptConfig"`
 	Connection   ssh.Connection `pulumi:"connection"`
 	RunnerConfig *runner.Config `pulumi:"runnerConfig"`
+	Triggers     []interface{}  `pulumi:"triggers"`
 }
 
 // The set of arguments for constructing a Machine resource.
@@ -77,6 +83,7 @@ type MachineArgs struct {
 	AptConfig    apt.ConfigPtrInput
 	Connection   ssh.ConnectionInput
 	RunnerConfig runner.ConfigPtrInput
+	Triggers     pulumi.ArrayInput
 }
 
 func (MachineArgs) ElementType() reflect.Type {
@@ -126,6 +133,10 @@ func (o MachineOutput) Connection() ssh.ConnectionOutput {
 
 func (o MachineOutput) RunnerConfig() runner.ConfigPtrOutput {
 	return o.ApplyT(func(v *Machine) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
+}
+
+func (o MachineOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Machine) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func init() {

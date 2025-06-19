@@ -20,6 +20,7 @@ type Tuner struct {
 	Connection   ssh.ConnectionOutput   `pulumi:"connection"`
 	Params       TunerParamsOutput      `pulumi:"params"`
 	RunnerConfig runner.ConfigPtrOutput `pulumi:"runnerConfig"`
+	Triggers     pulumi.ArrayOutput     `pulumi:"triggers"`
 }
 
 // NewTuner registers a new resource with the given unique name, arguments, and options.
@@ -36,6 +37,10 @@ func NewTuner(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'Params'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Tuner
 	err := ctx.RegisterResource("svmkit:tuner:Tuner", name, args, &resource, opts...)
@@ -72,6 +77,7 @@ type tunerArgs struct {
 	Connection   ssh.Connection `pulumi:"connection"`
 	Params       TunerParams    `pulumi:"params"`
 	RunnerConfig *runner.Config `pulumi:"runnerConfig"`
+	Triggers     []interface{}  `pulumi:"triggers"`
 }
 
 // The set of arguments for constructing a Tuner resource.
@@ -79,6 +85,7 @@ type TunerArgs struct {
 	Connection   ssh.ConnectionInput
 	Params       TunerParamsInput
 	RunnerConfig runner.ConfigPtrInput
+	Triggers     pulumi.ArrayInput
 }
 
 func (TunerArgs) ElementType() reflect.Type {
@@ -128,6 +135,10 @@ func (o TunerOutput) Params() TunerParamsOutput {
 
 func (o TunerOutput) RunnerConfig() runner.ConfigPtrOutput {
 	return o.ApplyT(func(v *Tuner) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
+}
+
+func (o TunerOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Tuner) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func init() {

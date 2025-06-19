@@ -38,6 +38,7 @@ export class Faucet extends pulumi.CustomResource {
     public readonly flags!: pulumi.Output<outputs.faucet.FaucetFlags>;
     public readonly keypair!: pulumi.Output<string>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
+    public readonly triggers!: pulumi.Output<any[] | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
     /**
@@ -64,17 +65,21 @@ export class Faucet extends pulumi.CustomResource {
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["keypair"] = args?.keypair ? pulumi.secret(args.keypair) : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
+            resourceInputs["triggers"] = args ? args.triggers : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["keypair"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
+            resourceInputs["triggers"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["keypair"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
+        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Faucet.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -87,5 +92,6 @@ export interface FaucetArgs {
     flags: pulumi.Input<inputs.faucet.FaucetFlagsArgs>;
     keypair: pulumi.Input<string>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
+    triggers?: pulumi.Input<any[]>;
     version?: pulumi.Input<string>;
 }

@@ -24,6 +24,7 @@ type Transfer struct {
 	RecipientPubkey        pulumi.StringOutput     `pulumi:"recipientPubkey"`
 	RunnerConfig           runner.ConfigPtrOutput  `pulumi:"runnerConfig"`
 	TransactionOptions     solana.TxnOptionsOutput `pulumi:"transactionOptions"`
+	Triggers               pulumi.ArrayOutput      `pulumi:"triggers"`
 }
 
 // NewTransfer registers a new resource with the given unique name, arguments, and options.
@@ -46,6 +47,10 @@ func NewTransfer(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'TransactionOptions'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Transfer
 	err := ctx.RegisterResource("svmkit:account:Transfer", name, args, &resource, opts...)
@@ -85,6 +90,7 @@ type transferArgs struct {
 	RecipientPubkey        string            `pulumi:"recipientPubkey"`
 	RunnerConfig           *runner.Config    `pulumi:"runnerConfig"`
 	TransactionOptions     solana.TxnOptions `pulumi:"transactionOptions"`
+	Triggers               []interface{}     `pulumi:"triggers"`
 }
 
 // The set of arguments for constructing a Transfer resource.
@@ -95,6 +101,7 @@ type TransferArgs struct {
 	RecipientPubkey        pulumi.StringInput
 	RunnerConfig           runner.ConfigPtrInput
 	TransactionOptions     solana.TxnOptionsInput
+	Triggers               pulumi.ArrayInput
 }
 
 func (TransferArgs) ElementType() reflect.Type {
@@ -156,6 +163,10 @@ func (o TransferOutput) RunnerConfig() runner.ConfigPtrOutput {
 
 func (o TransferOutput) TransactionOptions() solana.TxnOptionsOutput {
 	return o.ApplyT(func(v *Transfer) solana.TxnOptionsOutput { return v.TransactionOptions }).(solana.TxnOptionsOutput)
+}
+
+func (o TransferOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Transfer) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func init() {

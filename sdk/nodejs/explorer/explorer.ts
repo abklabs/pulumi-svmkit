@@ -42,6 +42,7 @@ export class Explorer extends pulumi.CustomResource {
     public readonly name!: pulumi.Output<string | undefined>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly symbol!: pulumi.Output<string | undefined>;
+    public readonly triggers!: pulumi.Output<any[] | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
     /**
@@ -72,6 +73,7 @@ export class Explorer extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["symbol"] = args ? args.symbol : undefined;
+            resourceInputs["triggers"] = args ? args.triggers : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
         } else {
             resourceInputs["RPCURL"] = undefined /*out*/;
@@ -82,9 +84,12 @@ export class Explorer extends pulumi.CustomResource {
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["symbol"] = undefined /*out*/;
+            resourceInputs["triggers"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Explorer.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -101,5 +106,6 @@ export interface ExplorerArgs {
     name?: pulumi.Input<string>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     symbol?: pulumi.Input<string>;
+    triggers?: pulumi.Input<any[]>;
     version?: pulumi.Input<string>;
 }

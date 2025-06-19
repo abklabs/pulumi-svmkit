@@ -20,6 +20,7 @@ type Firewall struct {
 	Connection   ssh.ConnectionOutput   `pulumi:"connection"`
 	Params       FirewallParamsOutput   `pulumi:"params"`
 	RunnerConfig runner.ConfigPtrOutput `pulumi:"runnerConfig"`
+	Triggers     pulumi.ArrayOutput     `pulumi:"triggers"`
 }
 
 // NewFirewall registers a new resource with the given unique name, arguments, and options.
@@ -36,6 +37,10 @@ func NewFirewall(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'Params'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Firewall
 	err := ctx.RegisterResource("svmkit:firewall:Firewall", name, args, &resource, opts...)
@@ -72,6 +77,7 @@ type firewallArgs struct {
 	Connection   ssh.Connection `pulumi:"connection"`
 	Params       FirewallParams `pulumi:"params"`
 	RunnerConfig *runner.Config `pulumi:"runnerConfig"`
+	Triggers     []interface{}  `pulumi:"triggers"`
 }
 
 // The set of arguments for constructing a Firewall resource.
@@ -79,6 +85,7 @@ type FirewallArgs struct {
 	Connection   ssh.ConnectionInput
 	Params       FirewallParamsInput
 	RunnerConfig runner.ConfigPtrInput
+	Triggers     pulumi.ArrayInput
 }
 
 func (FirewallArgs) ElementType() reflect.Type {
@@ -128,6 +135,10 @@ func (o FirewallOutput) Params() FirewallParamsOutput {
 
 func (o FirewallOutput) RunnerConfig() runner.ConfigPtrOutput {
 	return o.ApplyT(func(v *Firewall) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
+}
+
+func (o FirewallOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Firewall) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func init() {

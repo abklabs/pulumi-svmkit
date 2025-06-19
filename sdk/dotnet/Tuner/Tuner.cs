@@ -22,6 +22,9 @@ namespace ABKLabs.Svmkit.Tuner
         [Output("runnerConfig")]
         public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
 
+        [Output("triggers")]
+        public Output<ImmutableArray<object>> Triggers { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a Tuner resource with the given unique name, arguments, and options.
@@ -46,6 +49,10 @@ namespace ABKLabs.Svmkit.Tuner
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/abklabs",
+                ReplaceOnChanges =
+                {
+                    "triggers[*]",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -76,6 +83,14 @@ namespace ABKLabs.Svmkit.Tuner
 
         [Input("runnerConfig")]
         public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
+
+        [Input("triggers")]
+        private InputList<object>? _triggers;
+        public InputList<object> Triggers
+        {
+            get => _triggers ?? (_triggers = new InputList<object>());
+            set => _triggers = value;
+        }
 
         public TunerArgs()
         {

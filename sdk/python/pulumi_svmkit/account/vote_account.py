@@ -28,7 +28,8 @@ class VoteAccountArgs:
                  key_pairs: pulumi.Input['_solana.VoteAccountKeyPairsArgs'],
                  auth_voter_pubkey: Optional[pulumi.Input[builtins.str]] = None,
                  close_recipient_pubkey: Optional[pulumi.Input[builtins.str]] = None,
-                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None):
         """
         The set of arguments for constructing a VoteAccount resource.
         """
@@ -40,6 +41,8 @@ class VoteAccountArgs:
             pulumi.set(__self__, "close_recipient_pubkey", close_recipient_pubkey)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
 
     @property
     @pulumi.getter
@@ -86,6 +89,15 @@ class VoteAccountArgs:
     def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
         pulumi.set(self, "runner_config", value)
 
+    @property
+    @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
 
 @pulumi.type_token("svmkit:account:VoteAccount")
 class VoteAccount(pulumi.CustomResource):
@@ -98,6 +110,7 @@ class VoteAccount(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_solana.VoteAccountKeyPairsArgs', '_solana.VoteAccountKeyPairsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         """
         Create a VoteAccount resource with the given unique name, props, and options.
@@ -132,6 +145,7 @@ class VoteAccount(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_solana.VoteAccountKeyPairsArgs', '_solana.VoteAccountKeyPairsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -150,6 +164,9 @@ class VoteAccount(pulumi.CustomResource):
                 raise TypeError("Missing required property 'key_pairs'")
             __props__.__dict__["key_pairs"] = key_pairs
             __props__.__dict__["runner_config"] = runner_config
+            __props__.__dict__["triggers"] = triggers
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(VoteAccount, __self__).__init__(
             'svmkit:account:VoteAccount',
             resource_name,
@@ -177,6 +194,7 @@ class VoteAccount(pulumi.CustomResource):
         __props__.__dict__["connection"] = None
         __props__.__dict__["key_pairs"] = None
         __props__.__dict__["runner_config"] = None
+        __props__.__dict__["triggers"] = None
         return VoteAccount(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -203,4 +221,9 @@ class VoteAccount(pulumi.CustomResource):
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
         return pulumi.get(self, "runner_config")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 

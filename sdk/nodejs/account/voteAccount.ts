@@ -39,6 +39,7 @@ export class VoteAccount extends pulumi.CustomResource {
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly keyPairs!: pulumi.Output<outputs.solana.VoteAccountKeyPairs>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
+    public readonly triggers!: pulumi.Output<any[] | undefined>;
 
     /**
      * Create a VoteAccount resource with the given unique name, arguments, and options.
@@ -62,14 +63,18 @@ export class VoteAccount extends pulumi.CustomResource {
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
+            resourceInputs["triggers"] = args ? args.triggers : undefined;
         } else {
             resourceInputs["authVoterPubkey"] = undefined /*out*/;
             resourceInputs["closeRecipientPubkey"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
+            resourceInputs["triggers"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(VoteAccount.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -83,4 +88,5 @@ export interface VoteAccountArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     keyPairs: pulumi.Input<inputs.solana.VoteAccountKeyPairsArgs>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
+    triggers?: pulumi.Input<any[]>;
 }

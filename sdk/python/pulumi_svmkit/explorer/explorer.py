@@ -34,6 +34,7 @@ class ExplorerArgs:
                  name: Optional[pulumi.Input[builtins.str]] = None,
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  symbol: Optional[pulumi.Input[builtins.str]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None):
         """
         The set of arguments for constructing a Explorer resource.
@@ -51,6 +52,8 @@ class ExplorerArgs:
             pulumi.set(__self__, "runner_config", runner_config)
         if symbol is not None:
             pulumi.set(__self__, "symbol", symbol)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -128,6 +131,15 @@ class ExplorerArgs:
 
     @property
     @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
+    @property
+    @pulumi.getter
     def version(self) -> Optional[pulumi.Input[builtins.str]]:
         return pulumi.get(self, "version")
 
@@ -150,6 +162,7 @@ class Explorer(pulumi.CustomResource):
                  name: Optional[pulumi.Input[builtins.str]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  symbol: Optional[pulumi.Input[builtins.str]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
         """
@@ -188,6 +201,7 @@ class Explorer(pulumi.CustomResource):
                  name: Optional[pulumi.Input[builtins.str]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  symbol: Optional[pulumi.Input[builtins.str]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -212,7 +226,10 @@ class Explorer(pulumi.CustomResource):
             __props__.__dict__["name"] = name
             __props__.__dict__["runner_config"] = runner_config
             __props__.__dict__["symbol"] = symbol
+            __props__.__dict__["triggers"] = triggers
             __props__.__dict__["version"] = version
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Explorer, __self__).__init__(
             'svmkit:explorer:Explorer',
             resource_name,
@@ -243,6 +260,7 @@ class Explorer(pulumi.CustomResource):
         __props__.__dict__["name"] = None
         __props__.__dict__["runner_config"] = None
         __props__.__dict__["symbol"] = None
+        __props__.__dict__["triggers"] = None
         __props__.__dict__["version"] = None
         return Explorer(resource_name, opts=opts, __props__=__props__)
 
@@ -285,6 +303,11 @@ class Explorer(pulumi.CustomResource):
     @pulumi.getter
     def symbol(self) -> pulumi.Output[Optional[builtins.str]]:
         return pulumi.get(self, "symbol")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 
     @property
     @pulumi.getter

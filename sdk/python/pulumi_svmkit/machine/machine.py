@@ -26,7 +26,8 @@ class MachineArgs:
     def __init__(__self__, *,
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  apt_config: Optional[pulumi.Input['_apt.ConfigArgs']] = None,
-                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None):
         """
         The set of arguments for constructing a Machine resource.
         """
@@ -35,6 +36,8 @@ class MachineArgs:
             pulumi.set(__self__, "apt_config", apt_config)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
 
     @property
     @pulumi.getter
@@ -63,6 +66,15 @@ class MachineArgs:
     def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
         pulumi.set(self, "runner_config", value)
 
+    @property
+    @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
 
 @pulumi.type_token("svmkit:machine:Machine")
 class Machine(pulumi.CustomResource):
@@ -73,6 +85,7 @@ class Machine(pulumi.CustomResource):
                  apt_config: Optional[pulumi.Input[Union['_apt.ConfigArgs', '_apt.ConfigArgsDict']]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         """
         Create a Machine resource with the given unique name, props, and options.
@@ -105,6 +118,7 @@ class Machine(pulumi.CustomResource):
                  apt_config: Optional[pulumi.Input[Union['_apt.ConfigArgs', '_apt.ConfigArgsDict']]] = None,
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -119,6 +133,9 @@ class Machine(pulumi.CustomResource):
                 raise TypeError("Missing required property 'connection'")
             __props__.__dict__["connection"] = connection
             __props__.__dict__["runner_config"] = runner_config
+            __props__.__dict__["triggers"] = triggers
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Machine, __self__).__init__(
             'svmkit:machine:Machine',
             resource_name,
@@ -144,6 +161,7 @@ class Machine(pulumi.CustomResource):
         __props__.__dict__["apt_config"] = None
         __props__.__dict__["connection"] = None
         __props__.__dict__["runner_config"] = None
+        __props__.__dict__["triggers"] = None
         return Machine(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -160,4 +178,9 @@ class Machine(pulumi.CustomResource):
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
         return pulumi.get(self, "runner_config")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 

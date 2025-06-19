@@ -23,6 +23,7 @@ type StakeAccount struct {
 	KeyPairs           solana.StakeAccountKeyPairsOutput `pulumi:"keyPairs"`
 	RunnerConfig       runner.ConfigPtrOutput            `pulumi:"runnerConfig"`
 	TransactionOptions solana.TxnOptionsOutput           `pulumi:"transactionOptions"`
+	Triggers           pulumi.ArrayOutput                `pulumi:"triggers"`
 }
 
 // NewStakeAccount registers a new resource with the given unique name, arguments, and options.
@@ -45,6 +46,10 @@ func NewStakeAccount(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'TransactionOptions'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource StakeAccount
 	err := ctx.RegisterResource("svmkit:account:StakeAccount", name, args, &resource, opts...)
@@ -83,6 +88,7 @@ type stakeAccountArgs struct {
 	KeyPairs           solana.StakeAccountKeyPairs `pulumi:"keyPairs"`
 	RunnerConfig       *runner.Config              `pulumi:"runnerConfig"`
 	TransactionOptions solana.TxnOptions           `pulumi:"transactionOptions"`
+	Triggers           []interface{}               `pulumi:"triggers"`
 }
 
 // The set of arguments for constructing a StakeAccount resource.
@@ -92,6 +98,7 @@ type StakeAccountArgs struct {
 	KeyPairs           solana.StakeAccountKeyPairsInput
 	RunnerConfig       runner.ConfigPtrInput
 	TransactionOptions solana.TxnOptionsInput
+	Triggers           pulumi.ArrayInput
 }
 
 func (StakeAccountArgs) ElementType() reflect.Type {
@@ -149,6 +156,10 @@ func (o StakeAccountOutput) RunnerConfig() runner.ConfigPtrOutput {
 
 func (o StakeAccountOutput) TransactionOptions() solana.TxnOptionsOutput {
 	return o.ApplyT(func(v *StakeAccount) solana.TxnOptionsOutput { return v.TransactionOptions }).(solana.TxnOptionsOutput)
+}
+
+func (o StakeAccountOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *StakeAccount) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func init() {

@@ -28,7 +28,8 @@ class StakeAccountArgs:
                  connection: pulumi.Input['_ssh.ConnectionArgs'],
                  key_pairs: pulumi.Input['_solana.StakeAccountKeyPairsArgs'],
                  transaction_options: pulumi.Input['_solana.TxnOptionsArgs'],
-                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None):
         """
         The set of arguments for constructing a StakeAccount resource.
         """
@@ -38,6 +39,8 @@ class StakeAccountArgs:
         pulumi.set(__self__, "transaction_options", transaction_options)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
 
     @property
     @pulumi.getter
@@ -84,6 +87,15 @@ class StakeAccountArgs:
     def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
         pulumi.set(self, "runner_config", value)
 
+    @property
+    @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
 
 @pulumi.type_token("svmkit:account:StakeAccount")
 class StakeAccount(pulumi.CustomResource):
@@ -96,6 +108,7 @@ class StakeAccount(pulumi.CustomResource):
                  key_pairs: Optional[pulumi.Input[Union['_solana.StakeAccountKeyPairsArgs', '_solana.StakeAccountKeyPairsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         """
         Create a StakeAccount resource with the given unique name, props, and options.
@@ -130,6 +143,7 @@ class StakeAccount(pulumi.CustomResource):
                  key_pairs: Optional[pulumi.Input[Union['_solana.StakeAccountKeyPairsArgs', '_solana.StakeAccountKeyPairsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -152,6 +166,9 @@ class StakeAccount(pulumi.CustomResource):
             if transaction_options is None and not opts.urn:
                 raise TypeError("Missing required property 'transaction_options'")
             __props__.__dict__["transaction_options"] = transaction_options
+            __props__.__dict__["triggers"] = triggers
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(StakeAccount, __self__).__init__(
             'svmkit:account:StakeAccount',
             resource_name,
@@ -179,6 +196,7 @@ class StakeAccount(pulumi.CustomResource):
         __props__.__dict__["key_pairs"] = None
         __props__.__dict__["runner_config"] = None
         __props__.__dict__["transaction_options"] = None
+        __props__.__dict__["triggers"] = None
         return StakeAccount(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -205,4 +223,9 @@ class StakeAccount(pulumi.CustomResource):
     @pulumi.getter(name="transactionOptions")
     def transaction_options(self) -> pulumi.Output['_solana.outputs.TxnOptions']:
         return pulumi.get(self, "transaction_options")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 

@@ -27,6 +27,7 @@ type Firedancer struct {
 	KeyPairs           firedancer.KeyPairsOutput   `pulumi:"keyPairs"`
 	RunnerConfig       runner.ConfigPtrOutput      `pulumi:"runnerConfig"`
 	SystemdServiceName pulumi.StringOutput         `pulumi:"systemdServiceName"`
+	Triggers           pulumi.ArrayOutput          `pulumi:"triggers"`
 	Variant            firedancer.VariantPtrOutput `pulumi:"variant"`
 	Version            pulumi.StringPtrOutput      `pulumi:"version"`
 }
@@ -48,6 +49,10 @@ func NewFiredancer(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'KeyPairs'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Firedancer
 	err := ctx.RegisterResource("svmkit:validator:Firedancer", name, args, &resource, opts...)
@@ -87,6 +92,7 @@ type firedancerArgs struct {
 	Environment    *solana.Environment `pulumi:"environment"`
 	KeyPairs       firedancer.KeyPairs `pulumi:"keyPairs"`
 	RunnerConfig   *runner.Config      `pulumi:"runnerConfig"`
+	Triggers       []interface{}       `pulumi:"triggers"`
 	Variant        *firedancer.Variant `pulumi:"variant"`
 	Version        *string             `pulumi:"version"`
 }
@@ -99,6 +105,7 @@ type FiredancerArgs struct {
 	Environment    solana.EnvironmentPtrInput
 	KeyPairs       firedancer.KeyPairsInput
 	RunnerConfig   runner.ConfigPtrInput
+	Triggers       pulumi.ArrayInput
 	Variant        firedancer.VariantPtrInput
 	Version        pulumi.StringPtrInput
 }
@@ -166,6 +173,10 @@ func (o FiredancerOutput) RunnerConfig() runner.ConfigPtrOutput {
 
 func (o FiredancerOutput) SystemdServiceName() pulumi.StringOutput {
 	return o.ApplyT(func(v *Firedancer) pulumi.StringOutput { return v.SystemdServiceName }).(pulumi.StringOutput)
+}
+
+func (o FiredancerOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Firedancer) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func (o FiredancerOutput) Variant() firedancer.VariantPtrOutput {

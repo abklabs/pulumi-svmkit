@@ -47,6 +47,7 @@ export class Agave extends pulumi.CustomResource {
     public readonly startupPolicy!: pulumi.Output<outputs.agave.StartupPolicy | undefined>;
     public /*out*/ readonly systemdServiceName!: pulumi.Output<string>;
     public readonly timeoutConfig!: pulumi.Output<outputs.agave.TimeoutConfig | undefined>;
+    public readonly triggers!: pulumi.Output<any[] | undefined>;
     public readonly variant!: pulumi.Output<enums.agave.Variant | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
@@ -82,6 +83,7 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["shutdownPolicy"] = args ? args.shutdownPolicy : undefined;
             resourceInputs["startupPolicy"] = args ? args.startupPolicy : undefined;
             resourceInputs["timeoutConfig"] = args ? args.timeoutConfig : undefined;
+            resourceInputs["triggers"] = args ? args.triggers : undefined;
             resourceInputs["variant"] = args ? args.variant : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
             resourceInputs["systemdServiceName"] = undefined /*out*/;
@@ -99,10 +101,13 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["startupPolicy"] = undefined /*out*/;
             resourceInputs["systemdServiceName"] = undefined /*out*/;
             resourceInputs["timeoutConfig"] = undefined /*out*/;
+            resourceInputs["triggers"] = undefined /*out*/;
             resourceInputs["variant"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Agave.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -123,6 +128,7 @@ export interface AgaveArgs {
     shutdownPolicy?: pulumi.Input<inputs.agave.ShutdownPolicyArgs>;
     startupPolicy?: pulumi.Input<inputs.agave.StartupPolicyArgs>;
     timeoutConfig?: pulumi.Input<inputs.agave.TimeoutConfigArgs>;
+    triggers?: pulumi.Input<any[]>;
     variant?: pulumi.Input<enums.agave.Variant>;
     version?: pulumi.Input<string>;
 }

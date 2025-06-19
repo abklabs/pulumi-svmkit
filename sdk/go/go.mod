@@ -2,11 +2,11 @@ module github.com/abklabs/pulumi-svmkit/sdk/go
 
 go 1.23.0
 
-toolchain go1.24.3
+toolchain go1.24.4
 
 require (
 	github.com/blang/semver v3.5.1+incompatible
-	github.com/pulumi/pulumi/sdk/v3 v3.176.0
+	github.com/pulumi/pulumi/sdk/v3 v3.177.0
 )
 
 require (

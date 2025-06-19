@@ -25,6 +25,9 @@ namespace ABKLabs.Svmkit.Faucet
         [Output("runnerConfig")]
         public Output<ABKLabs.Svmkit.Runner.Outputs.Config?> RunnerConfig { get; private set; } = null!;
 
+        [Output("triggers")]
+        public Output<ImmutableArray<object>> Triggers { get; private set; } = null!;
+
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
 
@@ -55,6 +58,10 @@ namespace ABKLabs.Svmkit.Faucet
                 AdditionalSecretOutputs =
                 {
                     "keypair",
+                },
+                ReplaceOnChanges =
+                {
+                    "triggers[*]",
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -98,6 +105,14 @@ namespace ABKLabs.Svmkit.Faucet
 
         [Input("runnerConfig")]
         public Input<ABKLabs.Svmkit.Runner.Inputs.ConfigArgs>? RunnerConfig { get; set; }
+
+        [Input("triggers")]
+        private InputList<object>? _triggers;
+        public InputList<object> Triggers
+        {
+            get => _triggers ?? (_triggers = new InputList<object>());
+            set => _triggers = value;
+        }
 
         [Input("version")]
         public Input<string>? Version { get; set; }

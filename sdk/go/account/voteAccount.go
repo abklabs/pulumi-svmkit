@@ -23,6 +23,7 @@ type VoteAccount struct {
 	Connection           ssh.ConnectionOutput             `pulumi:"connection"`
 	KeyPairs             solana.VoteAccountKeyPairsOutput `pulumi:"keyPairs"`
 	RunnerConfig         runner.ConfigPtrOutput           `pulumi:"runnerConfig"`
+	Triggers             pulumi.ArrayOutput               `pulumi:"triggers"`
 }
 
 // NewVoteAccount registers a new resource with the given unique name, arguments, and options.
@@ -39,6 +40,10 @@ func NewVoteAccount(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'KeyPairs'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource VoteAccount
 	err := ctx.RegisterResource("svmkit:account:VoteAccount", name, args, &resource, opts...)
@@ -77,6 +82,7 @@ type voteAccountArgs struct {
 	Connection           ssh.Connection             `pulumi:"connection"`
 	KeyPairs             solana.VoteAccountKeyPairs `pulumi:"keyPairs"`
 	RunnerConfig         *runner.Config             `pulumi:"runnerConfig"`
+	Triggers             []interface{}              `pulumi:"triggers"`
 }
 
 // The set of arguments for constructing a VoteAccount resource.
@@ -86,6 +92,7 @@ type VoteAccountArgs struct {
 	Connection           ssh.ConnectionInput
 	KeyPairs             solana.VoteAccountKeyPairsInput
 	RunnerConfig         runner.ConfigPtrInput
+	Triggers             pulumi.ArrayInput
 }
 
 func (VoteAccountArgs) ElementType() reflect.Type {
@@ -143,6 +150,10 @@ func (o VoteAccountOutput) KeyPairs() solana.VoteAccountKeyPairsOutput {
 
 func (o VoteAccountOutput) RunnerConfig() runner.ConfigPtrOutput {
 	return o.ApplyT(func(v *VoteAccount) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
+}
+
+func (o VoteAccountOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *VoteAccount) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func init() {

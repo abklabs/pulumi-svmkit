@@ -29,7 +29,8 @@ class TransferArgs:
                  recipient_pubkey: pulumi.Input[builtins.str],
                  transaction_options: pulumi.Input['_solana.TxnOptionsArgs'],
                  allow_unfunded_recipient: Optional[pulumi.Input[builtins.bool]] = None,
-                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None):
         """
         The set of arguments for constructing a Transfer resource.
         """
@@ -41,6 +42,8 @@ class TransferArgs:
             pulumi.set(__self__, "allow_unfunded_recipient", allow_unfunded_recipient)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
 
     @property
     @pulumi.getter
@@ -96,6 +99,15 @@ class TransferArgs:
     def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
         pulumi.set(self, "runner_config", value)
 
+    @property
+    @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
 
 @pulumi.type_token("svmkit:account:Transfer")
 class Transfer(pulumi.CustomResource):
@@ -109,6 +121,7 @@ class Transfer(pulumi.CustomResource):
                  recipient_pubkey: Optional[pulumi.Input[builtins.str]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         """
         Create a Transfer resource with the given unique name, props, and options.
@@ -144,6 +157,7 @@ class Transfer(pulumi.CustomResource):
                  recipient_pubkey: Optional[pulumi.Input[builtins.str]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  transaction_options: Optional[pulumi.Input[Union['_solana.TxnOptionsArgs', '_solana.TxnOptionsArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -167,6 +181,9 @@ class Transfer(pulumi.CustomResource):
             if transaction_options is None and not opts.urn:
                 raise TypeError("Missing required property 'transaction_options'")
             __props__.__dict__["transaction_options"] = transaction_options
+            __props__.__dict__["triggers"] = triggers
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Transfer, __self__).__init__(
             'svmkit:account:Transfer',
             resource_name,
@@ -195,6 +212,7 @@ class Transfer(pulumi.CustomResource):
         __props__.__dict__["recipient_pubkey"] = None
         __props__.__dict__["runner_config"] = None
         __props__.__dict__["transaction_options"] = None
+        __props__.__dict__["triggers"] = None
         return Transfer(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -226,4 +244,9 @@ class Transfer(pulumi.CustomResource):
     @pulumi.getter(name="transactionOptions")
     def transaction_options(self) -> pulumi.Output['_solana.outputs.TxnOptions']:
         return pulumi.get(self, "transaction_options")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 

@@ -29,6 +29,7 @@ class FaucetArgs:
                  flags: pulumi.Input['FaucetFlagsArgs'],
                  keypair: pulumi.Input[builtins.str],
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None):
         """
         The set of arguments for constructing a Faucet resource.
@@ -38,6 +39,8 @@ class FaucetArgs:
         pulumi.set(__self__, "keypair", keypair)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -79,6 +82,15 @@ class FaucetArgs:
 
     @property
     @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
+    @property
+    @pulumi.getter
     def version(self) -> Optional[pulumi.Input[builtins.str]]:
         return pulumi.get(self, "version")
 
@@ -97,6 +109,7 @@ class Faucet(pulumi.CustomResource):
                  flags: Optional[pulumi.Input[Union['FaucetFlagsArgs', 'FaucetFlagsArgsDict']]] = None,
                  keypair: Optional[pulumi.Input[builtins.str]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
         """
@@ -131,6 +144,7 @@ class Faucet(pulumi.CustomResource):
                  flags: Optional[pulumi.Input[Union['FaucetFlagsArgs', 'FaucetFlagsArgsDict']]] = None,
                  keypair: Optional[pulumi.Input[builtins.str]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -151,9 +165,12 @@ class Faucet(pulumi.CustomResource):
                 raise TypeError("Missing required property 'keypair'")
             __props__.__dict__["keypair"] = None if keypair is None else pulumi.Output.secret(keypair)
             __props__.__dict__["runner_config"] = runner_config
+            __props__.__dict__["triggers"] = triggers
             __props__.__dict__["version"] = version
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["keypair"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Faucet, __self__).__init__(
             'svmkit:faucet:Faucet',
             resource_name,
@@ -180,6 +197,7 @@ class Faucet(pulumi.CustomResource):
         __props__.__dict__["flags"] = None
         __props__.__dict__["keypair"] = None
         __props__.__dict__["runner_config"] = None
+        __props__.__dict__["triggers"] = None
         __props__.__dict__["version"] = None
         return Faucet(resource_name, opts=opts, __props__=__props__)
 
@@ -202,6 +220,11 @@ class Faucet(pulumi.CustomResource):
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
         return pulumi.get(self, "runner_config")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 
     @property
     @pulumi.getter

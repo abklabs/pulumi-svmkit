@@ -30,7 +30,8 @@ class WatchtowerArgs:
                  environment: pulumi.Input['_solana.EnvironmentArgs'],
                  flags: pulumi.Input['WatchtowerFlagsArgs'],
                  notifications: pulumi.Input['NotificationConfigArgs'],
-                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None):
+                 runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None):
         """
         The set of arguments for constructing a Watchtower resource.
         """
@@ -40,6 +41,8 @@ class WatchtowerArgs:
         pulumi.set(__self__, "notifications", notifications)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
 
     @property
     @pulumi.getter
@@ -86,6 +89,15 @@ class WatchtowerArgs:
     def runner_config(self, value: Optional[pulumi.Input['_runner.ConfigArgs']]):
         pulumi.set(self, "runner_config", value)
 
+    @property
+    @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
 
 @pulumi.type_token("svmkit:watchtower:Watchtower")
 class Watchtower(pulumi.CustomResource):
@@ -98,6 +110,7 @@ class Watchtower(pulumi.CustomResource):
                  flags: Optional[pulumi.Input[Union['WatchtowerFlagsArgs', 'WatchtowerFlagsArgsDict']]] = None,
                  notifications: Optional[pulumi.Input[Union['NotificationConfigArgs', 'NotificationConfigArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         """
         Create a Watchtower resource with the given unique name, props, and options.
@@ -132,6 +145,7 @@ class Watchtower(pulumi.CustomResource):
                  flags: Optional[pulumi.Input[Union['WatchtowerFlagsArgs', 'WatchtowerFlagsArgsDict']]] = None,
                  notifications: Optional[pulumi.Input[Union['NotificationConfigArgs', 'NotificationConfigArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -154,6 +168,9 @@ class Watchtower(pulumi.CustomResource):
                 raise TypeError("Missing required property 'notifications'")
             __props__.__dict__["notifications"] = notifications
             __props__.__dict__["runner_config"] = runner_config
+            __props__.__dict__["triggers"] = triggers
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Watchtower, __self__).__init__(
             'svmkit:watchtower:Watchtower',
             resource_name,
@@ -181,6 +198,7 @@ class Watchtower(pulumi.CustomResource):
         __props__.__dict__["flags"] = None
         __props__.__dict__["notifications"] = None
         __props__.__dict__["runner_config"] = None
+        __props__.__dict__["triggers"] = None
         return Watchtower(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -207,4 +225,9 @@ class Watchtower(pulumi.CustomResource):
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> pulumi.Output[Optional['_runner.outputs.Config']]:
         return pulumi.get(self, "runner_config")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 

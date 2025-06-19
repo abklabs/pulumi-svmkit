@@ -26,6 +26,7 @@ type Explorer struct {
 	Name         pulumi.StringPtrOutput   `pulumi:"name"`
 	RunnerConfig runner.ConfigPtrOutput   `pulumi:"runnerConfig"`
 	Symbol       pulumi.StringPtrOutput   `pulumi:"symbol"`
+	Triggers     pulumi.ArrayOutput       `pulumi:"triggers"`
 	Version      pulumi.StringPtrOutput   `pulumi:"version"`
 }
 
@@ -46,6 +47,10 @@ func NewExplorer(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'Flags'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Explorer
 	err := ctx.RegisterResource("svmkit:explorer:Explorer", name, args, &resource, opts...)
@@ -87,6 +92,7 @@ type explorerArgs struct {
 	Name         *string            `pulumi:"name"`
 	RunnerConfig *runner.Config     `pulumi:"runnerConfig"`
 	Symbol       *string            `pulumi:"symbol"`
+	Triggers     []interface{}      `pulumi:"triggers"`
 	Version      *string            `pulumi:"version"`
 }
 
@@ -100,6 +106,7 @@ type ExplorerArgs struct {
 	Name         pulumi.StringPtrInput
 	RunnerConfig runner.ConfigPtrInput
 	Symbol       pulumi.StringPtrInput
+	Triggers     pulumi.ArrayInput
 	Version      pulumi.StringPtrInput
 }
 
@@ -170,6 +177,10 @@ func (o ExplorerOutput) RunnerConfig() runner.ConfigPtrOutput {
 
 func (o ExplorerOutput) Symbol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Explorer) pulumi.StringPtrOutput { return v.Symbol }).(pulumi.StringPtrOutput)
+}
+
+func (o ExplorerOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Explorer) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func (o ExplorerOutput) Version() pulumi.StringPtrOutput {

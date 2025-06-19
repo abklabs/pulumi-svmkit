@@ -33,6 +33,7 @@ class FiredancerArgs:
                  deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  environment: Optional[pulumi.Input['_solana.EnvironmentArgs']] = None,
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  variant: Optional[pulumi.Input['firedancer.Variant']] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None):
         """
@@ -47,6 +48,8 @@ class FiredancerArgs:
             pulumi.set(__self__, "environment", environment)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
         if variant is not None:
             pulumi.set(__self__, "variant", variant)
         if version is not None:
@@ -108,6 +111,15 @@ class FiredancerArgs:
 
     @property
     @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
+    @property
+    @pulumi.getter
     def variant(self) -> Optional[pulumi.Input['firedancer.Variant']]:
         return pulumi.get(self, "variant")
 
@@ -137,6 +149,7 @@ class Firedancer(pulumi.CustomResource):
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_firedancer.KeyPairsArgs', '_firedancer.KeyPairsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  variant: Optional[pulumi.Input['firedancer.Variant']] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
@@ -174,6 +187,7 @@ class Firedancer(pulumi.CustomResource):
                  environment: Optional[pulumi.Input[Union['_solana.EnvironmentArgs', '_solana.EnvironmentArgsDict']]] = None,
                  key_pairs: Optional[pulumi.Input[Union['_firedancer.KeyPairsArgs', '_firedancer.KeyPairsArgsDict']]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  variant: Optional[pulumi.Input['firedancer.Variant']] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
@@ -197,9 +211,12 @@ class Firedancer(pulumi.CustomResource):
                 raise TypeError("Missing required property 'key_pairs'")
             __props__.__dict__["key_pairs"] = key_pairs
             __props__.__dict__["runner_config"] = runner_config
+            __props__.__dict__["triggers"] = triggers
             __props__.__dict__["variant"] = variant
             __props__.__dict__["version"] = version
             __props__.__dict__["systemd_service_name"] = None
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Firedancer, __self__).__init__(
             'svmkit:validator:Firedancer',
             resource_name,
@@ -229,6 +246,7 @@ class Firedancer(pulumi.CustomResource):
         __props__.__dict__["key_pairs"] = None
         __props__.__dict__["runner_config"] = None
         __props__.__dict__["systemd_service_name"] = None
+        __props__.__dict__["triggers"] = None
         __props__.__dict__["variant"] = None
         __props__.__dict__["version"] = None
         return Firedancer(resource_name, opts=opts, __props__=__props__)
@@ -267,6 +285,11 @@ class Firedancer(pulumi.CustomResource):
     @pulumi.getter(name="systemdServiceName")
     def systemd_service_name(self) -> pulumi.Output[builtins.str]:
         return pulumi.get(self, "systemd_service_name")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 
     @property
     @pulumi.getter

@@ -25,6 +25,7 @@ type Solana struct {
 	GenesisHash    pulumi.StringOutput          `pulumi:"genesisHash"`
 	Primordial     PrimordialAccountArrayOutput `pulumi:"primordial"`
 	RunnerConfig   runner.ConfigPtrOutput       `pulumi:"runnerConfig"`
+	Triggers       pulumi.ArrayOutput           `pulumi:"triggers"`
 	Version        pulumi.StringPtrOutput       `pulumi:"version"`
 }
 
@@ -45,6 +46,10 @@ func NewSolana(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'Primordial'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Solana
 	err := ctx.RegisterResource("svmkit:genesis:Solana", name, args, &resource, opts...)
@@ -84,6 +89,7 @@ type solanaArgs struct {
 	Flags          GenesisFlags        `pulumi:"flags"`
 	Primordial     []PrimordialAccount `pulumi:"primordial"`
 	RunnerConfig   *runner.Config      `pulumi:"runnerConfig"`
+	Triggers       []interface{}       `pulumi:"triggers"`
 	Version        *string             `pulumi:"version"`
 }
 
@@ -95,6 +101,7 @@ type SolanaArgs struct {
 	Flags          GenesisFlagsInput
 	Primordial     PrimordialAccountArrayInput
 	RunnerConfig   runner.ConfigPtrInput
+	Triggers       pulumi.ArrayInput
 	Version        pulumi.StringPtrInput
 }
 
@@ -161,6 +168,10 @@ func (o SolanaOutput) Primordial() PrimordialAccountArrayOutput {
 
 func (o SolanaOutput) RunnerConfig() runner.ConfigPtrOutput {
 	return o.ApplyT(func(v *Solana) runner.ConfigPtrOutput { return v.RunnerConfig }).(runner.ConfigPtrOutput)
+}
+
+func (o SolanaOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Solana) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func (o SolanaOutput) Version() pulumi.StringPtrOutput {

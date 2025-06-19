@@ -40,6 +40,7 @@ class AgaveArgs:
                  shutdown_policy: Optional[pulumi.Input['_agave.ShutdownPolicyArgs']] = None,
                  startup_policy: Optional[pulumi.Input['_agave.StartupPolicyArgs']] = None,
                  timeout_config: Optional[pulumi.Input['_agave.TimeoutConfigArgs']] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  variant: Optional[pulumi.Input['agave.Variant']] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None):
         """
@@ -66,6 +67,8 @@ class AgaveArgs:
             pulumi.set(__self__, "startup_policy", startup_policy)
         if timeout_config is not None:
             pulumi.set(__self__, "timeout_config", timeout_config)
+        if triggers is not None:
+            pulumi.set(__self__, "triggers", triggers)
         if variant is not None:
             pulumi.set(__self__, "variant", variant)
         if version is not None:
@@ -181,6 +184,15 @@ class AgaveArgs:
 
     @property
     @pulumi.getter
+    def triggers(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
+
+    @triggers.setter
+    def triggers(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "triggers", value)
+
+    @property
+    @pulumi.getter
     def variant(self) -> Optional[pulumi.Input['agave.Variant']]:
         return pulumi.get(self, "variant")
 
@@ -216,6 +228,7 @@ class Agave(pulumi.CustomResource):
                  shutdown_policy: Optional[pulumi.Input[Union['_agave.ShutdownPolicyArgs', '_agave.ShutdownPolicyArgsDict']]] = None,
                  startup_policy: Optional[pulumi.Input[Union['_agave.StartupPolicyArgs', '_agave.StartupPolicyArgsDict']]] = None,
                  timeout_config: Optional[pulumi.Input[Union['_agave.TimeoutConfigArgs', '_agave.TimeoutConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  variant: Optional[pulumi.Input['agave.Variant']] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
@@ -259,6 +272,7 @@ class Agave(pulumi.CustomResource):
                  shutdown_policy: Optional[pulumi.Input[Union['_agave.ShutdownPolicyArgs', '_agave.ShutdownPolicyArgsDict']]] = None,
                  startup_policy: Optional[pulumi.Input[Union['_agave.StartupPolicyArgs', '_agave.StartupPolicyArgsDict']]] = None,
                  timeout_config: Optional[pulumi.Input[Union['_agave.TimeoutConfigArgs', '_agave.TimeoutConfigArgsDict']]] = None,
+                 triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  variant: Optional[pulumi.Input['agave.Variant']] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None,
                  __props__=None):
@@ -288,9 +302,12 @@ class Agave(pulumi.CustomResource):
             __props__.__dict__["shutdown_policy"] = shutdown_policy
             __props__.__dict__["startup_policy"] = startup_policy
             __props__.__dict__["timeout_config"] = timeout_config
+            __props__.__dict__["triggers"] = triggers
             __props__.__dict__["variant"] = variant
             __props__.__dict__["version"] = version
             __props__.__dict__["systemd_service_name"] = None
+        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
+        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Agave, __self__).__init__(
             'svmkit:validator:Agave',
             resource_name,
@@ -326,6 +343,7 @@ class Agave(pulumi.CustomResource):
         __props__.__dict__["startup_policy"] = None
         __props__.__dict__["systemd_service_name"] = None
         __props__.__dict__["timeout_config"] = None
+        __props__.__dict__["triggers"] = None
         __props__.__dict__["variant"] = None
         __props__.__dict__["version"] = None
         return Agave(resource_name, opts=opts, __props__=__props__)
@@ -394,6 +412,11 @@ class Agave(pulumi.CustomResource):
     @pulumi.getter(name="timeoutConfig")
     def timeout_config(self) -> pulumi.Output[Optional['_agave.outputs.TimeoutConfig']]:
         return pulumi.get(self, "timeout_config")
+
+    @property
+    @pulumi.getter
+    def triggers(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "triggers")
 
     @property
     @pulumi.getter

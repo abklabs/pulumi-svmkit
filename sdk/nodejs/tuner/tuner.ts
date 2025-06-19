@@ -37,6 +37,7 @@ export class Tuner extends pulumi.CustomResource {
     public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
     public readonly params!: pulumi.Output<outputs.tuner.TunerParams>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
+    public readonly triggers!: pulumi.Output<any[] | undefined>;
 
     /**
      * Create a Tuner resource with the given unique name, arguments, and options.
@@ -58,12 +59,16 @@ export class Tuner extends pulumi.CustomResource {
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["params"] = args ? args.params : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
+            resourceInputs["triggers"] = args ? args.triggers : undefined;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["params"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
+            resourceInputs["triggers"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Tuner.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -75,4 +80,5 @@ export interface TunerArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     params: pulumi.Input<inputs.tuner.TunerParamsArgs>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
+    triggers?: pulumi.Input<any[]>;
 }

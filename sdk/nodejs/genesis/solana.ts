@@ -41,6 +41,7 @@ export class Solana extends pulumi.CustomResource {
     public /*out*/ readonly genesisHash!: pulumi.Output<string>;
     public readonly primordial!: pulumi.Output<outputs.genesis.PrimordialAccount[]>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
+    public readonly triggers!: pulumi.Output<any[] | undefined>;
     public readonly version!: pulumi.Output<string | undefined>;
 
     /**
@@ -69,6 +70,7 @@ export class Solana extends pulumi.CustomResource {
             resourceInputs["flags"] = args ? args.flags : undefined;
             resourceInputs["primordial"] = args ? args.primordial : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
+            resourceInputs["triggers"] = args ? args.triggers : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
             resourceInputs["genesisHash"] = undefined /*out*/;
         } else {
@@ -79,9 +81,12 @@ export class Solana extends pulumi.CustomResource {
             resourceInputs["genesisHash"] = undefined /*out*/;
             resourceInputs["primordial"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
+            resourceInputs["triggers"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Solana.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -96,5 +101,6 @@ export interface SolanaArgs {
     flags: pulumi.Input<inputs.genesis.GenesisFlagsArgs>;
     primordial: pulumi.Input<pulumi.Input<inputs.genesis.PrimordialAccountArgs>[]>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
+    triggers?: pulumi.Input<any[]>;
     version?: pulumi.Input<string>;
 }

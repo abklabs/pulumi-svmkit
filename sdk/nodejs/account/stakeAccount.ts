@@ -39,6 +39,7 @@ export class StakeAccount extends pulumi.CustomResource {
     public readonly keyPairs!: pulumi.Output<outputs.solana.StakeAccountKeyPairs>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly transactionOptions!: pulumi.Output<outputs.solana.TxnOptions>;
+    public readonly triggers!: pulumi.Output<any[] | undefined>;
 
     /**
      * Create a StakeAccount resource with the given unique name, arguments, and options.
@@ -68,14 +69,18 @@ export class StakeAccount extends pulumi.CustomResource {
             resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["transactionOptions"] = args ? args.transactionOptions : undefined;
+            resourceInputs["triggers"] = args ? args.triggers : undefined;
         } else {
             resourceInputs["amount"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["keyPairs"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["transactionOptions"] = undefined /*out*/;
+            resourceInputs["triggers"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(StakeAccount.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -89,4 +94,5 @@ export interface StakeAccountArgs {
     keyPairs: pulumi.Input<inputs.solana.StakeAccountKeyPairsArgs>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     transactionOptions: pulumi.Input<inputs.solana.TxnOptionsArgs>;
+    triggers?: pulumi.Input<any[]>;
 }

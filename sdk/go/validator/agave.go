@@ -34,6 +34,7 @@ type Agave struct {
 	StartupPolicy      agave.StartupPolicyPtrOutput  `pulumi:"startupPolicy"`
 	SystemdServiceName pulumi.StringOutput           `pulumi:"systemdServiceName"`
 	TimeoutConfig      agave.TimeoutConfigPtrOutput  `pulumi:"timeoutConfig"`
+	Triggers           pulumi.ArrayOutput            `pulumi:"triggers"`
 	Variant            agave.VariantPtrOutput        `pulumi:"variant"`
 	Version            pulumi.StringPtrOutput        `pulumi:"version"`
 }
@@ -55,6 +56,10 @@ func NewAgave(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'KeyPairs'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
+	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
+		"triggers[*]",
+	})
+	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Agave
 	err := ctx.RegisterResource("svmkit:validator:Agave", name, args, &resource, opts...)
@@ -100,6 +105,7 @@ type agaveArgs struct {
 	ShutdownPolicy *agave.ShutdownPolicy `pulumi:"shutdownPolicy"`
 	StartupPolicy  *agave.StartupPolicy  `pulumi:"startupPolicy"`
 	TimeoutConfig  *agave.TimeoutConfig  `pulumi:"timeoutConfig"`
+	Triggers       []interface{}         `pulumi:"triggers"`
 	Variant        *agave.Variant        `pulumi:"variant"`
 	Version        *string               `pulumi:"version"`
 }
@@ -118,6 +124,7 @@ type AgaveArgs struct {
 	ShutdownPolicy agave.ShutdownPolicyPtrInput
 	StartupPolicy  agave.StartupPolicyPtrInput
 	TimeoutConfig  agave.TimeoutConfigPtrInput
+	Triggers       pulumi.ArrayInput
 	Variant        agave.VariantPtrInput
 	Version        pulumi.StringPtrInput
 }
@@ -209,6 +216,10 @@ func (o AgaveOutput) SystemdServiceName() pulumi.StringOutput {
 
 func (o AgaveOutput) TimeoutConfig() agave.TimeoutConfigPtrOutput {
 	return o.ApplyT(func(v *Agave) agave.TimeoutConfigPtrOutput { return v.TimeoutConfig }).(agave.TimeoutConfigPtrOutput)
+}
+
+func (o AgaveOutput) Triggers() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Agave) pulumi.ArrayOutput { return v.Triggers }).(pulumi.ArrayOutput)
 }
 
 func (o AgaveOutput) Variant() agave.VariantPtrOutput {
