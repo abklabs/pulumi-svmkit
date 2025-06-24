@@ -70,11 +70,8 @@ build:: provider dotnet_sdk go_sdk nodejs_sdk python_sdk
 
 install:: install_nodejs_sdk install_dotnet_sdk
 
-test_all:: test_provider
-	cd tests/sdk/nodejs && $(GO_TEST) ./...
-	cd tests/sdk/python && $(GO_TEST) ./...
-	cd tests/sdk/dotnet && $(GO_TEST) ./...
-	cd tests/sdk/go && $(GO_TEST) ./...
+test:: provider
+	cd provider && $(GO_TEST) ./...
 
 install_dotnet_sdk::
 	rm -rf $(WORKING_DIR)/nuget/AbkLabs.Svmkit.*.nupkg
@@ -90,3 +87,20 @@ clean::
 
 distclean:: clean
 	$(RM) -r sdk/nodejs/node_modules
+
+lint:
+	(cd provider &&  golangci-lint run --path-prefix ./provider )
+	shfmt -d .githooks/*
+	@diff=$$(gofmt -d provider); \
+	if [ -n "$$diff" ]; then \
+		echo "$$diff"; \
+		echo "Formatting issues found in 'provider'. Run 'gofmt -w provider' to fix."; \
+		exit 1; \
+	fi
+	shellcheck -P .githooks .githooks/*
+
+check: test lint
+
+format:
+	(cd provider && go fmt ./...)
+	shfmt -w .githooks/*
