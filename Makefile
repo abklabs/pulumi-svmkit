@@ -72,11 +72,8 @@ install:: install_nodejs_sdk install_dotnet_sdk
 	mkdir -p ${GOPATH}/bin
 	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin/.
 
-test_all:: test_provider
-	cd tests/sdk/nodejs && $(GO_TEST) ./...
-	cd tests/sdk/python && $(GO_TEST) ./...
-	cd tests/sdk/dotnet && $(GO_TEST) ./...
-	cd tests/sdk/go && $(GO_TEST) ./...
+test_all:: provider
+       cd provider && $(GO_TEST) ./...
 
 install_dotnet_sdk::
 	rm -rf $(WORKING_DIR)/nuget/AbkLabs.Svmkit.*.nupkg
@@ -98,3 +95,14 @@ clean::
 
 distclean:: clean
 	$(RM) -r sdk/nodejs/node_modules
+
+lint:
+	golangci-lint run ./provider/...
+	shfmt -d .githooks/*
+	shellcheck -P .githooks .githooks/*
+
+check: test_all lint
+
+format:
+	(cd provider && go fmt ./...)
+	shfmt -w .githooks/*
