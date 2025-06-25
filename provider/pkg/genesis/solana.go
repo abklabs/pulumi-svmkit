@@ -58,7 +58,9 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 	if err != nil {
 		return "", SolanaState{}, fmt.Errorf("failed to establish SSH connection: %w", err)
 	}
-	defer connection.Close()
+	defer func() {
+		_ = connection.Close()
+	}()
 
 	// Execute the command on the remote machine
 	stdout, stderr, err := ssh.Exec(ctx, connection, "sudo -i -u sol agave-ledger-tool genesis-hash")
@@ -72,7 +74,7 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 }
 
 func (Solana) Update(ctx context.Context, name string, oldState SolanaState, newInput SolanaArgs, preview bool) (SolanaState, error) {
-	return oldState, fmt.Errorf("Genesis configuration may not be modified after initial creation!")
+	return oldState, fmt.Errorf("genesis configuration may not be modified after initial creation")
 }
 
 func (Solana) Delete(ctx context.Context, name string, props SolanaState) error {
