@@ -39,5 +39,5 @@ func (StakeAccount) Create(ctx context.Context, name string, input StakeAccountA
 
 func (StakeAccount) Update(ctx context.Context, name string, old StakeAccountState, new StakeAccountArgs, preview bool) (StakeAccountState, error) {
 	// XXX - Remove this when we support redelegating stake in future.
-	return old, fmt.Errorf("Stake accounts may not be modified after creation!")
+	return old, fmt.Errorf("stake accounts may not be modified after creation")
 }

@@ -38,7 +38,7 @@ func (VoteAccount) Create(ctx context.Context, name string, input VoteAccountArg
 }
 
 func (VoteAccount) Update(ctx context.Context, name string, old VoteAccountState, new VoteAccountArgs, preview bool) (VoteAccountState, error) {
-	return old, fmt.Errorf("Vote accounts may not be modified after creation!")
+	return old, fmt.Errorf("vote accounts may not be modified after creation")
 }
 
 func (VoteAccount) Delete(ctx context.Context, name string, output VoteAccountState) error {

@@ -2,8 +2,9 @@ package genesis
 
 import (
 	"context"
-
+	"errors"
 	"fmt"
+	"io"
 	"strings"
 
 	"github.com/abklabs/pulumi-svmkit/pkg/ssh"
@@ -39,7 +40,7 @@ type SolanaState struct {
 // - The name of the created resource.
 // - The state of the created resource.
 // - An error if the creation fails.
-func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview bool) (string, SolanaState, error) {
+func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview bool) (retName string, retState SolanaState, retErr error) {
 	state := SolanaState{SolanaArgs: input}
 
 	if preview {
@@ -58,7 +59,11 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 	if err != nil {
 		return "", SolanaState{}, fmt.Errorf("failed to establish SSH connection: %w", err)
 	}
-	defer connection.Close()
+	defer func() {
+		if closeErr := connection.Close(); closeErr != io.EOF {
+			retErr = errors.Join(closeErr)
+		}
+	}()
 
 	// Execute the command on the remote machine
 	stdout, stderr, err := ssh.Exec(ctx, connection, "sudo -i -u sol agave-ledger-tool genesis-hash")
@@ -72,7 +77,7 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 }
 
 func (Solana) Update(ctx context.Context, name string, oldState SolanaState, newInput SolanaArgs, preview bool) (SolanaState, error) {
-	return oldState, fmt.Errorf("Genesis configuration may not be modified after initial creation!")
+	return oldState, fmt.Errorf("genesis configuration may not be modified after initial creation")
 }
 
 func (Solana) Delete(ctx context.Context, name string, props SolanaState) error {
