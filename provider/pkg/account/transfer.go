@@ -38,5 +38,5 @@ func (Transfer) Create(ctx context.Context, name string, input TransferArgs, pre
 }
 
 func (Transfer) Update(ctx context.Context, name string, old TransferState, new TransferArgs, preview bool) (TransferState, error) {
-	return old, fmt.Errorf("Transfers are sent once, and may not be modified after creation!")
+	return old, fmt.Errorf("transfers are sent once, and may not be modified after creation")
 }
