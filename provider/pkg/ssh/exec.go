@@ -15,7 +15,9 @@ func Exec(ctx context.Context, client *ssh.Client, command string) (string, stri
 	if err != nil {
 		return "", "", fmt.Errorf("failed to create SSH session: %w", err)
 	}
-	defer execSession.Close()
+	defer func() {
+		_ = execSession.Close()
+	}()
 
 	stdoutPipe, err := execSession.StdoutPipe()
 	if err != nil {
