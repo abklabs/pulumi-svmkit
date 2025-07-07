@@ -40,6 +40,24 @@ func (Firedancer) Create(ctx context.Context, name string, input FiredancerArgs,
 	return name, state, nil
 }
 
+func (Firedancer) Update(ctx context.Context, name string, state FiredancerState, newInput FiredancerArgs, preview bool) (FiredancerState, error) {
+	state.FiredancerArgs = newInput
+
+	if preview {
+		return state, nil
+	}
+
+	fd := newInput.Firedancer
+
+	command := fd.Install()
+
+	if err := utils.RunnerHelper(ctx, newInput.RunnerArgs, command); err != nil {
+		return FiredancerState{}, err
+	}
+
+	return state, nil
+}
+
 func (Firedancer) Delete(ctx context.Context, id string, props FiredancerState) error {
 	fd := props.Firedancer
 
