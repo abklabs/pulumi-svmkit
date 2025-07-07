@@ -169,8 +169,6 @@ class Faucet(pulumi.CustomResource):
             __props__.__dict__["version"] = version
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["keypair"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
-        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
-        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Faucet, __self__).__init__(
             'svmkit:faucet:Faucet',
             resource_name,

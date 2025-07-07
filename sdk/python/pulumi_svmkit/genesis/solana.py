@@ -199,8 +199,6 @@ class Solana(pulumi.CustomResource):
             __props__.__dict__["triggers"] = triggers
             __props__.__dict__["version"] = version
             __props__.__dict__["genesis_hash"] = None
-        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
-        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Solana, __self__).__init__(
             'svmkit:genesis:Solana',
             resource_name,

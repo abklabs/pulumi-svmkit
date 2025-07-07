@@ -46,10 +46,6 @@ func NewWatchtower(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'Notifications'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
-	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
-		"triggers[*]",
-	})
-	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Watchtower
 	err := ctx.RegisterResource("svmkit:watchtower:Watchtower", name, args, &resource, opts...)

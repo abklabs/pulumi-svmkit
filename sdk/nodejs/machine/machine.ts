@@ -64,8 +64,6 @@ export class Machine extends pulumi.CustomResource {
             resourceInputs["triggers"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
-        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Machine.__pulumiType, name, resourceInputs, opts);
     }
 }

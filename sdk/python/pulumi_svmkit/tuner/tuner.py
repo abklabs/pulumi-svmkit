@@ -137,8 +137,6 @@ class Tuner(pulumi.CustomResource):
             __props__.__dict__["params"] = params
             __props__.__dict__["runner_config"] = runner_config
             __props__.__dict__["triggers"] = triggers
-        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
-        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Tuner, __self__).__init__(
             'svmkit:tuner:Tuner',
             resource_name,

@@ -106,8 +106,6 @@ export class Agave extends pulumi.CustomResource {
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
-        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Agave.__pulumiType, name, resourceInputs, opts);
     }
 }

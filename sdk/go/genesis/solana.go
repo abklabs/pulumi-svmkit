@@ -46,10 +46,6 @@ func NewSolana(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'Primordial'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
-	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
-		"triggers[*]",
-	})
-	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Solana
 	err := ctx.RegisterResource("svmkit:genesis:Solana", name, args, &resource, opts...)

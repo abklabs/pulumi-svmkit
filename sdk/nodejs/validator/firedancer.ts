@@ -88,8 +88,6 @@ export class Firedancer extends pulumi.CustomResource {
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
-        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Firedancer.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -306,8 +306,6 @@ class Agave(pulumi.CustomResource):
             __props__.__dict__["variant"] = variant
             __props__.__dict__["version"] = version
             __props__.__dict__["systemd_service_name"] = None
-        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
-        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Agave, __self__).__init__(
             'svmkit:validator:Agave',
             resource_name,

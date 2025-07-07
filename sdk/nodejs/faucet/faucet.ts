@@ -78,8 +78,6 @@ export class Faucet extends pulumi.CustomResource {
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["keypair"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
-        const replaceOnChanges = { replaceOnChanges: ["triggers[*]"] };
-        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(Faucet.__pulumiType, name, resourceInputs, opts);
     }
 }

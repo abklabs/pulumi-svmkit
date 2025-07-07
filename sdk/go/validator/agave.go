@@ -56,10 +56,6 @@ func NewAgave(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'KeyPairs'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
-	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
-		"triggers[*]",
-	})
-	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Agave
 	err := ctx.RegisterResource("svmkit:validator:Agave", name, args, &resource, opts...)

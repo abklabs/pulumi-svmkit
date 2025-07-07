@@ -167,8 +167,6 @@ class StakeAccount(pulumi.CustomResource):
                 raise TypeError("Missing required property 'transaction_options'")
             __props__.__dict__["transaction_options"] = transaction_options
             __props__.__dict__["triggers"] = triggers
-        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
-        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(StakeAccount, __self__).__init__(
             'svmkit:account:StakeAccount',
             resource_name,

@@ -228,8 +228,6 @@ class Explorer(pulumi.CustomResource):
             __props__.__dict__["symbol"] = symbol
             __props__.__dict__["triggers"] = triggers
             __props__.__dict__["version"] = version
-        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
-        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Explorer, __self__).__init__(
             'svmkit:explorer:Explorer',
             resource_name,

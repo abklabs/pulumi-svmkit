@@ -182,8 +182,6 @@ class Transfer(pulumi.CustomResource):
                 raise TypeError("Missing required property 'transaction_options'")
             __props__.__dict__["transaction_options"] = transaction_options
             __props__.__dict__["triggers"] = triggers
-        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
-        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(Transfer, __self__).__init__(
             'svmkit:account:Transfer',
             resource_name,

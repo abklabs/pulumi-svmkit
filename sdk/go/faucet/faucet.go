@@ -49,10 +49,6 @@ func NewFaucet(ctx *pulumi.Context,
 		"keypair",
 	})
 	opts = append(opts, secrets)
-	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
-		"triggers[*]",
-	})
-	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Faucet
 	err := ctx.RegisterResource("svmkit:faucet:Faucet", name, args, &resource, opts...)

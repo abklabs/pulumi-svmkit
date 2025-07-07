@@ -47,10 +47,6 @@ func NewExplorer(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'Flags'")
 	}
 	args.Connection = args.Connection.ToConnectionOutput().ApplyT(func(v ssh.Connection) ssh.Connection { return *v.Defaults() }).(ssh.ConnectionOutput)
-	replaceOnChanges := pulumi.ReplaceOnChanges([]string{
-		"triggers[*]",
-	})
-	opts = append(opts, replaceOnChanges)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Explorer
 	err := ctx.RegisterResource("svmkit:explorer:Explorer", name, args, &resource, opts...)

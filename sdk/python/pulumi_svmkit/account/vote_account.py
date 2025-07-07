@@ -165,8 +165,6 @@ class VoteAccount(pulumi.CustomResource):
             __props__.__dict__["key_pairs"] = key_pairs
             __props__.__dict__["runner_config"] = runner_config
             __props__.__dict__["triggers"] = triggers
-        replace_on_changes = pulumi.ResourceOptions(replace_on_changes=["triggers[*]"])
-        opts = pulumi.ResourceOptions.merge(opts, replace_on_changes)
         super(VoteAccount, __self__).__init__(
             'svmkit:account:VoteAccount',
             resource_name,
