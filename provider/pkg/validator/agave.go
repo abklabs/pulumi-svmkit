@@ -40,21 +40,21 @@ func (Agave) Create(ctx context.Context, name string, input AgaveArgs, preview b
 	return name, state, nil
 }
 
-func (Agave) Update(ctx context.Context, name string, oldInput, newInput AgaveArgs, preview bool) (string, AgaveState, error) {
-	state := AgaveState{AgaveArgs: newInput}
+func (Agave) Update(ctx context.Context, name string, state AgaveState, newInput AgaveArgs, preview bool) (AgaveState, error) {
+	state.AgaveArgs = newInput
 
 	if preview {
-		return name, state, nil
+		return state, nil
 	}
 
 	agave := newInput.Agave
 	command := agave.Install()
 
 	if err := utils.RunnerHelper(ctx, newInput.RunnerArgs, command); err != nil {
-		return "", AgaveState{}, err
+		return AgaveState{}, err
 	}
 
-	return name, state, nil
+	return state, nil
 }
 
 func (Agave) Delete(ctx context.Context, id string, props AgaveState) error {
