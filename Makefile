@@ -69,8 +69,6 @@ python_sdk:: $(WORKING_DIR)/bin/$(PROVIDER)
 build:: provider dotnet_sdk go_sdk nodejs_sdk python_sdk
 
 install:: install_nodejs_sdk install_dotnet_sdk
-	mkdir -p ${GOPATH}/bin
-	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin/.
 
 test_all:: test_provider
 	cd tests/sdk/nodejs && $(GO_TEST) ./...
