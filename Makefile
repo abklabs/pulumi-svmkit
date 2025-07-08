@@ -83,12 +83,6 @@ install_dotnet_sdk::
 	mkdir -p $(WORKING_DIR)/nuget
 	find . -name '*.nupkg' -print -exec cp -p {} ${WORKING_DIR}/nuget \;
 
-install_python_sdk::
-	#target intentionally blank
-
-install_go_sdk::
-	#target intentionally blank
-
 install_nodejs_sdk::
 	-yarn unlink --cwd $(WORKING_DIR)/sdk/nodejs/bin
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
