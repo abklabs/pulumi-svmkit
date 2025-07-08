@@ -31,8 +31,10 @@ $ make
 ```
 
 This will build the pulumi provider, generate language sdks, and prepare host to execute the plugin locally.
-The local `pulumi-resource-svmkit` provider will installed to `$GOPATH/bin`.
-You can then use this provider in your Pulumi projects by ensuring it is in your `$PATH`
+
+You can use the locally built pulumi provider by including `.../pulumi-svmkit/bin` in your `$PATH`.  It is
+recommended that you do this on a temporary basis, in the environments where you need to test your local
+pulumi-svmkit provider build.  DO NOT include this in your permanent `$PATH`.
 
 ## Developing against a local `svmkit`
 
