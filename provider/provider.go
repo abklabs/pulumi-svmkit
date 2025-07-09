@@ -18,12 +18,12 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/account"
 	"github.com/abklabs/pulumi-svmkit/pkg/explorer"
 	"github.com/abklabs/pulumi-svmkit/pkg/faucet"
+	"github.com/abklabs/pulumi-svmkit/pkg/firewall"
 	"github.com/abklabs/pulumi-svmkit/pkg/genesis"
 	"github.com/abklabs/pulumi-svmkit/pkg/machine"
 	"github.com/abklabs/pulumi-svmkit/pkg/networkinfo"
 	"github.com/abklabs/pulumi-svmkit/pkg/svm"
 	"github.com/abklabs/pulumi-svmkit/pkg/tuner"
-	"github.com/abklabs/pulumi-svmkit/pkg/firewall"
 	"github.com/abklabs/pulumi-svmkit/pkg/validator"
 	"github.com/abklabs/pulumi-svmkit/pkg/watchtower"
 	p "github.com/pulumi/pulumi-go-provider"
@@ -80,7 +80,7 @@ func Provider() p.Provider {
 			infer.Resource[faucet.Faucet, faucet.FaucetArgs, faucet.FaucetState](),
 			infer.Resource[explorer.Explorer, explorer.ExplorerArgs, explorer.ExplorerState](),
 			infer.Resource[tuner.Tuner, tuner.TunerArgs, tuner.TunerState](),
-			infer.Resource[firewall.Firewall, firewall.FirewallArgs, firewall.FirewallState](),			 
+			infer.Resource[firewall.Firewall, firewall.FirewallArgs, firewall.FirewallState](),
 			infer.Resource[watchtower.Watchtower, watchtower.WatchtowerArgs, watchtower.WatchtowerState](),
 			infer.Resource[genesis.Solana, genesis.SolanaArgs, genesis.SolanaState](),
 			infer.Resource[account.VoteAccount, account.VoteAccountArgs, account.VoteAccountState](),
