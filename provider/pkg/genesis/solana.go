@@ -10,6 +10,7 @@ import (
 	"github.com/abklabs/pulumi-svmkit/pkg/ssh"
 	"github.com/abklabs/pulumi-svmkit/pkg/utils"
 	"github.com/abklabs/svmkit/pkg/solana/genesis"
+	p "github.com/pulumi/pulumi-go-provider"
 )
 
 // Solana represents a Pulumi resource for building the genesis ledger for the Solana network.
@@ -19,6 +20,7 @@ type Solana struct{}
 type SolanaArgs struct {
 	utils.RunnerArgs
 	genesis.Genesis
+	IgnoreChangesOnUpdate bool `pulumi:"ignoreChangesOnUpdate,optional"`
 }
 
 // SolanaState represents the state of a Solana genesis resource.
@@ -77,7 +79,16 @@ func (Solana) Create(ctx context.Context, name string, input SolanaArgs, preview
 }
 
 func (Solana) Update(ctx context.Context, name string, oldState SolanaState, newInput SolanaArgs, preview bool) (SolanaState, error) {
-	return oldState, fmt.Errorf("genesis configuration may not be modified after initial creation")
+	logger := p.GetLogger(ctx)
+
+	msg := "genesis configuration may not be modified after initial creation"
+	if !newInput.IgnoreChangesOnUpdate {
+		return oldState, errors.New(msg)
+	} else {
+		logger.WarningStatus(msg)
+	}
+
+	return oldState, nil
 }
 
 func (Solana) Delete(ctx context.Context, name string, props SolanaState) error {
