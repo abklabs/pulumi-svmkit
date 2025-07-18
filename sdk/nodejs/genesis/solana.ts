@@ -39,6 +39,7 @@ export class Solana extends pulumi.CustomResource {
     public readonly deletionPolicy!: pulumi.Output<enums.deletion.Policy | undefined>;
     public readonly flags!: pulumi.Output<outputs.genesis.GenesisFlags>;
     public /*out*/ readonly genesisHash!: pulumi.Output<string>;
+    public readonly ignoreChangesOnUpdate!: pulumi.Output<boolean | undefined>;
     public readonly primordial!: pulumi.Output<outputs.genesis.PrimordialAccount[]>;
     public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
     public readonly triggers!: pulumi.Output<any[] | undefined>;
@@ -68,6 +69,7 @@ export class Solana extends pulumi.CustomResource {
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
             resourceInputs["deletionPolicy"] = args ? args.deletionPolicy : undefined;
             resourceInputs["flags"] = args ? args.flags : undefined;
+            resourceInputs["ignoreChangesOnUpdate"] = args ? args.ignoreChangesOnUpdate : undefined;
             resourceInputs["primordial"] = args ? args.primordial : undefined;
             resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
             resourceInputs["triggers"] = args ? args.triggers : undefined;
@@ -79,6 +81,7 @@ export class Solana extends pulumi.CustomResource {
             resourceInputs["deletionPolicy"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;
             resourceInputs["genesisHash"] = undefined /*out*/;
+            resourceInputs["ignoreChangesOnUpdate"] = undefined /*out*/;
             resourceInputs["primordial"] = undefined /*out*/;
             resourceInputs["runnerConfig"] = undefined /*out*/;
             resourceInputs["triggers"] = undefined /*out*/;
@@ -97,6 +100,7 @@ export interface SolanaArgs {
     connection: pulumi.Input<inputs.ssh.ConnectionArgs>;
     deletionPolicy?: pulumi.Input<enums.deletion.Policy>;
     flags: pulumi.Input<inputs.genesis.GenesisFlagsArgs>;
+    ignoreChangesOnUpdate?: pulumi.Input<boolean>;
     primordial: pulumi.Input<pulumi.Input<inputs.genesis.PrimordialAccountArgs>[]>;
     runnerConfig?: pulumi.Input<inputs.runner.ConfigArgs>;
     triggers?: pulumi.Input<any[]>;

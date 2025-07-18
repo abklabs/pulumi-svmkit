@@ -28,6 +28,9 @@ namespace ABKLabs.Svmkit.Genesis
         [Output("genesisHash")]
         public Output<string> GenesisHash { get; private set; } = null!;
 
+        [Output("ignoreChangesOnUpdate")]
+        public Output<bool?> IgnoreChangesOnUpdate { get; private set; } = null!;
+
         [Output("primordial")]
         public Output<ImmutableArray<Outputs.PrimordialAccount>> Primordial { get; private set; } = null!;
 
@@ -102,6 +105,9 @@ namespace ABKLabs.Svmkit.Genesis
 
         [Input("flags", required: true)]
         public Input<Inputs.GenesisFlagsArgs> Flags { get; set; } = null!;
+
+        [Input("ignoreChangesOnUpdate")]
+        public Input<bool>? IgnoreChangesOnUpdate { get; set; }
 
         [Input("primordial", required: true)]
         private InputList<Inputs.PrimordialAccountArgs>? _primordial;

@@ -31,6 +31,7 @@ class SolanaArgs:
                  primordial: pulumi.Input[Sequence[pulumi.Input['PrimordialAccountArgs']]],
                  accounts: Optional[pulumi.Input[Sequence[pulumi.Input['BootstrapAccountArgs']]]] = None,
                  deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
+                 ignore_changes_on_update: Optional[pulumi.Input[builtins.bool]] = None,
                  runner_config: Optional[pulumi.Input['_runner.ConfigArgs']] = None,
                  triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
                  version: Optional[pulumi.Input[builtins.str]] = None):
@@ -44,6 +45,8 @@ class SolanaArgs:
             pulumi.set(__self__, "accounts", accounts)
         if deletion_policy is not None:
             pulumi.set(__self__, "deletion_policy", deletion_policy)
+        if ignore_changes_on_update is not None:
+            pulumi.set(__self__, "ignore_changes_on_update", ignore_changes_on_update)
         if runner_config is not None:
             pulumi.set(__self__, "runner_config", runner_config)
         if triggers is not None:
@@ -97,6 +100,15 @@ class SolanaArgs:
         pulumi.set(self, "deletion_policy", value)
 
     @property
+    @pulumi.getter(name="ignoreChangesOnUpdate")
+    def ignore_changes_on_update(self) -> Optional[pulumi.Input[builtins.bool]]:
+        return pulumi.get(self, "ignore_changes_on_update")
+
+    @ignore_changes_on_update.setter
+    def ignore_changes_on_update(self, value: Optional[pulumi.Input[builtins.bool]]):
+        pulumi.set(self, "ignore_changes_on_update", value)
+
+    @property
     @pulumi.getter(name="runnerConfig")
     def runner_config(self) -> Optional[pulumi.Input['_runner.ConfigArgs']]:
         return pulumi.get(self, "runner_config")
@@ -134,6 +146,7 @@ class Solana(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
+                 ignore_changes_on_update: Optional[pulumi.Input[builtins.bool]] = None,
                  primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
@@ -171,6 +184,7 @@ class Solana(pulumi.CustomResource):
                  connection: Optional[pulumi.Input[Union['_ssh.ConnectionArgs', '_ssh.ConnectionArgsDict']]] = None,
                  deletion_policy: Optional[pulumi.Input['deletion.Policy']] = None,
                  flags: Optional[pulumi.Input[Union['GenesisFlagsArgs', 'GenesisFlagsArgsDict']]] = None,
+                 ignore_changes_on_update: Optional[pulumi.Input[builtins.bool]] = None,
                  primordial: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PrimordialAccountArgs', 'PrimordialAccountArgsDict']]]]] = None,
                  runner_config: Optional[pulumi.Input[Union['_runner.ConfigArgs', '_runner.ConfigArgsDict']]] = None,
                  triggers: Optional[pulumi.Input[Sequence[Any]]] = None,
@@ -192,6 +206,7 @@ class Solana(pulumi.CustomResource):
             if flags is None and not opts.urn:
                 raise TypeError("Missing required property 'flags'")
             __props__.__dict__["flags"] = flags
+            __props__.__dict__["ignore_changes_on_update"] = ignore_changes_on_update
             if primordial is None and not opts.urn:
                 raise TypeError("Missing required property 'primordial'")
             __props__.__dict__["primordial"] = primordial
@@ -226,6 +241,7 @@ class Solana(pulumi.CustomResource):
         __props__.__dict__["deletion_policy"] = None
         __props__.__dict__["flags"] = None
         __props__.__dict__["genesis_hash"] = None
+        __props__.__dict__["ignore_changes_on_update"] = None
         __props__.__dict__["primordial"] = None
         __props__.__dict__["runner_config"] = None
         __props__.__dict__["triggers"] = None
@@ -256,6 +272,11 @@ class Solana(pulumi.CustomResource):
     @pulumi.getter(name="genesisHash")
     def genesis_hash(self) -> pulumi.Output[builtins.str]:
         return pulumi.get(self, "genesis_hash")
+
+    @property
+    @pulumi.getter(name="ignoreChangesOnUpdate")
+    def ignore_changes_on_update(self) -> pulumi.Output[Optional[builtins.bool]]:
+        return pulumi.get(self, "ignore_changes_on_update")
 
     @property
     @pulumi.getter
