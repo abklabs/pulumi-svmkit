@@ -84,6 +84,7 @@ install_nodejs_sdk::
 
 clean::
 	$(RM) -r bin/pulumi-resource-svmkit nuget sdk/dotnet/{bin,obj} sdk/nodejs/bin sdk/python/bin
+	$(RM) -f .env-checked	
 
 distclean:: clean
 	$(RM) -r sdk/nodejs/node_modules
@@ -104,3 +105,9 @@ check: test lint
 format:
 	(cd provider && go fmt ./...)
 	shfmt -w .githooks/*
+
+.env-checked: bin/check-env
+	./bin/check-env
+	touch .env-checked
+
+include .env-checked
