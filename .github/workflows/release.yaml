@@ -36,6 +36,8 @@ jobs:
       uses: actions/checkout@v4
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags --force
+    - name: Run repo setup
+      run: ./bin/setup
     - name: Install Go
       uses: actions/setup-go@v5
       with:
@@ -64,6 +66,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags --force
+      - name: Run rocal setup
+        run: ./bin/setup
       - name: Install Go
         uses: actions/setup-go@v5
         with:
