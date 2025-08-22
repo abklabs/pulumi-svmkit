@@ -34,12 +34,12 @@ export class VoteAccount extends pulumi.CustomResource {
         return obj['__pulumiType'] === VoteAccount.__pulumiType;
     }
 
-    public readonly authVoterPubkey!: pulumi.Output<string | undefined>;
-    public readonly closeRecipientPubkey!: pulumi.Output<string | undefined>;
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly keyPairs!: pulumi.Output<outputs.solana.VoteAccountKeyPairs>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
+    declare public readonly authVoterPubkey: pulumi.Output<string | undefined>;
+    declare public readonly closeRecipientPubkey: pulumi.Output<string | undefined>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly keyPairs: pulumi.Output<outputs.solana.VoteAccountKeyPairs>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
 
     /**
      * Create a VoteAccount resource with the given unique name, arguments, and options.
@@ -52,18 +52,18 @@ export class VoteAccount extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.keyPairs === undefined) && !opts.urn) {
+            if (args?.keyPairs === undefined && !opts.urn) {
                 throw new Error("Missing required property 'keyPairs'");
             }
-            resourceInputs["authVoterPubkey"] = args ? args.authVoterPubkey : undefined;
-            resourceInputs["closeRecipientPubkey"] = args ? args.closeRecipientPubkey : undefined;
+            resourceInputs["authVoterPubkey"] = args?.authVoterPubkey;
+            resourceInputs["closeRecipientPubkey"] = args?.closeRecipientPubkey;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
+            resourceInputs["keyPairs"] = args?.keyPairs;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["triggers"] = args?.triggers;
         } else {
             resourceInputs["authVoterPubkey"] = undefined /*out*/;
             resourceInputs["closeRecipientPubkey"] = undefined /*out*/;

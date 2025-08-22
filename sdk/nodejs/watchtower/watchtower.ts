@@ -34,12 +34,12 @@ export class Watchtower extends pulumi.CustomResource {
         return obj['__pulumiType'] === Watchtower.__pulumiType;
     }
 
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly environment!: pulumi.Output<outputs.solana.Environment>;
-    public readonly flags!: pulumi.Output<outputs.watchtower.WatchtowerFlags>;
-    public readonly notifications!: pulumi.Output<outputs.watchtower.NotificationConfig>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly environment: pulumi.Output<outputs.solana.Environment>;
+    declare public readonly flags: pulumi.Output<outputs.watchtower.WatchtowerFlags>;
+    declare public readonly notifications: pulumi.Output<outputs.watchtower.NotificationConfig>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
 
     /**
      * Create a Watchtower resource with the given unique name, arguments, and options.
@@ -52,24 +52,24 @@ export class Watchtower extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.environment === undefined) && !opts.urn) {
+            if (args?.environment === undefined && !opts.urn) {
                 throw new Error("Missing required property 'environment'");
             }
-            if ((!args || args.flags === undefined) && !opts.urn) {
+            if (args?.flags === undefined && !opts.urn) {
                 throw new Error("Missing required property 'flags'");
             }
-            if ((!args || args.notifications === undefined) && !opts.urn) {
+            if (args?.notifications === undefined && !opts.urn) {
                 throw new Error("Missing required property 'notifications'");
             }
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["environment"] = args ? args.environment : undefined;
-            resourceInputs["flags"] = args ? args.flags : undefined;
-            resourceInputs["notifications"] = args ? args.notifications : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
+            resourceInputs["environment"] = args?.environment;
+            resourceInputs["flags"] = args?.flags;
+            resourceInputs["notifications"] = args?.notifications;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["triggers"] = args?.triggers;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["environment"] = undefined /*out*/;

@@ -34,12 +34,12 @@ export class Faucet extends pulumi.CustomResource {
         return obj['__pulumiType'] === Faucet.__pulumiType;
     }
 
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly flags!: pulumi.Output<outputs.faucet.FaucetFlags>;
-    public readonly keypair!: pulumi.Output<string>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
-    public readonly version!: pulumi.Output<string | undefined>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly flags: pulumi.Output<outputs.faucet.FaucetFlags>;
+    declare public readonly keypair: pulumi.Output<string>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
+    declare public readonly version: pulumi.Output<string | undefined>;
 
     /**
      * Create a Faucet resource with the given unique name, arguments, and options.
@@ -52,21 +52,21 @@ export class Faucet extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.flags === undefined) && !opts.urn) {
+            if (args?.flags === undefined && !opts.urn) {
                 throw new Error("Missing required property 'flags'");
             }
-            if ((!args || args.keypair === undefined) && !opts.urn) {
+            if (args?.keypair === undefined && !opts.urn) {
                 throw new Error("Missing required property 'keypair'");
             }
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["flags"] = args ? args.flags : undefined;
+            resourceInputs["flags"] = args?.flags;
             resourceInputs["keypair"] = args?.keypair ? pulumi.secret(args.keypair) : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
-            resourceInputs["version"] = args ? args.version : undefined;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["triggers"] = args?.triggers;
+            resourceInputs["version"] = args?.version;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["flags"] = undefined /*out*/;

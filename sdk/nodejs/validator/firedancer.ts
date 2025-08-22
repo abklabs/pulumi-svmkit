@@ -34,16 +34,16 @@ export class Firedancer extends pulumi.CustomResource {
         return obj['__pulumiType'] === Firedancer.__pulumiType;
     }
 
-    public readonly config!: pulumi.Output<outputs.firedancer.Config>;
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly deletionPolicy!: pulumi.Output<enums.deletion.Policy | undefined>;
-    public readonly environment!: pulumi.Output<outputs.solana.Environment | undefined>;
-    public readonly keyPairs!: pulumi.Output<outputs.firedancer.KeyPairs>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public /*out*/ readonly systemdServiceName!: pulumi.Output<string>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
-    public readonly variant!: pulumi.Output<enums.firedancer.Variant | undefined>;
-    public readonly version!: pulumi.Output<string | undefined>;
+    declare public readonly config: pulumi.Output<outputs.firedancer.Config>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly deletionPolicy: pulumi.Output<enums.deletion.Policy | undefined>;
+    declare public readonly environment: pulumi.Output<outputs.solana.Environment | undefined>;
+    declare public readonly keyPairs: pulumi.Output<outputs.firedancer.KeyPairs>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public /*out*/ readonly systemdServiceName: pulumi.Output<string>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
+    declare public readonly variant: pulumi.Output<enums.firedancer.Variant | undefined>;
+    declare public readonly version: pulumi.Output<string | undefined>;
 
     /**
      * Create a Firedancer resource with the given unique name, arguments, and options.
@@ -56,24 +56,24 @@ export class Firedancer extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.config === undefined) && !opts.urn) {
+            if (args?.config === undefined && !opts.urn) {
                 throw new Error("Missing required property 'config'");
             }
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.keyPairs === undefined) && !opts.urn) {
+            if (args?.keyPairs === undefined && !opts.urn) {
                 throw new Error("Missing required property 'keyPairs'");
             }
-            resourceInputs["config"] = args ? args.config : undefined;
+            resourceInputs["config"] = args?.config;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["deletionPolicy"] = args ? args.deletionPolicy : undefined;
-            resourceInputs["environment"] = args ? args.environment : undefined;
-            resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
-            resourceInputs["variant"] = args ? args.variant : undefined;
-            resourceInputs["version"] = args ? args.version : undefined;
+            resourceInputs["deletionPolicy"] = args?.deletionPolicy;
+            resourceInputs["environment"] = args?.environment;
+            resourceInputs["keyPairs"] = args?.keyPairs;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["triggers"] = args?.triggers;
+            resourceInputs["variant"] = args?.variant;
+            resourceInputs["version"] = args?.version;
             resourceInputs["systemdServiceName"] = undefined /*out*/;
         } else {
             resourceInputs["config"] = undefined /*out*/;

@@ -34,16 +34,16 @@ export class Explorer extends pulumi.CustomResource {
         return obj['__pulumiType'] === Explorer.__pulumiType;
     }
 
-    public readonly RPCURL!: pulumi.Output<string | undefined>;
-    public readonly clusterName!: pulumi.Output<string | undefined>;
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly environment!: pulumi.Output<outputs.solana.Environment>;
-    public readonly flags!: pulumi.Output<outputs.explorer.ExplorerFlags>;
-    public readonly name!: pulumi.Output<string | undefined>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly symbol!: pulumi.Output<string | undefined>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
-    public readonly version!: pulumi.Output<string | undefined>;
+    declare public readonly RPCURL: pulumi.Output<string | undefined>;
+    declare public readonly clusterName: pulumi.Output<string | undefined>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly environment: pulumi.Output<outputs.solana.Environment>;
+    declare public readonly flags: pulumi.Output<outputs.explorer.ExplorerFlags>;
+    declare public readonly name: pulumi.Output<string | undefined>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public readonly symbol: pulumi.Output<string | undefined>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
+    declare public readonly version: pulumi.Output<string | undefined>;
 
     /**
      * Create a Explorer resource with the given unique name, arguments, and options.
@@ -56,25 +56,25 @@ export class Explorer extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.environment === undefined) && !opts.urn) {
+            if (args?.environment === undefined && !opts.urn) {
                 throw new Error("Missing required property 'environment'");
             }
-            if ((!args || args.flags === undefined) && !opts.urn) {
+            if (args?.flags === undefined && !opts.urn) {
                 throw new Error("Missing required property 'flags'");
             }
-            resourceInputs["RPCURL"] = args ? args.RPCURL : undefined;
-            resourceInputs["clusterName"] = args ? args.clusterName : undefined;
+            resourceInputs["RPCURL"] = args?.RPCURL;
+            resourceInputs["clusterName"] = args?.clusterName;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["environment"] = args ? args.environment : undefined;
-            resourceInputs["flags"] = args ? args.flags : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["symbol"] = args ? args.symbol : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
-            resourceInputs["version"] = args ? args.version : undefined;
+            resourceInputs["environment"] = args?.environment;
+            resourceInputs["flags"] = args?.flags;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["symbol"] = args?.symbol;
+            resourceInputs["triggers"] = args?.triggers;
+            resourceInputs["version"] = args?.version;
         } else {
             resourceInputs["RPCURL"] = undefined /*out*/;
             resourceInputs["clusterName"] = undefined /*out*/;

@@ -16,15 +16,19 @@ namespace ABKLabs.Svmkit.Deb.Outputs
     {
         public readonly ImmutableArray<string> Additional;
         public readonly ImmutableArray<Outputs.Package> Override;
+        public readonly string? OverrideDir;
 
         [OutputConstructor]
         private PackageConfig(
             ImmutableArray<string> additional,
 
-            ImmutableArray<Outputs.Package> @override)
+            ImmutableArray<Outputs.Package> @override,
+
+            string? overrideDir)
         {
             Additional = additional;
             Override = @override;
+            OverrideDir = overrideDir;
         }
     }
 }

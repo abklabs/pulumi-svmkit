@@ -34,22 +34,22 @@ export class Agave extends pulumi.CustomResource {
         return obj['__pulumiType'] === Agave.__pulumiType;
     }
 
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly deletionPolicy!: pulumi.Output<enums.deletion.Policy | undefined>;
-    public readonly environment!: pulumi.Output<outputs.solana.Environment | undefined>;
-    public readonly flags!: pulumi.Output<outputs.agave.Flags>;
-    public readonly geyserPlugin!: pulumi.Output<outputs.geyser.GeyserPlugin | undefined>;
-    public readonly info!: pulumi.Output<outputs.solana.ValidatorInfo | undefined>;
-    public readonly keyPairs!: pulumi.Output<outputs.agave.KeyPairs>;
-    public readonly metrics!: pulumi.Output<outputs.agave.Metrics | undefined>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly shutdownPolicy!: pulumi.Output<outputs.agave.ShutdownPolicy | undefined>;
-    public readonly startupPolicy!: pulumi.Output<outputs.agave.StartupPolicy | undefined>;
-    public /*out*/ readonly systemdServiceName!: pulumi.Output<string>;
-    public readonly timeoutConfig!: pulumi.Output<outputs.agave.TimeoutConfig | undefined>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
-    public readonly variant!: pulumi.Output<enums.agave.Variant | undefined>;
-    public readonly version!: pulumi.Output<string | undefined>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly deletionPolicy: pulumi.Output<enums.deletion.Policy | undefined>;
+    declare public readonly environment: pulumi.Output<outputs.solana.Environment | undefined>;
+    declare public readonly flags: pulumi.Output<outputs.agave.Flags>;
+    declare public readonly geyserPlugin: pulumi.Output<outputs.geyser.GeyserPlugin | undefined>;
+    declare public readonly info: pulumi.Output<outputs.solana.ValidatorInfo | undefined>;
+    declare public readonly keyPairs: pulumi.Output<outputs.agave.KeyPairs>;
+    declare public readonly metrics: pulumi.Output<outputs.agave.Metrics | undefined>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public readonly shutdownPolicy: pulumi.Output<outputs.agave.ShutdownPolicy | undefined>;
+    declare public readonly startupPolicy: pulumi.Output<outputs.agave.StartupPolicy | undefined>;
+    declare public /*out*/ readonly systemdServiceName: pulumi.Output<string>;
+    declare public readonly timeoutConfig: pulumi.Output<outputs.agave.TimeoutConfig | undefined>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
+    declare public readonly variant: pulumi.Output<enums.agave.Variant | undefined>;
+    declare public readonly version: pulumi.Output<string | undefined>;
 
     /**
      * Create a Agave resource with the given unique name, arguments, and options.
@@ -62,30 +62,30 @@ export class Agave extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.flags === undefined) && !opts.urn) {
+            if (args?.flags === undefined && !opts.urn) {
                 throw new Error("Missing required property 'flags'");
             }
-            if ((!args || args.keyPairs === undefined) && !opts.urn) {
+            if (args?.keyPairs === undefined && !opts.urn) {
                 throw new Error("Missing required property 'keyPairs'");
             }
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["deletionPolicy"] = args ? args.deletionPolicy : undefined;
-            resourceInputs["environment"] = args ? args.environment : undefined;
-            resourceInputs["flags"] = args ? args.flags : undefined;
-            resourceInputs["geyserPlugin"] = args ? args.geyserPlugin : undefined;
-            resourceInputs["info"] = args ? args.info : undefined;
-            resourceInputs["keyPairs"] = args ? args.keyPairs : undefined;
-            resourceInputs["metrics"] = args ? args.metrics : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["shutdownPolicy"] = args ? args.shutdownPolicy : undefined;
-            resourceInputs["startupPolicy"] = args ? args.startupPolicy : undefined;
-            resourceInputs["timeoutConfig"] = args ? args.timeoutConfig : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
-            resourceInputs["variant"] = args ? args.variant : undefined;
-            resourceInputs["version"] = args ? args.version : undefined;
+            resourceInputs["deletionPolicy"] = args?.deletionPolicy;
+            resourceInputs["environment"] = args?.environment;
+            resourceInputs["flags"] = args?.flags;
+            resourceInputs["geyserPlugin"] = args?.geyserPlugin;
+            resourceInputs["info"] = args?.info;
+            resourceInputs["keyPairs"] = args?.keyPairs;
+            resourceInputs["metrics"] = args?.metrics;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["shutdownPolicy"] = args?.shutdownPolicy;
+            resourceInputs["startupPolicy"] = args?.startupPolicy;
+            resourceInputs["timeoutConfig"] = args?.timeoutConfig;
+            resourceInputs["triggers"] = args?.triggers;
+            resourceInputs["variant"] = args?.variant;
+            resourceInputs["version"] = args?.version;
             resourceInputs["systemdServiceName"] = undefined /*out*/;
         } else {
             resourceInputs["connection"] = undefined /*out*/;

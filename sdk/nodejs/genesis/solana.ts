@@ -34,16 +34,16 @@ export class Solana extends pulumi.CustomResource {
         return obj['__pulumiType'] === Solana.__pulumiType;
     }
 
-    public readonly accounts!: pulumi.Output<outputs.genesis.BootstrapAccount[] | undefined>;
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly deletionPolicy!: pulumi.Output<enums.deletion.Policy | undefined>;
-    public readonly flags!: pulumi.Output<outputs.genesis.GenesisFlags>;
-    public /*out*/ readonly genesisHash!: pulumi.Output<string>;
-    public readonly ignoreChangesOnUpdate!: pulumi.Output<boolean | undefined>;
-    public readonly primordial!: pulumi.Output<outputs.genesis.PrimordialAccount[]>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
-    public readonly version!: pulumi.Output<string | undefined>;
+    declare public readonly accounts: pulumi.Output<outputs.genesis.BootstrapAccount[] | undefined>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly deletionPolicy: pulumi.Output<enums.deletion.Policy | undefined>;
+    declare public readonly flags: pulumi.Output<outputs.genesis.GenesisFlags>;
+    declare public /*out*/ readonly genesisHash: pulumi.Output<string>;
+    declare public readonly ignoreChangesOnUpdate: pulumi.Output<boolean | undefined>;
+    declare public readonly primordial: pulumi.Output<outputs.genesis.PrimordialAccount[]>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
+    declare public readonly version: pulumi.Output<string | undefined>;
 
     /**
      * Create a Solana resource with the given unique name, arguments, and options.
@@ -56,24 +56,24 @@ export class Solana extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.flags === undefined) && !opts.urn) {
+            if (args?.flags === undefined && !opts.urn) {
                 throw new Error("Missing required property 'flags'");
             }
-            if ((!args || args.primordial === undefined) && !opts.urn) {
+            if (args?.primordial === undefined && !opts.urn) {
                 throw new Error("Missing required property 'primordial'");
             }
-            resourceInputs["accounts"] = args ? args.accounts : undefined;
+            resourceInputs["accounts"] = args?.accounts;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["deletionPolicy"] = args ? args.deletionPolicy : undefined;
-            resourceInputs["flags"] = args ? args.flags : undefined;
-            resourceInputs["ignoreChangesOnUpdate"] = args ? args.ignoreChangesOnUpdate : undefined;
-            resourceInputs["primordial"] = args ? args.primordial : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
-            resourceInputs["version"] = args ? args.version : undefined;
+            resourceInputs["deletionPolicy"] = args?.deletionPolicy;
+            resourceInputs["flags"] = args?.flags;
+            resourceInputs["ignoreChangesOnUpdate"] = args?.ignoreChangesOnUpdate;
+            resourceInputs["primordial"] = args?.primordial;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["triggers"] = args?.triggers;
+            resourceInputs["version"] = args?.version;
             resourceInputs["genesisHash"] = undefined /*out*/;
         } else {
             resourceInputs["accounts"] = undefined /*out*/;

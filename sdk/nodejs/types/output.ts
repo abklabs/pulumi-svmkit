@@ -206,6 +206,7 @@ export namespace deb {
     export interface PackageConfig {
         additional?: string[];
         override?: outputs.deb.Package[];
+        overrideDir?: string;
     }
 
 }

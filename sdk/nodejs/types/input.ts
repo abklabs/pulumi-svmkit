@@ -204,6 +204,7 @@ export namespace deb {
     export interface PackageConfigArgs {
         additional?: pulumi.Input<pulumi.Input<string>[]>;
         override?: pulumi.Input<pulumi.Input<inputs.deb.PackageArgs>[]>;
+        overrideDir?: pulumi.Input<string>;
     }
 }
 

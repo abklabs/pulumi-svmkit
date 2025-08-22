@@ -29,6 +29,9 @@ namespace ABKLabs.Svmkit.Deb.Inputs
             set => _override = value;
         }
 
+        [Input("overrideDir")]
+        public Input<string>? OverrideDir { get; set; }
+
         public PackageConfigArgs()
         {
         }

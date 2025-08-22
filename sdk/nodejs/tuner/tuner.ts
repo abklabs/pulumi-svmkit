@@ -34,10 +34,10 @@ export class Tuner extends pulumi.CustomResource {
         return obj['__pulumiType'] === Tuner.__pulumiType;
     }
 
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly params!: pulumi.Output<outputs.tuner.TunerParams>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly params: pulumi.Output<outputs.tuner.TunerParams>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
 
     /**
      * Create a Tuner resource with the given unique name, arguments, and options.
@@ -50,16 +50,16 @@ export class Tuner extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.params === undefined) && !opts.urn) {
+            if (args?.params === undefined && !opts.urn) {
                 throw new Error("Missing required property 'params'");
             }
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["params"] = args ? args.params : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
+            resourceInputs["params"] = args?.params;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["triggers"] = args?.triggers;
         } else {
             resourceInputs["connection"] = undefined /*out*/;
             resourceInputs["params"] = undefined /*out*/;

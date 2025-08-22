@@ -31,9 +31,9 @@ export class KeyPair extends pulumi.CustomResource {
         return obj['__pulumiType'] === KeyPair.__pulumiType;
     }
 
-    public /*out*/ readonly json!: pulumi.Output<string>;
-    public /*out*/ readonly privateKey!: pulumi.Output<number[]>;
-    public /*out*/ readonly publicKey!: pulumi.Output<string>;
+    declare public /*out*/ readonly json: pulumi.Output<string>;
+    declare public /*out*/ readonly privateKey: pulumi.Output<number[]>;
+    declare public /*out*/ readonly publicKey: pulumi.Output<string>;
 
     /**
      * Create a KeyPair resource with the given unique name, arguments, and options.

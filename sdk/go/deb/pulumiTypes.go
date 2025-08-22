@@ -126,8 +126,9 @@ func (o PackageArrayOutput) Index(i pulumi.IntInput) PackageOutput {
 }
 
 type PackageConfig struct {
-	Additional []string  `pulumi:"additional"`
-	Override   []Package `pulumi:"override"`
+	Additional  []string  `pulumi:"additional"`
+	Override    []Package `pulumi:"override"`
+	OverrideDir *string   `pulumi:"overrideDir"`
 }
 
 // PackageConfigInput is an input type that accepts PackageConfigArgs and PackageConfigOutput values.
@@ -142,8 +143,9 @@ type PackageConfigInput interface {
 }
 
 type PackageConfigArgs struct {
-	Additional pulumi.StringArrayInput `pulumi:"additional"`
-	Override   PackageArrayInput       `pulumi:"override"`
+	Additional  pulumi.StringArrayInput `pulumi:"additional"`
+	Override    PackageArrayInput       `pulumi:"override"`
+	OverrideDir pulumi.StringPtrInput   `pulumi:"overrideDir"`
 }
 
 func (PackageConfigArgs) ElementType() reflect.Type {
@@ -231,6 +233,10 @@ func (o PackageConfigOutput) Override() PackageArrayOutput {
 	return o.ApplyT(func(v PackageConfig) []Package { return v.Override }).(PackageArrayOutput)
 }
 
+func (o PackageConfigOutput) OverrideDir() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PackageConfig) *string { return v.OverrideDir }).(pulumi.StringPtrOutput)
+}
+
 type PackageConfigPtrOutput struct{ *pulumi.OutputState }
 
 func (PackageConfigPtrOutput) ElementType() reflect.Type {
@@ -271,6 +277,15 @@ func (o PackageConfigPtrOutput) Override() PackageArrayOutput {
 		}
 		return v.Override
 	}).(PackageArrayOutput)
+}
+
+func (o PackageConfigPtrOutput) OverrideDir() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PackageConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.OverrideDir
+	}).(pulumi.StringPtrOutput)
 }
 
 func init() {

@@ -34,10 +34,10 @@ export class Machine extends pulumi.CustomResource {
         return obj['__pulumiType'] === Machine.__pulumiType;
     }
 
-    public readonly aptConfig!: pulumi.Output<outputs.apt.Config | undefined>;
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
+    declare public readonly aptConfig: pulumi.Output<outputs.apt.Config | undefined>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
 
     /**
      * Create a Machine resource with the given unique name, arguments, and options.
@@ -50,13 +50,13 @@ export class Machine extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            resourceInputs["aptConfig"] = args ? args.aptConfig : undefined;
+            resourceInputs["aptConfig"] = args?.aptConfig;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["triggers"] = args?.triggers;
         } else {
             resourceInputs["aptConfig"] = undefined /*out*/;
             resourceInputs["connection"] = undefined /*out*/;

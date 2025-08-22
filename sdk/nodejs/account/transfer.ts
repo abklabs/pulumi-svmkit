@@ -34,13 +34,13 @@ export class Transfer extends pulumi.CustomResource {
         return obj['__pulumiType'] === Transfer.__pulumiType;
     }
 
-    public readonly allowUnfundedRecipient!: pulumi.Output<boolean | undefined>;
-    public readonly amount!: pulumi.Output<number>;
-    public readonly connection!: pulumi.Output<outputs.ssh.Connection>;
-    public readonly recipientPubkey!: pulumi.Output<string>;
-    public readonly runnerConfig!: pulumi.Output<outputs.runner.Config | undefined>;
-    public readonly transactionOptions!: pulumi.Output<outputs.solana.TxnOptions>;
-    public readonly triggers!: pulumi.Output<any[] | undefined>;
+    declare public readonly allowUnfundedRecipient: pulumi.Output<boolean | undefined>;
+    declare public readonly amount: pulumi.Output<number>;
+    declare public readonly connection: pulumi.Output<outputs.ssh.Connection>;
+    declare public readonly recipientPubkey: pulumi.Output<string>;
+    declare public readonly runnerConfig: pulumi.Output<outputs.runner.Config | undefined>;
+    declare public readonly transactionOptions: pulumi.Output<outputs.solana.TxnOptions>;
+    declare public readonly triggers: pulumi.Output<any[] | undefined>;
 
     /**
      * Create a Transfer resource with the given unique name, arguments, and options.
@@ -53,25 +53,25 @@ export class Transfer extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.amount === undefined) && !opts.urn) {
+            if (args?.amount === undefined && !opts.urn) {
                 throw new Error("Missing required property 'amount'");
             }
-            if ((!args || args.connection === undefined) && !opts.urn) {
+            if (args?.connection === undefined && !opts.urn) {
                 throw new Error("Missing required property 'connection'");
             }
-            if ((!args || args.recipientPubkey === undefined) && !opts.urn) {
+            if (args?.recipientPubkey === undefined && !opts.urn) {
                 throw new Error("Missing required property 'recipientPubkey'");
             }
-            if ((!args || args.transactionOptions === undefined) && !opts.urn) {
+            if (args?.transactionOptions === undefined && !opts.urn) {
                 throw new Error("Missing required property 'transactionOptions'");
             }
-            resourceInputs["allowUnfundedRecipient"] = args ? args.allowUnfundedRecipient : undefined;
-            resourceInputs["amount"] = args ? args.amount : undefined;
+            resourceInputs["allowUnfundedRecipient"] = args?.allowUnfundedRecipient;
+            resourceInputs["amount"] = args?.amount;
             resourceInputs["connection"] = args ? (args.connection ? pulumi.output(args.connection).apply(inputs.ssh.connectionArgsProvideDefaults) : undefined) : undefined;
-            resourceInputs["recipientPubkey"] = args ? args.recipientPubkey : undefined;
-            resourceInputs["runnerConfig"] = args ? args.runnerConfig : undefined;
-            resourceInputs["transactionOptions"] = args ? args.transactionOptions : undefined;
-            resourceInputs["triggers"] = args ? args.triggers : undefined;
+            resourceInputs["recipientPubkey"] = args?.recipientPubkey;
+            resourceInputs["runnerConfig"] = args?.runnerConfig;
+            resourceInputs["transactionOptions"] = args?.transactionOptions;
+            resourceInputs["triggers"] = args?.triggers;
         } else {
             resourceInputs["allowUnfundedRecipient"] = undefined /*out*/;
             resourceInputs["amount"] = undefined /*out*/;
